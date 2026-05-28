@@ -1,6 +1,5 @@
 # write graph to HTML, JSON, SVG, GraphML, Obsidian vault, and Neo4j Cypher
 from __future__ import annotations
-import hashlib
 import html as _html
 import json
 import math
@@ -63,16 +62,10 @@ def backup_if_protected(out_dir: Path) -> "Path | None":
     reason = "+".join(filter(None, ["semantic" if is_semantic else "", "curated" if is_curated else ""]))
     today = date.today().isoformat()
     backup_dir = out / today
-    graph_src = out / "graph.json"
-
-    # Skip re-copying if today's backup already has identical graph.json content.
-    # If content differs (graph changed since the last backup today), overwrite
-    # the backup in place — one folder per day, always the latest pre-overwrite state.
-    if backup_dir.exists() and (backup_dir / "graph.json").exists():
-        src_hash = hashlib.sha256(graph_src.read_bytes()).hexdigest()
-        bak_hash = hashlib.sha256((backup_dir / "graph.json").read_bytes()).hexdigest()
-        if src_hash == bak_hash:
-            return backup_dir  # identical content, nothing to do
+    suffix = 2
+    while backup_dir.exists():
+        backup_dir = out / f"{today}_{suffix}"
+        suffix += 1
 
     try:
         backup_dir.mkdir(parents=True, exist_ok=True)
@@ -170,45 +163,124 @@ def _viz_node_limit() -> int:
         return MAX_NODES_FOR_VIZ
 
 
-def _html_styles() -> str:
-    return """<style>
+def _dashboard_theme(output_path: str) -> dict[str, str]:
+    p = str(output_path).lower()
+    if "/client/" in p or p.startswith("client/") or "\\client\\" in p:
+        return {
+            "kind": "client",
+            "bg_glow": "#15321d",
+            "bg": "#070f0a",
+            "bg2": "#0b1811",
+            "panel": "#102116",
+            "panel2": "#173225",
+            "line": "#2f5a46",
+            "accent": "#2ec27e",
+            "edge_extracted": "#56d695",
+            "edge_inferred": "#4fa77b",
+        }
+    if "/server/" in p or p.startswith("server/") or "\\server\\" in p:
+        return {
+            "kind": "server",
+            "bg_glow": "#2a1d11",
+            "bg": "#100a06",
+            "bg2": "#1a120b",
+            "panel": "#25180f",
+            "panel2": "#342317",
+            "line": "#6a4830",
+            "accent": "#ff9f43",
+            "edge_extracted": "#ffbf78",
+            "edge_inferred": "#b98448",
+        }
+    return {
+        "kind": "default",
+        "bg_glow": "#132349",
+        "bg": "#070b18",
+        "bg2": "#0b1430",
+        "panel": "#0f1831",
+        "panel2": "#182748",
+        "line": "#2b3f70",
+        "accent": "#4f9dff",
+        "edge_extracted": "#8fb9ff",
+        "edge_inferred": "#5b7fb8",
+    }
+
+
+def _community_palette(kind: str) -> list[str]:
+    if kind in {"client", "server", "default"}:
+        return [
+            "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F",
+            "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC",
+            "#2D7DD2", "#F45D01", "#7FB800", "#7A6FF0", "#00A6A6",
+            "#D7263D", "#F4C95D", "#6C5CE7", "#2EC4B6", "#FF7F51",
+        ]
+    return COMMUNITY_COLORS
+
+
+def _html_styles(theme: dict[str, str]) -> str:
+    css = """<style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0f0f1a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: flex; height: 100vh; overflow: hidden; }
-  #graph { flex: 1; }
-  #sidebar { width: 280px; background: #1a1a2e; border-left: 1px solid #2a2a4e; display: flex; flex-direction: column; overflow: hidden; }
-  #search-wrap { padding: 12px; border-bottom: 1px solid #2a2a4e; }
-  #search { width: 100%; background: #0f0f1a; border: 1px solid #3a3a5e; color: #e0e0e0; padding: 7px 10px; border-radius: 6px; font-size: 13px; outline: none; }
-  #search:focus { border-color: #4E79A7; }
-  #search-results { max-height: 140px; overflow-y: auto; padding: 4px 12px; border-bottom: 1px solid #2a2a4e; display: none; }
-  .search-item { padding: 4px 6px; cursor: pointer; border-radius: 4px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .search-item:hover { background: #2a2a4e; }
-  #info-panel { padding: 14px; border-bottom: 1px solid #2a2a4e; min-height: 140px; }
-  #info-panel h3 { font-size: 13px; color: #aaa; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
-  #info-content { font-size: 13px; color: #ccc; line-height: 1.6; }
-  #info-content .field { margin-bottom: 5px; }
-  #info-content .field b { color: #e0e0e0; }
-  #info-content .empty { color: #555; font-style: italic; }
-  .neighbor-link { display: block; padding: 2px 6px; margin: 2px 0; border-radius: 3px; cursor: pointer; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 3px solid #333; }
-  .neighbor-link:hover { background: #2a2a4e; }
-  #neighbors-list { max-height: 160px; overflow-y: auto; margin-top: 4px; }
+  :root { --bg:__BG__; --bg2:__BG2__; --panel:__PANEL__; --panel2:__PANEL2__; --line:__LINE__; --text:#e8efff; --muted:#9eb0d8; --accent:__ACCENT__; --accent-soft:#183867; }
+  body { background: radial-gradient(1200px 700px at 75% -10%, __GLOW__ 0%, var(--bg) 48%), linear-gradient(180deg, var(--bg2), var(--bg)); color: var(--text); font-family: "Segoe UI", "Avenir Next", "Helvetica Neue", sans-serif; display: flex; height: 100vh; overflow: hidden; }
+  #graph { flex: 1; min-width: 0; }
+  #sidebar { width: 380px; background: rgba(9, 15, 32, 0.92); backdrop-filter: blur(4px); border-left: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; }
+  #search-wrap, #info-panel, #legend-wrap, #stats, #data-legend, #topbar { margin: 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel2); }
+  #topbar { padding: 12px; }
+  #title-line { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  #title-line h2 { font-size: 14px; letter-spacing: .01em; }
+  #kpi { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .k { background:#101a34; border:1px solid var(--line); border-radius:8px; padding:8px; min-height:52px; }
+  .k .l { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .k .v { font-size:14px; font-weight:700; margin-top:2px; }
+  #search-wrap { padding: 12px; }
+  #search { width: 100%; background: #0f1730; border: 1px solid #3f5483; color: var(--text); padding: 9px 10px; border-radius: 8px; font-size: 13px; outline: none; }
+  #search:focus { border-color: var(--accent); }
+  #search-results { max-height: 160px; overflow-y: auto; margin-top: 8px; display: none; }
+  .search-item { padding: 6px 8px; cursor: pointer; border-radius: 6px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .search-item:hover { background: #22345e; }
+  #info-panel { padding: 12px; min-height: 170px; }
+  #info-panel h3, #legend-wrap h3, #data-legend h3 { font-size: 12px; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  #info-content { font-size: 12px; color: #dbe6ff; line-height: 1.55; }
+  #info-content .field { margin-bottom: 6px; }
+  #info-content .field b { color: #fff; }
+  #info-content .empty { color: #a1b3d8; font-style: italic; }
+  .neighbor-link { display: block; padding: 4px 6px; margin: 3px 0; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 3px solid #3d5078; }
+  .neighbor-link:hover { background: #22345e; }
+  #neighbors-list { max-height: 140px; overflow-y: auto; margin-top: 4px; }
   #legend-wrap { flex: 1; overflow-y: auto; padding: 12px; }
-  #legend-wrap h3 { font-size: 13px; color: #aaa; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .legend-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; cursor: pointer; border-radius: 4px; font-size: 12px; }
-  .legend-item:hover { background: #2a2a4e; padding-left: 4px; }
+  #legend-controls { display: flex; align-items: center; gap: 8px; justify-content: space-between; margin-bottom: 8px; }
+  #legend-controls label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; color: #c4d3f7; user-select: none; }
+  .legend-item { display: flex; align-items: center; gap: 8px; padding: 7px 8px; cursor: pointer; border-radius: 6px; font-size: 12px; border: 1px solid transparent; }
+  .legend-item:hover { background: #22345e; border-color: #345083; }
   .legend-item.dimmed { opacity: 0.35; }
   .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-  .legend-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .legend-count { color: #666; font-size: 11px; }
-  #stats { padding: 10px 14px; border-top: 1px solid #2a2a4e; font-size: 11px; color: #555; }
-  #legend-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 4px 0; }
-  #legend-controls label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; color: #aaa; user-select: none; }
-  #legend-controls label:hover { color: #e0e0e0; }
-  .legend-cb, #select-all-cb { appearance: none; -webkit-appearance: none; width: 14px; height: 14px; border: 1.5px solid #3a3a5e; border-radius: 3px; background: #0f0f1a; cursor: pointer; position: relative; flex-shrink: 0; }
-  .legend-cb:checked, #select-all-cb:checked { background: #4E79A7; border-color: #4E79A7; }
+  .legend-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+  .legend-count { color: #9fb2db; font-size: 11px; min-width: 28px; text-align: right; }
+  #stats { padding: 10px 12px; font-size: 11px; color: #bed0f5; }
+  #data-legend { padding: 12px; font-size: 11px; color:#c7d4f4; }
+  #data-legend .row { display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px dashed #324770; }
+  #legend-controls button, #title-line button, #sidebar-toggle { border: 1px solid #3d5687; background: linear-gradient(180deg, #1a3b6f, #12315f); color: #dce8ff; border-radius: 7px; padding: 6px 10px; font-size: 11px; cursor: pointer; }
+  #legend-controls button:hover, #title-line button:hover, #sidebar-toggle:hover { background: #16305d; }
+  .legend-cb, #select-all-cb { appearance: none; -webkit-appearance: none; width: 14px; height: 14px; border: 1.5px solid #496394; border-radius: 3px; background: #0f1730; cursor: pointer; position: relative; flex-shrink: 0; }
+  .legend-cb:checked, #select-all-cb:checked { background: var(--accent); border-color: var(--accent); }
   .legend-cb:checked::after, #select-all-cb:checked::after { content: ''; position: absolute; left: 3.5px; top: 1px; width: 4px; height: 7px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
-  #select-all-cb:indeterminate { background: #4E79A7; border-color: #4E79A7; }
+  #select-all-cb:indeterminate { background: var(--accent); border-color: var(--accent); }
   #select-all-cb:indeterminate::after { content: ''; position: absolute; left: 2px; top: 5px; width: 8px; height: 2px; background: #fff; border: none; transform: none; }
+  #sidebar-toggle { display:none; position:fixed; right:10px; top:10px; z-index:11; }
+  @media (max-width: 980px) {
+    #sidebar { position: fixed; right: 0; top: 0; bottom: 0; z-index: 10; transform: translateX(100%); transition: transform .2s ease; width: min(88vw, 380px); }
+    #sidebar.open { transform: translateX(0); }
+    #sidebar-toggle { display:block; }
+  }
 </style>"""
+    return (css
+            .replace("__BG__", theme["bg"])
+            .replace("__BG2__", theme["bg2"])
+            .replace("__PANEL__", theme["panel"])
+            .replace("__PANEL2__", theme["panel2"])
+            .replace("__LINE__", theme["line"])
+            .replace("__ACCENT__", theme["accent"])
+            .replace("__GLOW__", theme["bg_glow"]))
+
 
 
 def _hyperedge_script(hyperedges_json: str) -> str:
@@ -218,6 +290,7 @@ const hyperedges = {hyperedges_json};
 // afterDrawing passes ctx already transformed to network coordinate space.
 // Draw node positions raw — no manual pan/zoom/DPR math needed.
 network.on('afterDrawing', function(ctx) {{
+    // 1. Draw hyperedges
     hyperedges.forEach(h => {{
         const positions = h.nodes
             .map(nid => network.getPositions([nid])[nid])
@@ -250,6 +323,37 @@ network.on('afterDrawing', function(ctx) {{
         ctx.fillText(h.label, cx, cy - 5);
         ctx.restore();
     }});
+
+    // 2. Draw running data particles along edges
+    const positions = network.getPositions();
+    ctx.save();
+    RAW_EDGES.forEach((edge, i) => {{
+        const fromNode = nodesDS.get(edge.from);
+        const toNode = nodesDS.get(edge.to);
+        if (fromNode && toNode && !fromNode.hidden && !toNode.hidden) {{
+            const fromPos = positions[edge.from];
+            const toPos = positions[edge.to];
+            if (fromPos && toPos) {{
+                // Speed: cycles per second
+                const speed = 0.28;
+                const t = (animTime * speed + (i * 0.07)) % 1.0;
+                
+                // Linear interpolation for perfectly straight lines
+                const px = fromPos.x + (toPos.x - fromPos.x) * t;
+                const py = fromPos.y + (toPos.y - fromPos.y) * t;
+                
+                // Draw glowing flowing particle
+                ctx.beginPath();
+                ctx.arc(px, py, 2.5, 0, 2 * Math.PI);
+                const color = fromNode.color.background || '#60a5fa';
+                ctx.fillStyle = color;
+                ctx.shadowColor = color;
+                ctx.shadowBlur = 6;
+                ctx.fill();
+            }}
+        }}
+    }});
+    ctx.restore();
 }});
 </script>"""
 
@@ -258,7 +362,24 @@ def _html_script(nodes_json: str, edges_json: str, legend_json: str) -> str:
     return f"""<script>
 const RAW_NODES = {nodes_json};
 const RAW_EDGES = {edges_json};
-const LEGEND = {legend_json};
+let LEGEND = {legend_json};
+if (!Array.isArray(LEGEND) || LEGEND.length === 0) {{
+  const by = new Map();
+  RAW_NODES.forEach(n => {{
+    const cid = n.community;
+    if (cid === undefined || cid === null) return;
+    if (!by.has(cid)) by.set(cid, {{ cid, color: (n.color && n.color.background) || "#888", label: n.community_name || `Community ${{cid}}`, count: 0, top: n }});
+    const c = by.get(cid);
+    c.count += 1;
+    if (!c.top || Number(n.degree || 0) > Number(c.top.degree || 0)) c.top = n;
+  }});
+  LEGEND = Array.from(by.values()).map(c => {{
+    const src = c.top && c.top.source_file ? String(c.top.source_file).split('/').pop() : '';
+    const sym = c.top && c.top.label ? String(c.top.label).trim() : '';
+    const better = src && sym ? `${{src}} :: ${{sym}}` : (sym || src || c.label || `Community ${{c.cid}}`);
+    return {{ cid: c.cid, color: c.color, label: better, count: c.count }};
+  }}).sort((a,b) => a.cid - b.cid);
+}}
 
 // HTML-escape helper — prevents XSS when injecting graph data into innerHTML
 function esc(s) {{
@@ -301,14 +422,13 @@ const network = new vis.Network(container, {{ nodes: nodesDS, edges: edgesDS }},
   interaction: {{
     hover: true,
     tooltipDelay: 100,
-    hideEdgesOnDrag: true,
+    hideEdgesOnDrag: false,
     navigationButtons: false,
     keyboard: false,
   }},
   nodes: {{ shape: 'dot', borderWidth: 1.5 }},
-  edges: {{ smooth: {{ type: 'continuous', roundness: 0.2 }}, selectionWidth: 3 }},
-}});
-
+  edges: {{ smooth: false, selectionWidth: 3 }},
+}}); 
 network.once('stabilizationIterationsDone', () => {{
   network.setOptions({{ physics: {{ enabled: false }} }});
 }});
@@ -442,8 +562,8 @@ LEGEND.forEach(c => {{
     updateSelectAllState();
   }});
   item.innerHTML = `<div class="legend-dot" style="background:${{c.color}}"></div>
-    <span class="legend-label">${{c.label}}</span>
-    <span class="legend-count">${{c.count}}</span>`;
+    <span class="legend-label" title="${{esc(c.label)}}">${{c.label}}</span>
+    <span class="legend-count">${{c.count}}n</span>`;
   item.prepend(cb);
   item.onclick = (e) => {{
     if (e.target === cb) return;
@@ -452,6 +572,47 @@ LEGEND.forEach(c => {{
   }};
   legendEl.appendChild(item);
 }});
+
+function setKpi() {{
+  document.getElementById('kpi-n').textContent = RAW_NODES.length.toLocaleString();
+  document.getElementById('kpi-e').textContent = RAW_EDGES.length.toLocaleString();
+  document.getElementById('kpi-c').textContent = LEGEND.length.toLocaleString();
+}}
+
+function showTopCommunities() {{
+  const top = LEGEND
+    .slice()
+    .sort((a, b) => Number(b.count || 0) - Number(a.count || 0))
+    .slice(0, 20)
+    .map(c => c.cid);
+  const keep = new Set(top);
+  document.querySelectorAll('.legend-cb').forEach((cb, i) => {{
+    const cid = LEGEND[i] && LEGEND[i].cid;
+    const on = keep.has(cid);
+    cb.checked = on;
+  }});
+  hiddenCommunities.clear();
+  LEGEND.forEach(c => {{ if (!keep.has(c.cid)) hiddenCommunities.add(c.cid); }});
+  document.querySelectorAll('.legend-item').forEach((item, i) => {{
+    const cid = LEGEND[i] && LEGEND[i].cid;
+    if (keep.has(cid)) item.classList.remove('dimmed');
+    else item.classList.add('dimmed');
+  }});
+  const updates = RAW_NODES.map(n => ({{ id: n.id, hidden: !keep.has(n.community) }}));
+  nodesDS.update(updates);
+  updateSelectAllState();
+}}
+
+setKpi();
+
+// Animation loop setup
+let animTime = 0;
+function animate() {{
+  animTime = (Date.now() * 0.001) % 1000;
+  network.redraw();
+  requestAnimationFrame(animate);
+}}
+animate();
 </script>"""
 
 
@@ -648,8 +809,36 @@ def to_html(
             print(f"Graph has {G.number_of_nodes()} nodes (above {limit} limit). Building aggregated community view...")
             node_to_community = {nid: cid for cid, members in communities.items() for nid in members}
             meta = _nx.Graph()
+
+            # Derive readable labels for aggregated communities from representative
+            # high-degree member nodes when explicit labels are generic/missing.
+            def _community_rep_label(cid: int, members: list[str]) -> str:
+                explicit = sanitize_label((community_labels or {}).get(cid, ""))
+                if explicit and not explicit.lower().startswith("community "):
+                    return explicit
+                best = None
+                best_deg = -1
+                for nid in members or []:
+                    if nid not in G:
+                        continue
+                    d = int(G.degree(nid)) if nid in G else 0
+                    if d > best_deg:
+                        best_deg = d
+                        best = nid
+                if best is not None:
+                    data = G.nodes[best]
+                    src = sanitize_label(Path(str(data.get("source_file") or "")).name)
+                    sym = sanitize_label(str(data.get("label") or "").strip())
+                    if src and sym:
+                        return f"{src} :: {sym}"
+                    if sym:
+                        return sym
+                    if src:
+                        return src
+                return f"Community {cid}"
+
             for cid, members in communities.items():
-                meta.add_node(str(cid), label=(community_labels or {}).get(cid, f"Community {cid}"))
+                meta.add_node(str(cid), label=_community_rep_label(cid, members))
             edge_counts = _Counter()
             for u, v in G.edges():
                 cu, cv = node_to_community.get(u), node_to_community.get(v)
@@ -663,30 +852,6 @@ def to_html(
                 return
             meta_communities = {cid: [str(cid)] for cid in communities}
             mc = {cid: len(members) for cid, members in communities.items()}
-            # Remap hyperedges from semantic node IDs to community IDs
-            raw_hyperedges = G.graph.get("hyperedges", [])
-            if raw_hyperedges:
-                remapped = []
-                for he in raw_hyperedges:
-                    he_members = he.get("nodes") or he.get("members") or []
-                    comm_ids, seen = [], set()
-                    for nid in he_members:
-                        c = node_to_community.get(nid)
-                        if c is None:
-                            continue
-                        s = str(c)
-                        if s in seen:
-                            continue
-                        seen.add(s)
-                        comm_ids.append(s)
-                    if len(comm_ids) < 2:
-                        continue
-                    remapped.append({
-                        "id": he.get("id", ""),
-                        "label": he.get("label") or he.get("relation", "").replace("_", " "),
-                        "nodes": comm_ids,
-                    })
-                meta.graph["hyperedges"] = remapped
             to_html(meta, meta_communities, output_path,
                     community_labels=community_labels, member_counts=mc)
             print(f"graph.html written (aggregated: {meta.number_of_nodes()} community nodes, {meta.number_of_edges()} cross-community edges)")
@@ -698,6 +863,8 @@ def to_html(
             f"or reduce input size."
         )
 
+    theme = _dashboard_theme(str(output_path))
+    comm_colors = _community_palette(theme.get("kind", "default"))
     node_community = _node_community_map(communities)
     degree = dict(G.degree())
     max_deg = max(degree.values(), default=1) or 1
@@ -707,7 +874,7 @@ def to_html(
     vis_nodes = []
     for node_id, data in G.nodes(data=True):
         cid = node_community.get(node_id, 0)
-        color = COMMUNITY_COLORS[cid % len(COMMUNITY_COLORS)]
+        color = comm_colors[cid % len(comm_colors)]
         label = sanitize_label(data.get("label", node_id))
         deg = degree.get(node_id, 1)
         if member_counts:
@@ -754,10 +921,45 @@ def to_html(
         })
 
     # Build community legend data
+    # Use discovered community ids and derive readable fallback names from
+    # representative high-degree nodes when explicit labels are unavailable.
     legend_data = []
-    for cid in sorted((community_labels or {}).keys()):
-        color = COMMUNITY_COLORS[cid % len(COMMUNITY_COLORS)]
-        lbl = _html.escape(sanitize_label((community_labels or {}).get(cid, f"Community {cid}")))
+    label_map = community_labels or {}
+    community_ids = set(communities.keys())
+    if member_counts:
+        community_ids.update(member_counts.keys())
+    community_ids.update(label_map.keys())
+
+    # Representative node per community (highest degree first).
+    rep_by_cid: dict[int, dict] = {}
+    for node in vis_nodes:
+        cid = node.get("community")
+        if cid is None:
+            continue
+        current = rep_by_cid.get(cid)
+        if current is None or int(node.get("degree", 0)) > int(current.get("degree", 0)):
+            rep_by_cid[cid] = node
+
+    def _derive_label(cid: int) -> str:
+        explicit = sanitize_label(label_map.get(cid, ""))
+        # Ignore placeholder labels like "Community 12" so we can provide a better name.
+        if explicit and not explicit.lower().startswith("community "):
+            return explicit
+        rep = rep_by_cid.get(cid)
+        if rep:
+            src = sanitize_label(Path(str(rep.get("source_file") or "")).name)
+            sym = sanitize_label(str(rep.get("label") or "").strip())
+            if src and sym:
+                return f"{src} :: {sym}"
+            if sym:
+                return sym
+            if src:
+                return src
+        return f"Community {cid}"
+
+    for cid in sorted(community_ids):
+        color = comm_colors[cid % len(comm_colors)]
+        lbl = _html.escape(_derive_label(cid))
         n = member_counts.get(cid, len(communities.get(cid, []))) if member_counts else len(communities.get(cid, []))
         legend_data.append({"cid": cid, "color": color, "label": lbl, "count": n})
 
@@ -780,11 +982,20 @@ def to_html(
 <script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"
         integrity="sha384-Ux6phic9PEHJ38YtrijhkzyJ8yQlH8i/+buBR8s3mAZOJrP1gwyvAcIYl3GWtpX1"
         crossorigin="anonymous"></script>
-{_html_styles()}
+{_html_styles(theme)}
 </head>
 <body>
 <div id="graph"></div>
+<button id="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">Panels</button>
 <div id="sidebar">
+  <div id="topbar">
+    <div id="title-line"><h2>Graph Dashboard</h2><button onclick="network.fit({{animation:true}})">Fit</button></div>
+    <div id="kpi">
+      <div class="k"><div class="l">Nodes</div><div class="v" id="kpi-n">-</div></div>
+      <div class="k"><div class="l">Edges</div><div class="v" id="kpi-e">-</div></div>
+      <div class="k"><div class="l">Communities</div><div class="v" id="kpi-c">-</div></div>
+    </div>
+  </div>
   <div id="search-wrap">
     <input id="search" type="text" placeholder="Search nodes..." autocomplete="off">
     <div id="search-results"></div>
@@ -797,8 +1008,16 @@ def to_html(
     <h3>Communities</h3>
     <div id="legend-controls">
       <label><input type="checkbox" id="select-all-cb" checked onchange="toggleAllCommunities(!this.checked)">Select All</label>
+      <button onclick="showTopCommunities()">Top 20</button>
     </div>
     <div id="legend"></div>
+  </div>
+  <div id="data-legend">
+    <h3>Data Legend</h3>
+    <div class="row"><span>Node size</span><span>Degree importance</span></div>
+    <div class="row"><span>Solid edge</span><span>Extracted relation</span></div>
+    <div class="row"><span>Dashed edge</span><span>Inferred relation</span></div>
+    <div class="row"><span>Node color</span><span>Community cluster</span></div>
   </div>
   <div id="stats">{stats}</div>
 </div>
