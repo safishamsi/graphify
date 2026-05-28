@@ -9912,7 +9912,11 @@ def extract(
     id_remap: dict[str, str] = {}
     for path in paths:
         canonical = _file_node_id(path)
-        old_ids = {_make_id(str(path)), _make_id(str(path.relative_to(root)))}
+        try:
+            rel = path.relative_to(root)
+        except ValueError:
+            continue
+        old_ids = {_make_id(str(path)), _make_id(str(rel))}
         for old_id in old_ids:
             if old_id != canonical:
                 id_remap[old_id] = canonical
