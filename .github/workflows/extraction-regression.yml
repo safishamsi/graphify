@@ -2,6 +2,10 @@ name: Extraction Regression
 
 on:
   pull_request:
+    paths:
+      - 'graphify/**'
+      - 'tests/**'
+      - 'pyproject.toml'
   workflow_dispatch:
 
 jobs:
@@ -29,7 +33,7 @@ jobs:
 
       - name: Run graph extraction
         run: |
-          graphify fixture --no-viz
+          graphify extract fixture
 
       - name: Verify graph outputs exist
         run: |
@@ -45,3 +49,4 @@ jobs:
           assert len(data.get('nodes', [])) > 0
           print('Graph contains nodes')
           "
+          
