@@ -23,7 +23,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv sync --all-extras
+        run: uv sync --dev --all-extras
 
       - name: Run tests
         run: uv run pytest tests/ -q --tb=short
