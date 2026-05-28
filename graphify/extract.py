@@ -104,6 +104,7 @@ _JS_INDEX_FILES = ("index.ts", "index.tsx", "index.svelte", "index.js", "index.j
 SEMANTIC_RELATIONS = frozenset({
     "inherits", "implements", "mixes_in", "embeds", "references",
     "calls", "imports", "imports_from", "re_exports", "contains", "method",
+    "links_to",
 })
 
 REFERENCE_CONTEXTS = frozenset({
@@ -7352,6 +7353,7 @@ def _resolve_markdown_link(raw_target: str, source_path: Path) -> Path | None:
     Returns None for external URLs or unresolvable paths.
     """
     target = raw_target.strip()
+    target = re.sub(r'\s+["\'][^"\']*["\']\s*$', '', target)
     if not target or target.startswith(("http://", "https://", "mailto:", "#", "ftp://")):
         return None
     anchor_idx = target.find("#")
@@ -7382,7 +7384,7 @@ def _resolve_markdown_wikilink(page_name: str, source_path: Path) -> Path | None
     ``API Reference.md``). Searches the source file's directory and
     subdirectories.
     """
-    name = page_name.strip()
+    name = page_name.split("|", 1)[0].strip()
     if not name:
         return None
     for ext in (".md", ".mdx", ".qmd"):
@@ -7429,10 +7431,14 @@ def extract_markdown(path: Path) -> dict:
                           "source_file": str_path, "source_location": f"L{line}"})
 
     def add_edge(src: str, tgt: str, relation: str, line: int,
-                 confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
-        edges.append({"source": src, "target": tgt, "relation": relation,
-                      "confidence": confidence, "source_file": str_path,
-                      "source_location": f"L{line}", "weight": weight})
+                 confidence: str = "EXTRACTED", weight: float = 1.0,
+                 context: str | None = None) -> None:
+        edge = {"source": src, "target": tgt, "relation": relation,
+                "confidence": confidence, "source_file": str_path,
+                "source_location": f"L{line}", "weight": weight}
+        if context:
+            edge["context"] = context
+        edges.append(edge)
 
     file_nid = _file_node_id(path)
     add_node(file_nid, path.name, 1)
@@ -7444,6 +7450,7 @@ def extract_markdown(path: Path) -> dict:
     code_block_start: int = 0
     code_block_lines: list[str] = []
     code_block_count = 0
+    code_block_line_nums: set[int] = set()
 
     lines = source.splitlines()
     for line_num_0, line_text in enumerate(lines):
@@ -7478,6 +7485,7 @@ def extract_markdown(path: Path) -> dict:
                 continue
 
         if in_code_block:
+            code_block_line_nums.add(line_num)
             code_block_lines.append(line_text)
             continue
 
@@ -7504,10 +7512,12 @@ def extract_markdown(path: Path) -> dict:
             continue
 
     # Extract markdown links [text](path) and [[wikilinks]] as first-class edges
-    link_re = re.compile(r'\[([^\]]*)\]\(([^\)]+)\)')
+    link_re = re.compile(r'(?<!!)\[([^\]]*)\]\(([^\)]+)\)')
     wikilink_re = re.compile(r'\[\[([^\]]+)\]\]')
     for line_num_0, line_text in enumerate(lines):
         line_num = line_num_0 + 1
+        if line_num in code_block_line_nums:
+            continue
         for match in link_re.finditer(line_text):
             link_text, raw_target = match.groups()
             target = _resolve_markdown_link(raw_target, path)
