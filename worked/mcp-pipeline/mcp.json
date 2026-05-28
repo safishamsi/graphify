@@ -1,0 +1,130 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/workspace"],
+      "env": {
+        "FILESYSTEM_ROOT": "/workspace"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://localhost:5432/mydb"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    },
+    "google-maps": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-google-maps"],
+      "env": {
+        "GOOGLE_MAPS_API_KEY": "${GOOGLE_MAPS_API_KEY}"
+      }
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "T01234567"
+      }
+    },
+    "mcp-text-editor": {
+      "command": "uvx",
+      "args": ["mcp-text-editor"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "everything-search": {
+      "command": "uvx",
+      "args": ["mcp-server-everything-search"],
+      "env": {
+        "EVERYTHING_SDK_PATH": "C:/Program Files/Everything/SDK/Everything64.dll"
+      }
+    },
+    "docker-mcp": {
+      "command": "uvx",
+      "args": ["docker-mcp"]
+    },
+    "mcp-pandoc": {
+      "command": "uvx",
+      "args": ["mcp-pandoc"]
+    },
+    "redis": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-redis", "redis://localhost:6379"]
+    },
+    "neo4j": {
+      "command": "uvx",
+      "args": ["mcp-neo4j-cypher", "--db-url", "bolt://localhost:7687", "--username", "neo4j", "--password", "${NEO4J_PASSWORD}"]
+    },
+    "mcp-logic": {
+      "command": "uvx",
+      "args": ["mcp-logic"]
+    },
+    "mcp-solver": {
+      "command": "uvx",
+      "args": ["mcp-solver"]
+    },
+    "mcp-taskmanager": {
+      "command": "npx",
+      "args": ["-y", "@kazuph/mcp-taskmanager"]
+    },
+    "cdk-mcp": {
+      "command": "uvx",
+      "args": ["awslabs.cdk-mcp-server@latest"],
+      "env": {
+        "AWS_PROFILE": "development",
+        "AWS_REGION": "us-east-1"
+      }
+    },
+    "cost-analysis": {
+      "command": "uvx",
+      "args": ["awslabs.cost-analysis-mcp-server@latest"],
+      "env": {
+        "AWS_PROFILE": "development",
+        "AWS_REGION": "us-east-1"
+      }
+    },
+    "mongodb": {
+      "command": "npx",
+      "args": ["-y", "mongodb-mcp-server", "--readOnly"],
+      "env": {
+        "MONGODB_CONNECTION_STRING": "${MONGODB_URI}"
+      }
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"]
+    },
+    "mcp-rtfm": {
+      "command": "npx",
+      "args": ["-y", "mcp-rtfm"]
+    },
+    "time": {
+      "command": "uvx",
+      "args": ["mcp-server-time", "--local-timezone=UTC"]
+    }
+  }
+}

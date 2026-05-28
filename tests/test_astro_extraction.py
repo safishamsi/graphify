@@ -13,7 +13,7 @@ from pathlib import Path
 
 from graphify.detect import CODE_EXTENSIONS
 from graphify.extract import (
-    _make_id,
+    _file_node_id,
     extract_astro,
 )
 
@@ -57,8 +57,8 @@ const { title } = Astro.props;
 
     result = extract_astro(page)
     targets = _import_targets(result, relation="imports_from")
-    assert _make_id(str(layout)) in targets
-    assert _make_id(str(hero)) in targets
+    assert _file_node_id(layout) in targets
+    assert _file_node_id(hero) in targets
 
 
 def test_extract_astro_handles_dynamic_import_in_frontmatter(tmp_path):
@@ -75,7 +75,7 @@ const Mod = await import('./Other.astro');
 
     result = extract_astro(page)
     targets = _import_targets(result, relation="dynamic_import")
-    assert _make_id(str(other)) in targets
+    assert _file_node_id(other) in targets
 
 
 def test_extract_astro_picks_up_client_side_script_imports(tmp_path):
@@ -100,8 +100,8 @@ import Layout from '../layouts/Layout.astro';
 
     result = extract_astro(page)
     targets = _import_targets(result, relation="imports_from")
-    assert _make_id(str(layout)) in targets
-    assert _make_id(str(hydrate)) in targets
+    assert _file_node_id(layout) in targets
+    assert _file_node_id(hydrate) in targets
 
 
 def test_extract_astro_no_frontmatter_does_not_crash(tmp_path):
@@ -140,4 +140,4 @@ import Hero from '@components/Hero.astro';
 
     result = extract_astro(page)
     targets = _import_targets(result, relation="imports_from")
-    assert _make_id(str(hero)) in targets
+    assert _file_node_id(hero) in targets
