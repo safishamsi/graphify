@@ -194,7 +194,7 @@ _SETTINGS_HOOK = {
                 "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
                 "case \"$CMD\" in "
                 r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
-                "  _GOUT=\"${GRAPHIFY_OUT:-graphify-out}\"; [ -f \"$_GOUT/graph.json\" ] && "
+                "  GRAPHIFY_OUT=\"${GRAPHIFY_OUT:-graphify-out}\"; [ -f \"$GRAPHIFY_OUT/graph.json\" ] && "
                 r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: knowledge graph available. For focused questions, run `graphify query \"<question>\"` (scoped subgraph, usually much smaller than GRAPH_REPORT.md) instead of grepping raw files. Read GRAPH_REPORT.md only for broad architecture context."}}' """
                 "  || true ;; "
                 "esac"
@@ -469,8 +469,8 @@ _GEMINI_HOOK = {
             "command": (
                 'python -c "'
                 "import sys,pathlib,json;"
-                "import os;_gout=os.environ.get('GRAPHIFY_OUT','graphify-out');"
-                "e=pathlib.Path(f'{_gout}/graph.json').exists();"
+                "import os;gout=os.environ.get('GRAPHIFY_OUT','graphify-out');"
+                "e=pathlib.Path(f'{gout}/graph.json').exists();"
                 "d={'decision':'allow'};"
                 "e and d.update({'additionalContext':'graphify: knowledge graph available. For focused questions, run `graphify query \"<question>\"` (scoped subgraph, usually much smaller than GRAPH_REPORT.md) instead of grepping raw files. Read GRAPH_REPORT.md only for broad architecture context.'});"
                 "sys.stdout.write(json.dumps(d))"
