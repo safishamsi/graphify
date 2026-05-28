@@ -43,7 +43,6 @@ _NODE_TABLES = {
 
 # ---------------------------------------------------------------------------
 # Edge tables — split by (src_type, tgt_type, relation).
-# Keeps each table under NeuG 0.1.0's 4096-row limit.
 # ---------------------------------------------------------------------------
 
 _EDGE_DDL_TEMPLATE = """CREATE REL TABLE IF NOT EXISTS {tbl}(
@@ -98,10 +97,14 @@ def _cesc(value: str) -> str:
 
 
 def init_db(db_path: str) -> tuple[neug.Database, object]:
-    """Create or open a NeuG database and initialize schema."""
+    """Open (or create) a NeuG database and connect."""
     db = neug.Database(db_path)
     conn = db.connect()
+    return db, conn
 
+
+def ensure_schema(conn: object) -> None:
+    """Create node/edge tables if not exist. Call once during extract."""
     for ddl in _NODE_TABLES.values():
         conn.execute(ddl)
 
@@ -112,8 +115,6 @@ def init_db(db_path: str) -> tuple[neug.Database, object]:
             tbl = _edge_table_name(src, tgt, rel)
             conn.execute(_EDGE_DDL_TEMPLATE.format(tbl=tbl, src=src, tgt=tgt))
             _created_rel_tables.add(tbl)
-
-    return db, conn
 
 
 def _ensure_rel_table(conn: object, src_type: str, tgt_type: str, relation: str) -> str:

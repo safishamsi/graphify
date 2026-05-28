@@ -29,8 +29,10 @@ def tmp_db(tmp_path):
 
 
 def _init(db_path):
-    from graphify.storage import init_db
-    return init_db(db_path)
+    from graphify.storage import init_db, ensure_schema
+    db, conn = init_db(db_path)
+    ensure_schema(conn)
+    return db, conn
 
 
 def _close(db, conn):

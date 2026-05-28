@@ -20,10 +20,11 @@ EXTRACTION_JSON = FIXTURES / "extraction.json"
 
 
 def _build_db(tmp_path) -> str:
-    from graphify.storage import init_db, ingest_extraction, close_db
+    from graphify.storage import init_db, ensure_schema, ingest_extraction, close_db
     db_path = str(tmp_path / "graph.db")
     ext = json.loads(EXTRACTION_JSON.read_text())
     db, conn = init_db(db_path)
+    ensure_schema(conn)
     ingest_extraction(conn, ext, incremental=False)
     close_db(db, conn)
     return db_path
