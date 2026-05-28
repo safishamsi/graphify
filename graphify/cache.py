@@ -159,6 +159,17 @@ def cache_dir(root: Path = Path("."), kind: str = "ast") -> Path:
     return d
 
 
+def _reanchor_source_file(p: str, root: Path) -> str:
+    """If p is a relative path, resolve it against root; otherwise return as-is."""
+    try:
+        candidate = Path(p)
+        if not candidate.is_absolute():
+            return str((root.resolve() / candidate).resolve())
+    except (OSError, ValueError):
+        pass
+    return p
+
+
 def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict | None:
     """Return cached extraction for this file if hash matches, else None.
 
@@ -176,18 +187,33 @@ def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict |
     entry = cache_dir(root, kind) / f"{h}.json"
     if entry.exists():
         try:
-            return json.loads(entry.read_text(encoding="utf-8"))
+            result = json.loads(entry.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
             return None
     # Migration fallback: check legacy flat cache/ dir for AST entries
-    if kind == "ast":
+    elif kind == "ast":
         legacy = Path(root).resolve() / _GRAPHIFY_OUT / "cache" / f"{h}.json"
         if legacy.exists():
             try:
-                return json.loads(legacy.read_text(encoding="utf-8"))
+                result = json.loads(legacy.read_text(encoding="utf-8"))
             except (json.JSONDecodeError, OSError):
                 return None
-    return None
+        else:
+            return None
+    else:
+        return None
+    # Re-anchor relative source_file paths so cached nodes are consistent with
+    # fresh extractions on this machine (#777)
+    root_resolved = Path(root).resolve()
+    for node in result.get("nodes", []):
+        sf = node.get("source_file")
+        if sf:
+            node["source_file"] = _reanchor_source_file(sf, root_resolved)
+    for edge in result.get("edges", []):
+        sf = edge.get("source_file")
+        if sf:
+            edge["source_file"] = _reanchor_source_file(sf, root_resolved)
+    return result
 
 
 def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "ast") -> None:
@@ -203,6 +229,28 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
     p = Path(path)
     if not p.is_file():
         return
+
+    # Relativize source_file fields so cached nodes are portable across machines (#777)
+    root_resolved = Path(root).resolve()
+    for node in result.get("nodes", []):
+        sf = node.get("source_file")
+        if sf:
+            try:
+                rel = os.path.relpath(sf, root_resolved)
+                if not rel.startswith(".."):
+                    node["source_file"] = rel
+            except ValueError:
+                pass
+    for edge in result.get("edges", []):
+        sf = edge.get("source_file")
+        if sf:
+            try:
+                rel = os.path.relpath(sf, root_resolved)
+                if not rel.startswith(".."):
+                    edge["source_file"] = rel
+            except ValueError:
+                pass
+
     h = file_hash(p, root)
     target_dir = cache_dir(root, kind)
     entry = target_dir / f"{h}.json"
