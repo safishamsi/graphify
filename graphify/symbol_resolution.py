@@ -365,14 +365,17 @@ def _bash_make_id(*parts: str) -> str:
     return cleaned.strip("_").casefold()
 
 
+def _file_stem(path: Path) -> str:
+    parent = path.parent.name
+    if parent and parent not in (".", ""):
+        return f"{parent}.{path.stem}"
+    return path.stem
+
+
 def _file_node_id_for_path(path: Path, root: Path) -> str:
-    # Resolve both sides so callers that pass relative or non-canonical roots
-    # get the same canonical relative path that extract()'s id_remap produces.
-    # _bash_make_id is an exact copy of extract._make_id, so IDs match.
-    try:
-        return _bash_make_id(str(path.resolve().relative_to(root.resolve())))
-    except ValueError:
-        return _bash_make_id(str(path))  # path outside root: hash absolute path as fallback
+    # Keep Bash source-edge file IDs in sync with extract._file_stem-based
+    # file node IDs (#1033).
+    return _bash_make_id(_file_stem(path))
 
 
 def resolve_bash_source_edges(

@@ -51,6 +51,16 @@ _FILE_TYPE_SYNONYMS = {
 }
 
 
+_LANG_EXT_SUFFIX_RE = re.compile(
+    r"_(?:py|pyi|pyw|js|jsx|mjs|cjs|ts|tsx|vue|svelte|astro|go|rs|java|kt|kts|scala|groovy|c|h|cc|cpp|cxx|hh|hpp|hxx|rb|php|cs|swift|lua|r|sh|bash|zsh|fish|ps1|sql|html|css|scss|sass|less|md|mdx|json|yaml|yml|toml|xml|proto|graphql|gql|dart|ex|exs|erl|hrl|clj|cljs|fs|fsx|vb|pl|pm|pas|pp|dpr|dpk|inc|sol|move|sv|svh|v)$"
+)
+
+
+def _strip_ext_suffix(s: str) -> str:
+    """Drop legacy extension suffixes from path-derived IDs (#1033)."""
+    return _LANG_EXT_SUFFIX_RE.sub("", s)
+
+
 def _normalize_id(s: str) -> str:
     r"""Normalize an ID string the same way extract._make_id does.
 
@@ -65,19 +75,8 @@ def _normalize_id(s: str) -> str:
     return cleaned.strip("_").casefold()
 
 
-_EXT_SUFFIXES = re.compile(r"_(py|ts|tsx|js|jsx|mjs|rb|go|java|cs|cpp|c|h|rs|kt|scala|php|swift|sql|r|lua|ex|exs|erl|hs|clj|cljs|ml|fs|fsx|vb|groovy|gradle|sh|bash|zsh|ps1|psm1|tf|hcl|yaml|yml|json|toml|xml|html|css|scss|sass|less|vue|svelte|md|rst|txt)$")
-
-
-def _strip_ext_suffix(nid: str) -> str:
-    """Strip a trailing language-extension suffix from a legacy node ID.
-
-    Old builds used _make_id(str(path)) which appended the file extension as an
-    underscore-separated token (e.g. script_pipeline_step_py). New builds use
-    _make_id(_file_stem(path)) which omits the extension. Stripping the suffix
-    here lets existing cached graph.json files merge correctly with new extractions
-    without requiring --force re-extraction.
-    """
-    return _EXT_SUFFIXES.sub("", nid)
+def _canonical_id(s: str) -> str:
+    return _strip_ext_suffix(_normalize_id(str(s)))
 
 
 def _norm_source_file(p: str | None, root: str | None = None) -> str | None:
@@ -136,6 +135,8 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
     for node in extraction.get("nodes", []):
         if not isinstance(node, dict):
             continue
+        if node.get("id") not in (None, ""):
+            node["id"] = _canonical_id(str(node["id"]))
         if "source" in node and "source_file" not in node:
             # Count edges that reference this node so the warning is actionable (#479)
             node_id = node.get("id", "?")
@@ -172,6 +173,18 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         if "target" in edge:
             edge["target"] = _strip_ext_suffix(edge["target"])
 
+    for edge in extraction.get("edges", []):
+        if not isinstance(edge, dict):
+            continue
+        if "source" not in edge and "from" in edge:
+            edge["source"] = edge["from"]
+        if "target" not in edge and "to" in edge:
+            edge["target"] = edge["to"]
+        if edge.get("source") not in (None, ""):
+            edge["source"] = _canonical_id(str(edge["source"]))
+        if edge.get("target") not in (None, ""):
+            edge["target"] = _canonical_id(str(edge["target"]))
+
     errors = validate_extraction(extraction)
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
     real_errors = [e for e in errors if "does not match any node id" not in e]
@@ -186,7 +199,7 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
     # Normalized ID map: lets edges survive when the LLM generates IDs with
     # slightly different casing or punctuation than the AST extractor.
     # e.g. "Session_ValidateToken" maps to "session_validatetoken".
-    norm_to_id: dict[str, str] = {_normalize_id(nid): nid for nid in node_set}
+    norm_to_id: dict[str, str] = {_canonical_id(nid): nid for nid in node_set}
     # Iterate edges in a deterministic order. The graph is undirected and stores
     # direction in _src/_tgt; when two edges collapse onto the same node pair the
     # last write wins, so an unstable iteration order flips _src/_tgt run-to-run
@@ -208,9 +221,9 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         src, tgt = edge["source"], edge["target"]
         # Remap mismatched IDs via normalization before dropping the edge.
         if src not in node_set:
-            src = norm_to_id.get(_normalize_id(src), src)
+            src = norm_to_id.get(_canonical_id(src), src)
         if tgt not in node_set:
-            tgt = norm_to_id.get(_normalize_id(tgt), tgt)
+            tgt = norm_to_id.get(_canonical_id(tgt), tgt)
         if src not in node_set or tgt not in node_set:
             continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}

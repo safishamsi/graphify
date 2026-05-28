@@ -752,7 +752,7 @@ def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, s
                 for _ in range(dots - 1):
                     base = base.parent
                 rel = (module_name.replace(".", "/") + ".py") if module_name else "__init__.py"
-                tgt_nid = _make_id(str(base / rel))
+                tgt_nid = _make_id(_file_stem(base / rel))
             else:
                 tgt_nid = _make_id(raw)
             edges.append({
@@ -996,7 +996,7 @@ def _import_c(node, source: bytes, file_nid: str, stem: str, edges: list, str_pa
             if child.type != "system_lib_string":
                 resolved = _resolve_c_include_path(raw, str_path)
                 if resolved is not None:
-                    tgt_nid = _make_id(str(resolved))
+                    tgt_nid = _make_id(_file_stem(resolved))
                     edges.append({
                         "source": file_nid,
                         "target": tgt_nid,
@@ -2684,8 +2684,7 @@ def extract_svelte(path: Path) -> dict:
         src = path.read_text(encoding="utf-8", errors="replace")
         existing_ids = {n["id"] for n in result.get("nodes", [])}
         # Source file node ID must match the one _extract_generic creates via
-        # _make_id(_file_stem(path)).  Using _file_stem here (not str(path))
-        # keeps the source endpoint consistent and avoids phantom nodes (#701).
+        # _make_id(_file_stem(path)); otherwise this edge points at a phantom node (#701).
         file_node_id = _make_id(_file_stem(path))
         aliases = _load_tsconfig_aliases(path.parent)
         for m in _re.finditer(r"""import\(\s*['"]([^'"]+)['"]\s*\)""", src):
@@ -5076,7 +5075,7 @@ def _apply_symbol_resolution_facts(
         if source_id is not None:
             add_edge(
                 source_id,
-                _make_id(str(path_by_resolved.get(target_path, target_path))),
+                _make_id(_file_stem(path_by_resolved.get(target_path, target_path))),
                 "re_exports",
                 "export",
                 star_fact.line,
@@ -5100,7 +5099,7 @@ def _apply_symbol_resolution_facts(
             if source_id is not None:
                 add_edge(
                     source_id,
-                    _make_id(str(path_by_resolved.get(origin[0], origin[0]))),
+                    _make_id(_file_stem(path_by_resolved.get(origin[0], origin[0]))),
                     "re_exports",
                     "export",
                     export_fact.line,
@@ -6675,7 +6674,7 @@ def _pascal_resolve_unit(from_path: Path, unit_name: str) -> str:
     """Resolve a Pascal unit name to the graphify node ID of its source file.
 
     Scans all Pascal files under the project root (the highest ancestor that
-    directly contains .pas/.dpr files) and returns _make_id(str(matched_path)).
+    directly contains .pas/.dpr files) and returns _make_id(_file_stem(matched_path)).
     Result is cached per project root so the rglob runs at most once per
     project.  Falls back to _make_id(unit_name) for units not found on disk
     (e.g. standard RTL units like SysUtils, Windows).
@@ -6686,7 +6685,7 @@ def _pascal_resolve_unit(from_path: Path, unit_name: str) -> str:
         unit_map: dict[str, str] = {}
         for ext in (".pas", ".pp", ".dpr", ".dpk", ".inc"):
             for f in root.rglob("*" + ext):
-                unit_map[f.stem.lower()] = _make_id(str(f))
+                unit_map[f.stem.lower()] = _make_id(_file_stem(f))
         _pascal_unit_cache[root_key] = unit_map
     return _pascal_unit_cache[root_key].get(unit_name.lower(), _make_id(unit_name))
 
@@ -7613,8 +7612,8 @@ def extract_bash(path: Path) -> dict:
         edges.append(edge)
 
     file_nid = _make_id(_file_stem(path))
-    # file_nid is fully path-derived and never produced by _make_id(stem, func_name),
-    # so appending "__entry" guarantees a distinct ID from any function node.
+    # file_nid is the file-level parent/stem ID, so appending "__entry"
+    # guarantees a distinct ID from any function node.
     entry_nid = file_nid + "__entry"
     add_node(file_nid, path.name, 1, kind="file")
     add_node(entry_nid, f"{path.name} script", 1, kind="bash_entrypoint")
@@ -7735,7 +7734,7 @@ def extract_bash(path: Path) -> dict:
                             # like `source ../../etc/passwd` that traverse outside
                             # the project tree (B-1).
                             if resolved.exists():
-                                tgt_nid = _make_id(str(resolved))
+                                tgt_nid = _make_id(_file_stem(resolved))
                                 add_edge(file_nid, tgt_nid, "imports_from", line,
                                          context="import")
                         else:
@@ -8281,7 +8280,7 @@ def extract_dm(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def _type_path_text(node) -> str:
@@ -8322,7 +8321,7 @@ def extract_dm(path: Path) -> dict:
                 resolved = (path.parent / norm).resolve()
                 edge: dict = {
                     "source": file_nid,
-                    "target": _make_id(str(resolved)) if resolved.exists() else _make_id(norm),
+                    "target": _make_id(_file_stem(resolved)) if resolved.exists() else _make_id(norm),
                     "relation": "imports_from" if resolved.exists() else "imports",
                     "context": "import",
                     "confidence": "EXTRACTED",
@@ -8520,7 +8519,7 @@ def extract_dmi(path: Path) -> dict:
 
     str_path = str(path)
     stem = _file_stem(path)
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "code",
                            "source_file": str_path, "source_location": "L1"}]
     edges: list[dict] = []
@@ -8619,7 +8618,7 @@ def extract_dmm(path: Path) -> dict:
         return {"nodes": [], "edges": [], "error": str(e)}
 
     str_path = str(path)
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "code",
                            "source_file": str_path, "source_location": "L1"}]
     edges: list[dict] = []
@@ -8692,7 +8691,7 @@ def extract_dmf(path: Path) -> dict:
 
     str_path = str(path)
     stem = _file_stem(path)
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "code",
                            "source_file": str_path, "source_location": "L1"}]
     edges: list[dict] = []
@@ -9087,19 +9086,19 @@ def extract(
 
     _augment_symbol_resolution_edges(paths, all_nodes, all_edges, root)
 
-    # Remap file node IDs from absolute-path-derived to project-relative so
-    # graph.json edge endpoints are stable across machines (#502).
-    # Both sides go through _file_stem so compound-extension nodes (e.g.
-    # .svelte.ts) map to the same normalised ID as their component counterpart.
+    # Remap legacy full-path-derived file node IDs to parent/stem IDs so cached
+    # per-file extractions converge with fresh output (#1033).
     id_remap: dict[str, str] = {}
     for path in paths:
-        old_id = _make_id(_file_stem(path))
+        new_id = _make_id(_file_stem(path))
+        legacy_ids = {_make_id(os.fspath(path))}
         try:
-            new_id = _make_id(_file_stem(path.relative_to(root)))
+            legacy_ids.add(_make_id(os.fspath(path.relative_to(root))))
         except ValueError:
-            continue
-        if old_id != new_id:
-            id_remap[old_id] = new_id
+            pass
+        for old_id in legacy_ids:
+            if old_id != new_id:
+                id_remap[old_id] = new_id
     if id_remap:
         for n in all_nodes:
             if n.get("id") in id_remap:
@@ -9170,7 +9169,7 @@ def extract(
 
     # Map each node back to its containing file_id so we can ask
     # "did the caller's file import the callee's file?"
-    # Use relativized paths to match how file node IDs were remapped above (#502).
+    # Use parent/stem file IDs to match file nodes after normalization (#1033).
     nid_to_file_nid: dict[str, str] = {}
     for n in all_nodes:
         sf = n.get("source_file")
@@ -9181,7 +9180,7 @@ def extract(
             sf_rel = sf_path.relative_to(root) if sf_path.is_absolute() else sf_path
         except ValueError:
             sf_rel = sf_path
-        nid_to_file_nid[n["id"]] = _make_id(str(sf_rel))
+        nid_to_file_nid[n["id"]] = _make_id(_file_stem(sf_rel))
 
     existing_pairs = {(e["source"], e["target"]) for e in all_edges}
     for rc in all_raw_calls:

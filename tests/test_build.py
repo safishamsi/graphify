@@ -346,6 +346,23 @@ def test_build_from_json_relative_source_file_unchanged(tmp_path):
     assert G.nodes["foo_bar"]["source_file"] == "src/foo.py"
 
 
+def test_build_from_json_strips_legacy_language_extension_suffixes():
+    extraction = {
+        "nodes": [
+            {"id": "script_pipeline_step_py", "label": "pipeline_step.py", "file_type": "code"},
+            {"id": "consumer", "label": "consumer", "file_type": "code"},
+        ],
+        "edges": [
+            {"source": "consumer", "target": "script_pipeline_step_py",
+             "relation": "imports_from", "confidence": "EXTRACTED"},
+        ],
+    }
+    G = build_from_json(extraction)
+    assert "script_pipeline_step" in G
+    assert "script_pipeline_step_py" not in G
+    assert G.has_edge("consumer", "script_pipeline_step")
+
+
 def test_build_merge_prune_absolute_paths_match_relative_nodes(tmp_path):
     """#1007: manifest stores absolute paths, graph nodes store relative paths.
     prune_sources with absolute paths must still remove the right nodes and edges."""

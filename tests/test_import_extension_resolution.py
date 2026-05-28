@@ -1,16 +1,17 @@
 """Tests for #716 — TypeScript bare-path imports, Svelte 5 rune file imports
 (`from './foo.svelte'` for a `.svelte.ts` file), and directory/index.ts
-imports must resolve to the actual file's node id, not a phantom.
+imports must resolve to the actual file's parent/stem node id, not a phantom.
 
 Before #716, `_import_js` only rewrote `.js → .ts` and `.jsx → .tsx`. Every
 other shape (bare path, `.svelte → .svelte.ts`, `./foo` directory imports)
-produced an id like `..._foo` while the real file's node id was `..._foo_ts`,
+produced an id like `..._foo` while the real file's node id is `parent_foo`,
 so `build_from_json` dropped the edge as external.
 """
 
 from pathlib import Path
 
 from graphify.extract import (
+    _file_stem,
     _make_id,
     _resolve_js_module_path,
     extract_js,
@@ -185,7 +186,7 @@ def test_bare_path_import_resolves_in_ts_file(tmp_path):
     importer = _write(tmp_path / "page.ts",
                       "import type { GetNestedType } from './type-helpers'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Bare-path .ts import must resolve to target node id; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -199,7 +200,7 @@ def test_directory_import_resolves_to_index_ts(tmp_path):
     importer = _write(tmp_path / "page.ts",
                       "import { enqueue } from './queue'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Directory import must resolve to ./queue/index.ts; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -216,7 +217,7 @@ def test_dot_svelte_import_resolves_to_dot_svelte_ts(tmp_path):
     importer = _write(tmp_path / "page.ts",
                       "import { isMobile } from './is-mobile.svelte'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f".svelte → .svelte.ts resolution failed; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -233,7 +234,7 @@ def test_explicit_ts_import_still_works(tmp_path):
     importer = _write(tmp_path / "page.ts",
                       "import { x } from './foo.ts'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Explicit .ts imports must still resolve; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -247,7 +248,7 @@ def test_explicit_svelte_import_still_works(tmp_path):
     importer = _write(tmp_path / "page.ts",
                       "import Card from './Card.svelte'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Existing .svelte imports must resolve to the .svelte node, "
         f"not get redirected; expected {expected}; "
@@ -285,7 +286,7 @@ def test_alias_import_with_bare_path_resolves(tmp_path):
     importer = _write(importer_dir / "page.ts",
                       "import type { X } from '$lib/type-helpers'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Alias + bare-path resolution failed; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -304,7 +305,7 @@ def test_type_only_import_with_bare_path_resolves(tmp_path):
     importer = _write(tmp_path / "page.ts",
                       "import type { GetNestedType } from './type-helpers'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Type-only import with bare path failed to resolve; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -342,7 +343,7 @@ def test_alias_directory_import_resolves_to_index_ts(tmp_path):
     importer = _write(src / "routes" / "page.ts",
                       "import { enqueue } from '$lib/queue'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Alias + directory resolution failed; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -428,7 +429,7 @@ def test_end_to_end_multi_dot_import_resolves(tmp_path):
     importer = _write(tmp_path / "page.ts",
                       "import { apply } from './tag-action.shared'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Multi-dot import failed end-to-end; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -448,7 +449,7 @@ def test_resolve_chain_alias_and_extension_compose(tmp_path):
     importer = _write(src / "routes" / "page.ts",
                       "import { isMobile } from '$lib/hooks/is-mobile.svelte'\n")
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in _import_targets(result), (
         f"Alias + .svelte→.svelte.ts chain failed to compose; "
         f"expected {expected}; got {_import_targets(result)}"
@@ -473,7 +474,7 @@ export async function validate(name: string) {
 }
 """)
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     targets = {str(e.get("target") or "") for e in result["edges"]
                if e.get("relation") in ("imports", "imports_from")}
     assert expected in targets, (
@@ -498,7 +499,7 @@ export async function load() {
 }
 """)
     result = extract_js(importer)
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     targets = {str(e.get("target") or "") for e in result["edges"]
                if e.get("relation") in ("imports", "imports_from")}
     assert expected in targets, (
@@ -521,7 +522,7 @@ def test_dynamic_import_bare_path_resolves(tmp_path):
     result = extract_svelte(importer)
     dyn_targets = {str(e.get("target") or "") for e in result["edges"]
                    if e.get("relation") == "dynamic_import"}
-    expected = _make_id(str(target))
+    expected = _make_id(_file_stem(target))
     assert expected in dyn_targets, (
         f"dynamic_import of .svelte that's actually .svelte.ts must "
         f"resolve through the new resolver; "
