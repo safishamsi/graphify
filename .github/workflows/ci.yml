@@ -32,3 +32,23 @@ jobs:
         run: |
           uv run graphify --help
           uv run graphify install
+
+  nix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Check flake
+        run: nix flake check --all-systems
+
+      - name: Build default package
+        run: nix build .#default
+
+      - name: Verify built binary runs
+        run: nix run .#default -- --help
