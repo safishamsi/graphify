@@ -1,8 +1,4 @@
-"""Tests for rationale/docstring extraction in extract.py.
-
-Rationale is now stored as a 'rationale' attribute on the parent node
-rather than as separate rationale nodes with rationale_for edges.
-"""
+"""Tests for rationale/docstring extraction in extract.py."""
 import textwrap
 from pathlib import Path
 import pytest
@@ -16,19 +12,15 @@ def _write_py(tmp_path: Path, code: str) -> Path:
     return p
 
 
-def _nodes_with_rationale(result):
-    return [n for n in result["nodes"] if n.get("rationale")]
-
-
 def test_module_docstring_extracted(tmp_path):
     path = _write_py(tmp_path, '''
         """This module handles authentication because legacy sessions were insecure."""
         def login(): pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert len(nodes) >= 1
-    assert any("authentication" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert len(rationale) >= 1
+    assert any("authentication" in n["label"] for n in rationale)
 
 
 def test_function_docstring_extracted(tmp_path):
@@ -38,8 +30,8 @@ def test_function_docstring_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert any("chunked" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert any("chunked" in n["label"] for n in rationale)
 
 
 def test_class_docstring_extracted(tmp_path):
@@ -49,8 +41,8 @@ def test_class_docstring_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert any("Redis" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert any("Redis" in n["label"] for n in rationale)
 
 
 def test_rationale_comment_extracted(tmp_path):
@@ -60,12 +52,11 @@ def test_rationale_comment_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert any("NOTE" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert any("NOTE" in n["label"] for n in rationale)
 
 
-def test_no_rationale_for_edges(tmp_path):
-    """Rationale is now an attribute, not a node+edge — no rationale_for edges."""
+def test_rationale_for_edges_present(tmp_path):
     path = _write_py(tmp_path, '''
         """Module docstring explaining the why."""
         def foo():
@@ -74,31 +65,29 @@ def test_no_rationale_for_edges(tmp_path):
     ''')
     result = extract_python(path)
     rationale_edges = [e for e in result["edges"] if e.get("relation") == "rationale_for"]
-    assert len(rationale_edges) == 0
-
-
-def test_no_rationale_nodes(tmp_path):
-    """No separate rationale nodes are emitted — rationale lives on parent nodes."""
-    path = _write_py(tmp_path, '''
-        """Module docstring explaining the why."""
-        def foo():
-            """Function docstring with rationale."""
-            pass
-    ''')
-    result = extract_python(path)
-    rationale_nodes = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert len(rationale_nodes) == 0
+    assert len(rationale_edges) >= 1
 
 
 def test_short_docstring_ignored(tmp_path):
-    """Trivial docstrings under 20 chars should not set the rationale attribute."""
+    """Trivial docstrings under 20 chars should not become rationale nodes."""
     path = _write_py(tmp_path, '''
         def foo():
             """Constructor."""
             pass
     ''')
     result = extract_python(path)
-    assert len(_nodes_with_rationale(result)) == 0
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert len(rationale) == 0
+
+
+def test_rationale_confidence_is_extracted(tmp_path):
+    path = _write_py(tmp_path, '''
+        """This module exists because we needed a standalone parser."""
+        def parse(): pass
+    ''')
+    result = extract_python(path)
+    rationale_edges = [e for e in result["edges"] if e.get("relation") == "rationale_for"]
+    assert all(e.get("confidence") == "EXTRACTED" for e in rationale_edges)
 
 
 def test_alembic_module_docstring_suppressed(tmp_path):
@@ -120,8 +109,8 @@ def test_alembic_module_docstring_suppressed(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert not any("Revision ID" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert not any("Revision ID" in n["label"] for n in rationale)
 
 
 def test_alembic_function_docstrings_still_extracted(tmp_path):
@@ -139,9 +128,11 @@ def test_alembic_function_docstrings_still_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert not any("Revision ID" in n["rationale"] for n in nodes)
-    assert any("auth" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    # module docstring suppressed
+    assert not any("Revision ID" in n["label"] for n in rationale)
+    # function docstring still captured
+    assert any("auth" in n["label"] for n in rationale)
 
 
 def test_non_migration_revision_var_not_suppressed(tmp_path):
@@ -153,8 +144,8 @@ def test_non_migration_revision_var_not_suppressed(tmp_path):
         def get_revision(): pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert any("audit history" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert any("audit history" in n["label"] for n in rationale)
 
 
 def test_django_migration_module_docstring_suppressed(tmp_path):
@@ -167,8 +158,8 @@ def test_django_migration_module_docstring_suppressed(tmp_path):
             operations = []
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert not any("post_priority" in n["rationale"] for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert not any("post_priority" in n["label"] for n in rationale)
 
 
 def test_generated_file_module_docstring_suppressed(tmp_path):
@@ -180,15 +171,16 @@ def test_generated_file_module_docstring_suppressed(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    nodes = _nodes_with_rationale(result)
-    assert not any("protocol buffer" in n["rationale"].lower() for n in nodes)
+    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert not any("protocol buffer" in n["label"].lower() for n in rationale)
 
 
 def test_decorated_method_node_id_is_class_qualified(tmp_path):
     """Regression for #1050: @property / @staticmethod / @classmethod methods
-    were emitted with a class-unqualified node id (e.g. ``file_baz``). The
-    rationale walker uses class-qualified ids, so the docstring rationale must
-    land on the same method node id.
+    were emitted with a class-unqualified node id (e.g. ``file_baz``) while the
+    rationale walker emitted the class-qualified id (``file_bar_baz``) as the
+    docstring's edge target. The mismatch caused ``build_from_json`` to drop
+    the rationale_for edge as dangling, orphaning the docstring node.
     """
     path = _write_py(tmp_path, '''
         class Bar:
@@ -222,7 +214,7 @@ def test_decorated_method_node_id_is_class_qualified(tmp_path):
     assert normal_id.endswith("_bar_normal"), normal_id
 
     # Each decorated method must share the same class-qualified id shape so the
-    # extracted rationale lands on the actual method node.
+    # rationale_for edge target matches the method node id.
     for decorated_name in ("baz", "helper", "factory"):
         matches = [nid for nid, n in nodes_by_id.items()
                    if n.get("label") == f".{decorated_name}()"]
@@ -239,17 +231,33 @@ def test_decorated_method_node_id_is_class_qualified(tmp_path):
             f"the class-qualified id"
         )
 
-    # Rationale is stored directly on method nodes, not as rationale_for edges.
+    # Every rationale_for edge's target must resolve to an actual node in the
+    # extraction (no dangling edges into phantom unqualified ids).
+    node_ids = set(nodes_by_id.keys())
+    rationale_edges = [e for e in result["edges"] if e.get("relation") == "rationale_for"]
+    for edge in rationale_edges:
+        assert edge["target"] in node_ids, (
+            f"rationale_for edge targets missing node id {edge['target']!r}"
+        )
+
+    # After build_from_json, each decorated-method docstring node must be
+    # connected (degree > 0), not an orphan dropped from the graph.
     g = build_from_json(result)
     for decorated_name in ("baz", "helper", "factory", "normal"):
         method_id = next(
             nid for nid, n in nodes_by_id.items()
             if n.get("label") == f".{decorated_name}()"
         )
-        assert nodes_by_id[method_id].get("rationale"), (
-            f"method node for ``.{decorated_name}()`` is missing docstring rationale"
+        # Find rationale node attached to this method.
+        attached_rationale = [
+            e["source"] for e in rationale_edges if e["target"] == method_id
+        ]
+        assert attached_rationale, (
+            f"no rationale_for edge found for ``.{decorated_name}()`` method"
         )
-        assert method_id in g.nodes, f"method node {method_id} missing from graph"
-        assert g.nodes[method_id].get("rationale"), (
-            f"method node {method_id} lost rationale after build_from_json"
-        )
+        for r_id in attached_rationale:
+            assert r_id in g.nodes, f"rationale node {r_id} missing from graph"
+            assert g.degree(r_id) > 0, (
+                f"rationale node {r_id} for ``.{decorated_name}()`` is orphaned "
+                f"(degree 0) after build_from_json"
+            )
