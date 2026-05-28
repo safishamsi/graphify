@@ -356,3 +356,41 @@ def test_build_merge_rejects_oversized_existing_graph(monkeypatch, tmp_path):
     monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
     with pytest.raises(ValueError, match="exceeds"):
         build_merge([], graph_path, dedup=False)
+
+
+def test_build_from_json_preserves_references_type_relation():
+    """The `references_type` relation (introduced for ReScript module-qualified
+    type references but valid for any future language-agnostic use) must
+    round-trip through `build_from_json` unchanged. Schema test — adding a
+    new relation type should not require code changes in build.py beyond
+    its generic relation-handling, but we lock the behaviour with this
+    test so future build.py changes that filter on relation names don't
+    accidentally drop `references_type`."""
+    ext = {
+        "nodes": [
+            {"id": "n_entry", "label": "entry", "file_type": "code", "source_file": "a.res"},
+            {"id": "n_animal_point", "label": "point", "file_type": "code", "source_file": "Animal.res"},
+        ],
+        "edges": [
+            {
+                "source": "n_entry",
+                "target": "n_animal_point",
+                "relation": "references_type",
+                "context": "type_reference",
+                "confidence": "INFERRED",
+                "confidence_score": 0.8,
+                "source_file": "a.res",
+                "source_location": "L3",
+                "weight": 1.0,
+            }
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = build_from_json(ext)
+    assert G.number_of_nodes() == 2
+    assert G.number_of_edges() == 1
+    edge = G.edges["n_entry", "n_animal_point"]
+    assert edge["relation"] == "references_type"
+    assert edge["context"] == "type_reference"
+    assert edge["confidence"] == "INFERRED"

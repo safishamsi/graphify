@@ -64,6 +64,7 @@ _JS_INDEX_FILES = ("index.ts", "index.tsx", "index.svelte", "index.js", "index.j
 
 SEMANTIC_RELATIONS = frozenset({
     "inherits", "implements", "mixes_in", "embeds", "references",
+    "references_type",
     "calls", "imports", "imports_from", "re_exports", "contains", "method",
 })
 

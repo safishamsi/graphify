@@ -90,7 +90,7 @@ The output `graph.json` uses NetworkX's node-link format. Each node has:
 
 Each edge has:
 - `source`, `target` — node IDs
-- `relation` — verb phrase (e.g. `calls`, `imports`, `implements`, `semantically_similar_to`)
+- `relation` — verb phrase (e.g. `calls`, `imports`, `implements`, `references_type`, `semantically_similar_to`)
 - `confidence` — `EXTRACTED`, `INFERRED`, or `AMBIGUOUS`
 - `confidence_score` — float (INFERRED only)
 - `source_file` — where the relationship was found
