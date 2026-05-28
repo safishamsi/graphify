@@ -1327,6 +1327,89 @@ def _swift_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path: s
     return False
 
 
+# ── Nix extra walk for imports and bindings ───────────────────────────────────
+
+def _nix_get_import_argument(node, source: bytes) -> str | None:
+    curr = node
+    while curr.type == "apply_expression":
+        func_child = curr.child(0)
+        if func_child and func_child.type == "variable_expression":
+            id_node = func_child.child(0)
+            if id_node and id_node.type == "identifier" and _read_text(id_node, source).strip() == "import":
+                arg_node = curr.child(1)
+                if arg_node:
+                    if arg_node.type == "path_expression":
+                        return _read_text(arg_node, source).strip()
+                    elif arg_node.type == "string_expression":
+                        return _read_text(arg_node, source).strip().strip('"\'')
+                    elif arg_node.type == "spath_expression":
+                        return _read_text(arg_node, source).strip()
+            curr = func_child
+        else:
+            curr = func_child
+    return None
+
+def _nix_add_import_edge(path_str: str, parent_nid: str, line: int, add_edge_fn, str_path: str):
+    if path_str.startswith("<"):
+        return
+    try:
+        resolved_path = (Path(str_path).parent / path_str).resolve()
+        if resolved_path.exists() and resolved_path.is_file():
+            imported_nid = _make_id(str(resolved_path))
+            add_edge_fn(parent_nid, imported_nid, "imports", line, context="import")
+    except Exception:
+        pass
+
+def _nix_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path: str,
+                    nodes: list, edges: list, seen_ids: set, function_bodies: list,
+                    parent_class_nid: str | None, add_node_fn, add_edge_fn, walk_fn) -> bool:
+    """Handle binding and imports for Nix. Returns True if handled."""
+    parent_nid = parent_class_nid if parent_class_nid else file_nid
+    import_arg = _nix_get_import_argument(node, source)
+    if import_arg:
+        _nix_add_import_edge(import_arg, parent_nid, node.start_point[0] + 1, add_edge_fn, str_path)
+    
+    if node.type == "binding":
+        attrpath_node = None
+        expr_node = None
+        for child in node.children:
+            if child.type == "attrpath":
+                attrpath_node = child
+            elif child.type.endswith("_expression"):
+                expr_node = child
+
+        if not attrpath_node and node.children:
+            attrpath_node = node.children[0]
+        if not expr_node and len(node.children) > 2:
+            expr_node = node.children[2]
+
+        if attrpath_node and expr_node:
+            attr_name = _read_text(attrpath_node, source).strip()
+            if attr_name == "imports":
+                if expr_node.type == "list_expression":
+                    for child in expr_node.children:
+                        if child.type == "path_expression":
+                            _nix_add_import_edge(_read_text(child, source).strip(), parent_nid, node.start_point[0] + 1, add_edge_fn, str_path)
+                        elif child.type == "string_expression":
+                            _nix_add_import_edge(_read_text(child, source).strip().strip('"\''), parent_nid, node.start_point[0] + 1, add_edge_fn, str_path)
+                        elif child.type in ("parenthesized_expression", "apply_expression"):
+                            walk_fn(child, parent_nid)
+                return True
+            else:
+                is_complex = expr_node.type in (
+                    "function_expression", "attrset_expression", 
+                    "rec_attrset_expression", "let_expression", "apply_expression"
+                )
+                if is_complex:
+                    binding_nid = _make_id(parent_nid, attr_name) if parent_nid and parent_nid != file_nid else _make_id(stem, attr_name)
+                    line = node.start_point[0] + 1
+                    add_node_fn(binding_nid, attr_name, line)
+                    add_edge_fn(parent_nid, binding_nid, "defines", line)
+                    walk_fn(expr_node, binding_nid)
+                    return True
+    return False
+
+
 # ── Language configs ──────────────────────────────────────────────────────────
 
 _PYTHON_CONFIG = LanguageConfig(
@@ -2154,6 +2237,12 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
             if _swift_extra_walk(node, source, file_nid, stem, str_path,
                                   nodes, edges, seen_ids, function_bodies,
                                   parent_class_nid, add_node, add_edge):
+                return
+
+        if config.ts_module == "tree_sitter_nix":
+            if _nix_extra_walk(node, source, file_nid, stem, str_path,
+                                  nodes, edges, seen_ids, function_bodies,
+                                  parent_class_nid, add_node, add_edge, walk):
                 return
 
         # Default: recurse
@@ -8220,143 +8309,12 @@ def extract_json(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
+_NIX_CONFIG = LanguageConfig(
+    ts_module="tree_sitter_nix"
+)
+
 def extract_nix(path: Path) -> dict:
-    """Extract bindings, imports, and function definitions from a .nix file."""
-    try:
-        import tree_sitter_nix as tsnix
-        from tree_sitter import Language, Parser
-    except ImportError:
-        return {"nodes": [], "edges": [], "error": "tree-sitter-nix not installed"}
-
-    try:
-        language = Language(tsnix.language())
-        parser = Parser(language)
-        source = path.read_bytes()
-        tree = parser.parse(source)
-        root = tree.root_node
-    except Exception as e:
-        return {"nodes": [], "edges": [], "error": str(e)}
-
-    stem = _file_stem(path)
-    str_path = str(path)
-    nodes: list[dict] = []
-    edges: list[dict] = []
-    seen_ids: set[str] = set()
-
-    def add_node(nid: str, label: str, line: int) -> None:
-        if nid not in seen_ids:
-            seen_ids.add(nid)
-            nodes.append({"id": nid, "label": label, "file_type": "code",
-                          "source_file": str_path, "source_location": f"L{line}"})
-
-    def add_edge(src: str, tgt: str, relation: str, line: int,
-                 confidence: str = "EXTRACTED", weight: float = 1.0,
-                 context: str | None = None) -> None:
-        if not src or not tgt or src == tgt:
-            return
-        edge = {"source": src, "target": tgt, "relation": relation,
-                "confidence": confidence, "source_file": str_path,
-                "source_location": f"L{line}", "weight": weight}
-        if context:
-            edge["context"] = context
-        edges.append(edge)
-
-    file_nid = _make_id(str(path))
-    add_node(file_nid, path.name, 1)
-
-    def text(n) -> str:
-        return source[n.start_byte:n.end_byte].decode("utf-8", errors="replace").strip()
-
-    def _add_import_edge(path_str: str, parent_nid: str, line: int):
-        if path_str.startswith("<"):
-            return
-        try:
-            if path_str.startswith("./") or path_str.startswith("../"):
-                resolved_path = (path.parent / path_str).resolve()
-            else:
-                resolved_path = (path.parent / path_str).resolve()
-            if resolved_path.exists() and resolved_path.is_file():
-                imported_nid = _make_id(str(resolved_path))
-                add_edge(parent_nid, imported_nid, "imports", line, context="import")
-        except Exception:
-            pass
-
-    def _get_import_argument(node) -> str | None:
-        curr = node
-        while curr.type == "apply_expression":
-            func_child = curr.child(0)
-            if func_child and func_child.type == "variable_expression":
-                id_node = func_child.child(0)
-                if id_node and id_node.type == "identifier" and text(id_node) == "import":
-                    arg_node = curr.child(1)
-                    if arg_node:
-                        if arg_node.type == "path_expression":
-                            return text(arg_node)
-                        elif arg_node.type == "string_expression":
-                            return text(arg_node).strip('"\'')
-                        elif arg_node.type == "spath_expression":
-                            return text(arg_node)
-                curr = func_child
-            else:
-                curr = func_child
-        return None
-
-    def _handle_imports_list(expr_node, parent_nid: str, line: int):
-        if expr_node.type == "list_expression":
-            for child in expr_node.children:
-                if child.type == "path_expression":
-                    _add_import_edge(text(child), parent_nid, line)
-                elif child.type == "string_expression":
-                    _add_import_edge(text(child).strip('"\''), parent_nid, line)
-                elif child.type in ("parenthesized_expression", "apply_expression"):
-                    walk(child, parent_nid)
-
-    def walk(node, parent_nid: str) -> None:
-        if node is None:
-            return
-        t = node.type
-
-        # Check if this is an import call
-        import_arg = _get_import_argument(node)
-        if import_arg:
-            _add_import_edge(import_arg, parent_nid, node.start_point[0] + 1)
-        
-        elif t == "binding":
-            attrpath_node = None
-            expr_node = None
-            for child in node.children:
-                if child.type == "attrpath":
-                    attrpath_node = child
-                elif child.type.endswith("_expression"):
-                    expr_node = child
-
-            if not attrpath_node and node.children:
-                attrpath_node = node.children[0]
-            if not expr_node and len(node.children) > 2:
-                expr_node = node.children[2]
-
-            if attrpath_node and expr_node:
-                attr_name = text(attrpath_node)
-                if attr_name == "imports":
-                    _handle_imports_list(expr_node, parent_nid, node.start_point[0] + 1)
-                else:
-                    is_complex = expr_node.type in (
-                        "function_expression", "attrset_expression", 
-                        "rec_attrset_expression", "let_expression", "apply_expression"
-                    )
-                    if is_complex:
-                        binding_nid = _make_id(parent_nid, attr_name) if parent_nid else _make_id(stem, attr_name)
-                        line = node.start_point[0] + 1
-                        add_node(binding_nid, attr_name, line)
-                        add_edge(parent_nid, binding_nid, "defines", line)
-                        walk(expr_node, binding_nid)
-                        return
-
-        for child in node.children:
-            walk(child, parent_nid)
-
-    walk(root, file_nid)
-    return {"nodes": nodes, "edges": edges}
+    return _extract_generic(path, _NIX_CONFIG)
 
 
 _DISPATCH: dict[str, Any] = {

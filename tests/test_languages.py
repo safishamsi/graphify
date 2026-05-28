@@ -1135,34 +1135,12 @@ def test_razor_no_dangling_edges():
 
 # ── Nix ───────────────────────────────────────────────────────────────────────
 
-def test_nix_extraction(tmp_path):
-    dep_file = tmp_path / "dependency.nix"
-    dep_file.write_text("{\n  my-helper = x: x + 1;\n}\n", encoding="utf-8")
-
-    main_file = tmp_path / "main.nix"
-    main_file.write_text("""
-{ pkgs ? import <nixpkgs> {} }:
-
-let
-  local-helper = import ./dependency.nix;
-in
-rec {
-  imports = [ ./module.nix ];
-  my-package = pkgs.stdenv.mkDerivation {
-    pname = "test-pkg";
-    version = "1.0.0";
-  };
-}
-""", encoding="utf-8")
-
-    module_file = tmp_path / "module.nix"
-    module_file.write_text("{}", encoding="utf-8")
-
-    result = extract_nix(main_file)
+def test_nix_extraction():
+    result = extract_nix(FIXTURES / "sample.nix")
     assert "error" not in result
 
     node_labels = _labels(result)
-    assert "main.nix" in node_labels
+    assert "sample.nix" in node_labels
     assert "local-helper" in node_labels
     assert "my-package" in node_labels
 
