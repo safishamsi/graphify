@@ -349,7 +349,7 @@ def test_build_from_json_relative_source_file_unchanged(tmp_path):
 def test_build_from_json_strips_legacy_language_extension_suffixes():
     extraction = {
         "nodes": [
-            {"id": "script_pipeline_step_py", "label": "pipeline_step.py", "file_type": "code"},
+            {"id": "script_pipeline_step_py", "label": "pipeline_step.py", "file_type": "code", "source_file": "script/pipeline_step.py"},
             {"id": "consumer", "label": "consumer", "file_type": "code"},
         ],
         "edges": [
@@ -361,6 +361,24 @@ def test_build_from_json_strips_legacy_language_extension_suffixes():
     assert "script_pipeline_step" in G
     assert "script_pipeline_step_py" not in G
     assert G.has_edge("consumer", "script_pipeline_step")
+
+
+def test_build_from_json_does_not_strip_symbol_ids_that_look_like_extensions():
+    extraction = {
+        "nodes": [
+            {"id": "format_c", "label": "format_c()", "file_type": "code", "source_file": "script/pipeline_step.py"},
+            {"id": "parse_json", "label": "parse_json()", "file_type": "code", "source_file": "script/pipeline_step.py"},
+            {"id": "test_py", "label": "test_py()", "file_type": "code", "source_file": "script/pipeline_step.py"},
+        ],
+        "edges": [
+            {"source": "format_c", "target": "parse_json", "relation": "calls", "confidence": "EXTRACTED"},
+            {"source": "test_py", "target": "format_c", "relation": "calls", "confidence": "EXTRACTED"},
+        ],
+    }
+    G = build_from_json(extraction)
+    assert {"format_c", "parse_json", "test_py"}.issubset(G.nodes)
+    assert G.has_edge("format_c", "parse_json")
+    assert G.has_edge("test_py", "format_c")
 
 
 def test_build_merge_prune_absolute_paths_match_relative_nodes(tmp_path):

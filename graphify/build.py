@@ -76,7 +76,40 @@ def _normalize_id(s: str) -> str:
 
 
 def _canonical_id(s: str) -> str:
-    return _strip_ext_suffix(_normalize_id(str(s)))
+    return _normalize_id(str(s))
+
+
+def _file_stem_from_path(path_text: str) -> str:
+    path = Path(path_text.replace("\\", "/"))
+    parent = path.parent.name
+    if parent and parent not in (".", ""):
+        return f"{parent}.{path.stem}"
+    return path.stem
+
+
+def _looks_like_file_node(node: dict) -> bool:
+    label = str(node.get("label") or "")
+    source_file = str(node.get("source_file") or "")
+    if source_file and label == Path(source_file.replace("\\", "/")).name:
+        return True
+    return bool(label and Path(label).suffix)
+
+
+def _legacy_file_node_id(node: dict) -> str | None:
+    if not _looks_like_file_node(node):
+        return None
+    node_id = _canonical_id(str(node.get("id") or ""))
+    source_file = str(node.get("source_file") or "")
+    label = str(node.get("label") or "")
+    candidates: set[str] = set()
+    if source_file:
+        candidates.add(_normalize_id(source_file))
+    if label:
+        candidates.add(_strip_ext_suffix(node_id))
+    if node_id in candidates or _strip_ext_suffix(node_id) in candidates:
+        stem_source = source_file or label
+        return _normalize_id(_file_stem_from_path(stem_source))
+    return None
 
 
 def _norm_source_file(p: str | None, root: str | None = None) -> str | None:
@@ -132,11 +165,19 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         extraction = dict(extraction, edges=extraction["links"])
 
     # Canonicalize legacy node/edge schema before validation.
+    id_remap: dict[str, str] = {}
     for node in extraction.get("nodes", []):
         if not isinstance(node, dict):
             continue
+        original_id = str(node.get("id") or "")
         if node.get("id") not in (None, ""):
             node["id"] = _canonical_id(str(node["id"]))
+        file_node_id = _legacy_file_node_id(node)
+        if file_node_id and file_node_id != node.get("id"):
+            id_remap[node["id"]] = file_node_id
+            if original_id:
+                id_remap[_canonical_id(original_id)] = file_node_id
+            node["id"] = file_node_id
         if "source" in node and "source_file" not in node:
             # Count edges that reference this node so the warning is actionable (#479)
             node_id = node.get("id", "?")
@@ -160,19 +201,6 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         ft = node.get("file_type", "")
         if ft and ft not in {"code", "document", "paper", "image", "rationale", "concept"}:
             node["file_type"] = _FILE_TYPE_SYNONYMS.get(ft, "concept")
-        # Strip legacy extension suffix from file-level node IDs (e.g. script_pipeline_step_py
-        # → script_pipeline_step) so old cached graphs merge with new AST extractions (#952).
-        if "id" in node:
-            node["id"] = _strip_ext_suffix(node["id"])
-
-    for edge in extraction.get("edges", []):
-        if not isinstance(edge, dict):
-            continue
-        if "source" in edge:
-            edge["source"] = _strip_ext_suffix(edge["source"])
-        if "target" in edge:
-            edge["target"] = _strip_ext_suffix(edge["target"])
-
     for edge in extraction.get("edges", []):
         if not isinstance(edge, dict):
             continue
@@ -182,8 +210,10 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
             edge["target"] = edge["to"]
         if edge.get("source") not in (None, ""):
             edge["source"] = _canonical_id(str(edge["source"]))
+            edge["source"] = id_remap.get(edge["source"], edge["source"])
         if edge.get("target") not in (None, ""):
             edge["target"] = _canonical_id(str(edge["target"]))
+            edge["target"] = id_remap.get(edge["target"], edge["target"])
 
     errors = validate_extraction(extraction)
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
