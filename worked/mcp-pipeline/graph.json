@@ -1,0 +1,1585 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "mcp.json",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_config_file"
+      },
+      "id": "mcp_json",
+      "community": 1,
+      "norm_label": "mcp.json"
+    },
+    {
+      "label": "filesystem",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_filesystem",
+      "community": 5,
+      "norm_label": "filesystem"
+    },
+    {
+      "label": "npx",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_command"
+      },
+      "id": "mcp_command_npx",
+      "community": 6,
+      "norm_label": "npx"
+    },
+    {
+      "label": "@modelcontextprotocol/server-filesystem",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_filesystem",
+      "community": 5,
+      "norm_label": "@modelcontextprotocol/server-filesystem"
+    },
+    {
+      "label": "FILESYSTEM_ROOT",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_filesystem_root",
+      "community": 5,
+      "norm_label": "filesystem_root"
+    },
+    {
+      "label": "github",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_github",
+      "community": 3,
+      "norm_label": "github"
+    },
+    {
+      "label": "@modelcontextprotocol/server-github",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_github",
+      "community": 3,
+      "norm_label": "@modelcontextprotocol/server-github"
+    },
+    {
+      "label": "GITHUB_PERSONAL_ACCESS_TOKEN",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_github_personal_access_token",
+      "community": 3,
+      "norm_label": "github_personal_access_token"
+    },
+    {
+      "label": "postgres",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_postgres",
+      "community": 11,
+      "norm_label": "postgres"
+    },
+    {
+      "label": "@modelcontextprotocol/server-postgres",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_postgres",
+      "community": 11,
+      "norm_label": "@modelcontextprotocol/server-postgres"
+    },
+    {
+      "label": "puppeteer",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_puppeteer",
+      "community": 12,
+      "norm_label": "puppeteer"
+    },
+    {
+      "label": "@modelcontextprotocol/server-puppeteer",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_puppeteer",
+      "community": 12,
+      "norm_label": "@modelcontextprotocol/server-puppeteer"
+    },
+    {
+      "label": "brave-search",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_brave_search",
+      "community": 7,
+      "norm_label": "brave-search"
+    },
+    {
+      "label": "@modelcontextprotocol/server-brave-search",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_brave_search",
+      "community": 7,
+      "norm_label": "@modelcontextprotocol/server-brave-search"
+    },
+    {
+      "label": "BRAVE_API_KEY",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_brave_api_key",
+      "community": 7,
+      "norm_label": "brave_api_key"
+    },
+    {
+      "label": "google-maps",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_google_maps",
+      "community": 8,
+      "norm_label": "google-maps"
+    },
+    {
+      "label": "@modelcontextprotocol/server-google-maps",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_google_maps",
+      "community": 8,
+      "norm_label": "@modelcontextprotocol/server-google-maps"
+    },
+    {
+      "label": "GOOGLE_MAPS_API_KEY",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_google_maps_api_key",
+      "community": 8,
+      "norm_label": "google_maps_api_key"
+    },
+    {
+      "label": "slack",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_slack",
+      "community": 2,
+      "norm_label": "slack"
+    },
+    {
+      "label": "@modelcontextprotocol/server-slack",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_slack",
+      "community": 2,
+      "norm_label": "@modelcontextprotocol/server-slack"
+    },
+    {
+      "label": "SLACK_BOT_TOKEN",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_slack_bot_token",
+      "community": 2,
+      "norm_label": "slack_bot_token"
+    },
+    {
+      "label": "SLACK_TEAM_ID",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_slack_team_id",
+      "community": 2,
+      "norm_label": "slack_team_id"
+    },
+    {
+      "label": "mcp-text-editor",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_mcp_text_editor",
+      "community": 0,
+      "norm_label": "mcp-text-editor"
+    },
+    {
+      "label": "uvx",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_command"
+      },
+      "id": "mcp_command_uvx",
+      "community": 0,
+      "norm_label": "uvx"
+    },
+    {
+      "label": "mcp-text-editor",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_text_editor",
+      "community": 0,
+      "norm_label": "mcp-text-editor"
+    },
+    {
+      "label": "memory",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_memory",
+      "community": 6,
+      "norm_label": "memory"
+    },
+    {
+      "label": "@modelcontextprotocol/server-memory",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_memory",
+      "community": 6,
+      "norm_label": "@modelcontextprotocol/server-memory"
+    },
+    {
+      "label": "sequential-thinking",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_sequential_thinking",
+      "community": 14,
+      "norm_label": "sequential-thinking"
+    },
+    {
+      "label": "@modelcontextprotocol/server-sequential-thinking",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_sequential_thinking",
+      "community": 14,
+      "norm_label": "@modelcontextprotocol/server-sequential-thinking"
+    },
+    {
+      "label": "everything-search",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_everything_search",
+      "community": 0,
+      "norm_label": "everything-search"
+    },
+    {
+      "label": "mcp-server-everything-search",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_server_everything_search",
+      "community": 0,
+      "norm_label": "mcp-server-everything-search"
+    },
+    {
+      "label": "EVERYTHING_SDK_PATH",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_everything_sdk_path",
+      "community": 0,
+      "norm_label": "everything_sdk_path"
+    },
+    {
+      "label": "docker-mcp",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_docker_mcp",
+      "community": 0,
+      "norm_label": "docker-mcp"
+    },
+    {
+      "label": "docker-mcp",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_docker_mcp",
+      "community": 0,
+      "norm_label": "docker-mcp"
+    },
+    {
+      "label": "mcp-pandoc",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_mcp_pandoc",
+      "community": 0,
+      "norm_label": "mcp-pandoc"
+    },
+    {
+      "label": "mcp-pandoc",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_pandoc",
+      "community": 0,
+      "norm_label": "mcp-pandoc"
+    },
+    {
+      "label": "redis",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_redis",
+      "community": 13,
+      "norm_label": "redis"
+    },
+    {
+      "label": "@modelcontextprotocol/server-redis",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_modelcontextprotocol_server_redis",
+      "community": 13,
+      "norm_label": "@modelcontextprotocol/server-redis"
+    },
+    {
+      "label": "neo4j",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_neo4j",
+      "community": 1,
+      "norm_label": "neo4j"
+    },
+    {
+      "label": "mcp-neo4j-cypher",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_neo4j_cypher",
+      "community": 1,
+      "norm_label": "mcp-neo4j-cypher"
+    },
+    {
+      "label": "mcp-logic",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_mcp_logic",
+      "community": 1,
+      "norm_label": "mcp-logic"
+    },
+    {
+      "label": "mcp-logic",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_logic",
+      "community": 1,
+      "norm_label": "mcp-logic"
+    },
+    {
+      "label": "mcp-solver",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_mcp_solver",
+      "community": 1,
+      "norm_label": "mcp-solver"
+    },
+    {
+      "label": "mcp-solver",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_solver",
+      "community": 1,
+      "norm_label": "mcp-solver"
+    },
+    {
+      "label": "mcp-taskmanager",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_mcp_taskmanager",
+      "community": 1,
+      "norm_label": "mcp-taskmanager"
+    },
+    {
+      "label": "@kazuph/mcp-taskmanager",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_kazuph_mcp_taskmanager",
+      "community": 1,
+      "norm_label": "@kazuph/mcp-taskmanager"
+    },
+    {
+      "label": "cdk-mcp",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_cdk_mcp",
+      "community": 0,
+      "norm_label": "cdk-mcp"
+    },
+    {
+      "label": "AWS_PROFILE",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_aws_profile",
+      "community": 0,
+      "norm_label": "aws_profile"
+    },
+    {
+      "label": "AWS_REGION",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_aws_region",
+      "community": 0,
+      "norm_label": "aws_region"
+    },
+    {
+      "label": "cost-analysis",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_cost_analysis",
+      "community": 0,
+      "norm_label": "cost-analysis"
+    },
+    {
+      "label": "mongodb",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_mongodb",
+      "community": 4,
+      "norm_label": "mongodb"
+    },
+    {
+      "label": "mongodb-mcp-server",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mongodb_mcp_server",
+      "community": 4,
+      "norm_label": "mongodb-mcp-server"
+    },
+    {
+      "label": "MONGODB_CONNECTION_STRING",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "env_var"
+      },
+      "id": "env_var_mongodb_connection_string",
+      "community": 4,
+      "norm_label": "mongodb_connection_string"
+    },
+    {
+      "label": "fetch",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_fetch",
+      "community": 1,
+      "norm_label": "fetch"
+    },
+    {
+      "label": "mcp-server-fetch",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_server_fetch",
+      "community": 1,
+      "norm_label": "mcp-server-fetch"
+    },
+    {
+      "label": "mcp-rtfm",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_mcp_rtfm",
+      "community": 10,
+      "norm_label": "mcp-rtfm"
+    },
+    {
+      "label": "mcp-rtfm",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_rtfm",
+      "community": 10,
+      "norm_label": "mcp-rtfm"
+    },
+    {
+      "label": "time",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_server"
+      },
+      "id": "mcp_pipeline_mcp_mcp_server_time",
+      "community": 9,
+      "norm_label": "time"
+    },
+    {
+      "label": "mcp-server-time",
+      "file_type": "code",
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "metadata": {
+        "mcp_kind": "mcp_package"
+      },
+      "id": "mcp_package_mcp_server_time",
+      "community": 9,
+      "norm_label": "mcp-server-time"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_filesystem"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_github"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_postgres"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_puppeteer"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_brave_search"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_google_maps"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_slack"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_mcp_text_editor"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_memory"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_sequential_thinking"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_everything_search"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_docker_mcp"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_mcp_pandoc"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_redis"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_neo4j"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_mcp_logic"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_mcp_solver"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_mcp_taskmanager"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_cdk_mcp"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_cost_analysis"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_mongodb"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_fetch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_mcp_rtfm"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_json",
+      "target": "mcp_pipeline_mcp_mcp_server_time"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_filesystem",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_filesystem",
+      "target": "mcp_package_modelcontextprotocol_server_filesystem"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_filesystem",
+      "target": "env_var_filesystem_root"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_github",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_postgres",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_puppeteer",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_brave_search",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_google_maps",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_slack",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_memory",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_sequential_thinking",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_redis",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_taskmanager",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_mongodb",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_rtfm",
+      "target": "mcp_command_npx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_github",
+      "target": "mcp_package_modelcontextprotocol_server_github"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_github",
+      "target": "env_var_github_personal_access_token"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_postgres",
+      "target": "mcp_package_modelcontextprotocol_server_postgres"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_puppeteer",
+      "target": "mcp_package_modelcontextprotocol_server_puppeteer"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_brave_search",
+      "target": "mcp_package_modelcontextprotocol_server_brave_search"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_brave_search",
+      "target": "env_var_brave_api_key"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_google_maps",
+      "target": "mcp_package_modelcontextprotocol_server_google_maps"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_google_maps",
+      "target": "env_var_google_maps_api_key"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_slack",
+      "target": "mcp_package_modelcontextprotocol_server_slack"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_slack",
+      "target": "env_var_slack_bot_token"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_slack",
+      "target": "env_var_slack_team_id"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_text_editor",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_text_editor",
+      "target": "mcp_package_mcp_text_editor"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_everything_search",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_docker_mcp",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_pandoc",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_neo4j",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_logic",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_solver",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_cdk_mcp",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_cost_analysis",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_fetch",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "command",
+      "source": "mcp_pipeline_mcp_mcp_server_time",
+      "target": "mcp_command_uvx"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_memory",
+      "target": "mcp_package_modelcontextprotocol_server_memory"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_sequential_thinking",
+      "target": "mcp_package_modelcontextprotocol_server_sequential_thinking"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_everything_search",
+      "target": "mcp_package_mcp_server_everything_search"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_everything_search",
+      "target": "env_var_everything_sdk_path"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_docker_mcp",
+      "target": "mcp_package_docker_mcp"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_pandoc",
+      "target": "mcp_package_mcp_pandoc"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_redis",
+      "target": "mcp_package_modelcontextprotocol_server_redis"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_neo4j",
+      "target": "mcp_package_mcp_neo4j_cypher"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_logic",
+      "target": "mcp_package_mcp_logic"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_solver",
+      "target": "mcp_package_mcp_solver"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_taskmanager",
+      "target": "mcp_package_kazuph_mcp_taskmanager"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_cdk_mcp",
+      "target": "env_var_aws_profile"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_cdk_mcp",
+      "target": "env_var_aws_region"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_cost_analysis",
+      "target": "env_var_aws_profile"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_cost_analysis",
+      "target": "env_var_aws_region"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_mongodb",
+      "target": "mcp_package_mongodb_mcp_server"
+    },
+    {
+      "relation": "requires_env",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mcp_pipeline_mcp_mcp_server_mongodb",
+      "target": "env_var_mongodb_connection_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_fetch",
+      "target": "mcp_package_mcp_server_fetch"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_mcp_rtfm",
+      "target": "mcp_package_mcp_rtfm"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "mcp.json",
+      "source_location": "L1",
+      "weight": 1.0,
+      "context": "package",
+      "source": "mcp_pipeline_mcp_mcp_server_time",
+      "target": "mcp_package_mcp_server_time"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "eea5778e3a4dfa6c61177544a1a8ad687a1d091c"
+}
