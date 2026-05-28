@@ -499,19 +499,27 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
             "https://claude.ai/code and run `claude` once to authenticate."
         )
 
+    # Allow overriding the model for the claude-cli backend. claude-cli
+    # defaults to Opus, which is overkill for semantic-extraction work that
+    # is mostly structured JSON output. Set GRAPHIFY_CLAUDE_CLI_MODEL=haiku
+    # (or sonnet, or a full model ID) to cut per-call cost by 50-70%.
+    cli_args = [
+        "claude", "-p",
+        "--output-format", "json",
+        "--no-session-persistence",
+        # Use --system-prompt (replaces) instead of --append-system-prompt
+        # (adds to Claude Code's default coding-agent prompt). The default
+        # prompt pushes the model towards markdown + prose explanations,
+        # which conflict with graphify's "raw JSON only" instruction and
+        # cause hollow-response retries. Replacing it eliminates the
+        # conflict and dramatically reduces output token usage.
+        "--system-prompt", _extraction_system(deep=deep_mode),
+    ]
+    cli_model = os.environ.get("GRAPHIFY_CLAUDE_CLI_MODEL", "").strip()
+    if cli_model:
+        cli_args.extend(["--model", cli_model])
     proc = subprocess.run(
-        [
-            "claude", "-p",
-            "--output-format", "json",
-            "--no-session-persistence",
-            # Use --system-prompt (replaces) instead of --append-system-prompt
-            # (adds to Claude Code's default coding-agent prompt). The default
-            # prompt pushes the model towards markdown + prose explanations,
-            # which conflict with graphify's "raw JSON only" instruction and
-            # cause hollow-response retries. Replacing it eliminates the
-            # conflict and dramatically reduces output token usage.
-            "--system-prompt", _extraction_system(deep=deep_mode),
-        ],
+        cli_args,
         input=user_message,
         capture_output=True,
         text=True,
