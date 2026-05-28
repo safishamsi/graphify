@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 import math
+import re
 import sys
 from pathlib import Path
 import networkx as nx
@@ -56,6 +57,11 @@ def _strip_diacritics(text: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
+def _search_tokens(text: str) -> list[str]:
+    """Split text into word tokens, stripping punctuation and diacritics."""
+    return re.findall(r"\w+", _strip_diacritics(str(text)).lower())
+
+
 def _has_chinese(text: str) -> bool:
     return any("一" <= ch <= "鿿" for ch in text)
 
@@ -82,14 +88,16 @@ def _query_terms(question: str) -> list[str]:
     """Split a query into searchable terms, segmenting Chinese text."""
     terms: list[str] = []
     for raw in question.split():
-        term = raw.lower().strip()
-        if not term:
-            continue
-        candidates = _segment_chinese(term) if _has_chinese(term) else [term]
-        for seg in candidates:
-            seg = seg.strip()
-            if seg and _is_searchable(seg):
-                terms.append(seg)
+        if _has_chinese(raw):
+            for seg in _segment_chinese(raw.lower().strip()):
+                seg = seg.strip()
+                if seg and _is_searchable(seg):
+                    terms.append(seg)
+        else:
+            # Strip punctuation without touching Unicode characters (avoid NFKD mangling non-Latin scripts)
+            for tok in re.findall(r"\w+", raw.lower()):
+                if _is_searchable(tok):
+                    terms.append(tok)
     return terms
 
 
@@ -126,7 +134,7 @@ def _compute_idf(G: nx.Graph, terms: list[str]) -> dict[str, float]:
 
 def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple[float, str]]:
     scored = []
-    norm_terms = [_strip_diacritics(t).lower() for t in terms]
+    norm_terms = [tok for t in terms for tok in _search_tokens(t)]
     idf = _compute_idf(G, norm_terms)
     for nid, data in G.nodes(data=True):
         norm_label = data.get("norm_label") or _strip_diacritics(data.get("label") or "").lower()
@@ -415,7 +423,9 @@ def _find_node(G: nx.Graph, label: str) -> list[str]:
     Results are ordered by three-tier precedence: exact match, then prefix match,
     then substring match. Node-ID exact matches are grouped with label exact matches.
     """
-    term = _strip_diacritics(label).lower()
+    term = " ".join(_search_tokens(label))
+    if not term:
+        return []
     exact: list[str] = []
     prefix: list[str] = []
     substring: list[str] = []

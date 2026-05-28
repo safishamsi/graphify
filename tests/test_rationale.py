@@ -7,6 +7,7 @@ import textwrap
 from pathlib import Path
 import pytest
 from graphify.extract import extract_python
+from graphify.build import build_from_json
 
 
 def _write_py(tmp_path: Path, code: str) -> Path:
@@ -181,3 +182,74 @@ def test_generated_file_module_docstring_suppressed(tmp_path):
     result = extract_python(path)
     nodes = _nodes_with_rationale(result)
     assert not any("protocol buffer" in n["rationale"].lower() for n in nodes)
+
+
+def test_decorated_method_node_id_is_class_qualified(tmp_path):
+    """Regression for #1050: @property / @staticmethod / @classmethod methods
+    were emitted with a class-unqualified node id (e.g. ``file_baz``). The
+    rationale walker uses class-qualified ids, so the docstring rationale must
+    land on the same method node id.
+    """
+    path = _write_py(tmp_path, '''
+        class Bar:
+            @property
+            def baz(self) -> int:
+                """Return the baz value because callers expect a cached integer."""
+                return 1
+
+            @staticmethod
+            def helper() -> int:
+                """A static helper documented for downstream callers."""
+                return 2
+
+            @classmethod
+            def factory(cls) -> "Bar":
+                """Construct a Bar via the canonical classmethod entry point."""
+                return cls()
+
+            def normal(self) -> int:
+                """A normal instance method documented for comparison."""
+                return 3
+    ''')
+    result = extract_python(path)
+    nodes_by_id = {n["id"]: n for n in result["nodes"]}
+
+    # The plain method's id is the baseline: stem + class + name.
+    normal_ids = [nid for nid, n in nodes_by_id.items()
+                  if n.get("label") == ".normal()"]
+    assert len(normal_ids) == 1, "expected exactly one ``.normal()`` method node"
+    normal_id = normal_ids[0]
+    assert normal_id.endswith("_bar_normal"), normal_id
+
+    # Each decorated method must share the same class-qualified id shape so the
+    # extracted rationale lands on the actual method node.
+    for decorated_name in ("baz", "helper", "factory"):
+        matches = [nid for nid, n in nodes_by_id.items()
+                   if n.get("label") == f".{decorated_name}()"]
+        assert len(matches) == 1, (
+            f"expected exactly one ``.{decorated_name}()`` method node, got {matches}"
+        )
+        method_id = matches[0]
+        assert method_id.endswith(f"_bar_{decorated_name}"), method_id
+        # Unqualified id (the buggy form) must NOT also be present.
+        unqualified_buggy_id = method_id.replace(f"_bar_{decorated_name}",
+                                                  f"_{decorated_name}")
+        assert unqualified_buggy_id not in nodes_by_id, (
+            f"buggy unqualified id {unqualified_buggy_id} should not exist alongside "
+            f"the class-qualified id"
+        )
+
+    # Rationale is stored directly on method nodes, not as rationale_for edges.
+    g = build_from_json(result)
+    for decorated_name in ("baz", "helper", "factory", "normal"):
+        method_id = next(
+            nid for nid, n in nodes_by_id.items()
+            if n.get("label") == f".{decorated_name}()"
+        )
+        assert nodes_by_id[method_id].get("rationale"), (
+            f"method node for ``.{decorated_name}()`` is missing docstring rationale"
+        )
+        assert method_id in g.nodes, f"method node {method_id} missing from graph"
+        assert g.nodes[method_id].get("rationale"), (
+            f"method node {method_id} lost rationale after build_from_json"
+        )

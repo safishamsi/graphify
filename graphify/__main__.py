@@ -77,6 +77,11 @@ def _platform_skill_destination(platform_name: str, *, project: bool = False, pr
             return Path.home() / ".agents" / "skills" / "graphify" / "SKILL.md"
         return Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
 
+    if platform_name == "opencode":
+        if project:
+            return (project_dir or Path(".")) / ".opencode" / "skills" / "graphify" / "SKILL.md"
+        return Path.home() / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md"
+
     if platform_name == "devin":
         if project:
             return (project_dir or Path(".")) / ".devin" / "skills" / "graphify" / "SKILL.md"
@@ -287,6 +292,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
     "kimi": {
         "skill_file": "skill.md",
         "skill_dst": Path(".kimi") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
+    "amp": {
+        "skill_file": "skill-amp.md",
+        "skill_dst": Path(".amp") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
     "devin": {
@@ -1120,7 +1130,7 @@ def _project_install(platform_name: str, project_dir: Path | None = None) -> Non
     elif platform_name == "kiro":
         _kiro_install(project_dir)
         _print_project_git_add_hint([project_dir / ".kiro"])
-    elif platform_name in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
+    elif platform_name in ("aider", "amp", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         skill_dst = _copy_skill_file(platform_name, project=True, project_dir=project_dir)
         _agents_install(project_dir, platform_name)
         hint_paths = [_project_scope_root(skill_dst, project_dir), project_dir / "AGENTS.md"]
@@ -1153,7 +1163,7 @@ def _project_uninstall(platform_name: str, project_dir: Path | None = None) -> N
         _cursor_uninstall(project_dir)
     elif platform_name == "kiro":
         _kiro_uninstall(project_dir)
-    elif platform_name in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
+    elif platform_name in ("aider", "amp", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         _remove_skill_file(platform_name, project=True, project_dir=project_dir)
         _agents_uninstall(project_dir, platform=platform_name)
         if platform_name == "codex":
@@ -1485,6 +1495,7 @@ def main() -> None:
         print("  extract <path>          headless full extraction (AST + semantic LLM) for CI/scripts")
         print("    --backend B             gemini|kimi|claude|openai|deepseek|ollama (default: whichever API key is set)")
         print("    --model M               override backend default model")
+        print("    --mode deep             aggressive INFERRED-edge semantic extraction")
         print("    --max-workers N         AST extraction subprocess count (default: cpu_count)")
         print("    --token-budget N        per-chunk token cap for semantic extraction (default: 60000)")
         print("    --max-concurrency N     parallel semantic chunks in flight (default: 4; set 1 for local LLMs)")
@@ -1729,7 +1740,7 @@ def main() -> None:
         else:
             print("Usage: graphify pi [install|uninstall]", file=sys.stderr)
             sys.exit(1)
-    elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
+    elif cmd in ("aider", "amp", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
             if "--project" in sys.argv[3:]:
@@ -2889,7 +2900,7 @@ def main() -> None:
         if len(sys.argv) < 3:
             print(
                 "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama] "
-                "[--model M] [--out DIR] [--google-workspace] [--no-cluster] "
+                "[--model M] [--mode deep] [--out DIR] [--google-workspace] [--no-cluster] "
                 "[--max-workers N] [--token-budget N] [--max-concurrency N] "
                 "[--api-timeout S]",
                 file=sys.stderr,
@@ -2903,6 +2914,7 @@ def main() -> None:
 
         backend: str | None = None
         model: str | None = None
+        extract_mode: str | None = None
         out_dir: Path | None = None
         no_cluster = False
         dedup_llm = False
@@ -2953,6 +2965,10 @@ def main() -> None:
                 model = args[i + 1]; i += 2
             elif a.startswith("--model="):
                 model = a.split("=", 1)[1]; i += 1
+            elif a == "--mode" and i + 1 < len(args):
+                extract_mode = args[i + 1]; i += 2
+            elif a.startswith("--mode="):
+                extract_mode = a.split("=", 1)[1]; i += 1
             elif a == "--out" and i + 1 < len(args):
                 out_dir = Path(args[i + 1]); i += 2
             elif a.startswith("--out="):
@@ -2997,6 +3013,18 @@ def main() -> None:
                 cli_excludes.append(a.split("=", 1)[1]); i += 1
             else:
                 i += 1
+
+        _VALID_MODES = {"deep"}
+        if extract_mode is not None and extract_mode not in _VALID_MODES:
+            print(
+                f"error: unknown --mode '{extract_mode}'. "
+                f"Available: {', '.join(sorted(_VALID_MODES))}",
+                file=sys.stderr,
+            )
+            sys.exit(2)
+        deep_mode = extract_mode == "deep"
+        if deep_mode:
+            print("[graphify extract] deep mode enabled: richer semantic extraction")
 
         # CLI flag wins over env var. Setting GRAPHIFY_API_TIMEOUT here so
         # _call_openai_compat picks it up without needing a new kwarg path.
@@ -3184,6 +3212,8 @@ def main() -> None:
                     "model": model,
                     "root": target,
                 }
+                if deep_mode:
+                    corpus_kwargs["deep_mode"] = True
                 if cli_token_budget is not None:
                     corpus_kwargs["token_budget"] = cli_token_budget
                 if cli_max_concurrency is not None:

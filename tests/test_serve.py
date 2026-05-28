@@ -11,6 +11,7 @@ from graphify.serve import (
     _pick_seeds,
     _bfs,
     _dfs,
+    _find_node,
     _filter_graph_by_context,
     _infer_context_filters,
     _query_terms,
@@ -78,6 +79,21 @@ def test_score_nodes_source_file_partial():
     scored = _score_nodes(G, ["cluster"])
     nids = [nid for _, nid in scored]
     assert "n2" in nids
+
+
+def test_score_nodes_ignores_trailing_punctuation():
+    G = _make_graph()
+    scored = _score_nodes(G, ["extract?"])
+    assert scored[0][1] == "n1"
+
+
+def test_find_node_ignores_trailing_punctuation():
+    G = _make_graph()
+    assert _find_node(G, "extract?") == ["n1"]
+
+
+def test_query_terms_strips_search_punctuation():
+    assert _query_terms("what calls extract?") == ["what", "calls", "extract"]
 
 
 def test_query_terms_filters_only_short_english_terms(monkeypatch):

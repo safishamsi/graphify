@@ -7,6 +7,7 @@ from graphify.extract import (
     extract_csharp, extract_kotlin, extract_scala, extract_php,
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
     extract_groovy, extract_sln, extract_csproj, extract_razor,
+    extract_dm, extract_dmi, extract_dmm, extract_dmf,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -1058,6 +1059,168 @@ def test_groovy_spock_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids
+
+
+# ── DM (BYOND DreamMaker) ────────────────────────────────────────────────────
+
+def test_dm_no_error():
+    r = extract_dm(FIXTURES / "sample.dm")
+    assert "error" not in r
+
+def test_dm_finds_global_proc():
+    r = extract_dm(FIXTURES / "sample.dm")
+    labels = _labels(r)
+    assert any(l == "log_event()" for l in labels)
+    assert any(l == "RunTest()" for l in labels)
+
+def test_dm_finds_type_definition():
+    r = extract_dm(FIXTURES / "sample.dm")
+    labels = _labels(r)
+    assert "/datum/weapon" in labels
+    assert "/datum/weapon/sword" in labels
+
+def test_dm_qualifies_proc_with_type_path():
+    r = extract_dm(FIXTURES / "sample.dm")
+    labels = _labels(r)
+    assert "/datum/weapon/attack()" in labels
+    assert "/datum/weapon/sword/attack()" in labels
+
+def test_dm_finds_path_form_proc_definition():
+    r = extract_dm(FIXTURES / "sample.dm")
+    assert "/datum/weapon/sword/sharpen()" in _labels(r)
+
+def test_dm_emits_include_edge():
+    r = extract_dm(FIXTURES / "sample.dm")
+    import_edges = _edges_with_relation(r, "imports", "imports_from")
+    assert import_edges
+    assert all(e.get("context") == "import" for e in import_edges)
+
+def test_dm_unresolved_include_flagged_external():
+    r = extract_dm(FIXTURES / "sample.dm")
+    import_edges = _edges_with_relation(r, "imports", "imports_from")
+    helpers = [e for e in import_edges if "helpers" in e["target"]]
+    assert helpers
+    assert all(e.get("external") is True for e in helpers)
+
+def test_dm_resolves_in_file_calls():
+    r = extract_dm(FIXTURES / "sample.dm")
+    calls = _calls(r)
+    assert any(callee == "log_event()" for _, callee in calls)
+    assert ("/datum/weapon/sword/attack()", "/datum/weapon/sword/sharpen()") in calls
+
+def test_dm_ambiguous_member_call_left_unresolved():
+    r = extract_dm(FIXTURES / "sample.dm")
+    calls = _calls(r)
+    runtest_to_attack = [c for s, c in calls
+                         if s == "RunTest()" and "attack" in c]
+    assert not runtest_to_attack
+    assert any(rc["callee"] == "attack" for rc in r.get("raw_calls", []))
+
+def test_dm_emits_new_as_instantiates():
+    r = extract_dm(FIXTURES / "sample.dm")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    inst = [(node_by_id.get(e["source"]), node_by_id.get(e["target"]))
+            for e in r["edges"] if e["relation"] == "instantiates"]
+    assert ("RunTest()", "/datum/weapon/sword") in inst
+
+def test_dm_call_edges_have_call_context():
+    r = extract_dm(FIXTURES / "sample.dm")
+    call_edges = _edges_with_relation(r, "calls", "instantiates")
+    assert call_edges
+    assert all(e.get("context") == "call" for e in call_edges)
+
+def test_dm_no_dangling_edges():
+    r = extract_dm(FIXTURES / "sample.dm")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids
+
+def test_dm_super_call_not_emitted():
+    r = extract_dm(FIXTURES / "sample.dm")
+    calls = _calls(r)
+    assert not any(callee.strip("()") == ".." for _, callee in calls)
+    assert not any(rc["callee"] == ".." for rc in r.get("raw_calls", []))
+
+
+# ── DMI (BYOND icon sheets) ──────────────────────────────────────────────────
+
+def test_dmi_no_error():
+    r = extract_dmi(FIXTURES / "sample.dmi")
+    assert "error" not in r
+
+def test_dmi_emits_state_nodes():
+    r = extract_dmi(FIXTURES / "sample.dmi")
+    labels = _labels(r)
+    assert any(l == '"mob"' for l in labels)
+
+def test_dmi_state_contained_by_file():
+    r = extract_dmi(FIXTURES / "sample.dmi")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    contains = [(node_by_id.get(e["source"]), node_by_id.get(e["target"]))
+                for e in r["edges"] if e["relation"] == "contains"]
+    assert ("sample.dmi", '"mob"') in contains
+
+
+# ── DMM (BYOND map files) ────────────────────────────────────────────────────
+
+def test_dmm_no_error():
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    assert "error" not in r
+
+def test_dmm_extracts_type_paths_as_uses_edges():
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    assert "turf_closed_wall" in targets
+    assert "obj_structure_table" in targets
+    assert "obj_item_weapon_sword" in targets
+
+def test_dmm_strips_var_overrides():
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    assert not any("{" in t for t in targets)
+    assert "obj_item_weapon_sword" in targets
+
+def test_dmm_handles_multiline_tile_definition():
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    assert "area_station_maintenance" in targets
+
+def test_dmm_skips_grid_section():
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    assert len(targets) == 5
+
+
+# ── DMF (BYOND interface forms) ──────────────────────────────────────────────
+
+def test_dmf_no_error():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    assert "error" not in r
+
+def test_dmf_extracts_windows():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    labels = _labels(r)
+    assert 'window "mapwindow"' in labels
+    assert 'window "infowindow"' in labels
+
+def test_dmf_elem_labels_carry_control_type():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    labels = _labels(r)
+    assert 'elem "map" [MAP]' in labels
+
+def test_dmf_elem_under_window():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    contains = [(node_by_id.get(e["source"]), node_by_id.get(e["target"]))
+                for e in r["edges"] if e["relation"] == "contains"]
+    assert ('window "mapwindow"', 'elem "map" [MAP]') in contains
+
+def test_dmf_no_dangling_edges():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids
+        assert e["target"] in node_ids
 
 
 # -- .NET project files (.sln, .csproj, .razor) -------------------------------
