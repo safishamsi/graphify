@@ -978,7 +978,7 @@ def test_ts_static_template_literal_resolved():
 
 # ── Markdown ─────────────────────────────────────────────────────────────────
 
-from graphify.extract import extract_markdown
+from graphify.extract import extract_markdown, _resolve_markdown_link, _resolve_markdown_wikilink
 
 def test_markdown_no_error():
     r = extract_markdown(FIXTURES / "deploy_guide.md")
@@ -1017,6 +1017,48 @@ def test_markdown_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"Dangling source: {e}"
+
+
+def test_markdown_links_to_edges():
+    r = extract_markdown(FIXTURES / "test_links.md")
+    links = [e for e in r["edges"] if e["relation"] == "links_to"]
+    assert len(links) >= 3  # normal link, wikilink, pipe wikilink, title link
+
+def test_markdown_skips_image_links():
+    r = extract_markdown(FIXTURES / "test_links.md")
+    contexts = [e.get("context", "") for e in r["edges"] if e["relation"] == "links_to"]
+    assert not any("Image" in c for c in contexts)
+
+def test_markdown_skips_external_urls():
+    r = extract_markdown(FIXTURES / "test_links.md")
+    links = [e for e in r["edges"] if e["relation"] == "links_to"]
+    assert not any("github" in e.get("target", "").lower() for e in links)
+
+def test_markdown_skips_code_block_links():
+    r = extract_markdown(FIXTURES / "test_links.md")
+    contexts = [e.get("context", "") for e in r["edges"] if e["relation"] == "links_to"]
+    assert not any("Hidden" in c for c in contexts)
+
+def test_markdown_wikilink_pipe_syntax():
+    r = extract_markdown(FIXTURES / "test_links.md")
+    contexts = [e.get("context", "") for e in r["edges"] if e["relation"] == "links_to"]
+    assert any("sample" in c.lower() for c in contexts)
+
+def test_resolve_markdown_link_title():
+    result = _resolve_markdown_link('sample.md "Click to view"', FIXTURES / "test_links.md")
+    assert result is not None
+    assert result.name == "sample.md"
+
+def test_resolve_markdown_link_external():
+    assert _resolve_markdown_link("https://example.com", FIXTURES) is None
+    assert _resolve_markdown_link("http://github.com/graphify", FIXTURES) is None
+    assert _resolve_markdown_link("ftp://files.example.com", FIXTURES) is None
+    assert _resolve_markdown_link("mailto:user@example.com", FIXTURES) is None
+
+def test_resolve_wikilink_pipe():
+    result = _resolve_markdown_wikilink("sample|Click here", FIXTURES / "test_links.md")
+    assert result is not None
+    assert "sample" in str(result).lower()
 
 
 # ── Groovy ───────────────────────────────────────────────────────────────────
