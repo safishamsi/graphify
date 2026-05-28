@@ -103,17 +103,24 @@ def init_db(db_path: str) -> tuple[neug.Database, object]:
     return db, conn
 
 
-def ensure_schema(conn: object) -> None:
-    """Create node/edge tables if not exist. Call once during extract."""
-    for ddl in _NODE_TABLES.values():
-        conn.execute(ddl)
+def ensure_schema(conn: object, *, create_tables: bool = True) -> None:
+    """Populate known table registry; optionally execute DDL.
 
+    create_tables=True  (first build): run CREATE TABLE statements.
+    create_tables=False (incremental): only populate _created_rel_tables set
+                        so _ensure_rel_table() knows what exists.
+    """
     _created_rel_tables.clear()
+
+    if create_tables:
+        for ddl in _NODE_TABLES.values():
+            conn.execute(ddl)
 
     for (src, tgt), rels in _KNOWN_RELATIONS.items():
         for rel in rels:
             tbl = _edge_table_name(src, tgt, rel)
-            conn.execute(_EDGE_DDL_TEMPLATE.format(tbl=tbl, src=src, tgt=tgt))
+            if create_tables:
+                conn.execute(_EDGE_DDL_TEMPLATE.format(tbl=tbl, src=src, tgt=tgt))
             _created_rel_tables.add(tbl)
 
 
@@ -182,30 +189,24 @@ def ingest_extraction(
 
         try:
             if incremental:
-                existing = list(conn.execute(
-                    f"MATCH (n:{ft} {{id: '{_cesc(nid)}'}}) RETURN n.id"
-                ))
-                if existing:
-                    props = f"n.label = '{_cesc(label)}', n.source_file = '{_cesc(sf)}'"
-                    if ft == "code":
-                        props += f", n.source_location = '{_cesc(sl)}'"
+                if ft == "code":
                     conn.execute(
-                        f"MATCH (n:{ft} {{id: '{_cesc(nid)}'}}) SET {props}"
+                        f"MERGE (n:code {{id: '{_cesc(nid)}'}}) "
+                        f"ON CREATE SET n.label = '{_cesc(label)}', "
+                        f"n.source_file = '{_cesc(sf)}', "
+                        f"n.source_location = '{_cesc(sl)}' "
+                        f"ON MATCH SET n.label = '{_cesc(label)}', "
+                        f"n.source_file = '{_cesc(sf)}', "
+                        f"n.source_location = '{_cesc(sl)}'"
                     )
                 else:
-                    if ft == "code":
-                        conn.execute(
-                            f"CREATE (n:code {{id: '{_cesc(nid)}', "
-                            f"label: '{_cesc(label)}', "
-                            f"source_file: '{_cesc(sf)}', "
-                            f"source_location: '{_cesc(sl)}'}})"
-                        )
-                    else:
-                        conn.execute(
-                            f"CREATE (n:{ft} {{id: '{_cesc(nid)}', "
-                            f"label: '{_cesc(label)}', "
-                            f"source_file: '{_cesc(sf)}'}})"
-                        )
+                    conn.execute(
+                        f"MERGE (n:{ft} {{id: '{_cesc(nid)}'}}) "
+                        f"ON CREATE SET n.label = '{_cesc(label)}', "
+                        f"n.source_file = '{_cesc(sf)}' "
+                        f"ON MATCH SET n.label = '{_cesc(label)}', "
+                        f"n.source_file = '{_cesc(sf)}'"
+                    )
             else:
                 if ft == "code":
                     conn.execute(
