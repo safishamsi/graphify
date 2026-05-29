@@ -156,6 +156,7 @@ Install only what you need:
 | `video` | Video/audio transcription (faster-whisper + yt-dlp) | `pip install "graphifyy[video]"` |
 | `mcp` | MCP stdio server | `pip install "graphifyy[mcp]"` |
 | `neo4j` | Neo4j push support | `pip install "graphifyy[neo4j]"` |
+| `neug` | [NeuG](https://github.com/alibaba/neug) embedded graph database — Cypher queries on your graph | `pip install "graphifyy[neug]"` |
 | `svg` | SVG graph export | `pip install "graphifyy[svg]"` |
 | `leiden` | Leiden community detection (Python < 3.13 only) | `pip install "graphifyy[leiden]"` |
 | `ollama` | Ollama local inference | `pip install "graphifyy[ollama]"` |
@@ -439,6 +440,9 @@ graphify install  # overwrites the skill file
 /graphify ./raw --graphml          # export for Gephi / yEd
 /graphify ./raw --neo4j            # generate cypher.txt for Neo4j
 /graphify ./raw --neo4j-push bolt://localhost:7687
+
+graphify cypher "MATCH (n) RETURN n LIMIT 10"         # query graph.db with Cypher (requires neug)
+graphify cypher "MATCH (n:code)-[e]->(m) RETURN n.id, e, m.id LIMIT 10" --db path/to/graph.db  # default: graphify-out/graph.db
 /graphify ./raw --watch            # auto-sync as files change
 /graphify ./raw --mcp              # start MCP stdio server
 
