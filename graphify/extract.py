@@ -1276,8 +1276,19 @@ def _iter_lua_requires(path: Path) -> list[tuple[str, int]]:
     return requires
 
 
-def _resolve_lua_module_path(raw: str, source_path: Path, root: Path, path_set: set[Path]) -> Path | None:
-    """Resolve a Lua dotted module path to a file within the extracted corpus."""
+def _resolve_lua_module_path(
+    raw: str,
+    source_path: Path,
+    root: Path,
+    logical_paths: set[Path],
+    resolved_to_logical: dict[Path, Path],
+) -> Path | None:
+    """Resolve a Lua dotted module path to a file within the extracted corpus.
+
+    Returns the logical corpus path, not the fully resolved filesystem path, so
+    file node ids stay aligned with the rest of extraction even when the corpus
+    contains symlinks.
+    """
     raw = raw.strip().strip("'\"` ")
     if not raw:
         return None
@@ -1306,9 +1317,15 @@ def _resolve_lua_module_path(raw: str, source_path: Path, root: Path, path_set: 
             base / module_base / "init.lua",
             base / module_base / "init.luau",
         ):
-            resolved = candidate.resolve()
-            if resolved in path_set:
-                return resolved
+            if candidate in logical_paths:
+                return candidate
+            try:
+                resolved = candidate.resolve()
+            except OSError:
+                continue
+            logical = resolved_to_logical.get(resolved)
+            if logical is not None:
+                return logical
     return None
 
 
@@ -7376,22 +7393,26 @@ def _resolve_cross_file_lua_imports(
     This post-pass looks across the extracted corpus so dotted module names like
     `pkg.mod` can be resolved to actual file nodes such as `pkg/mod.lua`.
     """
-    lua_paths = [p.resolve() for p in paths if p.suffix in {".lua", ".luau"}]
+    lua_paths = [p for p in paths if p.suffix in {".lua", ".luau"}]
     if not lua_paths:
         return []
 
-    path_set = set(lua_paths)
+    logical_paths = set(lua_paths)
+    resolved_to_logical: dict[Path, Path] = {}
+    for path in lua_paths:
+        try:
+            resolved_to_logical.setdefault(path.resolve(), path)
+        except OSError:
+            pass
+
     new_edges: list[dict] = []
     seen: set[tuple[str, str, str]] = set()
 
     for path in lua_paths:
         src_nid = _file_node_id(path, root)
-        try:
-            source_file = str(path.relative_to(root))
-        except ValueError:
-            source_file = str(path)
+        source_file = str(path)
         for raw, line in _iter_lua_requires(path):
-            resolved = _resolve_lua_module_path(raw, path, root, path_set)
+            resolved = _resolve_lua_module_path(raw, path, root, logical_paths, resolved_to_logical)
             if resolved is None:
                 continue
             tgt_nid = _file_node_id(resolved, root)

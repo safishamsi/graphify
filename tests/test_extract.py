@@ -442,11 +442,18 @@ def test_extract_lua_require_emits_file_level_imports_from(tmp_path):
 
     result = extract([caller, callee], cache_root=tmp_path)
     imports_from = [e for e in result["edges"] if e["relation"] == "imports_from"]
+    file_nodes = {
+        n["source_file"]: n["id"]
+        for n in result["nodes"]
+        if n["label"].endswith(".lua")
+    }
 
-    assert any(
-        e["source"] == _make_id("a.lua") and e["target"] == _make_id("pkg/b.lua")
-        for e in imports_from
-    )
+    matched = [
+        e for e in imports_from
+        if e["source"] == file_nodes[str(caller)] and e["target"] == file_nodes[str(callee)]
+    ]
+    assert matched
+    assert matched[0]["source_file"] == str(caller)
 
 
 def test_extract_lua_require_supports_bare_nested_and_chained_forms(tmp_path):
@@ -475,14 +482,56 @@ def test_extract_lua_require_supports_bare_nested_and_chained_forms(tmp_path):
         for e in result["edges"]
         if e["relation"] == "imports_from"
     }
+    file_nodes = {
+        n["source_file"]: n["id"]
+        for n in result["nodes"]
+        if n["label"].endswith(".lua")
+    }
 
     expected = {
-        (_make_id("main.lua"), _make_id("pkg/assigned.lua")),
-        (_make_id("main.lua"), _make_id("pkg/bare.lua")),
-        (_make_id("main.lua"), _make_id("pkg/nested.lua")),
-        (_make_id("main.lua"), _make_id("pkg/chained.lua")),
+        (file_nodes[str(caller)], file_nodes[str(files["pkg.assigned"])]),
+        (file_nodes[str(caller)], file_nodes[str(files["pkg.bare"])]),
+        (file_nodes[str(caller)], file_nodes[str(files["pkg.nested"])]),
+        (file_nodes[str(caller)], file_nodes[str(files["pkg.chained"])]),
     }
     assert expected.issubset(imports_from)
+
+
+def test_extract_lua_require_uses_logical_symlink_paths_for_file_edges(tmp_path):
+    import sys
+
+    if sys.platform == "win32":
+        return
+
+    real_dir = tmp_path / "real"
+    real_dir.mkdir()
+    pkg_dir = tmp_path / "pkg"
+    pkg_dir.mkdir()
+    linked_dir = tmp_path / "src"
+    linked_dir.mkdir()
+
+    caller = linked_dir / "a.lua"
+    real_caller = real_dir / "a.lua"
+    callee = pkg_dir / "b.lua"
+
+    real_caller.write_text('local b = require("pkg.b")\nreturn b\n', encoding="utf-8")
+    callee.write_text('local M = {}\nreturn M\n', encoding="utf-8")
+    caller.symlink_to(real_caller)
+
+    result = extract([caller, callee], cache_root=tmp_path)
+    imports_from = [e for e in result["edges"] if e["relation"] == "imports_from"]
+    file_nodes = {
+        n["source_file"]: n["id"]
+        for n in result["nodes"]
+        if n["label"].endswith(".lua")
+    }
+
+    assert any(
+        e["source"] == file_nodes[str(caller)]
+        and e["target"] == file_nodes[str(callee)]
+        and e["source_file"] == str(caller)
+        for e in imports_from
+    )
 
 
 def test_cross_file_call_promoted_to_extracted_with_import_evidence(tmp_path):
