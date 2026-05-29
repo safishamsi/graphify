@@ -13,7 +13,13 @@ def _isolate_backend_env(monkeypatch):
     for backend in BACKENDS:
         for env_key in _backend_env_keys(backend):
             monkeypatch.delenv(env_key, raising=False)
-    for extra in ("AWS_PROFILE", "AWS_REGION", "AWS_DEFAULT_REGION", "OLLAMA_BASE_URL", "OLLAMA_API_KEY"):
+    for extra in (
+        "AWS_PROFILE",
+        "AWS_REGION",
+        "AWS_DEFAULT_REGION",
+        "OLLAMA_BASE_URL",
+        "OLLAMA_API_KEY",
+    ):
         monkeypatch.delenv(extra, raising=False)
     yield
 

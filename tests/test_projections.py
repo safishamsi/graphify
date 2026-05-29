@@ -329,9 +329,7 @@ def test_format_relationship_envelope_multiple_within_cap() -> None:
 
 
 def test_format_relationship_envelope_capped() -> None:
-    graph = _multidigraph_with_parallel_relations(
-        ["gamma", "alpha", "epsilon", "beta", "delta"]
-    )
+    graph = _multidigraph_with_parallel_relations(["gamma", "alpha", "epsilon", "beta", "delta"])
 
     # sorted unique relations: alpha, beta, delta, epsilon, gamma -> first 3 shown
     assert (

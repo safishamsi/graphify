@@ -19,7 +19,13 @@ def _clean_env() -> dict:
     for backend in BACKENDS:
         for env_key in _backend_env_keys(backend):
             env.pop(env_key, None)
-    for extra in ("AWS_PROFILE", "AWS_REGION", "AWS_DEFAULT_REGION", "OLLAMA_BASE_URL", "OLLAMA_API_KEY"):
+    for extra in (
+        "AWS_PROFILE",
+        "AWS_REGION",
+        "AWS_DEFAULT_REGION",
+        "OLLAMA_BASE_URL",
+        "OLLAMA_API_KEY",
+    ):
         env.pop(extra, None)
     return env
 

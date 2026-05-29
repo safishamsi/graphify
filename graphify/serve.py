@@ -398,9 +398,7 @@ def _subgraph_to_text(
                 # path/explain surfaces stay consistent.
                 d = env["shown"][0] if env["shown"] else {}
                 context = d.get("context")
-                context_suffix = (
-                    f" context={sanitize_label(str(context))}" if context else ""
-                )
+                context_suffix = f" context={sanitize_label(str(context))}" if context else ""
                 relation = sanitize_label(str(d.get("relation", "")))
                 confidence = sanitize_label(str(d.get("confidence", "")))
                 relation_segment = f"{relation} [{confidence}{context_suffix}]"
@@ -578,8 +576,7 @@ def _shortest_path_text(G: nx.Graph, source: str, target: str, *, max_hops: int 
             top, runner = scored[0][0], scored[1][0]
             if top > 0 and (top - runner) / top < 0.10:
                 warnings.append(
-                    f"warning: {name} match was ambiguous "
-                    f"(top score {top:g}, runner-up {runner:g})"
+                    f"warning: {name} match was ambiguous (top score {top:g}, runner-up {runner:g})"
                 )
     try:
         # Use undirected view for path-finding (works regardless of query src/tgt order)

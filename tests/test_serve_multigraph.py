@@ -25,9 +25,7 @@ from graphify.serve import (
 _CAPPED_MARKER = re.compile(r"\(\+\d+ more, \d+ total\)")
 
 
-def _multidigraph_hop(
-    relations: list[str], *, confidence: str = "EXTRACTED"
-) -> nx.MultiDiGraph:
+def _multidigraph_hop(relations: list[str], *, confidence: str = "EXTRACTED") -> nx.MultiDiGraph:
     """Build A(Alpha) -> B(Beta) with one parallel edge per supplied relation."""
     graph = nx.MultiDiGraph()
     graph.add_node("a", label="Alpha", source_file="a.py", source_location="L1", community=0)
@@ -193,9 +191,7 @@ def test_get_neighbors_single_relation_format_pinned():
     graph2.add_node("b", label="b")
     graph2.add_edge("a", "b", relation="rel")
     line2 = next(
-        line
-        for line in _neighbors_text(graph2, "a").splitlines()
-        if line.strip().startswith("-->")
+        line for line in _neighbors_text(graph2, "a").splitlines() if line.strip().startswith("-->")
     )
     assert line2 == "  --> b [rel] []"
 
@@ -230,7 +226,9 @@ def test_shortest_path_multigraph_shows_bundled_hops():
     graph.add_node("b", label="Beta", source_file="b.py", community=0)
     graph.add_node("c", label="Gamma", source_file="c.py", community=0)
     for index, relation in enumerate(["calls", "imports", "contains"]):
-        graph.add_edge("a", "b", key=f"{relation}-{index}", relation=relation, confidence="EXTRACTED")
+        graph.add_edge(
+            "a", "b", key=f"{relation}-{index}", relation=relation, confidence="EXTRACTED"
+        )
     graph.add_edge("b", "c", key="uses-0", relation="uses", confidence="EXTRACTED")
 
     text = _shortest_path_text(graph, "Alpha", "Gamma")
@@ -256,8 +254,7 @@ def test_shortest_path_single_relation_format_pinned():
     text = _shortest_path_text(graph, "alpha", "gamma")
 
     assert text == (
-        "Shortest path (2 hops):\n"
-        "  alpha --calls [EXTRACTED]--> beta --imports [INFERRED]--> gamma"
+        "Shortest path (2 hops):\n  alpha --calls [EXTRACTED]--> beta --imports [INFERRED]--> gamma"
     )
 
     # No-confidence hop drops the confidence bracket entirely (historical form).
@@ -265,9 +262,7 @@ def test_shortest_path_single_relation_format_pinned():
     graph2.add_node("a", label="a")
     graph2.add_node("b", label="b")
     graph2.add_edge("a", "b", relation="rel")
-    assert _shortest_path_text(graph2, "a", "b") == (
-        "Shortest path (1 hops):\n  a --rel--> b"
-    )
+    assert _shortest_path_text(graph2, "a", "b") == ("Shortest path (1 hops):\n  a --rel--> b")
 
 
 # ---------------------------------------------------------------------------

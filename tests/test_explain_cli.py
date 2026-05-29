@@ -149,8 +149,20 @@ def _write_bidirectional_multigraph(tmp_path):
             {"id": "b", "label": "beta()", "source_file": "b.py", "community": 0},
         ],
         "links": [
-            {"source": "a", "target": "b", "relation": "calls", "confidence": "EXTRACTED", "key": 0},
-            {"source": "b", "target": "a", "relation": "imports", "confidence": "EXTRACTED", "key": 0},
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "key": 0,
+            },
+            {
+                "source": "b",
+                "target": "a",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "key": 0,
+            },
         ],
     }
     p = tmp_path / "graph.json"

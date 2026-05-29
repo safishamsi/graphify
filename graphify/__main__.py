@@ -2373,7 +2373,9 @@ def main() -> None:
                 # relations and vice versa.
                 env = relationship_envelope(G, e_src, e_tgt, directed_only=True)
                 if len(env["relations"]) > 1:
-                    rel_block = f"[{format_relationship_envelope(G, e_src, e_tgt, directed_only=True)}]"
+                    rel_block = (
+                        f"[{format_relationship_envelope(G, e_src, e_tgt, directed_only=True)}]"
+                    )
                 else:
                     # Single relation (always true for simple DiGraph/Graph):
                     # keep the historical "[rel] [conf]" form byte-stable.

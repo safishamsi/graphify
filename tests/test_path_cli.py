@@ -74,10 +74,34 @@ def _write_multigraph(tmp_path):
             {"id": "c", "label": "gamma()", "source_file": "c.py", "community": 0},
         ],
         "links": [
-            {"source": "a", "target": "b", "relation": "calls", "confidence": "EXTRACTED", "key": 0},
-            {"source": "a", "target": "b", "relation": "imports", "confidence": "EXTRACTED", "key": 1},
-            {"source": "a", "target": "b", "relation": "contains", "confidence": "EXTRACTED", "key": 2},
-            {"source": "b", "target": "c", "relation": "returns", "confidence": "INFERRED", "key": 0},
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "key": 0,
+            },
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "key": 1,
+            },
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "contains",
+                "confidence": "EXTRACTED",
+                "key": 2,
+            },
+            {
+                "source": "b",
+                "target": "c",
+                "relation": "returns",
+                "confidence": "INFERRED",
+                "key": 0,
+            },
         ],
     }
     p = tmp_path / "graph.json"
@@ -119,9 +143,27 @@ def _write_bidirectional_multigraph(tmp_path):
             {"id": "c", "label": "gamma()", "source_file": "c.py", "community": 0},
         ],
         "links": [
-            {"source": "a", "target": "b", "relation": "calls", "confidence": "EXTRACTED", "key": 0},
-            {"source": "b", "target": "a", "relation": "imports", "confidence": "EXTRACTED", "key": 0},
-            {"source": "b", "target": "c", "relation": "returns", "confidence": "INFERRED", "key": 0},
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "key": 0,
+            },
+            {
+                "source": "b",
+                "target": "a",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "key": 0,
+            },
+            {
+                "source": "b",
+                "target": "c",
+                "relation": "returns",
+                "confidence": "INFERRED",
+                "key": 0,
+            },
         ],
     }
     p = tmp_path / "graph.json"
