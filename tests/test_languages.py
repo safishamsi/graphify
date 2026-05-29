@@ -8,6 +8,7 @@ from graphify.extract import (
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
     extract_groovy, extract_sln, extract_csproj, extract_razor,
     extract_dm, extract_dmi, extract_dmm, extract_dmf,
+    extract_powershell,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -138,6 +139,12 @@ def test_c_import_edges_have_import_context():
     assert all(e.get("context") == "import" for e in import_edges)
 
 
+def test_c_parameter_and_return_type_contexts():
+    r = extract_c(FIXTURES / "sample.c")
+    assert ("make_rect", "Rectangle") in _edge_labels(r, "references", "parameter_type")
+    assert ("make_rect", "Rectangle") in _edge_labels(r, "references", "return_type")
+
+
 def test_c_call_edges_have_call_context():
     r = extract_c(FIXTURES / "sample.c")
     call_edges = _edges_with_relation(r, "calls")
@@ -171,6 +178,19 @@ def test_cpp_import_edges_have_import_context():
     import_edges = _edges_with_relation(r, "imports", "imports_from")
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
+
+
+def test_cpp_method_parameter_and_return_type_contexts():
+    r = extract_cpp(FIXTURES / "sample.cpp")
+    assert ("get", "string") in _edge_labels(r, "references", "parameter_type")
+    assert ("get", "string") in _edge_labels(r, "references", "return_type")
+
+
+def test_cpp_field_and_template_argument_contexts():
+    r = extract_cpp(FIXTURES / "sample.cpp")
+    assert ("HttpClient", "string") in _edge_labels(r, "references", "field")
+    assert ("HttpClient", "vector") in _edge_labels(r, "references", "field")
+    assert ("HttpClient", "string") in _edge_labels(r, "references", "generic_arg")
 
 
 def test_cpp_class_inherits_edge():
@@ -348,6 +368,20 @@ def test_kotlin_emits_in_file_calls():
     assert ("createClient()", "HttpClient") in calls
 
 
+def test_kotlin_splits_inherits_and_implements():
+    r = extract_kotlin(FIXTURES / "sample.kt")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+
+
+def test_kotlin_parameter_return_generic_and_field_contexts():
+    r = extract_kotlin(FIXTURES / "sample.kt")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "generic_arg")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
+
+
 # ── Scala ─────────────────────────────────────────────────────────────────────
 
 def test_scala_no_error():
@@ -374,6 +408,27 @@ def test_scala_import_edges_have_import_context():
     import_edges = _edges_with_relation(r, "imports", "imports_from")
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
+
+
+def test_scala_splits_inherits_and_mixes_in():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("HttpClient", "BaseClient") in _edge_labels(r, "inherits")
+    assert ("HttpClient", "Loggable") in _edge_labels(r, "mixes_in")
+
+
+def test_scala_constructor_parameter_field_context():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("HttpClient", "Config") in _edge_labels(r, "references", "field")
+
+
+def test_scala_val_definition_field_context():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("HttpClient", "Config") in _edge_labels(r, "references", "field")
+
+
+def test_scala_method_return_type_context():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("create", "HttpClient") in _edge_labels(r, "references", "return_type")
 
 
 def test_scala_call_edges_have_call_context():
@@ -474,6 +529,20 @@ def test_php_event_listener_links_event_to_listener():
     assert any("UserRegistered" in src and "SendWelcomeEmail" in tgt for src, tgt in listened)
 
 
+def test_php_splits_inherits_implements_mixes_in():
+    r = extract_php(FIXTURES / "sample.php")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+    assert ("DataProcessor", "HasName") in _edge_labels(r, "mixes_in")
+
+
+def test_php_property_parameter_and_return_contexts():
+    r = extract_php(FIXTURES / "sample.php")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+
+
 # ── Swift ────────────────────────────────────────────────────────────────────
 
 def test_swift_no_error():
@@ -568,31 +637,28 @@ def test_swift_extension_does_not_duplicate_type_node():
     config_nodes = [n for n in r["nodes"] if n["label"] == "Config"]
     assert len(config_nodes) == 1, f"Config should appear once, got {len(config_nodes)}"
 
-def test_swift_conformance_edge():
+def test_swift_protocol_conformance_emits_implements():
     r = extract_swift(FIXTURES / "sample.swift")
-    inherits_edges = [e for e in r["edges"] if e["relation"] == "inherits"]
-    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
-    found = False
-    for e in inherits_edges:
-        src_label = node_by_id.get(e["source"], "")
-        tgt_label = node_by_id.get(e["target"], "")
-        if "DataProcessor" in src_label and "Processor" in tgt_label:
-            found = True
-            break
-    assert found, "DataProcessor should have inherits edge to Processor"
+    assert ("DataProcessor", "Processor") in _edge_labels(r, "implements")
 
-def test_swift_extension_conformance_edge():
+
+def test_swift_extension_conformance_emits_implements():
     r = extract_swift(FIXTURES / "sample.swift")
-    inherits_edges = [e for e in r["edges"] if e["relation"] == "inherits"]
-    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
-    found = False
-    for e in inherits_edges:
-        src_label = node_by_id.get(e["source"], "")
-        tgt_label = node_by_id.get(e["target"], "")
-        if "DataProcessor" in src_label and "Loggable" in tgt_label:
-            found = True
-            break
-    assert found, "extension should add conformance edge DataProcessor -> Loggable"
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+
+
+def test_swift_splits_inherits_and_implements():
+    r = extract_swift(FIXTURES / "sample.swift")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Processor") in _edge_labels(r, "implements")
+
+
+def test_swift_parameter_return_generic_and_field_contexts():
+    r = extract_swift(FIXTURES / "sample.swift")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "generic_arg")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
 
 def test_swift_emits_calls():
     r = extract_swift(FIXTURES / "sample.swift")
@@ -715,6 +781,18 @@ def test_objc_inherits_edge():
     assert len(inherits) >= 1
 
 
+def test_objc_splits_inherits_and_implements():
+    r = extract_objc(FIXTURES / "sample.m")
+    assert ("Animal", "NSObject") in _edge_labels(r, "inherits")
+    assert ("Dog", "Animal") in _edge_labels(r, "inherits")
+    assert ("Animal", "SampleDelegate") in _edge_labels(r, "implements")
+
+
+def test_objc_property_type_context():
+    r = extract_objc(FIXTURES / "sample.m")
+    assert ("Animal", "NSString") in _edge_labels(r, "references", "field")
+
+
 def test_objc_no_dangling_edges():
     r = extract_objc(FIXTURES / "sample.m")
     node_ids = {n["id"] for n in r["nodes"]}
@@ -797,6 +875,19 @@ def test_julia_finds_inherits():
     assert len(inherits) >= 1
 
 
+def test_julia_abstract_concrete_hierarchy_inherits():
+    r = extract_julia(FIXTURES / "sample.jl")
+    assert ("Point", "Shape") in _edge_labels(r, "inherits")
+    assert ("Circle", "Shape") in _edge_labels(r, "inherits")
+
+
+def test_julia_struct_field_type_context():
+    r = extract_julia(FIXTURES / "sample.jl")
+    assert ("Point", "Float64") in _edge_labels(r, "references", "field")
+    assert ("Circle", "Point") in _edge_labels(r, "references", "field")
+    assert ("Circle", "Float64") in _edge_labels(r, "references", "field")
+
+
 def test_julia_finds_calls():
     r = extract_julia(FIXTURES / "sample.jl")
     call_edges = [e for e in r["edges"] if e["relation"] == "calls"]
@@ -871,6 +962,18 @@ def test_fortran_case_insensitive_names():
     assert "main" in labels
 
 
+def test_fortran_finds_derived_type():
+    r = extract_fortran(FIXTURES / "sample.f90")
+    labels = [n["label"] for n in r["nodes"]]
+    assert "point" in labels
+
+
+def test_fortran_parameter_and_return_type_contexts():
+    r = extract_fortran(FIXTURES / "sample.f90")
+    assert ("translate", "point") in _edge_labels(r, "references", "parameter_type")
+    assert ("origin", "point") in _edge_labels(r, "references", "return_type")
+
+
 def test_fortran_no_dangling_edges():
     r = extract_fortran(FIXTURES / "sample.f90")
     node_ids = {n["id"] for n in r["nodes"]}
@@ -884,6 +987,32 @@ def test_fortran_capital_F_parses_preprocessed():
     labels = [n["label"] for n in r["nodes"]]
     assert "shapes" in labels
     assert any("compute_volume" in l for l in labels)
+
+
+# ── PowerShell ───────────────────────────────────────────────────────────────
+
+def test_powershell_no_error():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    assert "error" not in r
+
+
+def test_powershell_finds_class_and_method():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    labels = [n["label"] for n in r["nodes"]]
+    assert "DataProcessor" in labels
+    assert any("Transform" in l for l in labels)
+
+
+def test_powershell_property_field_type_context():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    assert ("DataProcessor", "string") in _edge_labels(r, "references", "field")
+
+
+def test_powershell_method_parameter_and_return_type_contexts():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    assert ("Transform", "string") in _edge_labels(r, "references", "parameter_type")
+    assert ("Transform", "string") in _edge_labels(r, "references", "return_type")
+    assert ("Save", "void") in _edge_labels(r, "references", "return_type")
 
 
 # ── TypeScript dynamic imports ───────────────────────────────────────────────

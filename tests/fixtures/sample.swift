@@ -9,8 +9,13 @@ protocol Loggable {
     func log()
 }
 
-class DataProcessor: Processor {
+class BaseProcessor {}
+
+class Result<T> {}
+
+class DataProcessor: BaseProcessor, Processor {
     private var items: [String] = []
+    var current: Result<DataProcessor> = Result<DataProcessor>()
 
     init() {}
 
@@ -22,6 +27,10 @@ class DataProcessor: Processor {
 
     func process() -> [String] {
         return validate(items)
+    }
+
+    func run(input: DataProcessor) -> Result<DataProcessor> {
+        return current
     }
 
     private func validate(_ data: [String]) -> [String] {
