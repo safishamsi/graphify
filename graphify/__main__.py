@@ -61,8 +61,8 @@ def _refresh_all_version_stamps() -> None:
     Prevents stale-version warnings from platforms that were installed previously
     but not explicitly re-installed during this upgrade.
     """
-    for cfg in _PLATFORM_CONFIG.values():
-        skill_dst = Path.home() / cfg["skill_dst"]
+    for name in _PLATFORM_CONFIG:
+        skill_dst = _platform_skill_destination(name)
         vf = skill_dst.parent / ".graphify_version"
         if skill_dst.exists():
             vf.write_text(__version__, encoding="utf-8")
@@ -86,6 +86,12 @@ def _platform_skill_destination(platform_name: str, *, project: bool = False, pr
         if project:
             return (project_dir or Path(".")) / ".devin" / "skills" / "graphify" / "SKILL.md"
         return Path.home() / ".config" / "devin" / "skills" / "graphify" / "SKILL.md"
+
+    if platform_name in ("antigravity", "antigravity-windows"):
+        if project:
+            return (project_dir or Path(".")) / ".agents" / "skills" / "graphify" / "SKILL.md"
+        # Global Antigravity skill dir (all workspaces): ~/.gemini/config/skills/
+        return Path.home() / ".gemini" / "config" / "skills" / "graphify" / "SKILL.md"
 
     cfg = _PLATFORM_CONFIG[platform_name]
     if project:
@@ -677,7 +683,7 @@ description: Turn any folder of files into a navigable knowledge graph
 
 # Workflow: graphify
 
-Follow the graphify skill installed at ~/.agents/skills/graphify/SKILL.md to run the full pipeline.
+Follow the graphify skill installed at ~/.gemini/config/skills/graphify/SKILL.md to run the full pipeline.
 
 If no path argument is given, use `.` (current directory).
 """
@@ -752,11 +758,11 @@ def _kiro_uninstall(project_dir: Path) -> None:
 
 def _antigravity_install(project_dir: Path) -> None:
     """Install graphify for Google Antigravity: skill + .agents/rules + .agents/workflows."""
-    # 1. Copy skill file to ~/.agents/skills/graphify/SKILL.md
+    # 1. Copy skill file to ~/.gemini/config/skills/graphify/SKILL.md (global)
     install(platform="antigravity")
 
     # 1.5. Inject YAML frontmatter for native Antigravity tool discovery
-    skill_dst = _PLATFORM_CONFIG["antigravity"]["skill_dst"]
+    skill_dst = _platform_skill_destination("antigravity")
     if skill_dst.exists():
         content = skill_dst.read_text(encoding="utf-8")
         if not content.startswith("---\n"):
@@ -802,7 +808,7 @@ def _antigravity_install(project_dir: Path) -> None:
     print('  }')
 
 
-def _antigravity_uninstall(project_dir: Path) -> None:
+def _antigravity_uninstall(project_dir: Path, *, project: bool = False) -> None:
     """Remove graphify Antigravity rules, workflow, and skill files."""
     # Remove rules file
     rules_path = project_dir / _ANTIGRAVITY_RULES_PATH
@@ -819,7 +825,7 @@ def _antigravity_uninstall(project_dir: Path) -> None:
         print(f"graphify workflow removed from {wf_path.resolve()}")
 
     # Remove skill file
-    skill_dst = _PLATFORM_CONFIG["antigravity"]["skill_dst"]
+    skill_dst = _platform_skill_destination("antigravity", project=project, project_dir=project_dir)
     if skill_dst.exists():
         skill_dst.unlink()
         print(f"graphify skill removed from {skill_dst}")
@@ -1169,7 +1175,7 @@ def _project_uninstall(platform_name: str, project_dir: Path | None = None) -> N
         if platform_name == "codex":
             _uninstall_codex_hook(project_dir)
     elif platform_name == "antigravity":
-        _antigravity_uninstall(project_dir)
+        _antigravity_uninstall(project_dir, project=True)
     elif platform_name == "devin":
         removed = _remove_skill_file("devin", project=True, project_dir=project_dir)
         _devin_rules_uninstall(project_dir)
