@@ -537,7 +537,9 @@ def suggest_questions(
     isolated = [
         n
         for n in G.nodes()
-        if distinct_neighbor_degree(G, n) <= 1 and not _is_file_node(G, n) and not _is_concept_node(G, n)
+        if distinct_neighbor_degree(G, n) <= 1
+        and not _is_file_node(G, n)
+        and not _is_concept_node(G, n)
     ]
     if isolated:
         labels = [G.nodes[n].get("label", n) for n in isolated[:3]]

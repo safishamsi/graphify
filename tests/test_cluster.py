@@ -148,9 +148,7 @@ def test_cohesion_multigraph_equals_simple_graph_cohesion():
 
     multi_score = cohesion_score(MG, ["a", "b", "c"])
     simple_score = cohesion_score(SG, ["a", "b", "c"])
-    assert multi_score == simple_score, (
-        f"multi={multi_score} != simple={simple_score}"
-    )
+    assert multi_score == simple_score, f"multi={multi_score} != simple={simple_score}"
 
 
 def test_cluster_multigraph_produces_valid_communities():
@@ -161,12 +159,10 @@ def test_cluster_multigraph_produces_valid_communities():
     # zero-weight panic in some versions).
     for pair in [("a", "b"), ("b", "c"), ("a", "c")]:
         for k in range(3):
-            G.add_edge(pair[0], pair[1], key=f"{pair[0]}{pair[1]}-{k}",
-                       confidence="EXTRACTED")
+            G.add_edge(pair[0], pair[1], key=f"{pair[0]}{pair[1]}-{k}", confidence="EXTRACTED")
     for pair in [("d", "e"), ("e", "f"), ("d", "f")]:
         for k in range(3):
-            G.add_edge(pair[0], pair[1], key=f"{pair[0]}{pair[1]}-{k}",
-                       confidence="EXTRACTED")
+            G.add_edge(pair[0], pair[1], key=f"{pair[0]}{pair[1]}-{k}", confidence="EXTRACTED")
     G.add_edge("c", "d", key="bridge", confidence="AMBIGUOUS")
 
     communities = cluster(G)
@@ -184,8 +180,9 @@ def test_cluster_multigraph_does_not_crash():
     for i in range(len(nodes)):
         for j in range(i + 1, min(i + 3, len(nodes))):
             for k in range(4):
-                G.add_edge(nodes[i], nodes[j], key=f"{nodes[i]}-{nodes[j]}-{k}",
-                           confidence="EXTRACTED")
+                G.add_edge(
+                    nodes[i], nodes[j], key=f"{nodes[i]}-{nodes[j]}-{k}", confidence="EXTRACTED"
+                )
     # Must not raise
     communities = cluster(G)
     assert isinstance(communities, dict)

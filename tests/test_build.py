@@ -304,10 +304,20 @@ def test_build_from_json_preserves_first_direction_on_bidirectional_pair(tmp_pat
             {"id": "z_emitter", "label": "z", "file_type": "code", "source_file": "z.ts"},
         ],
         "edges": [
-            {"source": "a_handler", "target": "z_emitter", "relation": "calls",
-             "confidence": "EXTRACTED", "source_file": "a.ts"},
-            {"source": "z_emitter", "target": "a_handler", "relation": "calls",
-             "confidence": "EXTRACTED", "source_file": "z.ts"},
+            {
+                "source": "a_handler",
+                "target": "z_emitter",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "a.ts",
+            },
+            {
+                "source": "z_emitter",
+                "target": "a_handler",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "z.ts",
+            },
         ],
         "input_tokens": 0,
         "output_tokens": 0,
@@ -324,8 +334,9 @@ def test_build_from_json_preserves_first_direction_on_bidirectional_pair(tmp_pat
     graph_path = tmp_path / "graph.json"
     assert to_json(G, {}, str(graph_path), force=True)
     saved = json.loads(graph_path.read_text())
-    saved_calls = [e for e in saved.get("links", saved.get("edges", []))
-                   if e.get("relation") == "calls"]
+    saved_calls = [
+        e for e in saved.get("links", saved.get("edges", [])) if e.get("relation") == "calls"
+    ]
     assert len(saved_calls) == 1
     assert saved_calls[0]["source"] == "a_handler", (
         f"calls edge source flipped on bidirectional collision: "

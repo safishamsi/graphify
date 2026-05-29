@@ -100,6 +100,7 @@ def test_report_shows_raw_cohesion_scores():
 
 # --- Helpers for edge-count tests ---
 
+
 def _minimal_report(G):
     """Generate a report from a graph with minimal scaffolding."""
     communities = {0: list(G.nodes())}
@@ -110,12 +111,21 @@ def _minimal_report(G):
     detection = {"total_files": 1, "total_words": 100, "needs_graph": True, "warning": None}
     tokens = {"input": 100, "output": 50}
     return generate(
-        G, communities, cohesion, labels, god_list, surprise_list, detection, tokens, "./test",
+        G,
+        communities,
+        cohesion,
+        labels,
+        god_list,
+        surprise_list,
+        detection,
+        tokens,
+        "./test",
         min_community_size=1,
     )
 
 
 # --- PR 4B: Edge count reporting tests ---
+
 
 def test_report_multigraph_edge_count_distinguishes_pairs():
     """MultiDiGraph with parallel edges: report must show both total and unique pair count."""

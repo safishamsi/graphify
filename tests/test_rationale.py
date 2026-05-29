@@ -218,7 +218,9 @@ def test_decorated_method_node_id_is_class_qualified(tmp_path):
     docstring's edge target. The mismatch caused ``build_from_json`` to drop
     the rationale_for edge as dangling, orphaning the docstring node.
     """
-    path = _write_py(tmp_path, '''
+    path = _write_py(
+        tmp_path,
+        '''
         class Bar:
             @property
             def baz(self) -> int:
@@ -238,13 +240,13 @@ def test_decorated_method_node_id_is_class_qualified(tmp_path):
             def normal(self) -> int:
                 """A normal instance method documented for comparison."""
                 return 3
-    ''')
+    ''',
+    )
     result = extract_python(path)
     nodes_by_id = {n["id"]: n for n in result["nodes"]}
 
     # The plain method's id is the baseline: stem + class + name.
-    normal_ids = [nid for nid, n in nodes_by_id.items()
-                  if n.get("label") == ".normal()"]
+    normal_ids = [nid for nid, n in nodes_by_id.items() if n.get("label") == ".normal()"]
     assert len(normal_ids) == 1, "expected exactly one ``.normal()`` method node"
     normal_id = normal_ids[0]
     assert normal_id.endswith("_bar_normal"), normal_id
@@ -252,16 +254,16 @@ def test_decorated_method_node_id_is_class_qualified(tmp_path):
     # Each decorated method must share the same class-qualified id shape so the
     # rationale_for edge target matches the method node id.
     for decorated_name in ("baz", "helper", "factory"):
-        matches = [nid for nid, n in nodes_by_id.items()
-                   if n.get("label") == f".{decorated_name}()"]
+        matches = [
+            nid for nid, n in nodes_by_id.items() if n.get("label") == f".{decorated_name}()"
+        ]
         assert len(matches) == 1, (
             f"expected exactly one ``.{decorated_name}()`` method node, got {matches}"
         )
         method_id = matches[0]
         assert method_id.endswith(f"_bar_{decorated_name}"), method_id
         # Unqualified id (the buggy form) must NOT also be present.
-        unqualified_buggy_id = method_id.replace(f"_bar_{decorated_name}",
-                                                  f"_{decorated_name}")
+        unqualified_buggy_id = method_id.replace(f"_bar_{decorated_name}", f"_{decorated_name}")
         assert unqualified_buggy_id not in nodes_by_id, (
             f"buggy unqualified id {unqualified_buggy_id} should not exist alongside "
             f"the class-qualified id"
@@ -281,16 +283,11 @@ def test_decorated_method_node_id_is_class_qualified(tmp_path):
     g = build_from_json(result)
     for decorated_name in ("baz", "helper", "factory", "normal"):
         method_id = next(
-            nid for nid, n in nodes_by_id.items()
-            if n.get("label") == f".{decorated_name}()"
+            nid for nid, n in nodes_by_id.items() if n.get("label") == f".{decorated_name}()"
         )
         # Find rationale node attached to this method.
-        attached_rationale = [
-            e["source"] for e in rationale_edges if e["target"] == method_id
-        ]
-        assert attached_rationale, (
-            f"no rationale_for edge found for ``.{decorated_name}()`` method"
-        )
+        attached_rationale = [e["source"] for e in rationale_edges if e["target"] == method_id]
+        assert attached_rationale, f"no rationale_for edge found for ``.{decorated_name}()`` method"
         for r_id in attached_rationale:
             assert r_id in g.nodes, f"rationale node {r_id} missing from graph"
             assert g.degree(r_id) > 0, (

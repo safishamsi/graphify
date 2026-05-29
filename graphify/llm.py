@@ -274,8 +274,7 @@ def _parse_llm_json(raw: str) -> dict:
                     except json.JSONDecodeError:
                         break
     print(
-        f"[graphify] LLM returned invalid JSON, skipping chunk "
-        f"(first 200 chars: {raw[:200]!r})",
+        f"[graphify] LLM returned invalid JSON, skipping chunk (first 200 chars: {raw[:200]!r})",
         file=sys.stderr,
     )
     return {"nodes": [], "edges": [], "hyperedges": []}
@@ -475,7 +474,9 @@ def _call_openai_compat(
     return result
 
 
-def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
+def _call_claude(
+    api_key: str, model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False
+) -> dict:
     """Call Anthropic Claude directly (not via OpenAI compat layer)."""
     try:
         anthropic = importlib.import_module("anthropic")
@@ -555,7 +556,8 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
         claude_cmd, "-p",
         "--output-format", "json",
         "--no-session-persistence",
-        "--system-prompt", _extraction_system(deep=deep_mode),
+        "--system-prompt",
+        _extraction_system(deep=deep_mode),
     ]
     # claude-cli defaults to Opus, which is overkill for the structured-JSON
     # extraction graphify performs. GRAPHIFY_CLAUDE_CLI_MODEL=haiku (or
@@ -608,7 +610,9 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     return result
 
 
-def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
+def _call_bedrock(
+    model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False
+) -> dict:
     """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
     try:
         import boto3

@@ -6,6 +6,7 @@ These tests cover:
 - The switch from --append-system-prompt to --system-prompt
 - The GRAPHIFY_CLAUDE_CLI_MODEL env-var passthrough
 """
+
 from __future__ import annotations
 
 import json
@@ -23,10 +24,7 @@ def test_preamble_then_fence_is_parsed():
     so any preamble caused json.loads to fail and the chunk to be
     dropped as a hollow response. The robust parser handles fences
     anywhere in the text."""
-    raw = (
-        "Here are the extracted entities:\n\n"
-        '```json\n{"nodes": [{"id": "a"}], "edges": []}\n```'
-    )
+    raw = 'Here are the extracted entities:\n\n```json\n{"nodes": [{"id": "a"}], "edges": []}\n```'
     result = llm._parse_llm_json(raw)
     assert result["nodes"] == [{"id": "a"}]
     assert result["edges"] == []
@@ -35,10 +33,7 @@ def test_preamble_then_fence_is_parsed():
 def test_prose_wrapped_json_without_fence_is_parsed():
     """Some models return prose around bare JSON with no markdown fence.
     The balanced-brace fallback extracts the first complete object."""
-    raw = (
-        'The extracted graph is {"nodes": [{"id": "b"}], "edges": []}. '
-        "Hope this helps!"
-    )
+    raw = 'The extracted graph is {"nodes": [{"id": "b"}], "edges": []}. Hope this helps!'
     result = llm._parse_llm_json(raw)
     assert result["nodes"] == [{"id": "b"}]
 
@@ -85,16 +80,22 @@ def test_empty_response_returns_empty_fragment():
 
 
 def _make_envelope(result_obj: dict) -> str:
-    return json.dumps({
-        "type": "result",
-        "subtype": "success",
-        "is_error": False,
-        "result": json.dumps(result_obj),
-        "usage": {"input_tokens": 1, "output_tokens": 1,
-                  "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0},
-        "modelUsage": {"claude-opus-4-7": {}},
-        "stop_reason": "end_turn",
-    })
+    return json.dumps(
+        {
+            "type": "result",
+            "subtype": "success",
+            "is_error": False,
+            "result": json.dumps(result_obj),
+            "usage": {
+                "input_tokens": 1,
+                "output_tokens": 1,
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+            },
+            "modelUsage": {"claude-opus-4-7": {}},
+            "stop_reason": "end_turn",
+        }
+    )
 
 
 @patch("shutil.which", return_value="/usr/local/bin/claude")

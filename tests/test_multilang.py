@@ -197,13 +197,15 @@ def test_go_method_declaration_emits_refs_only_when_name_present():
     def _find_branch(root: ast.AST, type_literal: str) -> ast.If | None:
         """Return the `if t == '<type_literal>':` branch inside the walk function."""
         for child in ast.walk(root):
-            if (isinstance(child, ast.If)
-                    and isinstance(child.test, ast.Compare)
-                    and isinstance(child.test.left, ast.Name)
-                    and child.test.left.id == "t"
-                    and len(child.test.comparators) == 1
-                    and isinstance(child.test.comparators[0], ast.Constant)
-                    and child.test.comparators[0].value == type_literal):
+            if (
+                isinstance(child, ast.If)
+                and isinstance(child.test, ast.Compare)
+                and isinstance(child.test.left, ast.Name)
+                and child.test.left.id == "t"
+                and len(child.test.comparators) == 1
+                and isinstance(child.test.comparators[0], ast.Constant)
+                and child.test.comparators[0].value == type_literal
+            ):
                 return child
         return None
 
@@ -258,10 +260,12 @@ def test_go_method_declaration_emits_refs_only_when_name_present():
             for stmt, siblings in _stmt_chain(use):
                 parent = parents.get(id(stmt))
                 # Case 1: lexically nested under `if name_node:` body
-                if (isinstance(parent, ast.If)
-                        and isinstance(parent.test, ast.Name)
-                        and parent.test.id == "name_node"
-                        and stmt in parent.body):
+                if (
+                    isinstance(parent, ast.If)
+                    and isinstance(parent.test, ast.Name)
+                    and parent.test.id == "name_node"
+                    and stmt in parent.body
+                ):
                     return True
                 # Case 2: a preceding sibling is `if not name_node: return`
                 idx = siblings.index(stmt)

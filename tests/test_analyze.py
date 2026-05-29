@@ -980,8 +980,12 @@ def test_god_nodes_multigraph_real_hub_detected():
         nid = f"n{i}"
         G.add_node(nid, label=f"Node{i}", source_file=f"src/n{i}.py", file_type="code")
         G.add_edge(
-            "hub", nid, relation="calls", confidence="EXTRACTED",
-            source_file="src/hub.py", weight=1.0,
+            "hub",
+            nid,
+            relation="calls",
+            confidence="EXTRACTED",
+            source_file="src/hub.py",
+            weight=1.0,
         )
 
     result = god_nodes(G, top_n=5)
@@ -999,26 +1003,56 @@ def test_edge_betweenness_multigraph_does_not_crash():
     # Two communities with intra-community edges + one bridge
     for i in range(5):
         G.add_node(
-            f"a{i}", label=f"A{i}", source_file="single.py",
-            file_type="code", source_location=f"L{i}",
+            f"a{i}",
+            label=f"A{i}",
+            source_file="single.py",
+            file_type="code",
+            source_location=f"L{i}",
         )
     for i in range(5):
         G.add_node(
-            f"b{i}", label=f"B{i}", source_file="single.py",
-            file_type="code", source_location=f"L{i + 10}",
+            f"b{i}",
+            label=f"B{i}",
+            source_file="single.py",
+            file_type="code",
+            source_location=f"L{i + 10}",
         )
     # Dense intra-community edges (some parallel)
     for i in range(4):
-        G.add_edge(f"a{i}", f"a{i+1}", relation="calls", confidence="EXTRACTED",
-                   source_file="single.py", weight=1.0)
-        G.add_edge(f"a{i}", f"a{i+1}", relation="uses", confidence="EXTRACTED",
-                   source_file="single.py", weight=1.0)
+        G.add_edge(
+            f"a{i}",
+            f"a{i + 1}",
+            relation="calls",
+            confidence="EXTRACTED",
+            source_file="single.py",
+            weight=1.0,
+        )
+        G.add_edge(
+            f"a{i}",
+            f"a{i + 1}",
+            relation="uses",
+            confidence="EXTRACTED",
+            source_file="single.py",
+            weight=1.0,
+        )
     for i in range(4):
-        G.add_edge(f"b{i}", f"b{i+1}", relation="calls", confidence="EXTRACTED",
-                   source_file="single.py", weight=1.0)
+        G.add_edge(
+            f"b{i}",
+            f"b{i + 1}",
+            relation="calls",
+            confidence="EXTRACTED",
+            source_file="single.py",
+            weight=1.0,
+        )
     # Bridge edge
-    G.add_edge("a4", "b0", relation="references", confidence="INFERRED",
-               source_file="single.py", weight=0.5)
+    G.add_edge(
+        "a4",
+        "b0",
+        relation="references",
+        confidence="INFERRED",
+        source_file="single.py",
+        weight=0.5,
+    )
 
     # Should not crash -- this is the core regression test
     result = surprising_connections(G, communities=None)
@@ -1035,29 +1069,65 @@ def test_surprising_connections_multigraph_results_valid():
     # Community 1: nodes in file1.py
     for i in range(5):
         G.add_node(
-            f"c1_{i}", label=f"C1_{i}", source_file="repo/file1.py",
-            file_type="code", source_location=f"L{i}",
+            f"c1_{i}",
+            label=f"C1_{i}",
+            source_file="repo/file1.py",
+            file_type="code",
+            source_location=f"L{i}",
         )
     # Community 2: nodes in file2.py
     for i in range(5):
         G.add_node(
-            f"c2_{i}", label=f"C2_{i}", source_file="repo/file2.py",
-            file_type="code", source_location=f"L{i}",
+            f"c2_{i}",
+            label=f"C2_{i}",
+            source_file="repo/file2.py",
+            file_type="code",
+            source_location=f"L{i}",
         )
     # Intra-community edges with parallel edges
     for i in range(4):
-        G.add_edge(f"c1_{i}", f"c1_{i+1}", relation="calls", confidence="EXTRACTED",
-                   source_file="repo/file1.py", weight=1.0)
-        G.add_edge(f"c1_{i}", f"c1_{i+1}", relation="uses", confidence="INFERRED",
-                   source_file="repo/file1.py", weight=0.5)
+        G.add_edge(
+            f"c1_{i}",
+            f"c1_{i + 1}",
+            relation="calls",
+            confidence="EXTRACTED",
+            source_file="repo/file1.py",
+            weight=1.0,
+        )
+        G.add_edge(
+            f"c1_{i}",
+            f"c1_{i + 1}",
+            relation="uses",
+            confidence="INFERRED",
+            source_file="repo/file1.py",
+            weight=0.5,
+        )
     for i in range(4):
-        G.add_edge(f"c2_{i}", f"c2_{i+1}", relation="calls", confidence="EXTRACTED",
-                   source_file="repo/file2.py", weight=1.0)
+        G.add_edge(
+            f"c2_{i}",
+            f"c2_{i + 1}",
+            relation="calls",
+            confidence="EXTRACTED",
+            source_file="repo/file2.py",
+            weight=1.0,
+        )
     # Cross-community bridge with parallel edges
-    G.add_edge("c1_4", "c2_0", relation="references", confidence="AMBIGUOUS",
-               source_file="repo/file1.py", weight=0.3)
-    G.add_edge("c1_4", "c2_0", relation="calls", confidence="INFERRED",
-               source_file="repo/file1.py", weight=0.5)
+    G.add_edge(
+        "c1_4",
+        "c2_0",
+        relation="references",
+        confidence="AMBIGUOUS",
+        source_file="repo/file1.py",
+        weight=0.3,
+    )
+    G.add_edge(
+        "c1_4",
+        "c2_0",
+        relation="calls",
+        confidence="INFERRED",
+        source_file="repo/file1.py",
+        weight=0.5,
+    )
 
     communities = cluster(G)
     result = surprising_connections(G, communities)
