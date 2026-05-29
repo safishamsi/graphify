@@ -2,12 +2,26 @@
 
 from __future__ import annotations
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
 
+from graphify.llm import BACKENDS, _backend_env_keys
+
 
 PYTHON = sys.executable
+
+
+def _clean_env() -> dict:
+    """Return os.environ with every backend API key stripped out."""
+    env = dict(os.environ)
+    for backend in BACKENDS:
+        for env_key in _backend_env_keys(backend):
+            env.pop(env_key, None)
+    for extra in ("AWS_PROFILE", "AWS_REGION", "AWS_DEFAULT_REGION", "OLLAMA_BASE_URL", "OLLAMA_API_KEY"):
+        env.pop(extra, None)
+    return env
 
 
 def _run(args: list[str], cwd: Path) -> subprocess.CompletedProcess:
@@ -16,6 +30,7 @@ def _run(args: list[str], cwd: Path) -> subprocess.CompletedProcess:
         cwd=cwd,
         capture_output=True,
         text=True,
+        env=_clean_env(),
     )
 
 
