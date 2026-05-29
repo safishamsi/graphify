@@ -590,6 +590,28 @@ def test_extract_parallel_returns_false_on_broken_pool(tmp_path, monkeypatch, ca
     assert "__main__" in out, "warning must hint at the Windows __main__ guard idiom"
 
 
+def test_extract_parallel_returns_false_when_pool_unavailable(tmp_path, monkeypatch, capsys):
+    """ProcessPoolExecutor setup OSErrors must fall back to sequential extraction."""
+    import concurrent.futures
+    from graphify import extract as extract_mod
+
+    def raise_permission_error(*args, **kwargs):
+        raise PermissionError("semaphore probe denied")
+
+    monkeypatch.setattr(concurrent.futures, "ProcessPoolExecutor", raise_permission_error)
+
+    uncached = [(0, FIXTURES / "sample.py")]
+    per_file: list = [None]
+
+    ok = extract_mod._extract_parallel(uncached, per_file, tmp_path, 2, 1)
+
+    assert ok is False
+    out = capsys.readouterr().out
+    assert "parallel extraction unavailable" in out
+    assert "PermissionError" in out
+    assert "falling back to sequential" in out
+
+
 def test_extract_parallel_worker_warning_handles_sparse_file_indexes(tmp_path, monkeypatch, capsys):
     """Worker-failure warnings must not index work_items by original file index."""
     import concurrent.futures

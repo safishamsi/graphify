@@ -14,7 +14,7 @@ _ANALYZE_WARNING_FILTERS = (
 
 def pytest_collection_modifyitems(items: list[Any]) -> None:
     for item in items:
-        if item.path.name != "test_analyze.py":
+        if item.path.name not in {"test_analyze.py", "test_pipeline.py"}:
             continue
         for warning_filter in _ANALYZE_WARNING_FILTERS:
             item.add_marker(pytest.mark.filterwarnings(warning_filter))

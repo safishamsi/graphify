@@ -11838,6 +11838,18 @@ def _extract_parallel(
             flush=True,
         )
         return False
+    except OSError as exc:
+        # Some restricted runtimes block the semaphore/system-limit probes that
+        # ProcessPoolExecutor performs while starting. That is recoverable for
+        # extraction: fall back to in-process sequential extraction instead of
+        # failing the whole pipeline.
+        print(
+            f"  warning: parallel extraction unavailable ({exc.__class__.__name__}: {exc}); "
+            "falling back to sequential. Pass parallel=False to extract() to skip the pool "
+            "entirely.",
+            flush=True,
+        )
+        return False
     if total_files >= _PROGRESS_INTERVAL:
         print(
             f"  AST extraction: {total_files}/{total_files} files (100%) [{max_workers} workers]",
