@@ -74,7 +74,6 @@ graphify = "graphify.__main__:main"
 dev = [
     "bandit>=1.9.4",
     "build>=1.5.0",
-    "hypothesis>=6.152.7",
     "nuitka>=4.1",
     "patchelf>=0.17.2.4 ; sys_platform != 'win32'",
     "pip-audit>=2.10.0",

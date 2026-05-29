@@ -1225,7 +1225,6 @@ watch = [
 dev = [
     { name = "bandit" },
     { name = "build" },
-    { name = "hypothesis" },
     { name = "nuitka" },
     { name = "patchelf", marker = "sys_platform != 'win32'" },
     { name = "pip-audit" },
@@ -1318,7 +1317,6 @@ provides-extras = ["mcp", "neo4j", "pdf", "watch", "svg", "leiden", "office", "g
 dev = [
     { name = "bandit", specifier = ">=1.9.4" },
     { name = "build", specifier = ">=1.5.0" },
-    { name = "hypothesis", specifier = ">=6.152.7" },
     { name = "nuitka", specifier = ">=4.1" },
     { name = "patchelf", marker = "sys_platform != 'win32'", specifier = ">=0.17.2.4" },
     { name = "pip-audit", specifier = ">=2.10.0" },
@@ -1471,19 +1469,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/bb/b6/e22bd20a25299c34b8c5922c1545a6320825b13906eb0f7298edfd034a0b/huggingface_hub-1.15.0.tar.gz", hash = "sha256:28abfdddda3927fd4de6a63cf26ab012498a2c24dae52baf150c5c6edf98a1d5", size = 784100, upload-time = "2026-05-15T11:42:52.149Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6e/11/0b64cc9024329b76d7547c19a67604a61d21d3ba678a69d1b220c29d5112/huggingface_hub-1.15.0-py3-none-any.whl", hash = "sha256:a4a59af04cbc41a3fe3fec429b171ef994ef8c971eda10136746f408dd4e3744", size = 663602, upload-time = "2026-05-15T11:42:50.487Z" },
-]
-
-[[package]]
-name = "hypothesis"
-version = "6.153.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "exceptiongroup", marker = "python_full_version < '3.11'" },
-    { name = "sortedcontainers" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/b1/92/918fb03318c7ff9a271d7cad8eceb359d1069f17e84f5191d52c2970f18f/hypothesis-6.153.0.tar.gz", hash = "sha256:11616e5158fc485d62bae19d9cc69333237faa8050ad44a45218254a1ef272bb", size = 474030, upload-time = "2026-05-26T05:19:05.468Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/2e/20/96dc2387cf29a0ec75b427d62d3dde1f44c924719503babaac4c96806223/hypothesis-6.153.0-py3-none-any.whl", hash = "sha256:2aeda9bbb44ae0ee0bfa67ef744a25be05c1f804dca4eb6479c63518dc9f2900", size = 540326, upload-time = "2026-05-26T05:19:02.861Z" },
 ]
 
 [[package]]
