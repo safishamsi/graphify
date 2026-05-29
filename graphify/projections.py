@@ -9,6 +9,11 @@ import networkx as nx
 
 WeightMode = Literal["confidence", "count", "sum"]
 
+# Stable default for the capped relationship display envelope. Surfaces (CLI text,
+# MCP structured arrays) may override per call, but this is the canonical default
+# so "A relates to B through N relationships" renders consistently everywhere.
+DEFAULT_RELATIONSHIP_CAP = 3
+
 _CONFIDENCE_SCORE = {
     "EXTRACTED": 1.0,
     "INFERRED": 0.5,
@@ -153,8 +158,18 @@ def project_for_context(G: nx.Graph, *, contexts: Iterable[str] | str | None = N
     return H
 
 
-def edge_records_between(G: nx.Graph, u: Hashable, v: Hashable) -> list[dict[str, Any]]:
-    """Return shallow copies of all edge records connecting two nodes."""
+def edge_records_between(
+    G: nx.Graph, u: Hashable, v: Hashable, *, directed_only: bool = False
+) -> list[dict[str, Any]]:
+    """Return shallow copies of all edge records connecting two nodes.
+
+    By default (``directed_only=False``) a directed graph contributes records in
+    BOTH directions (``u->v`` and ``v->u``), which is correct for symmetric
+    "how are A and B related" queries. Set ``directed_only=True`` to collect only
+    the ``u->v`` direction, which is what directional arrow surfaces need (path
+    hops ``A-->B``, explain "out"/"in" connections). On undirected graphs the
+    flag is a no-op, as there is no separate reverse direction to collect.
+    """
     records: list[dict[str, Any]] = []
 
     def collect(src: Hashable, tgt: Hashable) -> None:
@@ -169,7 +184,7 @@ def edge_records_between(G: nx.Graph, u: Hashable, v: Hashable) -> list[dict[str
             records.append(dict(raw))
 
     collect(u, v)
-    if G.is_directed() and u != v:
+    if not directed_only and G.is_directed() and u != v:
         collect(v, u)
     return sorted(records, key=_edge_sort_key)
 
@@ -188,6 +203,116 @@ def edge_summary_between(G: nx.Graph, u: Hashable, v: Hashable) -> dict[str, Any
         ),
         "representative": representative,
     }
+
+
+def relationship_envelope(
+    G: nx.Graph,
+    u: Hashable,
+    v: Hashable,
+    *,
+    cap: int = DEFAULT_RELATIONSHIP_CAP,
+    directed_only: bool = False,
+) -> dict[str, Any]:
+    """Bundle all parallel relationships between two nodes into a capped envelope.
+
+    Returns a structured dict suitable for MCP serialization (arrays, not a
+    representative-only dict) and as the basis for text rendering::
+
+        {
+            "count": int,            # total parallel relationships (u->v plus v->u if directed)
+            "shown": list[dict],     # up to ``cap`` full edge-record dicts, in edge_records_between order
+            "truncated": int,        # max(0, count - len(shown))
+            "relations": list[str],  # ALL unique relations across every record, sorted
+            "confidences": list[str],# ALL unique confidences across every record, sorted
+        }
+
+    ``relations``/``confidences`` summarize the FULL set even when ``shown`` is
+    capped, so callers can say "calls, imports, +2 more (5 total)" accurately.
+
+    A ``cap`` below 1 shows zero records (``shown == []``) while still reporting
+    the full ``count``/``relations``/``confidences``; negative caps are clamped to
+    zero rather than slicing from the tail.
+
+    ``directed_only`` is threaded through to :func:`edge_records_between`: with the
+    default ``False`` a directed graph bundles both directions (symmetric view),
+    while ``True`` restricts the envelope to the ``u->v`` direction for directional
+    arrow surfaces. It is a no-op on undirected graphs.
+    """
+    records = edge_records_between(G, u, v, directed_only=directed_only)
+    effective_cap = cap if cap > 0 else 0
+    shown = records[:effective_cap]
+    return {
+        "count": len(records),
+        "shown": shown,
+        "truncated": max(0, len(records) - len(shown)),
+        "relations": sorted(
+            {str(record.get("relation")) for record in records if record.get("relation")}
+        ),
+        "confidences": sorted(
+            {str(record.get("confidence")) for record in records if record.get("confidence")}
+        ),
+    }
+
+
+def format_relationship_envelope(
+    G: nx.Graph,
+    u: Hashable,
+    v: Hashable,
+    *,
+    cap: int = DEFAULT_RELATIONSHIP_CAP,
+    directed_only: bool = False,
+) -> str:
+    """Render a stable one-line summary of all relationships between two nodes.
+
+    Examples::
+
+        single relation:        "calls"
+        single with confidence: "calls (EXTRACTED)"  # confidence shown only if present
+        multiple within cap:    "calls, contains, imports"
+        capped:                 "calls, contains, imports (+2 more, 5 total)"
+        none:                   ""  # empty string when no edge exists
+
+    The displayed list is the unique sorted relations from the envelope, so a
+    relation appearing on several parallel edges is listed once. When the number
+    of UNIQUE relations exceeds ``cap``, the first ``cap`` relations are shown
+    followed by ``(+K more, N total)`` where ``N`` is the total relationship count
+    (edge records, not unique relations) and ``K`` is ``unique_relations - cap``.
+
+    Confidence is only appended in the single-relation case where exactly one
+    confidence value exists. For multi-relation lines per-relation confidence is
+    omitted to keep the line stable and deterministic; the full confidence set
+    remains available via :func:`relationship_envelope` for structured consumers.
+    A ``cap`` below 1 is clamped to zero (no leading relations are shown).
+
+    ``directed_only`` is threaded through to :func:`relationship_envelope`: with
+    the default ``False`` directed graphs render the symmetric both-direction
+    summary, while ``True`` restricts the line to the ``u->v`` direction for
+    directional arrow surfaces. It is a no-op on undirected graphs.
+    """
+    envelope = relationship_envelope(G, u, v, cap=cap, directed_only=directed_only)
+    count = envelope["count"]
+    if count == 0:
+        return ""
+
+    relations: list[str] = envelope["relations"]
+    confidences: list[str] = envelope["confidences"]
+
+    if len(relations) == 1:
+        relation = relations[0]
+        if len(confidences) == 1:
+            return f"{relation} ({confidences[0]})"
+        return relation
+
+    effective_cap = cap if cap > 0 else 0
+    if len(relations) <= effective_cap:
+        return ", ".join(relations)
+
+    shown_relations = relations[:effective_cap]
+    more = len(relations) - len(shown_relations)
+    suffix = f"(+{more} more, {count} total)"
+    if not shown_relations:
+        return suffix
+    return f"{', '.join(shown_relations)} {suffix}"
 
 
 def distinct_neighbor_degree(G: nx.Graph, node: Hashable) -> int:

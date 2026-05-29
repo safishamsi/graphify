@@ -9,7 +9,10 @@ from typing import Any, cast
 import networkx as nx
 from networkx.readwrite import json_graph
 from graphify.security import sanitize_label, check_graph_file_size_cap
-from graphify.build import edge_data
+from graphify.projections import (
+    format_relationship_envelope,
+    relationship_envelope,
+)
 
 try:
     import jieba as _jieba  # type: ignore[import-untyped]
@@ -379,18 +382,36 @@ def _subgraph_to_text(
         lines.append(line)
     for u, v in edges:
         if u in nodes and v in nodes:
-            raw = G[u][v]
-            d = (
-                next(iter(raw.values()), {})
-                if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph))
-                else raw
-            )
-            context = d.get("context")
-            context_suffix = f" context={sanitize_label(str(context))}" if context else ""
+            # _bfs/_dfs collect edges via G.neighbors(n), which yields SUCCESSORS
+            # on directed graphs, so (u, v) is already a real forward edge. Bundle
+            # with directed_only=True so the directional EDGE u-->v arrow reports
+            # only u->v relations and never bleeds in the reverse v->u edge.
+            # Compute the envelope ONCE and derive both the count gate and the
+            # text from it (no redundant second traversal).
+            env = relationship_envelope(G, u, v, directed_only=True)
+            if env["count"] == 0:
+                continue
+            if len(env["relations"]) <= 1:
+                # Single relation: reconstruct the historical EDGE format
+                # byte-for-byte (confidence + optional context inside one square
+                # bracket group) so downstream EDGE-line parsers and the
+                # path/explain surfaces stay consistent.
+                d = env["shown"][0] if env["shown"] else {}
+                context = d.get("context")
+                context_suffix = (
+                    f" context={sanitize_label(str(context))}" if context else ""
+                )
+                relation = sanitize_label(str(d.get("relation", "")))
+                confidence = sanitize_label(str(d.get("confidence", "")))
+                relation_segment = f"{relation} [{confidence}{context_suffix}]"
+            else:
+                # Multiple relations: bundle via the capped envelope text.
+                relation_segment = sanitize_label(
+                    format_relationship_envelope(G, u, v, directed_only=True)
+                )
             line = (
                 f"EDGE {sanitize_label(G.nodes[u].get('label', u))} "
-                f"--{sanitize_label(str(d.get('relation', '')))} "
-                f"[{sanitize_label(str(d.get('confidence', '')))}{context_suffix}]--> "
+                f"--{relation_segment}--> "
                 f"{sanitize_label(G.nodes[v].get('label', v))}"
             )
             lines.append(line)
@@ -466,6 +487,140 @@ def _find_node(G: nx.Graph, label: str) -> list[str]:
         elif term in norm_label:
             substring.append(nid)
     return exact + prefix + substring
+
+
+def _neighbors_text(G: nx.Graph, label: str, *, relation_filter: str = "") -> str:
+    """Render all direct neighbors of a node with their full relationship bundles.
+
+    Each neighbor appears once per direction (--> outgoing, <-- incoming) with
+    every parallel relationship for that direction bundled via the relationship
+    envelope, never collapsed to a first-edge-only representative. On a simple
+    DiGraph/Graph the bundle is a single relation, so output is unchanged in
+    substance from the pre-envelope rendering.
+    """
+    rel_filter = relation_filter.lower()
+    matches = _find_node(G, label.lower())
+    if not matches:
+        return f"No node matching '{label.lower()}' found."
+    nid = matches[0]
+    lines = [f"Neighbors of {sanitize_label(G.nodes[nid].get('label', nid))}:"]
+    directed_graph = cast(Any, G)
+
+    def _passes_filter(relations: list[str]) -> bool:
+        # Honour relation_filter against EVERY parallel relation, not just a
+        # first-edge representative, so a matching relation hidden behind a
+        # parallel edge is still surfaced.
+        if not rel_filter:
+            return True
+        return any(rel_filter in rel.lower() for rel in relations)
+
+    def _relation_bracket(src: str, tgt: str, env: dict[str, Any]) -> str:
+        # Single relation (always true for a simple DiGraph/Graph): reconstruct
+        # the historical two-bracket form `[rel] [conf]` byte-for-byte so the MCP
+        # output stays consistent with the path/explain surfaces. Multiple
+        # relations: emit the capped directional bundle.
+        if len(env["relations"]) <= 1:
+            d = env["shown"][0] if env["shown"] else {}
+            rel = sanitize_label(str(d.get("relation", "")))
+            confidence = sanitize_label(str(d.get("confidence", "")))
+            return f"[{rel}] [{confidence}]"
+        return f"[{sanitize_label(format_relationship_envelope(G, src, tgt, directed_only=True))}]"
+
+    # successors()/predecessors() yield each neighbour once even on a
+    # MultiDiGraph, so each appears a single time per direction with its full
+    # bundle of parallel relationships rather than one line per parallel edge.
+    # The envelope is computed ONCE per neighbour and reused for both the
+    # relation filter and the rendering.
+    for nb in directed_graph.successors(nid):
+        env = relationship_envelope(G, nid, nb, directed_only=True)
+        if not _passes_filter(env["relations"]):
+            continue
+        lines.append(
+            f"  --> {sanitize_label(G.nodes[nb].get('label', nb))} "
+            f"{_relation_bracket(nid, nb, env)}"
+        )
+    for nb in directed_graph.predecessors(nid):
+        env = relationship_envelope(G, nb, nid, directed_only=True)
+        if not _passes_filter(env["relations"]):
+            continue
+        lines.append(
+            f"  <-- {sanitize_label(G.nodes[nb].get('label', nb))} "
+            f"{_relation_bracket(nb, nid, env)}"
+        )
+    return "\n".join(lines)
+
+
+def _shortest_path_text(G: nx.Graph, source: str, target: str, *, max_hops: int = 8) -> str:
+    """Render the shortest path between two concepts with bundled per-hop relations.
+
+    Each hop shows ALL parallel relationships for the traversed pair (capped)
+    via the relationship envelope instead of a single first-edge representative,
+    so a hop carrying e.g. both ``calls`` and ``contains`` is fully visible.
+    """
+    src_scored = _score_nodes(G, [t.lower() for t in source.split()])
+    tgt_scored = _score_nodes(G, [t.lower() for t in target.split()])
+    if not src_scored:
+        return f"No node matching source '{source}' found."
+    if not tgt_scored:
+        return f"No node matching target '{target}' found."
+    src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
+    # Ambiguity guard: when both queries resolve to the same node, the
+    # shortest path is trivially zero hops, which is almost never what the
+    # caller wanted (see bug #828).
+    if src_nid == tgt_nid:
+        return (
+            f"'{source}' and '{target}' both resolved to "
+            f"the same node '{src_nid}'. Use a more specific label or the exact node ID."
+        )
+    warnings: list[str] = []
+    for name, scored in (("source", src_scored), ("target", tgt_scored)):
+        if len(scored) >= 2:
+            top, runner = scored[0][0], scored[1][0]
+            if top > 0 and (top - runner) / top < 0.10:
+                warnings.append(
+                    f"warning: {name} match was ambiguous "
+                    f"(top score {top:g}, runner-up {runner:g})"
+                )
+    try:
+        # Use undirected view for path-finding (works regardless of query src/tgt order)
+        path_nodes = nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
+    except (nx.NetworkXNoPath, nx.NodeNotFound):
+        return (
+            f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' "
+            f"and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
+        )
+    hops = len(path_nodes) - 1
+    if hops > max_hops:
+        return f"Path exceeds max_hops={max_hops} ({hops} hops found)."
+    segments = []
+    for i in range(len(path_nodes) - 1):
+        u, v = path_nodes[i], path_nodes[i + 1]
+        # Bundle the forward direction of the traversed pair. shortest_path walks
+        # an undirected view, so resolve which stored direction actually carries
+        # the edge, then compute its directional envelope ONCE.
+        if G.has_edge(u, v):
+            src, tgt, forward = u, v, True
+        else:
+            src, tgt, forward = v, u, False
+        env = relationship_envelope(G, src, tgt, directed_only=True)
+        # Single relation (always true for a simple DiGraph/Graph): reconstruct
+        # the historical `{rel} [conf]` hop label byte-for-byte (no confidence
+        # bracket when confidence is absent). Multiple relations: capped bundle.
+        if len(env["relations"]) <= 1:
+            d = env["shown"][0] if env["shown"] else {}
+            rel = d.get("relation", "")
+            conf = d.get("confidence", "")
+            summary = f"{rel} [{conf}]" if conf else f"{rel}"
+        else:
+            summary = format_relationship_envelope(G, src, tgt, directed_only=True)
+        if i == 0:
+            segments.append(G.nodes[u].get("label", u))
+        if forward:
+            segments.append(f"--{summary}--> {G.nodes[v].get('label', v)}")
+        else:
+            segments.append(f"<--{summary}-- {G.nodes[v].get('label', v)}")
+    prefix = ("\n".join(warnings) + "\n") if warnings else ""
+    return prefix + f"Shortest path ({hops} hops):\n  " + " ".join(segments)
 
 
 def _filter_blank_stdin() -> None:
@@ -765,33 +920,11 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         )
 
     def _tool_get_neighbors(arguments: dict) -> str:
-        label = arguments["label"].lower()
-        rel_filter = arguments.get("relation_filter", "").lower()
-        matches = _find_node(G, label)
-        if not matches:
-            return f"No node matching '{label}' found."
-        nid = matches[0]
-        lines = [f"Neighbors of {sanitize_label(G.nodes[nid].get('label', nid))}:"]
-        directed_graph = cast(Any, G)
-        for nb in directed_graph.successors(nid):
-            d = edge_data(G, nid, nb)
-            rel = d.get("relation", "")
-            if rel_filter and rel_filter not in rel.lower():
-                continue
-            lines.append(
-                f"  --> {sanitize_label(G.nodes[nb].get('label', nb))} "
-                f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
-            )
-        for nb in directed_graph.predecessors(nid):
-            d = edge_data(G, nb, nid)
-            rel = d.get("relation", "")
-            if rel_filter and rel_filter not in rel.lower():
-                continue
-            lines.append(
-                f"  <-- {sanitize_label(G.nodes[nb].get('label', nb))} "
-                f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
-            )
-        return "\n".join(lines)
+        return _neighbors_text(
+            G,
+            arguments["label"],
+            relation_filter=arguments.get("relation_filter", ""),
+        )
 
     def _tool_get_community(arguments: dict) -> str:
         cid = int(arguments["community_id"])
@@ -829,59 +962,12 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         )
 
     def _tool_shortest_path(arguments: dict) -> str:
-        src_scored = _score_nodes(G, [t.lower() for t in arguments["source"].split()])
-        tgt_scored = _score_nodes(G, [t.lower() for t in arguments["target"].split()])
-        if not src_scored:
-            return f"No node matching source '{arguments['source']}' found."
-        if not tgt_scored:
-            return f"No node matching target '{arguments['target']}' found."
-        src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
-        # Ambiguity guard: when both queries resolve to the same node, the
-        # shortest path is trivially zero hops, which is almost never what the
-        # caller wanted (see bug #828).
-        if src_nid == tgt_nid:
-            return (
-                f"'{arguments['source']}' and '{arguments['target']}' both resolved to "
-                f"the same node '{src_nid}'. Use a more specific label or the exact node ID."
-            )
-        warnings: list[str] = []
-        for name, scored in (("source", src_scored), ("target", tgt_scored)):
-            if len(scored) >= 2:
-                top, runner = scored[0][0], scored[1][0]
-                if top > 0 and (top - runner) / top < 0.10:
-                    warnings.append(
-                        f"warning: {name} match was ambiguous "
-                        f"(top score {top:g}, runner-up {runner:g})"
-                    )
-        max_hops = int(arguments.get("max_hops", 8))
-        try:
-            # Use undirected view for path-finding (works regardless of query src/tgt order)
-            path_nodes = nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
-        except (nx.NetworkXNoPath, nx.NodeNotFound):
-            return f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
-        hops = len(path_nodes) - 1
-        if hops > max_hops:
-            return f"Path exceeds max_hops={max_hops} ({hops} hops found)."
-        segments = []
-        for i in range(len(path_nodes) - 1):
-            u, v = path_nodes[i], path_nodes[i + 1]
-            if G.has_edge(u, v):
-                edata = edge_data(G, u, v)
-                forward = True
-            else:
-                edata = edge_data(G, v, u)
-                forward = False
-            rel = edata.get("relation", "")
-            conf = edata.get("confidence", "")
-            conf_str = f" [{conf}]" if conf else ""
-            if i == 0:
-                segments.append(G.nodes[u].get("label", u))
-            if forward:
-                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
-            else:
-                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
-        prefix = ("\n".join(warnings) + "\n") if warnings else ""
-        return prefix + f"Shortest path ({hops} hops):\n  " + " ".join(segments)
+        return _shortest_path_text(
+            G,
+            arguments["source"],
+            arguments["target"],
+            max_hops=int(arguments.get("max_hops", 8)),
+        )
 
     def _tool_list_prs(arguments: dict) -> str:
         from graphify.prs import fetch_prs, fetch_worktrees, format_prs_text, _detect_default_branch

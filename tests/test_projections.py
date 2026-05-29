@@ -5,14 +5,17 @@ import pytest
 from typing import Any, cast
 
 from graphify.projections import (
+    DEFAULT_RELATIONSHIP_CAP,
     distinct_neighbor_degree,
     edge_records_between,
     edge_summary_between,
+    format_relationship_envelope,
     normalize_to_multidigraph,
     project_for_callflow,
     project_for_community,
     project_for_context,
     project_for_path,
+    relationship_envelope,
 )
 
 
@@ -200,3 +203,222 @@ def test_normalize_to_multidigraph_preserves_parallel_keys_and_simple_edges() ->
     assert isinstance(simple_normalized, nx.MultiDiGraph)
     assert simple_normalized.number_of_edges("x", "y") == 1
     assert next(iter(simple_normalized["x"]["y"].values()))["relation"] == "uses"
+
+
+# ---------------------------------------------------------------------------
+# relationship_envelope / format_relationship_envelope
+# ---------------------------------------------------------------------------
+
+
+def _multidigraph_with_parallel_relations(
+    relations: list[str], *, confidence: str | None = None
+) -> nx.MultiDiGraph:
+    """Build A->B with one parallel edge per supplied relation."""
+    graph = nx.MultiDiGraph()
+    graph.add_node("a", label="A")
+    graph.add_node("b", label="B")
+    for index, relation in enumerate(relations):
+        attrs: dict[str, Any] = {"relation": relation}
+        if confidence is not None:
+            attrs["confidence"] = confidence
+        graph.add_edge("a", "b", key=f"{relation}-{index}", **attrs)
+    return graph
+
+
+def test_relationship_envelope_single_edge() -> None:
+    graph = nx.DiGraph()
+    graph.add_edge("a", "b", relation="calls", confidence="EXTRACTED")
+
+    envelope = relationship_envelope(graph, "a", "b")
+
+    assert envelope["count"] == 1
+    assert len(envelope["shown"]) == 1
+    assert envelope["shown"][0]["relation"] == "calls"
+    assert envelope["truncated"] == 0
+    assert envelope["relations"] == ["calls"]
+    assert envelope["confidences"] == ["EXTRACTED"]
+
+
+def test_relationship_envelope_multidigraph_bundles_all() -> None:
+    graph = _multidigraph_with_parallel_relations(["calls", "imports", "contains"])
+
+    envelope = relationship_envelope(graph, "a", "b")
+
+    assert envelope["count"] == 3
+    assert envelope["relations"] == ["calls", "contains", "imports"]
+    assert len(envelope["shown"]) == 3  # default cap == 3 fits all
+    assert envelope["truncated"] == 0
+    # shown records mirror edge_records_between ordering
+    assert envelope["shown"] == edge_records_between(graph, "a", "b")
+
+
+def test_relationship_envelope_caps_shown() -> None:
+    graph = _multidigraph_with_parallel_relations(["r1", "r2", "r3", "r4", "r5"])
+
+    envelope = relationship_envelope(graph, "a", "b", cap=3)
+
+    assert envelope["count"] == 5
+    assert len(envelope["shown"]) == 3
+    assert envelope["truncated"] == 2
+    assert envelope["relations"] == ["r1", "r2", "r3", "r4", "r5"]
+    # shown is the leading slice of the full sorted record list
+    assert envelope["shown"] == edge_records_between(graph, "a", "b")[:3]
+
+
+def test_relationship_envelope_cap_zero_or_negative() -> None:
+    graph = _multidigraph_with_parallel_relations(
+        ["calls", "imports", "contains"], confidence="EXTRACTED"
+    )
+
+    zero = relationship_envelope(graph, "a", "b", cap=0)
+    assert zero["shown"] == []
+    assert zero["truncated"] == zero["count"] == 3
+    assert zero["relations"] == ["calls", "contains", "imports"]
+    assert zero["confidences"] == ["EXTRACTED"]
+
+    negative = relationship_envelope(graph, "a", "b", cap=-1)
+    assert negative["shown"] == []
+    assert negative["truncated"] == negative["count"] == 3
+    assert negative["relations"] == ["calls", "contains", "imports"]
+
+
+def test_relationship_envelope_directed_both_directions() -> None:
+    graph = nx.DiGraph()
+    graph.add_edge("a", "b", relation="calls", confidence="EXTRACTED")
+    graph.add_edge("b", "a", relation="returns", confidence="INFERRED")
+
+    envelope = relationship_envelope(graph, "a", "b")
+
+    assert envelope["count"] == 2
+    assert envelope["relations"] == ["calls", "returns"]
+    assert envelope["confidences"] == ["EXTRACTED", "INFERRED"]
+    assert envelope["shown"] == edge_records_between(graph, "a", "b")
+
+
+def test_relationship_envelope_no_edge() -> None:
+    graph = nx.DiGraph()
+    graph.add_node("a")
+    graph.add_node("b")
+
+    envelope = relationship_envelope(graph, "a", "b")
+
+    assert envelope["count"] == 0
+    assert envelope["shown"] == []
+    assert envelope["truncated"] == 0
+    assert envelope["relations"] == []
+    assert envelope["confidences"] == []
+
+
+def test_format_relationship_envelope_single() -> None:
+    without_confidence = nx.DiGraph()
+    without_confidence.add_edge("a", "b", relation="calls")
+    assert format_relationship_envelope(without_confidence, "a", "b") == "calls"
+
+    with_confidence = nx.DiGraph()
+    with_confidence.add_edge("a", "b", relation="calls", confidence="EXTRACTED")
+    assert format_relationship_envelope(with_confidence, "a", "b") == "calls (EXTRACTED)"
+
+
+def test_format_relationship_envelope_multiple_within_cap() -> None:
+    graph = _multidigraph_with_parallel_relations(
+        ["imports", "calls", "contains"], confidence="EXTRACTED"
+    )
+
+    # 3 unique relations within the default cap; confidence omitted for multi-relation lines
+    assert format_relationship_envelope(graph, "a", "b") == "calls, contains, imports"
+
+
+def test_format_relationship_envelope_capped() -> None:
+    graph = _multidigraph_with_parallel_relations(
+        ["gamma", "alpha", "epsilon", "beta", "delta"]
+    )
+
+    # sorted unique relations: alpha, beta, delta, epsilon, gamma -> first 3 shown
+    assert (
+        format_relationship_envelope(graph, "a", "b", cap=3)
+        == "alpha, beta, delta (+2 more, 5 total)"
+    )
+
+
+def test_format_relationship_envelope_empty() -> None:
+    graph = nx.DiGraph()
+    graph.add_node("a")
+    graph.add_node("b")
+
+    assert format_relationship_envelope(graph, "a", "b") == ""
+
+
+def test_relationship_envelope_simple_graph_regression() -> None:
+    graph = nx.DiGraph()
+    graph.add_edge("a", "b", relation="calls")
+    graph.add_edge("a", "c", relation="imports")
+
+    # Plain DiGraph: no parallel edges, so the envelope between a single pair
+    # reflects exactly the one edge and shown == all records (cap unreached).
+    assert DEFAULT_RELATIONSHIP_CAP == 3
+    envelope = relationship_envelope(graph, "a", "b")
+    assert envelope["count"] == graph.number_of_edges("a", "b") == 1
+    assert envelope["shown"] == edge_records_between(graph, "a", "b")
+    assert envelope["truncated"] == 0
+
+
+def _bidirectional_digraph() -> nx.DiGraph:
+    """Directed A->B (calls) plus the reverse B->A (imports)."""
+    graph = nx.DiGraph()
+    graph.add_edge("a", "b", relation="calls", confidence="EXTRACTED")
+    graph.add_edge("b", "a", relation="imports", confidence="INFERRED")
+    return graph
+
+
+def test_edge_records_between_directed_only_excludes_reverse() -> None:
+    graph = _bidirectional_digraph()
+
+    both = edge_records_between(graph, "a", "b")
+    assert len(both) == 2
+    assert {record["relation"] for record in both} == {"calls", "imports"}
+
+    forward = edge_records_between(graph, "a", "b", directed_only=True)
+    assert len(forward) == 1
+    assert forward[0]["relation"] == "calls"
+
+
+def test_relationship_envelope_directed_only() -> None:
+    graph = _bidirectional_digraph()
+
+    envelope = relationship_envelope(graph, "a", "b", directed_only=True)
+
+    assert envelope["count"] == 1
+    assert envelope["relations"] == ["calls"]
+    assert "imports" not in envelope["relations"]
+    assert [record["relation"] for record in envelope["shown"]] == ["calls"]
+
+
+def test_format_relationship_envelope_directed_only() -> None:
+    graph = _bidirectional_digraph()
+
+    # Single forward relation with confidence present -> "calls (EXTRACTED)".
+    rendered = format_relationship_envelope(graph, "a", "b", directed_only=True)
+    assert rendered == "calls (EXTRACTED)"
+    assert "imports" not in rendered
+
+    # Without confidence the single forward relation renders bare.
+    plain = nx.DiGraph()
+    plain.add_edge("a", "b", relation="calls")
+    plain.add_edge("b", "a", relation="imports")
+    assert format_relationship_envelope(plain, "a", "b", directed_only=True) == "calls"
+
+
+def test_directed_only_noop_on_undirected() -> None:
+    graph = nx.Graph()
+    graph.add_edge("a", "b", relation="calls", confidence="EXTRACTED")
+    graph.add_edge("a", "b", relation="imports")  # simple graph: overwrites attrs, single edge
+
+    assert edge_records_between(graph, "a", "b", directed_only=True) == edge_records_between(
+        graph, "a", "b"
+    )
+    assert relationship_envelope(graph, "a", "b", directed_only=True) == relationship_envelope(
+        graph, "a", "b"
+    )
+    assert format_relationship_envelope(
+        graph, "a", "b", directed_only=True
+    ) == format_relationship_envelope(graph, "a", "b")

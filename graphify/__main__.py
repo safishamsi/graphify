@@ -2270,25 +2270,42 @@ def main() -> None:
         hops = len(path_nodes) - 1
         segments = []
         from graphify.build import edge_data
+        from graphify.projections import (
+            format_relationship_envelope,
+            relationship_envelope,
+        )
 
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
             # Check which direction the stored edge points.
             if G.has_edge(u, v):
-                edata = edge_data(G, u, v)
                 forward = True
+                src, tgt = u, v
             else:
-                edata = edge_data(G, v, u)
                 forward = False
-            rel = edata.get("relation", "")
-            conf = edata.get("confidence", "")
-            conf_str = f" [{conf}]" if conf else ""
+                src, tgt = v, u
+            # Bundle every parallel relationship on this hop so a MultiDiGraph
+            # never silently shows only the first edge (#PR5 go/no-go gate).
+            # directed_only=True isolates this hop's stored direction (src->tgt)
+            # so a reverse edge (tgt->src) never bleeds into the arrow's bundle.
+            env = relationship_envelope(G, src, tgt, directed_only=True)
+            if len(env["relations"]) > 1:
+                # Multiple parallel relations: render the capped bundle; the
+                # envelope omits per-relation confidence for stability.
+                rel_str = format_relationship_envelope(G, src, tgt, directed_only=True)
+            else:
+                # Single relation (always true for simple DiGraph/Graph): keep
+                # the historical "rel [CONFIDENCE]" form byte-for-byte stable.
+                edata = edge_data(G, src, tgt)
+                rel = edata.get("relation", "")
+                conf = edata.get("confidence", "")
+                rel_str = f"{rel} [{conf}]" if conf else rel
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
             if forward:
-                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+                segments.append(f"--{rel_str}--> {G.nodes[v].get('label', v)}")
             else:
-                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
+                segments.append(f"<--{rel_str}-- {G.nodes[v].get('label', v)}")
         print(f"Shortest path ({hops} hops):\n  " + " ".join(segments))
 
     elif cmd == "explain":
@@ -2331,20 +2348,40 @@ def main() -> None:
         print(f"  Community: {d.get('community', '')}")
         print(f"  Degree:    {G.degree(nid)}")
         from graphify.build import edge_data
+        from graphify.projections import (
+            format_relationship_envelope,
+            relationship_envelope,
+        )
 
-        connections: list[tuple[str, str, dict]] = []  # (direction, neighbor_id, edge_data)
+        # (direction, neighbor_id, edge_src, edge_tgt) — src/tgt preserve the
+        # stored edge direction so the relationship envelope reads the correct
+        # parallel-edge bundle for this neighbor.
+        connections: list[tuple[str, str, str, str]] = []
         for nb in G.successors(nid):
-            connections.append(("out", nb, edge_data(G, nid, nb)))
+            connections.append(("out", nb, nid, nb))
         for nb in G.predecessors(nid):
-            connections.append(("in", nb, edge_data(G, nb, nid)))
+            connections.append(("in", nb, nb, nid))
         if connections:
             print(f"\nConnections ({len(connections)}):")
             connections.sort(key=lambda c: G.degree(c[1]), reverse=True)
-            for direction, nb, edata in connections[:20]:
-                rel = edata.get("relation", "")
-                conf = edata.get("confidence", "")
+            for direction, nb, e_src, e_tgt in connections[:20]:
                 arrow = "-->" if direction == "out" else "<--"
-                print(f"  {arrow} {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
+                # Bundle every parallel relationship to this neighbor so a
+                # MultiDiGraph never shows only the first edge (#PR5 gate).
+                # directed_only=True isolates this connection's stored direction
+                # (e_src->e_tgt) so an "out" arrow never merges the reverse "in"
+                # relations and vice versa.
+                env = relationship_envelope(G, e_src, e_tgt, directed_only=True)
+                if len(env["relations"]) > 1:
+                    rel_block = f"[{format_relationship_envelope(G, e_src, e_tgt, directed_only=True)}]"
+                else:
+                    # Single relation (always true for simple DiGraph/Graph):
+                    # keep the historical "[rel] [conf]" form byte-stable.
+                    edata = edge_data(G, e_src, e_tgt)
+                    rel = edata.get("relation", "")
+                    conf = edata.get("confidence", "")
+                    rel_block = f"[{rel}] [{conf}]"
+                print(f"  {arrow} {G.nodes[nb].get('label', nb)} {rel_block}")
             if len(connections) > 20:
                 print(f"  ... and {len(connections) - 20} more")
 
