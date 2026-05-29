@@ -119,11 +119,12 @@ def test_ingest_extraction_prune(tmp_db):
 # --- fallback rel table ---
 
 def test_fallback_rel_table(tmp_db):
-    from graphify.storage import _ensure_rel_table, _created_rel_tables
+    from graphify.storage import _ensure_rel_table, ensure_schema
     db, conn = _init(tmp_db)
-    tbl = _ensure_rel_table(conn, "paper", "document", "cites")
+    known = ensure_schema(conn)
+    tbl = _ensure_rel_table(conn, "paper", "document", "cites", known)
     assert tbl == "edge_paper_document_cites"
-    assert tbl in _created_rel_tables
+    assert tbl in known
     _close(db, conn)
 
 

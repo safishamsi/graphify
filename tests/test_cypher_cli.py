@@ -24,8 +24,8 @@ def _build_db(tmp_path) -> str:
     db_path = str(tmp_path / "graph.db")
     ext = json.loads(EXTRACTION_JSON.read_text())
     db, conn = init_db(db_path)
-    ensure_schema(conn)
-    ingest_extraction(conn, ext, incremental=False)
+    known = ensure_schema(conn)
+    ingest_extraction(conn, ext, incremental=False, known_tables=known)
     close_db(db, conn)
     return db_path
 

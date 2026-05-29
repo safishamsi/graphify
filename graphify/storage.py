@@ -1,17 +1,18 @@
 """NeuG graph database adapter for graphify.
 
 Provides an optional parallel storage engine alongside NetworkX.
-All functions are guarded by `import neug` — when NeuG is not installed,
-callers should catch ImportError and skip silently.
+NeuG is lazily imported — when not installed, callers should catch
+ImportError at the call site and skip silently.
+
+All property values interpolated into Cypher statements use NeuG's native
+parameterised queries ($param syntax) to prevent injection.  Table/label
+names (which come from a fixed internal set, not user input) are still
+interpolated as identifiers.
 """
 from __future__ import annotations
 
-import os
 import re
-import unicodedata
 from pathlib import Path
-
-import neug
 
 from .build import _FILE_TYPE_SYNONYMS, _normalize_id, _norm_source_file
 from .validate import VALID_FILE_TYPES
@@ -60,8 +61,6 @@ _KNOWN_RELATIONS: dict[tuple[str, str], list[str]] = {
     ("rationale", "code"): ["rationale_for"],
 }
 
-_created_rel_tables: set[str] = set()
-
 
 def _sanitize_rel_name(relation: str) -> str:
     """Normalize a relation string into a safe table-name suffix."""
@@ -76,41 +75,31 @@ def _edge_table_name(src_type: str, tgt_type: str, relation: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Cypher string escaping
-# ---------------------------------------------------------------------------
-
-
-def _cesc(value: str) -> str:
-    return (
-        value
-        .replace("\\", "\\\\")
-        .replace("'", "\\'")
-        .replace("\n", "\\n")
-        .replace("\r", "\\r")
-        .replace("\t", "\\t")
-    )
-
-
-# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
 
-def init_db(db_path: str) -> tuple[neug.Database, object]:
-    """Open (or create) a NeuG database and connect."""
+def init_db(db_path: str) -> tuple:
+    """Open (or create) a NeuG database and connect.
+
+    Returns (db, conn).  Raises ImportError if neug is not installed.
+    """
+    import neug
     db = neug.Database(db_path)
     conn = db.connect()
     return db, conn
 
 
-def ensure_schema(conn: object, *, create_tables: bool = True) -> None:
+def ensure_schema(conn: object, *, create_tables: bool = True) -> set[str]:
     """Populate known table registry; optionally execute DDL.
 
     create_tables=True  (first build): run CREATE TABLE statements.
-    create_tables=False (incremental): only populate _created_rel_tables set
+    create_tables=False (incremental): only build the registry set
                         so _ensure_rel_table() knows what exists.
+
+    Returns the set of known rel table names (per-connection registry).
     """
-    _created_rel_tables.clear()
+    created: set[str] = set()
 
     if create_tables:
         for ddl in _NODE_TABLES.values():
@@ -121,16 +110,21 @@ def ensure_schema(conn: object, *, create_tables: bool = True) -> None:
             tbl = _edge_table_name(src, tgt, rel)
             if create_tables:
                 conn.execute(_EDGE_DDL_TEMPLATE.format(tbl=tbl, src=src, tgt=tgt))
-            _created_rel_tables.add(tbl)
+            created.add(tbl)
+
+    return created
 
 
-def _ensure_rel_table(conn: object, src_type: str, tgt_type: str, relation: str) -> str:
+def _ensure_rel_table(
+    conn: object, src_type: str, tgt_type: str, relation: str,
+    known: set[str],
+) -> str:
     """Resolve edge table name, creating on-the-fly if needed. Returns table name."""
     tbl = _edge_table_name(src_type, tgt_type, relation)
-    if tbl in _created_rel_tables:
+    if tbl in known:
         return tbl
     conn.execute(_EDGE_DDL_TEMPLATE.format(tbl=tbl, src=src_type, tgt=tgt_type))
-    _created_rel_tables.add(tbl)
+    known.add(tbl)
     return tbl
 
 
@@ -148,13 +142,17 @@ def ingest_extraction(
     incremental: bool = False,
     prune_sources: list[str] | None = None,
     root: str | Path | None = None,
-) -> None:
+    known_tables: set[str] | None = None,
+) -> dict[str, str]:
     """Write an extraction dict into NeuG.
 
     incremental=False: first build — uses CREATE (faster).
     incremental=True:  update — uses MERGE (upsert).
+
+    Returns node_types dict (id -> file_type) for use by ingest_communities.
     """
     _root = str(Path(root).resolve()) if root else None
+    _known = known_tables if known_tables is not None else set()
 
     # --- prune deleted/changed files first ---
     if prune_sources:
@@ -162,8 +160,8 @@ def ingest_extraction(
             sf_norm = _norm_source_file(sf, _root) or sf
             for tbl in _NODE_TABLES:
                 conn.execute(
-                    f"MATCH (n:{tbl}) WHERE n.source_file = '{_cesc(sf_norm)}' "
-                    f"DETACH DELETE n"
+                    f"MATCH (n:{tbl}) WHERE n.source_file = $sf DETACH DELETE n",
+                    parameters={"sf": sf_norm},
                 )
 
     # --- build node lookup: id -> file_type ---
@@ -191,35 +189,32 @@ def ingest_extraction(
             if incremental:
                 if ft == "code":
                     conn.execute(
-                        f"MERGE (n:code {{id: '{_cesc(nid)}'}}) "
-                        f"ON CREATE SET n.label = '{_cesc(label)}', "
-                        f"n.source_file = '{_cesc(sf)}', "
-                        f"n.source_location = '{_cesc(sl)}' "
-                        f"ON MATCH SET n.label = '{_cesc(label)}', "
-                        f"n.source_file = '{_cesc(sf)}', "
-                        f"n.source_location = '{_cesc(sl)}'"
+                        f"MERGE (n:code {{id: $nid}}) "
+                        f"ON CREATE SET n.label = $label, "
+                        f"n.source_file = $sf, n.source_location = $sl "
+                        f"ON MATCH SET n.label = $label, "
+                        f"n.source_file = $sf, n.source_location = $sl",
+                        parameters={"nid": nid, "label": label, "sf": sf, "sl": sl},
                     )
                 else:
                     conn.execute(
-                        f"MERGE (n:{ft} {{id: '{_cesc(nid)}'}}) "
-                        f"ON CREATE SET n.label = '{_cesc(label)}', "
-                        f"n.source_file = '{_cesc(sf)}' "
-                        f"ON MATCH SET n.label = '{_cesc(label)}', "
-                        f"n.source_file = '{_cesc(sf)}'"
+                        f"MERGE (n:{ft} {{id: $nid}}) "
+                        f"ON CREATE SET n.label = $label, n.source_file = $sf "
+                        f"ON MATCH SET n.label = $label, n.source_file = $sf",
+                        parameters={"nid": nid, "label": label, "sf": sf},
                     )
             else:
                 if ft == "code":
                     conn.execute(
-                        f"CREATE (n:code {{id: '{_cesc(nid)}', "
-                        f"label: '{_cesc(label)}', "
-                        f"source_file: '{_cesc(sf)}', "
-                        f"source_location: '{_cesc(sl)}'}})"
+                        f"CREATE (n:code {{id: $nid, label: $label, "
+                        f"source_file: $sf, source_location: $sl}})",
+                        parameters={"nid": nid, "label": label, "sf": sf, "sl": sl},
                     )
                 else:
                     conn.execute(
-                        f"CREATE (n:{ft} {{id: '{_cesc(nid)}', "
-                        f"label: '{_cesc(label)}', "
-                        f"source_file: '{_cesc(sf)}'}})"
+                        f"CREATE (n:{ft} {{id: $nid, label: $label, "
+                        f"source_file: $sf}})",
+                        parameters={"nid": nid, "label": label, "sf": sf},
                     )
         except RuntimeError:
             _n_errors += 1
@@ -241,20 +236,24 @@ def ingest_extraction(
 
         rel_raw = edge.get("relation", "")
         conf_raw = edge.get("confidence", "")
-        tbl = _ensure_rel_table(conn, src_ft, tgt_ft, rel_raw)
-        rel = _cesc(rel_raw)
-        conf = _cesc(conf_raw)
+        tbl = _ensure_rel_table(conn, src_ft, tgt_ft, rel_raw, _known)
         conf_score = float(edge.get("confidence_score", 0.0))
-        e_sf = _cesc(_norm_source_file(edge.get("source_file"), _root) or "")
+        e_sf = _norm_source_file(edge.get("source_file"), _root) or ""
         weight = float(edge.get("weight", 1.0))
 
         try:
             conn.execute(
-                f"MATCH (a:{src_ft} {{id: '{_cesc(src_id)}'}}), "
-                f"(b:{tgt_ft} {{id: '{_cesc(tgt_id)}'}}) "
-                f"CREATE (a)-[:{tbl} {{relation: '{rel}', confidence: '{conf}', "
-                f"confidence_score: {conf_score}, source_file: '{e_sf}', "
-                f"weight: {weight}}}]->(b)"
+                f"MATCH (a:{src_ft} {{id: $src_id}}), "
+                f"(b:{tgt_ft} {{id: $tgt_id}}) "
+                f"CREATE (a)-[:{tbl} {{relation: $rel, confidence: $conf, "
+                f"confidence_score: $conf_score, source_file: $e_sf, "
+                f"weight: $weight}}]->(b)",
+                parameters={
+                    "src_id": src_id, "tgt_id": tgt_id,
+                    "rel": rel_raw, "conf": conf_raw,
+                    "conf_score": conf_score, "e_sf": e_sf,
+                    "weight": weight,
+                },
             )
         except RuntimeError:
             _e_errors += 1
@@ -266,23 +265,45 @@ def ingest_extraction(
             _n_errors, _e_errors,
         )
 
+    return node_types
+
 
 def ingest_communities(
     conn: object,
     communities: dict[int, list[str]],
     community_labels: dict[int, str] | None = None,
+    node_types: dict[str, str] | None = None,
 ) -> None:
-    """Write community assignments into NeuG node properties."""
+    """Write community assignments into NeuG node properties.
+
+    If node_types is provided (id -> file_type mapping from ingest_extraction),
+    each node is looked up in its specific table directly.  Otherwise falls
+    back to probing all 6 tables (slower).
+
+    Note: NeuG does not support parameterised SET for non-string values,
+    so community ID is interpolated as an integer literal.  The id value
+    uses a parameterised query.
+    """
     for cid, node_ids in communities.items():
+        cid_int = int(cid)
         for nid in node_ids:
             nid_norm = _normalize_id(nid)
             if not nid_norm:
                 continue
-            for tbl in _NODE_TABLES:
+            if node_types and nid_norm in node_types:
+                tbl = node_types[nid_norm]
                 conn.execute(
-                    f"MATCH (n:{tbl}) WHERE n.id = '{_cesc(nid_norm)}' "
-                    f"SET n.community = {int(cid)}"
+                    f"MATCH (n:{tbl}) WHERE n.id = $nid "
+                    f"SET n.community = {cid_int}",
+                    parameters={"nid": nid_norm},
                 )
+            else:
+                for tbl in _NODE_TABLES:
+                    conn.execute(
+                        f"MATCH (n:{tbl}) WHERE n.id = $nid "
+                        f"SET n.community = {cid_int}",
+                        parameters={"nid": nid_norm},
+                    )
 
 
 def execute_cypher(conn: object, query: str) -> list[list]:
@@ -293,7 +314,7 @@ def execute_cypher(conn: object, query: str) -> list[list]:
         raise RuntimeError(f"Cypher query failed: {exc}") from exc
 
 
-def close_db(db: neug.Database, conn: object) -> None:
+def close_db(db: object, conn: object) -> None:
     """Close the NeuG connection and database."""
     conn.close()
     db.close()
