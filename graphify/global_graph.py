@@ -112,9 +112,7 @@ def normalize_graphs_for_global(
         ValueError - *target_type* is not a recognized graph_type token.
     """
     if target_type is not None and target_type not in _GRAPH_TYPES:
-        raise ValueError(
-            f"target_type must be one of {sorted(_GRAPH_TYPES)}, got {target_type!r}"
-        )
+        raise ValueError(f"target_type must be one of {sorted(_GRAPH_TYPES)}, got {target_type!r}")
 
     explicit = target_type is not None
     resolved = target_type if explicit else _infer_target_type(graphs)
@@ -168,6 +166,9 @@ def refuse_pre_profile_upgrade(
     target_type: str,
     *,
     backup_hint: Path | None = None,
+    graph_label: str = "global graph",
+    graph_path: str = "global-graph.json",
+    recovery_hint: str | None = None,
 ) -> None:
     """Refuse to upgrade a pre-profile global graph to multigraph.
 
@@ -189,17 +190,25 @@ def refuse_pre_profile_upgrade(
     backup_line = (
         f" A pre-overwrite backup was saved at {backup_hint}."
         if backup_hint is not None
-        else " Check ~/.graphify for a dated .bak snapshot of the previous graph."
+        else " Check for a dated .bak snapshot of the previous graph."
     )
+    if recovery_hint is None:
+        recovery_hint = (
+            "To rebuild safely, remove the affected repos and re-add them from source "
+            "(`graphify global remove <tag>` then `graphify global add`), which "
+            "regenerates keyed parallel edges from the per-repo graph.json."
+        )
+    else:
+        recovery_hint = recovery_hint.strip()
+        if recovery_hint and not recovery_hint.endswith("."):
+            recovery_hint += "."
+    recovery_line = f" {recovery_hint}" if recovery_hint else ""
+    article = "an" if graph_label[:1].lower() in {"a", "e", "i", "o", "u"} else "a"
     raise GlobalGraphRecoveryError(
-        "refusing to upgrade a pre-profile global graph to a multidigraph: the "
-        "existing global-graph.json has no graphify_profile or multigraph/directed "
-        "flags, so it predates class tracking and may already have collapsed "
-        "parallel edges that cannot be reconstructed by upgrading in place."
-        + backup_line
-        + " To rebuild safely, remove the affected repos and re-add them from source "
-        "(`graphify global remove <tag>` then `graphify global add`), which "
-        "regenerates keyed parallel edges from the per-repo graph.json."
+        f"refusing to upgrade {article} pre-profile {graph_label} to a multidigraph: "
+        f"{graph_path} has no graphify_profile or multigraph/directed flags, "
+        "so it predates class tracking and may already have collapsed parallel "
+        "edges that cannot be reconstructed by upgrading in place." + backup_line + recovery_line
     )
 
 
@@ -398,9 +407,7 @@ def global_add(source_path: Path, repo_tag: str) -> dict:
 
     # Normalize the surviving global graph and the prefixed source to the common
     # target class. normalize_graphs_for_global returns them in the same order.
-    (G, prefixed), target_type = normalize_graphs_for_global(
-        [G, prefixed], target_type=target_type
-    )
+    (G, prefixed), target_type = normalize_graphs_for_global([G, prefixed], target_type=target_type)
 
     # Merge external-library nodes (no source_file) by label to avoid duplication
     external_labels = {
@@ -462,6 +469,7 @@ def global_remove(repo_tag: str) -> int:
 
     G = _load_global_graph()
     removed = prune_repo_from_graph(G, repo_tag)
+    backup_global_graph()
     _save_global_graph(G)
 
     del manifest["repos"][repo_tag]

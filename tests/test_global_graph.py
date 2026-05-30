@@ -242,6 +242,31 @@ def test_global_remove(tmp_path):
     assert "repoA" not in repos
 
 
+def test_global_remove_backs_up_before_overwrite(tmp_path):
+    """Removing a repo mutates global-graph.json, so recovery policy requires a backup."""
+    src_graph = tmp_path / "graph.json"
+    G = _make_graph([{"id": "userservice", "label": "UserService", "source_file": "src/user.py"}])
+    _graph_to_json(G, src_graph)
+
+    global_dir = tmp_path / ".graphify"
+    global_graph_path = global_dir / "global-graph.json"
+    with (
+        patch("graphify.global_graph._GLOBAL_DIR", global_dir),
+        patch("graphify.global_graph._GLOBAL_GRAPH", global_graph_path),
+        patch("graphify.global_graph._GLOBAL_MANIFEST", global_dir / "global-manifest.json"),
+    ):
+        from graphify.global_graph import global_add, global_remove
+
+        global_add(src_graph, "repoA")
+        before_remove = global_graph_path.read_bytes()
+        removed = global_remove("repoA")
+
+    assert removed > 0
+    backups = list(global_dir.glob("global-graph.*.bak"))
+    assert len(backups) == 1
+    assert backups[0].read_bytes() == before_remove
+
+
 def test_global_remove_unknown_tag_raises(tmp_path):
     global_dir = tmp_path / ".graphify"
     with (
@@ -562,9 +587,7 @@ def test_normalize_graphs_for_global_infers_target(recwarn):
     input warns and projects the multigraph down to simple."""
     from graphify.global_graph import normalize_graphs_for_global
 
-    simple = _make_graph(
-        [{"id": "x"}, {"id": "y"}], [{"source": "x", "target": "y"}]
-    )
+    simple = _make_graph([{"id": "x"}, {"id": "y"}], [{"source": "x", "target": "y"}])
     multi = _make_multidigraph(
         [{"id": "a"}, {"id": "b"}],
         [
@@ -582,9 +605,7 @@ def test_normalize_graphs_for_global_infers_target(recwarn):
 
     # Explicit simple target with a multi input → WARNING + projection to simple.
     with pytest.warns(UserWarning, match="collaps"):
-        normalized2, target2 = normalize_graphs_for_global(
-            [simple, multi], target_type="simple"
-        )
+        normalized2, target2 = normalize_graphs_for_global([simple, multi], target_type="simple")
     assert target2 == "simple"
     assert all(type(g) is nx.Graph for g in normalized2)
     # Parallel edges collapse to a single (a, b) pair on the simple projection.
@@ -602,9 +623,7 @@ def test_detect_pre_profile_global_graph():
 
     assert detect_pre_profile({"nodes": [{"id": "a"}], "links": []}) is True
     # Top-level profile present → not pre-profile.
-    assert (
-        detect_pre_profile({"nodes": [], "links": [], "graphify_profile": {}}) is False
-    )
+    assert detect_pre_profile({"nodes": [], "links": [], "graphify_profile": {}}) is False
     # Nested profile under "graph" → not pre-profile.
     assert (
         detect_pre_profile(
@@ -666,13 +685,9 @@ def test_global_add_backs_up_before_overwrite(tmp_path):
     global_dir = tmp_path / ".graphify"
 
     g1 = tmp_path / "g1.json"
-    _graph_to_json(
-        _make_graph([{"id": "u", "label": "U", "source_file": "src/u.py"}]), g1
-    )
+    _graph_to_json(_make_graph([{"id": "u", "label": "U", "source_file": "src/u.py"}]), g1)
     g2 = tmp_path / "g2.json"
-    _graph_to_json(
-        _make_graph([{"id": "w", "label": "W", "source_file": "src/w.py"}]), g2
-    )
+    _graph_to_json(_make_graph([{"id": "w", "label": "W", "source_file": "src/w.py"}]), g2)
 
     with _patch_global(global_dir):
         from graphify.global_graph import global_add
@@ -1225,7 +1240,10 @@ def test_merge_driver_pre_profile_current_refusal_message(monkeypatch, tmp_path,
     err = capsys.readouterr().err
     assert "pre-profile" in err
     assert "multidigraph" in err
-    assert "remove" in err and "add" in err  # rebuild-from-source recovery guidance
+    assert str(current_p) in err
+    assert "regenerate" in err or "recreate" in err
+    assert "global-graph.json" not in err
+    assert "graphify global remove" not in err
 
 
 def test_merge_backup_suppressed_by_env(monkeypatch, tmp_path):
@@ -1239,7 +1257,9 @@ def test_merge_backup_suppressed_by_env(monkeypatch, tmp_path):
 
     # --- with GRAPHIFY_NO_BACKUP=1: overwrite an existing target, expect NO .bak ---
     out_suppressed = tmp_path / "merged_suppressed.json"
-    _graph_to_json(_make_graph([{"id": "old", "label": "OLD", "source_file": "old.py"}], []), out_suppressed)
+    _graph_to_json(
+        _make_graph([{"id": "old", "label": "OLD", "source_file": "old.py"}], []), out_suppressed
+    )
     monkeypatch.setenv("GRAPHIFY_NO_BACKUP", "1")
     assert _run_merge_graphs(monkeypatch, [g1, g2], out_suppressed) == 0
     assert list(tmp_path.glob("merged_suppressed.*.bak")) == []  # suppressed → no backup

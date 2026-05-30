@@ -2953,7 +2953,16 @@ def main() -> None:
         # status implies no unreconstructable in-place loss and must not block.
         if target_type == "multidigraph":
             try:
-                refuse_pre_profile_upgrade(current_data, target_type)
+                refuse_pre_profile_upgrade(
+                    current_data,
+                    target_type,
+                    graph_label="merge target graph",
+                    graph_path=_current_path,
+                    recovery_hint=(
+                        "Regenerate or recreate this graph.json from source before retrying "
+                        "the merge, or resolve the file manually from source-backed inputs"
+                    ),
+                )
             except GlobalGraphRecoveryError as exc:
                 print(f"[graphify merge-driver] {exc}", file=sys.stderr)
                 sys.exit(1)
