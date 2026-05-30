@@ -496,6 +496,8 @@ graphify extract ./docs --mode deep            # richer semantic extraction via 
 graphify extract ./docs --no-cluster           # raw extraction only, skip clustering
 graphify extract ./docs --force                # overwrite graph.json even if new graph has fewer nodes (use after refactors or to clear ghost duplicates)
 graphify extract ./docs --dedup-llm            # LLM tiebreaker for ambiguous entity pairs (uses same API key)
+graphify extract ./docs --multigraph           # build a MultiDiGraph that preserves parallel edges (e.g. A calls B AND A imports B)
+graphify extract ./docs --simple               # force a simple graph even over an existing multigraph (lossy — warns on collapse)
 graphify extract ./docs --global --as myrepo   # extract and register into the cross-project global graph
 GRAPHIFY_MAX_OUTPUT_TOKENS=32768 graphify extract ./docs --backend claude  # raise output cap for dense corpora
 

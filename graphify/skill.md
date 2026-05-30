@@ -19,6 +19,8 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /graphify <path> --mode deep                          # thorough extraction, richer INFERRED edges
 /graphify <path> --update                             # incremental - re-extract only new/changed files
 /graphify <path> --directed                            # build directed graph (preserves edge direction: source→target)
+/graphify <path> --multigraph                          # build a MultiDiGraph preserving parallel edges (multiple distinct relationships between the same pair)
+/graphify <path> --simple                              # force a simple graph even over an existing multigraph (lossy downgrade — warns on collapse)
 /graphify <path> --whisper-model medium                # use a larger Whisper model for better transcription accuracy
 /graphify <path> --cluster-only                       # rerun clustering on existing graph
 /graphify <path> --no-viz                             # skip visualization, just report + JSON
@@ -511,7 +513,10 @@ print(f'Merged: {total} nodes, {edges} edges ({len(ast[\"nodes\"])} AST + {len(s
 
 ### Step 4 - Build graph, cluster, analyze, generate outputs
 
-**Before starting:** note whether `--directed` was given. If so, pass `directed=True` to `build_from_json()` in the code block below. This builds a `DiGraph` that preserves edge direction (source→target) instead of the default undirected `Graph`.
+**Before starting:** note whether `--directed`, `--multigraph`, or `--simple` was given.
+- `--directed`: pass `directed=True` to `build_from_json()` — builds a `DiGraph` that preserves edge direction (source→target) instead of the default undirected `Graph`.
+- `--multigraph`: pass `multigraph=True` to `build_from_json()` — builds a `MultiDiGraph` that keeps every distinct relationship between the same pair of nodes as a separate keyed edge (e.g. node A both calls and imports node B). Use when you need all relationships between two nodes, not just the first. Once built with `--multigraph`, subsequent `graphify extract` or `graphify update` calls without any flag stay multigraph (sticky profile). Run `--simple` to deliberately downgrade.
+- `--simple`: forces a plain directed graph even when the existing `graph.json` was built as a multigraph. This is a lossy downgrade — parallel edges collapse and a warning is printed. `--multigraph` and `--simple` are mutually exclusive.
 
 ```bash
 mkdir -p graphify-out

@@ -1599,6 +1599,9 @@ def main() -> None:
             "  update <path>           re-extract code files and update the graph (no LLM needed)"
         )
         print(
+            "                            (inherits the existing graph.json profile — a multigraph stays a multigraph)"
+        )
+        print(
             "    --force                 overwrite graph.json even if the rebuild has fewer nodes"
         )
         print(
@@ -1666,6 +1669,15 @@ def main() -> None:
             "    --google-workspace      export .gdoc/.gsheet/.gslides shortcuts via gws before extraction"
         )
         print("    --no-cluster            skip clustering, write raw extraction only")
+        print(
+            "    --multigraph            build a keyed MultiDiGraph (preserves parallel edges between the same pair)"
+        )
+        print(
+            "    --simple                force a simple graph even over an existing multigraph (lossy downgrade)"
+        )
+        print(
+            "                            (default: STICKY — inherit the existing graph.json profile)"
+        )
         print("    --global                also merge the resulting graph into the global graph")
         print("    --as <tag>              repo tag for --global (default: target directory name)")
         print(
@@ -3564,6 +3576,7 @@ def main() -> None:
             print(
                 "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama] "
                 "[--model M] [--mode deep] [--out DIR] [--google-workspace] [--no-cluster] "
+                "[--multigraph|--simple] "
                 "[--max-workers N] [--token-budget N] [--max-concurrency N] "
                 "[--api-timeout S]",
                 file=sys.stderr,
@@ -3584,6 +3597,13 @@ def main() -> None:
         google_workspace = False
         global_merge = False
         global_repo_tag: str | None = None
+        # Graph class selection (PR 9). None = STICKY: inherit the existing
+        # graphify-out/graph.json profile (multidigraph stays multidigraph,
+        # otherwise the historical simple/directed default). True = force a
+        # keyed MultiDiGraph (parallel edges). False = explicit downgrade to a
+        # simple graph even when the existing graph.json is a multigraph.
+        # --multigraph and --simple are mutually exclusive.
+        multigraph_flag: bool | None = None
         # Performance/tuning knobs (issue #792). None means "use library default".
         cli_max_workers: int | None = None
         cli_token_budget: int | None = None
@@ -3655,6 +3675,24 @@ def main() -> None:
                 i += 1
             elif a == "--global":
                 global_merge = True
+                i += 1
+            elif a == "--multigraph":
+                if multigraph_flag is False:
+                    print(
+                        "error: --multigraph and --simple are mutually exclusive",
+                        file=sys.stderr,
+                    )
+                    sys.exit(2)
+                multigraph_flag = True
+                i += 1
+            elif a == "--simple":
+                if multigraph_flag is True:
+                    print(
+                        "error: --multigraph and --simple are mutually exclusive",
+                        file=sys.stderr,
+                    )
+                    sys.exit(2)
+                multigraph_flag = False
                 i += 1
             elif a == "--as" and i + 1 < len(args):
                 global_repo_tag = args[i + 1]
@@ -4021,17 +4059,83 @@ def main() -> None:
             for ftype, flist in files_by_type.items()
         }
 
+        # Resolve the effective graph class (PR 9 sticky profile). When neither
+        # --multigraph nor --simple is given the build must INHERIT the existing
+        # graph.json profile so a multigraph never silently downgrades to a
+        # simple graph on a default re-extract (mirrors watch._rebuild_code and
+        # build_merge's inherit-on-None contract). --multigraph forces multi,
+        # --simple forces a simple downgrade.
+        from graphify.watch import _existing_is_multigraph as _detect_multigraph
+
+        _existing_multigraph = False
+        if existing_graph_path.exists():
+            try:
+                _existing_data = json.loads(existing_graph_path.read_text(encoding="utf-8"))
+                _existing_multigraph = _detect_multigraph(_existing_data)
+            except Exception as exc:
+                print(
+                    f"[graphify extract] warning: could not inspect existing graph.json "
+                    f"profile ({exc}); treating as simple.",
+                    file=sys.stderr,
+                )
+        if multigraph_flag is None:
+            resolved_multigraph = _existing_multigraph
+        else:
+            resolved_multigraph = multigraph_flag
+
+        # Lossy-projection warning: an EXPLICIT --simple over an existing
+        # multigraph graph.json collapses keyed parallel edges. This is an
+        # intentional downgrade, so warn loudly (not silently) and proceed.
+        if multigraph_flag is False and _existing_multigraph:
+            print(
+                "[graphify extract] WARNING: --simple requested over an existing "
+                "multigraph graph.json; parallel edges between the same pair will be "
+                "collapsed onto a single edge (lossy downgrade). Omit --simple to "
+                "preserve them, or re-extract with --multigraph.",
+                file=sys.stderr,
+            )
+
+        # Capability gate: surface the MultiDiGraph capability probe failure as a
+        # clean CLI error (exit 1) instead of letting the RuntimeError raised deep
+        # inside build_from_json escape as a traceback. The probe is cheap and
+        # lru_cached, so running it up front costs nothing on the happy path.
+        if resolved_multigraph:
+            from graphify.multigraph_compat import require_multigraph_capabilities
+
+            try:
+                require_multigraph_capabilities()
+            except RuntimeError as exc:
+                print(str(exc), file=sys.stderr)
+                sys.exit(1)
+
         if no_cluster:
             # --no-cluster: dump the raw merged extraction as graph.json.
             # No NetworkX, no community detection, no analysis sidecar.
             from graphify.export import backup_if_protected as _backup
 
             _backup(graphify_out)
-            graph_json_path.write_text(json.dumps(merged, indent=2), encoding="utf-8")
+            if resolved_multigraph:
+                # A multigraph profile (sticky-inherited or explicit --multigraph)
+                # cannot be expressed by the raw-merged dump: parallel edges would
+                # be written without keys and the file would lack the multigraph
+                # flag + graphify_profile, silently collapsing on the next load.
+                # Build a keyed MultiDiGraph and serialize it via to_json (with no
+                # communities) so the no-cluster file still round-trips losslessly.
+                from graphify.build import build_from_json as _build_from_json
+                from graphify.export import to_json as _nc_to_json
+
+                _nc_graph = _build_from_json(merged, multigraph=True, root=target)
+                _nc_to_json(_nc_graph, {}, str(graph_json_path), force=True)
+                n_nodes = _nc_graph.number_of_nodes()
+                n_edges = _nc_graph.number_of_edges()
+            else:
+                graph_json_path.write_text(json.dumps(merged, indent=2), encoding="utf-8")
+                n_nodes = len(merged["nodes"])
+                n_edges = len(merged["edges"])
             cost = _estimate_cost(backend, merged["input_tokens"], merged["output_tokens"])
             print(
                 f"[graphify extract] wrote {graph_json_path} — "
-                f"{len(merged['nodes'])} nodes, {len(merged['edges'])} edges "
+                f"{n_nodes} nodes, {n_edges} edges "
                 f"(no clustering)"
             )
             if merged["input_tokens"] or merged["output_tokens"]:
@@ -4078,6 +4182,10 @@ def main() -> None:
 
         dedup_backend = backend if dedup_llm else None
         if incremental_mode:
+            # Pass multigraph_flag straight through: None lets build_merge
+            # INHERIT the saved graph.json profile (the sticky default), while an
+            # explicit --multigraph/--simple overrides it (build_merge warns on
+            # an explicit override of the saved flag).
             G = _build_merge(
                 [merged],
                 graph_path=existing_graph_path,
@@ -4085,9 +4193,19 @@ def main() -> None:
                 dedup=True,
                 dedup_llm_backend=dedup_backend,
                 root=target,
+                multigraph=multigraph_flag,
             )
         else:
-            G = _build([merged], dedup=True, dedup_llm_backend=dedup_backend, root=target)
+            # Fresh build: no saved graph.json to inherit from, so the resolved
+            # value already collapses to the requested flag (or the historical
+            # simple default when no flag is given).
+            G = _build(
+                [merged],
+                dedup=True,
+                dedup_llm_backend=dedup_backend,
+                root=target,
+                multigraph=resolved_multigraph,
+            )
         if G.number_of_nodes() == 0:
             print(
                 "[graphify extract] graph is empty — extraction produced no nodes. "
