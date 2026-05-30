@@ -1,7 +1,11 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class DataProcessor {
+class BaseProcessor {}
+
+class Result<T> {}
+
+public class DataProcessor extends BaseProcessor implements Processor {
     private List<String> items;
 
     public DataProcessor() {
@@ -14,6 +18,11 @@ public class DataProcessor {
 
     public List<String> process() {
         return validate(items);
+    }
+
+    @Override
+    public Result<DataProcessor> build(HttpClient client) {
+        return null;
     }
 
     private List<String> validate(List<String> data) {

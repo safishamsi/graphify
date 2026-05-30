@@ -28,6 +28,10 @@ def generate(
 ) -> str:
     today = date.today().isoformat()
 
+    # JSON deserialization produces string keys; normalize to int so .get(cid) works.
+    if community_labels:
+        community_labels = {int(k) if isinstance(k, str) else k: v for k, v in community_labels.items()}
+
     confidences = [d.get("confidence", "EXTRACTED") for _, _, d in G.edges(data=True)]
     total = len(confidences) or 1
     ext_pct = round(confidences.count("EXTRACTED") / total * 100)
@@ -140,7 +144,7 @@ def generate(
         lines += [
             "",
             f"### Community {cid} - \"{label}\"",
-            f"Cohesion: {score}",
+            f"Cohesion: {score:.2f}",
             f"Nodes ({len(real_nodes)}): {', '.join(display)}{suffix}",
         ]
 
@@ -160,7 +164,10 @@ def generate(
 
     isolated = [
         n for n in G.nodes()
-        if G.degree(n) <= 1 and not _is_file_node(G, n) and not _is_concept_node(G, n)
+        if G.degree(n) <= 1
+        and not _is_file_node(G, n)
+        and not _is_concept_node(G, n)
+        and G.nodes[n].get("file_type") != "rationale"
     ]
     thin_communities = {
         cid: nodes for cid, nodes in communities.items()

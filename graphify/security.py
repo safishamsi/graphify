@@ -7,7 +7,9 @@ import re
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections.abc import Mapping
 from pathlib import Path
+from typing import Any
 
 import ipaddress
 import socket
@@ -16,11 +18,21 @@ _ALLOWED_SCHEMES = {"http", "https"}
 _MAX_FETCH_BYTES = 52_428_800   # 50 MB hard cap for binary downloads
 _MAX_TEXT_BYTES  = 10_485_760   # 10 MB hard cap for HTML / text
 
+# Graph-load memory-bomb cap: reject .json files larger than this before
+# JSON-parsing them into a dict. Without this, a multi-gigabyte (or
+# specifically crafted) graph.json can exhaust process memory during
+# json.loads + node_link_graph rehydration.
+_MAX_GRAPH_FILE_BYTES = 512 * 1024 * 1024   # 512 MiB
+
 # AWS metadata, link-local, and common cloud metadata endpoints
 _BLOCKED_HOSTS = {"metadata.google.internal", "metadata.google.com"}
 
 # RFC 6598 Shared Address Space (CGN) -- is_private misses this on Python <3.11
 _CGN_NETWORK = ipaddress.ip_network("100.64.0.0/10")
+
+# RFC 6052 NAT64 Well-Known Prefix -- is_reserved=True in Python but these embed
+# public IPv4 addresses and are legitimate public internet traffic, not SSRF vectors.
+_NAT64_WKP = ipaddress.ip_network("64:ff9b::/96")
 
 
 # ---------------------------------------------------------------------------
@@ -57,6 +69,10 @@ def validate_url(url: str) -> str:
             for info in infos:
                 addr = info[4][0]
                 ip = ipaddress.ip_address(addr)
+                # For NAT64 addresses, check the embedded IPv4 instead of the wrapper
+                if isinstance(ip, ipaddress.IPv6Address) and ip in _NAT64_WKP:
+                    embedded = ipaddress.ip_address(int(ip) & 0xFFFFFFFF)
+                    ip = embedded
                 if ip.is_private or ip.is_reserved or ip.is_loopback or ip.is_link_local or ip in _CGN_NETWORK:
                     raise ValueError(
                         f"Blocked private/internal IP {addr} (resolved from '{hostname}'). "
@@ -220,6 +236,29 @@ def validate_graph_path(path: str | Path, base: Path | None = None) -> Path:
     return resolved
 
 
+def check_graph_file_size_cap(path: Path) -> None:
+    """Reject *path* if its size exceeds ``_MAX_GRAPH_FILE_BYTES``.
+
+    Protects callers from memory bombs by failing fast before a multi-GiB
+    graph.json is read into memory and JSON-parsed. Silently returns when
+    ``path.stat()`` cannot be read — the caller's own existence/path check
+    is expected to surface a clearer error in that case.
+
+    Raises:
+        ValueError - file size exceeds the cap. The message includes the
+        observed size and the cap so callers can show a usable error.
+    """
+    try:
+        size = path.stat().st_size
+    except OSError:
+        return
+    if size > _MAX_GRAPH_FILE_BYTES:
+        raise ValueError(
+            f"graph file {path} is {size:_d} bytes, "
+            f"exceeds {_MAX_GRAPH_FILE_BYTES:_d}-byte cap"
+        )
+
+
 # ---------------------------------------------------------------------------
 # Label sanitisation (mirrors code-review-graph's _sanitize_name pattern)
 # ---------------------------------------------------------------------------
@@ -240,3 +279,58 @@ def sanitize_label(text: str | None) -> str:
     if len(text) > _MAX_LABEL_LEN:
         text = text[:_MAX_LABEL_LEN]
     return text
+
+
+# ---------------------------------------------------------------------------
+# Metadata sanitisation (recursive, bounded, HTML-safe)
+# ---------------------------------------------------------------------------
+
+_METADATA_MAX_VALUE_LEN = 512
+_METADATA_MAX_LIST_ITEMS = 50
+
+
+def _sanitize_metadata_string(value: object) -> str:
+    """Return a control-character-free, HTML-escaped, bounded string."""
+    text = _CONTROL_CHAR_RE.sub("", str(value))
+    text = html.escape(text, quote=True)
+    if len(text) > _METADATA_MAX_VALUE_LEN:
+        text = text[:_METADATA_MAX_VALUE_LEN]
+    return text  # html is imported at module level (line 5)
+
+
+def _sanitize_metadata_value(value: object) -> object:
+    """Sanitize a metadata value while preserving simple JSON-compatible types."""
+    if isinstance(value, bool):
+        # bool is a subclass of int — must be checked first to avoid coercion.
+        return value
+    if isinstance(value, str):
+        return _sanitize_metadata_string(value)
+    if isinstance(value, dict):
+        return sanitize_metadata(value)
+    if isinstance(value, (list, tuple)):
+        return [_sanitize_metadata_value(item) for item in value[:_METADATA_MAX_LIST_ITEMS]]
+    if isinstance(value, (int, float)) or value is None:
+        return value
+    return _sanitize_metadata_string(value)
+
+
+def sanitize_metadata(metadata: Mapping[str, Any] | None) -> dict[str, object]:
+    """Sanitize metadata keys and values before graph export.
+
+    Metadata is less constrained than node labels: it can contain nested
+    dicts, lists, source snippets, external index symbols, and docstring
+    text. This helper keeps the data JSON-compatible, strips control
+    characters, escapes HTML-sensitive characters in strings, caps long
+    strings/lists, and drops entries whose key becomes empty after
+    sanitization.
+    """
+    if metadata is None:
+        return {}
+
+    result: dict[str, object] = {}
+    for key, value in metadata.items():
+        clean_key = _sanitize_metadata_string(key)
+        if not clean_key:
+            continue
+        result[clean_key] = _sanitize_metadata_value(value)
+    return result

@@ -1,9 +1,10 @@
 """Tests for hooks.py - git hook install/uninstall."""
 import os
 import subprocess
+from types import SimpleNamespace
 from pathlib import Path
 import pytest
-from graphify.hooks import install, uninstall, status, _HOOK_MARKER, _CHECKOUT_MARKER
+from graphify.hooks import install, uninstall, status, _hooks_dir, _HOOK_MARKER, _CHECKOUT_MARKER
 
 
 def _make_git_repo(tmp_path: Path) -> Path:
@@ -118,6 +119,41 @@ def test_status_shows_both_hooks(tmp_path):
     assert "post-checkout" in result
     assert result.count("installed") >= 2
 
+
+
+def test_hooks_dir_resolves_relative_git_hooks_path(tmp_path, monkeypatch):
+    repo = _make_git_repo(tmp_path)
+
+    def fake_run(*args, **kwargs):
+        return SimpleNamespace(returncode=0, stdout=".git/hooks\n")
+
+    monkeypatch.setattr("subprocess.run", fake_run)
+
+    assert _hooks_dir(repo) == (repo / ".git" / "hooks").resolve()
+
+
+def test_hooks_dir_rejects_multiline_git_output(tmp_path, monkeypatch):
+    repo = _make_git_repo(tmp_path)
+
+    def fake_run(*args, **kwargs):
+        return SimpleNamespace(returncode=0, stdout="--path-format=absolute\n.git/hooks\n")
+
+    monkeypatch.setattr("subprocess.run", fake_run)
+
+    assert _hooks_dir(repo) == repo / ".git" / "hooks"
+    assert not (repo / "--path-format=absolute\n.git").exists()
+
+
+def test_hooks_dir_accepts_absolute_git_hooks_path(tmp_path, monkeypatch):
+    repo = _make_git_repo(tmp_path)
+    hooks = tmp_path / "actual-hooks"
+
+    def fake_run(*args, **kwargs):
+        return SimpleNamespace(returncode=0, stdout=f"{hooks}\n")
+
+    monkeypatch.setattr("subprocess.run", fake_run)
+
+    assert _hooks_dir(repo) == hooks.resolve()
 
 def test_hook_skips_head_on_exe():
     """Hook script must skip shebang extraction for .exe binaries (Windows)."""

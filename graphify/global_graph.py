@@ -28,6 +28,8 @@ def _save_manifest(manifest: dict) -> None:
 
 def _load_global_graph() -> nx.Graph:
     if _GLOBAL_GRAPH.exists():
+        from graphify.security import check_graph_file_size_cap
+        check_graph_file_size_cap(_GLOBAL_GRAPH)
         data = json.loads(_GLOBAL_GRAPH.read_text(encoding="utf-8"))
         if "links" not in data and "edges" in data:
             data = dict(data, links=data["edges"])
@@ -80,6 +82,8 @@ def global_add(source_path: Path, repo_tag: str) -> dict:
         return {"repo_tag": repo_tag, "nodes_added": 0, "nodes_removed": 0, "skipped": True}
 
     # Load source graph
+    from graphify.security import check_graph_file_size_cap
+    check_graph_file_size_cap(source_path)
     data = json.loads(source_path.read_text(encoding="utf-8"))
     if "links" not in data and "edges" in data:
         data = dict(data, links=data["edges"])

@@ -9,6 +9,83 @@ import time
 from pathlib import Path
 
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
+_PENDING_FILENAME = ".pending_changes"
+_PENDING_DRAIN_MAX_PASSES = 20
+
+
+def _queue_pending(out_dir: Path, changed_paths: list[Path]) -> None:
+    """Append ``changed_paths`` to ``out_dir/.pending_changes`` (one per line).
+
+    Used by a post-commit hook process that cannot acquire ``_rebuild_lock``
+    so its change set is not silently dropped (#1059). The lock-holding
+    process drains this file before and after its rebuild and merges the
+    contents with its own change set.
+
+    Opened in append mode so concurrent writers do not clobber each other on
+    POSIX; each ``write()`` of a small payload is effectively atomic. A
+    trailing newline is always written so partial-line corruption stays
+    confined to the offending entry and is skipped on drain.
+    """
+    if not changed_paths:
+        return
+    out_dir.mkdir(parents=True, exist_ok=True)
+    pending = out_dir / _PENDING_FILENAME
+    payload = "".join(f"{os.fspath(p)}\n" for p in changed_paths)
+    with open(pending, "a", encoding="utf-8") as fh:
+        fh.write(payload)
+
+
+def _drain_pending(out_dir: Path) -> list[Path]:
+    """Read + unlink ``out_dir/.pending_changes`` and return deduplicated paths.
+
+    Returns an empty list if the file does not exist. Empty/whitespace lines
+    are silently skipped so a partial concurrent write that left only a
+    fragment cannot poison the merge.
+    """
+    pending = out_dir / _PENDING_FILENAME
+    if not pending.exists():
+        return []
+    try:
+        raw = pending.read_text(encoding="utf-8")
+    except OSError:
+        return []
+    # Unlink BEFORE returning so a crash between read and process retains the
+    # data in the next caller's view via the lines we are about to return —
+    # i.e. losing the file after reading is fine, losing it before would be a
+    # bug. Use missing_ok to tolerate a racing drain on platforms where
+    # rename/unlink may interleave.
+    with contextlib.suppress(FileNotFoundError):
+        pending.unlink()
+    seen: set[str] = set()
+    out: list[Path] = []
+    for line in raw.splitlines():
+        s = line.strip()
+        if not s or s in seen:
+            continue
+        seen.add(s)
+        out.append(Path(s))
+    return out
+
+
+def _merge_changed_paths(*sources: "list[Path] | None") -> list[Path]:
+    """Concatenate path lists, preserving order and dropping duplicates.
+
+    Used to combine a hook process's own ``changed_paths`` with the drained
+    contents of ``.pending_changes`` so the lock-holding rebuild covers
+    every queued commit's worth of files (#1059).
+    """
+    seen: set[str] = set()
+    out: list[Path] = []
+    for src in sources:
+        if not src:
+            continue
+        for p in src:
+            key = os.fspath(p)
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(p)
+    return out
 
 
 @contextlib.contextmanager
@@ -109,7 +186,14 @@ def _git_head() -> str | None:
         return None
 
 
-from graphify.detect import CODE_EXTENSIONS, DOC_EXTENSIONS, PAPER_EXTENSIONS, IMAGE_EXTENSIONS
+from graphify.detect import (
+    CODE_EXTENSIONS,
+    DOC_EXTENSIONS,
+    PAPER_EXTENSIONS,
+    IMAGE_EXTENSIONS,
+    _load_graphifyignore,
+    _is_ignored,
+)
 
 _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAGE_EXTENSIONS
 _CODE_EXTENSIONS = CODE_EXTENSIONS
@@ -131,7 +215,7 @@ def _relativize_source_files(payload: dict, root: Path) -> None:
             if not source_path.is_absolute():
                 continue
             try:
-                item["source_file"] = str(source_path.resolve().relative_to(root))
+                item["source_file"] = source_path.resolve().relative_to(root).as_posix()
             except ValueError:
                 continue
 
@@ -233,12 +317,26 @@ def _topology_from_graph(G) -> dict:
     return data
 
 
-def _check_shrink(force: bool, existing_data: dict, new_data: dict, tmp: "Path | None" = None) -> bool:
+def _check_shrink(
+    force: bool,
+    existing_data: dict,
+    new_data: dict,
+    tmp: "Path | None" = None,
+    *,
+    had_explicit_deletions: bool = False,
+) -> bool:
     """Return True (ok to proceed) or False (shrink refused).
 
     When False, cleans up *tmp* if provided and prints a warning to stderr.
+
+    The shrink-guard exists to catch SILENT shrinkage from failed extraction
+    chunks (a half-written semantic pass leaving thousands of nodes
+    unaccounted for). When ``had_explicit_deletions`` is True, the caller
+    has declared which files were removed (e.g. the post-commit hook saw
+    a ``D`` in ``git diff --name-only``) and a smaller graph is the expected
+    outcome — skip the guard so legitimate refactors don't require ``--force``.
     """
-    if force or not existing_data:
+    if force or not existing_data or had_explicit_deletions:
         return True
     existing_n = len(existing_data.get("nodes", []))
     new_n = len(new_data.get("nodes", []))
@@ -299,19 +397,55 @@ def _rebuild_code(
     """
     out = watch_path / _GRAPHIFY_OUT
     if acquire_lock:
+        # #1059: incremental (changed_paths is not None) hooks must not drop
+        # their change set when another rebuild is already running. Queue
+        # before attempting the lock so a non-blocking failure still records
+        # the work; the lock-holder drains the queue and merges it in. Full-
+        # corpus rebuilds skip the queue entirely — they already cover every
+        # file, so there is nothing to merge.
+        if changed_paths is not None and not block_on_lock:
+            _queue_pending(out, list(changed_paths))
         with _rebuild_lock(out, blocking=block_on_lock) as got:
             if not got:
                 print("[graphify watch] Rebuild already in progress for "
-                      f"{watch_path.resolve()} - skipping.")
+                      f"{watch_path.resolve()} - changes queued.")
                 return False
-            return _rebuild_code(
+            # Lock acquired. Drain anything queued by earlier contenders
+            # (including, importantly, the paths we just queued ourselves)
+            # and merge with our own change set so a single rebuild covers
+            # everything outstanding.
+            if changed_paths is not None:
+                merged = _merge_changed_paths(changed_paths, _drain_pending(out))
+            else:
+                # Full-corpus rebuild supersedes any queued incremental work.
+                _drain_pending(out)
+                merged = None
+            ok = _rebuild_code(
                 watch_path,
-                changed_paths=changed_paths,
+                changed_paths=merged,
                 follow_symlinks=follow_symlinks,
                 force=force,
                 no_cluster=no_cluster,
                 acquire_lock=False,
             )
+            # Late-arrival drain: another hook may have queued work while we
+            # were rebuilding. Loop up to _PENDING_DRAIN_MAX_PASSES times so a
+            # storm of commits eventually quiesces without livelocking. A full
+            # rebuild already saw everything, so skip this for changed_paths is None.
+            if merged is not None:
+                for _ in range(_PENDING_DRAIN_MAX_PASSES):
+                    late = _drain_pending(out)
+                    if not late:
+                        break
+                    ok = _rebuild_code(
+                        watch_path,
+                        changed_paths=late,
+                        follow_symlinks=follow_symlinks,
+                        force=force,
+                        no_cluster=no_cluster,
+                        acquire_lock=False,
+                    ) and ok
+            return ok
 
     watch_root = watch_path.resolve()
     project_root = Path.cwd().resolve() if not watch_path.is_absolute() else watch_root
@@ -319,11 +453,12 @@ def _rebuild_code(
     try:
         from graphify.extract import extract, _get_extractor
         from graphify.detect import detect
-        from graphify.build import build_from_json
+        from graphify.build import build_from_json, _norm_source_file as _nsf
         from graphify.cluster import cluster, remap_communities_to_previous, score_all
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
         from graphify.export import to_json, to_html
+        from graphify.security import check_graph_file_size_cap
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
         code_files = [Path(f) for f in detected['files']['code']]
@@ -353,10 +488,7 @@ def _rebuild_code(
                     # File was deleted, renamed away, or filtered out by detect
                     # (e.g. .gitignore, vendored). Either way, evict any
                     # preserved nodes that still claim this source path.
-                    try:
-                        deleted_paths.add(str(cand.relative_to(project_root)))
-                    except ValueError:
-                        deleted_paths.add(str(cand))
+                    deleted_paths.add(_nsf(str(cand), str(project_root)) or str(cand))
             if not wanted and not deleted_paths:
                 print("[graphify watch] No tracked code files in change set - skipping rebuild.")
                 return True
@@ -382,16 +514,35 @@ def _rebuild_code(
         existing_graph_data: dict = {}
         if existing_graph.exists():
             try:
+                check_graph_file_size_cap(existing_graph)
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 existing_graph_data = existing
                 new_ast_ids = {n["id"] for n in result["nodes"]}
+                _relativize_source_files(existing, project_root)
                 evict_sources: set[str] = set(deleted_paths)
                 if changed_paths is not None:
                     for p in extract_targets:
-                        try:
-                            evict_sources.add(str(p.relative_to(project_root)))
-                        except ValueError:
-                            evict_sources.add(str(p))
+                        evict_sources.add(_nsf(str(p), str(project_root)) or str(p))
+                else:
+                    # Full re-extraction: reconcile against current code files to
+                    # evict nodes from files deleted since the last run (#1007).
+                    _root_str = str(project_root)
+                    current_sources = {
+                        _nsf(str(p.relative_to(project_root)), _root_str)
+                        for p in code_files
+                        if p.is_relative_to(project_root)
+                    }
+                    for n in existing.get("nodes", []):
+                        sf = n.get("source_file")
+                        if not sf:
+                            continue
+                        if Path(sf).suffix.lower() not in _CODE_EXTENSIONS:
+                            continue
+                        norm = _nsf(sf, _root_str)
+                        if norm not in current_sources:
+                            evict_sources.add(sf)
+                            evict_sources.add(norm)
+                            deleted_paths.add(norm)
                 preserved_nodes = [
                     n for n in existing.get("nodes", [])
                     if n["id"] not in new_ast_ids
@@ -426,6 +577,7 @@ def _rebuild_code(
             same_graph = False
             if existing_graph.exists():
                 try:
+                    check_graph_file_size_cap(existing_graph)
                     existing_payload = json.loads(existing_graph.read_text(encoding="utf-8"))
                     same_graph = (
                         json.dumps(_canonical_graph_for_compare(existing_payload), sort_keys=True, ensure_ascii=False)
@@ -434,7 +586,10 @@ def _rebuild_code(
                 except Exception:
                     same_graph = False
             if not same_graph:
-                if not _check_shrink(force, existing_graph_data, candidate_graph_data):
+                if not _check_shrink(
+                    force, existing_graph_data, candidate_graph_data,
+                    had_explicit_deletions=bool(deleted_paths),
+                ):
                     return False
                 existing_graph.write_text(candidate_graph_text, encoding="utf-8")
 
@@ -519,6 +674,7 @@ def _rebuild_code(
         same_report = False
         if existing_graph.exists():
             try:
+                check_graph_file_size_cap(existing_graph)
                 existing_payload = json.loads(existing_graph.read_text(encoding="utf-8"))
                 same_graph = (
                     json.dumps(_canonical_graph_for_compare(existing_payload), sort_keys=True, ensure_ascii=False)
@@ -534,8 +690,14 @@ def _rebuild_code(
             graph_tmp.unlink(missing_ok=True)
             print("[graphify watch] No code-graph changes detected; graph.json/GRAPH_REPORT.md left untouched.")
         else:
-            if not _check_shrink(force, existing_graph_data, candidate_graph_data, tmp=graph_tmp):
+            if not _check_shrink(
+                force, existing_graph_data, candidate_graph_data,
+                tmp=graph_tmp,
+                had_explicit_deletions=bool(deleted_paths),
+            ):
                 return False
+            from graphify.export import backup_if_protected as _backup
+            _backup(out)
             graph_tmp.replace(existing_graph)
             report_path.write_text(report, encoding="utf-8")
             labels_file.write_text(labels_json, encoding="utf-8")
@@ -832,12 +994,28 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
     pending: bool = False
     changed: set[Path] = set()
 
+    # Load .graphifyignore patterns ONCE at startup so the handler does not
+    # re-parse the file on every filesystem event. Watchdog's handler runs on
+    # the observer thread and is invoked for every event the OS delivers
+    # (Time Machine writes, Docker/Colima VM I/O, Spotlight indexing, …) —
+    # without this short-circuit a busy volume can saturate a CPU core
+    # discarding events one extension at a time. (gh-928)
+    watch_root_for_ignore = watch_path.resolve()
+    ignore_patterns = _load_graphifyignore(watch_root_for_ignore)
+
     class Handler(FileSystemEventHandler):
         def on_any_event(self, event):
             nonlocal last_trigger, pending
             if event.is_directory:
                 return
             path = Path(event.src_path)
+            # Check .graphifyignore BEFORE the extension/dotfile/out filters so
+            # the cheapest short-circuit for users with broad ignore patterns
+            # (node_modules/, .venv/, build/, …) fires first. _is_ignored
+            # tolerates absolute paths outside watch_root via its internal
+            # relative_to guard, so a stray symlinked event won't raise.
+            if ignore_patterns and _is_ignored(path, watch_root_for_ignore, ignore_patterns):
+                return
             if path.suffix.lower() not in _WATCHED_EXTENSIONS:
                 return
             if any(part.startswith(".") for part in path.parts):

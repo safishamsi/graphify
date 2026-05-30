@@ -23,13 +23,12 @@ def _safe_filename(name: str) -> str:
     return s[:200] if s else 'unnamed'
 
 
-def _cross_community_links(G: nx.Graph, nodes: list[str], own_cid: int, labels: dict[int, str]) -> list[tuple[str, int]]:
+def _cross_community_links(G: nx.Graph, nodes: list[str], own_cid: int, labels: dict[int, str], node_community: dict[str, int]) -> list[tuple[str, int]]:
     """Return (community_label, edge_count) pairs for cross-community connections, sorted descending."""
     counts: dict[str, int] = Counter()
     for nid in nodes:
         for neighbor in G.neighbors(nid):
-            nd = G.nodes[neighbor]
-            ncid = nd.get("community")
+            ncid = node_community.get(neighbor)
             if ncid is not None and ncid != own_cid:
                 counts[labels.get(ncid, f"Community {ncid}")] += 1
     return sorted(counts.items(), key=lambda x: -x[1])
@@ -42,9 +41,10 @@ def _community_article(
     label: str,
     labels: dict[int, str],
     cohesion: float | None,
+    node_community: dict[str, int] | None = None,
 ) -> str:
     top_nodes = sorted(nodes, key=lambda n: G.degree(n), reverse=True)[:25]
-    cross = _cross_community_links(G, nodes, cid, labels)
+    cross = _cross_community_links(G, nodes, cid, labels, node_community or {})
 
     # Edge confidence breakdown
     conf_counts: Counter = Counter()
@@ -54,7 +54,7 @@ def _community_article(
             conf_counts[ed.get("confidence", "EXTRACTED")] += 1
     total_edges = sum(conf_counts.values()) or 1
 
-    sources = sorted({G.nodes[n].get("source_file", "") for n in nodes} - {""})
+    sources = sorted({G.nodes[n].get("source_file") or "" for n in nodes} - {""})
 
     lines: list[str] = []
     lines += [f"# {label}", ""]
@@ -102,11 +102,11 @@ def _community_article(
     return "\n".join(lines)
 
 
-def _god_node_article(G: nx.Graph, nid: str, labels: dict[int, str]) -> str:
+def _god_node_article(G: nx.Graph, nid: str, labels: dict[int, str], node_community: dict[str, int] | None = None) -> str:
     d = G.nodes[nid]
     node_label = d.get("label", nid)
     src = d.get("source_file", "")
-    cid = d.get("community")
+    cid = (node_community or {}).get(nid)
     community_name = labels.get(cid, f"Community {cid}") if cid is not None else None
 
     lines: list[str] = []
@@ -204,6 +204,29 @@ def to_wiki(
             "Run `graphify extract .` or `graphify cluster-only .` first."
         )
 
+    # Filter stale node IDs that exist in communities but not in G.
+    # Analysis JSON can drift from the graph after dedup / re-extract / update.
+    # NetworkX 3.x returns DegreeView({}) for missing nodes instead of raising,
+    # which crashes sorted() with TypeError; G.neighbors()/G.nodes[] also raise.
+    import sys as _sys
+    _g_nodes = set(G.nodes)
+    _orig_total = sum(len(ns) for ns in communities.values())
+    communities = {cid: [n for n in nodes if n in _g_nodes] for cid, nodes in communities.items()}
+    communities = {cid: nodes for cid, nodes in communities.items() if nodes}
+    _kept_total = sum(len(ns) for ns in communities.values())
+    if _kept_total < _orig_total:
+        print(
+            f"wiki: dropped {_orig_total - _kept_total} stale node ID(s) not in graph "
+            f"({len(communities)} communities remaining)",
+            file=_sys.stderr,
+        )
+
+    if not communities:
+        raise ValueError(
+            "all community node IDs are stale — none exist in the graph. "
+            "Re-run `graphify extract .` to regenerate .graphify_analysis.json."
+        )
+
     # Clear stale .md files from previous runs to prevent orphan accumulation.
     # Community labels are LLM-generated (per skill.md Step 5) and non-deterministic
     # across runs — the same conceptual community may be named differently each time
@@ -216,6 +239,10 @@ def to_wiki(
     labels = community_labels or {cid: f"Community {cid}" for cid in communities}
     cohesion = cohesion or {}
     god_nodes_data = god_nodes_data or []
+
+    # Build node->community lookup once; node attrs never carry community (it lives in
+    # the communities dict), so _cross_community_links and _god_node_article need this.
+    node_community: dict[str, int] = {n: cid for cid, nodes in communities.items() for n in nodes}
 
     count = 0
     used_slugs: set[str] = set()
@@ -232,7 +259,7 @@ def to_wiki(
     # Community articles
     for cid, nodes in communities.items():
         label = labels.get(cid, f"Community {cid}")
-        article = _community_article(G, cid, nodes, label, labels, cohesion.get(cid))
+        article = _community_article(G, cid, nodes, label, labels, cohesion.get(cid), node_community)
         slug = _unique_slug(_safe_filename(label))
         (out / f"{slug}.md").write_text(article, encoding="utf-8")
         count += 1
@@ -241,7 +268,7 @@ def to_wiki(
     for node_data in god_nodes_data:
         nid = node_data.get("id")
         if nid and nid in G:
-            article = _god_node_article(G, nid, labels)
+            article = _god_node_article(G, nid, labels, node_community)
             slug = _unique_slug(_safe_filename(node_data['label']))
             (out / f"{slug}.md").write_text(article, encoding="utf-8")
             count += 1

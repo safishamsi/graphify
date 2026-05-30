@@ -1,16 +1,97 @@
 # write graph to HTML, JSON, SVG, GraphML, Obsidian vault, and Neo4j Cypher
 from __future__ import annotations
+import hashlib
 import html as _html
 import json
 import math
+import os
 import re
+import shutil
 from collections import Counter
+from datetime import date
 from pathlib import Path
 import networkx as nx
 from networkx.readwrite import json_graph
 from graphify.security import sanitize_label
 from graphify.analyze import _node_community_map
 from graphify.build import edge_data
+
+
+# Artifacts worth preserving across rebuilds (non-regenerable without LLM or curation).
+_BACKUP_ARTIFACTS = [
+    "graph.json",
+    "GRAPH_REPORT.md",
+    ".graphify_labels.json",
+    ".graphify_analysis.json",
+    "manifest.json",
+    ".graphify_semantic_marker",
+    "cost.json",
+]
+
+
+def backup_if_protected(out_dir: Path) -> "Path | None":
+    """Snapshot graph artifacts to a dated subfolder before an overwrite.
+
+    Triggers when graph.json exists AND either:
+    - .graphify_semantic_marker is present (graph cost real LLM tokens), or
+    - .graphify_labels.json contains at least one non-default community label
+      (graph has been curated by a human or skill).
+
+    Returns the backup folder path, or None if no backup was taken.
+    Never raises — backup failure prints a warning but never blocks the write.
+    Set GRAPHIFY_NO_BACKUP=1 to disable.
+    """
+    if os.environ.get("GRAPHIFY_NO_BACKUP"):
+        return None
+    out = Path(out_dir)
+    if not (out / "graph.json").exists():
+        return None
+
+    is_semantic = (out / ".graphify_semantic_marker").exists()
+    is_curated = False
+    labels_file = out / ".graphify_labels.json"
+    if labels_file.exists():
+        try:
+            labels = json.loads(labels_file.read_text(encoding="utf-8"))
+            is_curated = any(v != f"Community {k}" for k, v in labels.items())
+        except Exception:
+            pass
+
+    if not is_semantic and not is_curated:
+        return None
+
+    reason = "+".join(filter(None, ["semantic" if is_semantic else "", "curated" if is_curated else ""]))
+    today = date.today().isoformat()
+    backup_dir = out / today
+    graph_src = out / "graph.json"
+
+    # Skip re-copying if today's backup already has identical graph.json content.
+    # If content differs (graph changed since the last backup today), overwrite
+    # the backup in place — one folder per day, always the latest pre-overwrite state.
+    if backup_dir.exists() and (backup_dir / "graph.json").exists():
+        src_hash = hashlib.sha256(graph_src.read_bytes()).hexdigest()
+        bak_hash = hashlib.sha256((backup_dir / "graph.json").read_bytes()).hexdigest()
+        if src_hash == bak_hash:
+            return backup_dir  # identical content, nothing to do
+
+    try:
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        copied = 0
+        for name in _BACKUP_ARTIFACTS:
+            src = out / name
+            if src.exists():
+                try:
+                    shutil.copy2(src, backup_dir / name)
+                    copied += 1
+                except Exception:
+                    pass
+        if copied:
+            print(f"[graphify] backed up {reason} graph ({copied} files) → {backup_dir.name}/")
+        return backup_dir
+    except Exception as exc:
+        import sys
+        print(f"[graphify] warning: backup failed ({exc}) — continuing with overwrite", file=sys.stderr)
+        return None
 
 def _obsidian_tag(name: str) -> str:
     """Sanitize a community name for use as an Obsidian tag.
@@ -403,6 +484,8 @@ def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str, *,
     existing_path = Path(output_path)
     if not force and existing_path.exists():
         try:
+            from graphify.security import check_graph_file_size_cap
+            check_graph_file_size_cap(existing_path)
             existing_data = json.loads(existing_path.read_text(encoding="utf-8"))
             existing_n = len(existing_data.get("nodes", []))
             new_n = G.number_of_nodes()
@@ -580,6 +663,30 @@ def to_html(
                 return
             meta_communities = {cid: [str(cid)] for cid in communities}
             mc = {cid: len(members) for cid, members in communities.items()}
+            # Remap hyperedges from semantic node IDs to community IDs
+            raw_hyperedges = G.graph.get("hyperedges", [])
+            if raw_hyperedges:
+                remapped = []
+                for he in raw_hyperedges:
+                    he_members = he.get("nodes") or he.get("members") or []
+                    comm_ids, seen = [], set()
+                    for nid in he_members:
+                        c = node_to_community.get(nid)
+                        if c is None:
+                            continue
+                        s = str(c)
+                        if s in seen:
+                            continue
+                        seen.add(s)
+                        comm_ids.append(s)
+                    if len(comm_ids) < 2:
+                        continue
+                    remapped.append({
+                        "id": he.get("id", ""),
+                        "label": he.get("label") or he.get("relation", "").replace("_", " "),
+                        "nodes": comm_ids,
+                    })
+                meta.graph["hyperedges"] = remapped
             to_html(meta, meta_communities, output_path,
                     community_labels=community_labels, member_counts=mc)
             print(f"graph.html written (aggregated: {meta.number_of_nodes()} community nodes, {meta.number_of_edges()} cross-community edges)")
@@ -670,7 +777,9 @@ def to_html(
 <head>
 <meta charset="UTF-8">
 <title>graphify - {title}</title>
-<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"
+        integrity="sha384-Ux6phic9PEHJ38YtrijhkzyJ8yQlH8i/+buBR8s3mAZOJrP1gwyvAcIYl3GWtpX1"
+        crossorigin="anonymous"></script>
 {_html_styles()}
 </head>
 <body>

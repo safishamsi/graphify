@@ -1,0 +1,36 @@
+@page "/counter"
+@using Microsoft.AspNetCore.Components
+@using MyApp.Services
+@inject ICounterService CounterService
+@inject NavigationManager Navigation
+@inherits ComponentBase
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<Button OnClick="IncrementCount">Click me</Button>
+<WeatherDisplay City="@city" />
+<DataGrid TItem="CounterRecord" Items="@records" />
+
+@code {
+    private int currentCount = 0;
+    private string city = "Seattle";
+    private List<CounterRecord> records = new();
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        CounterService.Increment();
+    }
+
+    public async Task LoadData()
+    {
+        records = await CounterService.GetRecords();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+}
