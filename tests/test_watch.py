@@ -694,3 +694,61 @@ def test_merge_changed_paths_dedupes_in_order():
         [Path("a.py")],
     )
     assert [p.as_posix() for p in merged] == ["a.py", "b.py", "c.py"]
+
+# --- expand_graph ---
+
+def test_expand_graph_happy_path(tmp_path):
+    """Test expand_graph adds new files to existing graph successfully."""
+    from graphify.watch import expand_graph
+    from graphify.detect import detect
+    from graphify.extract import extract
+    from graphify.build import build_from_json
+    from graphify.export import to_json
+    import json
+
+    # Setup: create initial project with one file and build initial graph
+    watch_path = tmp_path / "project"
+    watch_path.mkdir()
+    out = watch_path / "graphify-out"
+    out.mkdir()
+
+    # Create initial file
+    (watch_path / "main.py").write_text("def hello(): return 'world'")
+
+    # Build initial graph with just main.py
+    detected = detect(watch_path)
+    code_files = [Path(f) for f in detected['files']['code']]
+    result = extract(code_files)
+    G = build_from_json(result)
+    communities = {0: "Community 0"}
+    to_json(G, communities, str(out / "graph.json"), force=True)
+
+    # Verify initial graph has nodes (file + function)
+    initial_graph = json.loads((out / "graph.json").read_text())
+    assert len(initial_graph["nodes"]) >= 1
+    assert any("main.py" in n.get("source_file", "") for n in initial_graph["nodes"])
+
+    # Create new directory with new files to expand
+    new_dir = watch_path / "new_module"
+    new_dir.mkdir()
+    (new_dir / "helper.py").write_text("def greet(name): return f'hello {name}'")
+    (new_dir / "utils.py").write_text("def add(a, b): return a + b")
+
+    # Call expand_graph to add the new directory
+    result = expand_graph(watch_path, [new_dir])
+
+    assert result is True
+
+    # Verify graph was updated with new nodes (each file has file + function nodes)
+    updated_graph = json.loads((out / "graph.json").read_text())
+    assert len(updated_graph["nodes"]) >= 4  # at least 2 original + 2 new files (each has file+function)
+
+    # Check new files are in the graph
+    source_files = {n.get("source_file", "") for n in updated_graph["nodes"]}
+    assert any("main.py" in sf for sf in source_files)
+    assert any("helper.py" in sf for sf in source_files)
+    assert any("utils.py" in sf for sf in source_files)
+
+    # Verify GRAPH_REPORT.md was generated
+    assert (out / "GRAPH_REPORT.md").exists()
+
