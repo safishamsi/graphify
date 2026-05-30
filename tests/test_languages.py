@@ -1265,7 +1265,7 @@ def test_js_module_level_arrow_produces_node_and_call_edges(tmp_path):
     labels = _labels(r)
     relations = _relations(r)
 
-    assert any("handler" in l for l in labels), f"module-level arrow 'handler' missing: {labels}"
+    assert any("handler" in label for label in labels), f"module-level arrow 'handler' missing: {labels}"
     assert "calls" in relations, f"expected 'calls' edge from handler->helper: {relations}"
 
 
@@ -1323,8 +1323,8 @@ def test_markdown_skips_fenced_code_blocks():
     """
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     labels = _labels(r)
-    assert not any(l.startswith("code:") for l in labels), \
-        f"Expected no code:* nodes after #1077 fix, got: {[l for l in labels if l.startswith('code:')]}"
+    assert not any(label.startswith("code:") for label in labels), \
+        f"Expected no code:* nodes after #1077 fix, got: {[label for label in labels if label.startswith('code:')]}"
 
 def test_markdown_contains_edges():
     """Headings should be connected via 'contains' edges (file->h, h->h)."""
@@ -1342,7 +1342,8 @@ def test_markdown_fenced_heading_not_parsed():
     The fence-toggle skips over fenced contents so interior markdown syntax
     is not misread as document structure.
     """
-    import tempfile, os
+    import os
+    import tempfile
     src = (
         "# Real Heading\n"
         "\n"
@@ -1362,9 +1363,9 @@ def test_markdown_fenced_heading_not_parsed():
     finally:
         os.unlink(fpath)
 
-    assert any("Real Heading" in l for l in labels), f"'Real Heading' missing: {labels}"
-    assert any("Another Real Heading" in l for l in labels), f"'Another Real Heading' missing: {labels}"
-    assert not any("Not A Heading" in l for l in labels), \
+    assert any("Real Heading" in label for label in labels), f"'Real Heading' missing: {labels}"
+    assert any("Another Real Heading" in label for label in labels), f"'Another Real Heading' missing: {labels}"
+    assert not any("Not A Heading" in label for label in labels), \
         f"fenced '## Not A Heading' was incorrectly parsed as a node: {labels}"
 
 
