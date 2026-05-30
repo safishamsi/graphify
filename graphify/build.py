@@ -611,7 +611,8 @@ def build_merge(
     dedup: bool = True,
     dedup_llm_backend: str | None = None,
     root: str | Path | None = None,
-) -> nx.Graph | nx.DiGraph:
+    multigraph: bool | None = None,
+) -> nx.Graph | nx.DiGraph | nx.MultiDiGraph:
     """Load existing graph.json, merge new chunks into it, and return the merged graph.
 
     Persistence is the caller's responsibility (e.g., via ``export.to_json``);
@@ -624,6 +625,14 @@ def build_merge(
     ``directed`` defaults to inheriting the saved graph's flag when an
     existing graph.json is present, so updating a directed simple graph with
     default args no longer silently downgrades it to undirected.
+
+    ``multigraph`` likewise defaults to inheriting the saved graph's flag. When
+    the saved graph.json has ``multigraph: true`` the merge produces a
+    MultiDiGraph that preserves keyed parallel edges end-to-end — existing edges
+    keep their stored ``key`` (so distinct parallel edges between the same pair
+    survive the re-feed), new chunks are merged without collapsing parallels, and
+    the result round-trips back out as multigraph. There is no silent fallback to
+    simple-graph behavior.
     """
     graph_path = Path(graph_path)
     if graph_path.exists():
@@ -642,21 +651,24 @@ def build_merge(
             raise TypeError(
                 f"saved graph.json at {graph_path} must be a JSON object, got {type(data).__name__}"
             )
-        # Refuse to silently collapse a saved multigraph. build() runs in
-        # simple mode here, which would drop parallel edges; stateful
-        # multigraph update paths are out of scope for the internal keyed
-        # build path (watch/cache/global-graph land in later slices).
+        # Honor the saved graph's `multigraph` flag so a stateful update of a
+        # multigraph graph.json preserves keyed parallel edges instead of
+        # collapsing to a simple graph. Existing edges keep their stored `key`
+        # when re-fed through build(multigraph=True), so distinct parallel edges
+        # between the same node pair survive the merge round-trip.
         saved_multigraph = data.get("multigraph", False)
-        if saved_multigraph is True:
-            raise NotImplementedError(
-                f"build_merge cannot update a multigraph graph.json. "
-                f"Found multigraph=true in {graph_path}. Rebuild from extraction "
-                f"or use a simple-graph build target."
-            )
-        if saved_multigraph is not False:
+        if saved_multigraph is not True and saved_multigraph is not False:
             raise TypeError(
                 f"'multigraph' in {graph_path} must be a boolean, "
                 f"got {type(saved_multigraph).__name__} ({saved_multigraph!r})"
+            )
+        if multigraph is None:
+            multigraph = saved_multigraph
+        elif multigraph != saved_multigraph:
+            print(
+                f"[graphify] WARNING: build_merge multigraph={multigraph} overrides "
+                f"saved graph.json multigraph={saved_multigraph}",
+                file=sys.stderr,
             )
         # Honor the saved graph's `directed` flag unless the caller explicitly
         # overrides. Without this, an update with default args on a directed
@@ -683,12 +695,19 @@ def build_merge(
     else:
         if directed is None:
             directed = False
+        if multigraph is None:
+            multigraph = False
         existing_nodes = []
         base = []
 
     all_chunks = base + list(new_chunks)
     G = build(
-        all_chunks, directed=directed, dedup=dedup, dedup_llm_backend=dedup_llm_backend, root=root
+        all_chunks,
+        directed=directed,
+        dedup=dedup,
+        dedup_llm_backend=dedup_llm_backend,
+        root=root,
+        multigraph=multigraph,
     )
 
     # Prune nodes and edges from deleted source files
@@ -718,17 +737,38 @@ def build_merge(
                 file=sys.stderr,
             )
 
-        edges_to_remove = [
-            (u, v) for u, v, d in G.edges(data=True) if d.get("source_file") in prune_set
-        ]
-        if edges_to_remove:
-            G.remove_edges_from(edges_to_remove)
+        # Prune edges belonging to changed/deleted source files. On a
+        # MultiDiGraph a single (u, v) pair can carry MULTIPLE parallel edges
+        # from DIFFERENT source files, so removal MUST be keyed: drop only the
+        # parallel edges whose source_file is in prune_set and leave parallel
+        # edges from other files between the same pair intact. The two-tuple
+        # remove_edges_from used by simple graphs would drop only one edge per
+        # pair on a multigraph (first key) and could evict the wrong file's edge.
+        # remove_all_parallel_edges is deliberately NOT used here — it is too
+        # broad and would delete other-file parallels between the same pair.
+        if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
+            keyed_to_remove = [
+                (u, v, k)
+                for u, v, k, d in G.edges(keys=True, data=True)
+                if d.get("source_file") in prune_set
+            ]
+            for u, v, k in keyed_to_remove:
+                G.remove_edge(u, v, key=k)
+            n_edges_removed = len(keyed_to_remove)
+        else:
+            edges_to_remove = [
+                (u, v) for u, v, d in G.edges(data=True) if d.get("source_file") in prune_set
+            ]
+            if edges_to_remove:
+                G.remove_edges_from(edges_to_remove)
+            n_edges_removed = len(edges_to_remove)
+        if n_edges_removed:
             print(
-                f"[graphify] Pruned {len(edges_to_remove)} edge(s) from deleted source file(s).",
+                f"[graphify] Pruned {n_edges_removed} edge(s) from deleted source file(s).",
                 file=sys.stderr,
             )
 
-        if not n_nodes and not edges_to_remove:
+        if not n_nodes and not n_edges_removed:
             print(
                 f"[graphify] {n_files} source file(s) deleted since last run — "
                 f"no matching nodes or edges in graph, already clean.",

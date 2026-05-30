@@ -739,3 +739,380 @@ def test_merge_changed_paths_dedupes_in_order():
         [Path("a.py")],
     )
     assert [p.as_posix() for p in merged] == ["a.py", "b.py", "c.py"]
+
+
+# --- PR 7: MultiDiGraph keyed parallel-edge eviction + canonical comparison ----
+#
+# These exercise the incremental-update path of _rebuild_code against an on-disk
+# MultiDiGraph graph.json. _rebuild_code's eviction logic (preserved_edges)
+# operates on the raw on-disk "links" records BEFORE any graph build, and each
+# parallel edge is one record carrying its own `key` + `source_file`, so the
+# logic is naturally key-aware. The go/no-go gate: "Incremental update preserves
+# and evicts keyed parallel edges intentionally, with no silent fallback to
+# simple graph behavior."
+
+
+def _git_init(path: Path) -> None:
+    """Initialise a throwaway git repo so detect() treats `path` as a real corpus."""
+    subprocess.run(["git", "init", "-q", str(path)], check=True)
+    subprocess.run(
+        ["git", "-C", str(path), "config", "user.email", "test@example.com"], check=True
+    )
+    subprocess.run(["git", "-C", str(path), "config", "user.name", "Test"], check=True)
+
+
+def _build_multigraph_repo(tmp_path: Path) -> tuple[Path, str, str]:
+    """Create a repo whose graph.json is a MultiDiGraph with two stable endpoints.
+
+    Returns (repo_dir, a_id, b_id). Nodes ``afn``/``bfn`` live in dedicated,
+    never-changed files (amod.py / bmod.py) so re-extraction of an edge-
+    contributing file does not re-emit or evict them. The edge-contributing
+    files (file1.py / file2.py / edgesrc.py) exist as tracked code so detect()
+    keeps them in the corpus; parallel A->B edges are injected directly into the
+    on-disk "links" so each carries its own `key` + `source_file`.
+    """
+    from graphify.watch import _rebuild_code
+
+    _git_init(tmp_path)
+    (tmp_path / "amod.py").write_text("def afn():\n    return 1\n", encoding="utf-8")
+    (tmp_path / "bmod.py").write_text("def bfn():\n    return 2\n", encoding="utf-8")
+    (tmp_path / "file1.py").write_text("x1 = 1\n", encoding="utf-8")
+    (tmp_path / "file2.py").write_text("x2 = 2\n", encoding="utf-8")
+    (tmp_path / "edgesrc.py").write_text("y = 1\n", encoding="utf-8")
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        assert _rebuild_code(tmp_path, no_cluster=True) is True
+    finally:
+        os.chdir(cwd)
+
+    graph_path = tmp_path / "graphify-out" / "graph.json"
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    a_id = next(n["id"] for n in data["nodes"] if n.get("label", "").startswith("afn("))
+    b_id = next(n["id"] for n in data["nodes"] if n.get("label", "").startswith("bfn("))
+    return graph_path, a_id, b_id
+
+
+def _set_links(graph_path: Path, base_data: dict, a_id: str, b_id: str, edges: list) -> None:
+    """Append `edges` (A->B parallel records) and stamp multigraph flags on disk."""
+    links = base_data.get("links", base_data.get("edges", []))
+    links += edges
+    base_data["links"] = links
+    base_data["multigraph"] = True
+    base_data["directed"] = True
+    graph_path.write_text(json.dumps(base_data, indent=2), encoding="utf-8")
+
+
+def _ab_links(graph_path: Path, a_id: str, b_id: str, source_file: str | None = None) -> list:
+    """Return the surviving A->B link records on disk, optionally filtered by source_file."""
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    links = data.get("links", data.get("edges", []))
+    out = [e for e in links if e.get("source") == a_id and e.get("target") == b_id]
+    if source_file is not None:
+        out = [e for e in out if e.get("source_file") == source_file]
+    return out
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_multigraph_unchanged_file_parallel_edges_persist(tmp_path):
+    """A pair with 3 parallel edges from a file that is NOT changed must keep all
+    3 across an incremental rebuild triggered by an unrelated file."""
+    from graphify.watch import _rebuild_code
+
+    graph_path, a_id, b_id = _build_multigraph_repo(tmp_path)
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    _set_links(
+        graph_path,
+        data,
+        a_id,
+        b_id,
+        [
+            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
+             "source_file": "edgesrc.py", "source_location": "L1", "key": "k1"},
+            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
+             "source_file": "edgesrc.py", "source_location": "L2", "key": "k2"},
+            {"source": a_id, "target": b_id, "relation": "references", "confidence": "EXTRACTED",
+             "source_file": "edgesrc.py", "source_location": "L3", "key": "k3"},
+        ],
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        # Change an UNRELATED file; edgesrc.py (the edge contributor) is untouched.
+        (tmp_path / "other_change.py").write_text("def newfn():\n    return 0\n", encoding="utf-8")
+        assert _rebuild_code(tmp_path, changed_paths=[Path("other_change.py")], no_cluster=True)
+    finally:
+        os.chdir(cwd)
+
+    survivors = _ab_links(graph_path, a_id, b_id, source_file="edgesrc.py")
+    assert len(survivors) == 3, "all 3 parallel edges from the unchanged file must persist"
+    assert {e["relation"] for e in survivors} == {"calls", "imports", "references"}
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_multigraph_changed_file_evicts_its_parallel_edges(tmp_path):
+    """A pair A->B with parallel edges from file1 AND file2; changing file1 must
+    evict file1's parallel edges between A->B while file2's survive (keyed,
+    per-source_file eviction — no collapse to one-edge-per-pair behaviour)."""
+    from graphify.watch import _rebuild_code
+
+    graph_path, a_id, b_id = _build_multigraph_repo(tmp_path)
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    _set_links(
+        graph_path,
+        data,
+        a_id,
+        b_id,
+        [
+            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
+             "source_file": "file1.py", "source_location": "L1", "key": "k_f1_a"},
+            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
+             "source_file": "file1.py", "source_location": "L2", "key": "k_f1_b"},
+            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
+             "source_file": "file2.py", "source_location": "L9", "key": "k_f2_a"},
+        ],
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        (tmp_path / "file1.py").write_text("x1 = 99\n", encoding="utf-8")
+        assert _rebuild_code(tmp_path, changed_paths=[Path("file1.py")], no_cluster=True)
+    finally:
+        os.chdir(cwd)
+
+    assert _ab_links(graph_path, a_id, b_id, source_file="file1.py") == [], (
+        "file1's parallel A->B edges must be evicted when file1 changes"
+    )
+    file2_survivors = _ab_links(graph_path, a_id, b_id, source_file="file2.py")
+    assert len(file2_survivors) == 1, "file2's parallel A->B edge must survive selectively"
+    assert file2_survivors[0]["relation"] == "calls"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_multigraph_changed_file_evicts_stale_cross_file_edge(tmp_path):
+    """The FIX 3 gap: an edge between two SURVIVING nodes that was CONTRIBUTED by
+    the changed file must be evicted. The old endpoints-only check wrongly kept
+    it because both A and B (defined in unchanged files) still exist."""
+    from graphify.watch import _rebuild_code
+
+    graph_path, a_id, b_id = _build_multigraph_repo(tmp_path)
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    # A single stale cross-file edge contributed by file1.py between A and B,
+    # both of which live in amod.py / bmod.py and therefore survive the change.
+    _set_links(
+        graph_path,
+        data,
+        a_id,
+        b_id,
+        [
+            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
+             "source_file": "file1.py", "source_location": "L1", "key": "stale"},
+        ],
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        (tmp_path / "file1.py").write_text("x1 = 99\n", encoding="utf-8")
+        assert _rebuild_code(tmp_path, changed_paths=[Path("file1.py")], no_cluster=True)
+    finally:
+        os.chdir(cwd)
+
+    assert _ab_links(graph_path, a_id, b_id, source_file="file1.py") == [], (
+        "stale cross-file edge contributed by the changed file must be evicted "
+        "even though both endpoints survive (FIX 3)"
+    )
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_multigraph_deleted_file_removes_all_its_edge_records(tmp_path):
+    """Deleting a file must remove ALL its edge records, including parallels,
+    while leaving another file's parallel between the same pair intact."""
+    from graphify.watch import _rebuild_code
+
+    graph_path, a_id, b_id = _build_multigraph_repo(tmp_path)
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    _set_links(
+        graph_path,
+        data,
+        a_id,
+        b_id,
+        [
+            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
+             "source_file": "file1.py", "source_location": "L1", "key": "d1"},
+            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
+             "source_file": "file1.py", "source_location": "L2", "key": "d2"},
+            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
+             "source_file": "file2.py", "source_location": "L3", "key": "keep"},
+        ],
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        # Delete file1.py and pass it in changed_paths (post-commit-hook style).
+        (tmp_path / "file1.py").unlink()
+        assert _rebuild_code(tmp_path, changed_paths=[Path("file1.py")], no_cluster=True)
+    finally:
+        os.chdir(cwd)
+
+    assert _ab_links(graph_path, a_id, b_id, source_file="file1.py") == [], (
+        "all of the deleted file's edge records (incl. parallels) must be removed"
+    )
+    assert len(_ab_links(graph_path, a_id, b_id, source_file="file2.py")) == 1, (
+        "the surviving file's parallel edge between the same pair must be kept"
+    )
+
+
+def test_watch_canonical_comparison_distinguishes_parallel_edges():
+    """Two multigraphs differing ONLY in a parallel edge's presence must canonical-
+    compare as DIFFERENT (FIX 2). Identical multigraphs must compare EQUAL, and
+    two parallels that differ ONLY in `key` must stay distinct (key is the
+    load-bearing identity field that keeps parallels from collapsing)."""
+    from graphify.watch import _canonical_topology_for_compare
+
+    nodes = [{"id": "A", "label": "A"}, {"id": "B", "label": "B"}]
+    e1 = {"source": "A", "target": "B", "relation": "calls",
+          "source_file": "f1.py", "source_location": "L1", "key": "k1"}
+    e2 = {"source": "A", "target": "B", "relation": "calls",
+          "source_file": "f1.py", "source_location": "L2", "key": "k2"}
+    profile = {"graphify_profile": {"graph_type": "multidigraph"}}
+
+    two = {"nodes": nodes, "links": [dict(e1), dict(e2)], "graph": dict(profile)}
+    one = {"nodes": nodes, "links": [dict(e1)], "graph": dict(profile)}
+    two_again = {"nodes": nodes, "links": [dict(e1), dict(e2)], "graph": dict(profile)}
+
+    def canon(g: dict) -> str:
+        return json.dumps(_canonical_topology_for_compare(g), sort_keys=True)
+
+    assert canon(two) != canon(one), "adding a parallel edge must register as a change"
+    assert canon(two) == canon(two_again), "identical multigraphs must compare equal"
+
+    # Two parallels identical in every field EXCEPT key must remain distinct.
+    twin_a = {"source": "A", "target": "B", "relation": "calls",
+              "source_file": "f1.py", "source_location": "L1", "key": "ka"}
+    twin_b = {"source": "A", "target": "B", "relation": "calls",
+              "source_file": "f1.py", "source_location": "L1", "key": "kb"}
+    twins = {"nodes": nodes, "links": [twin_a, twin_b]}
+    canon_twins = _canonical_topology_for_compare(twins)
+    assert len(canon_twins["links"]) == 2, "key-only-different parallels must not collapse"
+    assert all("key" in e for e in canon_twins["links"]), "canonical edge must retain `key`"
+    single_twin = {"nodes": nodes, "links": [dict(twin_a)]}
+    assert canon(twins) != canon(single_twin), (
+        "removing a key-only-different parallel must register as a change"
+    )
+
+
+def test_watch_simple_mode_unchanged_regression(tmp_path, monkeypatch):
+    """Simple-graph watch rebuild behaves as before: a topology-unchanged second
+    pass still skips cluster(). Guards the FIX 1 regression (graph-level
+    graphify_profile metadata must not be read as a topology change)."""
+    from graphify import cluster as cluster_mod
+    from graphify.watch import _rebuild_code
+
+    (tmp_path / "app.py").write_text(
+        "def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8"
+    )
+
+    calls = {"n": 0}
+
+    def cluster_once(G):
+        calls["n"] += 1
+        if calls["n"] > 1:
+            raise AssertionError("cluster() must be skipped when topology is unchanged")
+        return {0: sorted(G.nodes())}
+
+    monkeypatch.setattr(cluster_mod, "cluster", cluster_once)
+    monkeypatch.setattr(cluster_mod, "score_all", lambda _G, comm: {cid: 1.0 for cid in comm})
+
+    assert _rebuild_code(tmp_path)
+    assert _rebuild_code(tmp_path)
+    assert calls["n"] == 1, "topology-unchanged simple-graph rebuild must not re-cluster"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_multigraph_full_rebuild_preserves_profile_flag(tmp_path):
+    """Regression for the DEFERRED silent collapse to simple graph.
+
+    A MultiDiGraph graph.json with keyed parallel edges, put through a
+    TOPOLOGY-CHANGING rebuild (a new file is added so _rebuild_code does NOT
+    early-return on the unchanged-topology check and actually rewrites
+    graph.json via to_json), must rewrite a graph.json that still:
+      - declares ``multigraph == true`` (the flag load_graph keys on),
+      - carries ``graphify_profile.graph_type == "multidigraph"``,
+      - keeps the parallel A->B edge records, and
+      - reloads via the production loader as a MultiDiGraph with all parallels
+        intact (NOT collapsed to one edge per pair).
+
+    Before the inherit-multigraph fix, _rebuild_code built a simple DiGraph, so
+    to_json wrote a graph.json with no multigraph flag and a "simple" profile —
+    the next load_graph would collapse the preserved parallel links to a single
+    edge (the PR 7 go/no-go violation: "no silent fallback to simple graph
+    behavior"). This test fails on that regression and passes once _rebuild_code
+    inherits the saved multigraph class.
+    """
+    from graphify.watch import _rebuild_code
+    from graphify.graph_loader import load_graph, GRAPHIFY_PROFILE_KEY
+    import networkx as nx
+
+    graph_path, a_id, b_id = _build_multigraph_repo(tmp_path)
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    # Three keyed parallel A->B edges contributed by amod.py (a file that is NOT
+    # changed, so the edges are preserved across the rebuild). amod.py/bmod.py
+    # define A/B, so both endpoints survive.
+    _set_links(
+        graph_path,
+        data,
+        a_id,
+        b_id,
+        [
+            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
+             "source_file": "amod.py", "source_location": "L1", "key": "mk1"},
+            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
+             "source_file": "amod.py", "source_location": "L2", "key": "mk2"},
+            {"source": a_id, "target": b_id, "relation": "references", "confidence": "EXTRACTED",
+             "source_file": "amod.py", "source_location": "L3", "key": "mk3"},
+        ],
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        # Add a NEW file: this changes topology so the rebuild does NOT hit the
+        # "no topology change" early return and genuinely rewrites graph.json via
+        # the clustered to_json path. no_viz keeps the test fast.
+        (tmp_path / "newmod.py").write_text("def newfn():\n    return 9\n", encoding="utf-8")
+        assert _rebuild_code(tmp_path, no_viz=True) is True
+    finally:
+        os.chdir(cwd)
+
+    rewritten = json.loads(graph_path.read_text(encoding="utf-8"))
+    # 1. The multigraph flag survived the rewrite.
+    assert rewritten.get("multigraph") is True, (
+        "rewritten graph.json must keep multigraph=true (else next load collapses parallels)"
+    )
+    # 2. The multidigraph profile survived (Phase A persists it from the instance).
+    profile = (rewritten.get("graph") or {}).get(GRAPHIFY_PROFILE_KEY) or {}
+    assert profile.get("graph_type") == "multidigraph", (
+        f"rewritten graphify_profile must be multidigraph, got {profile!r}"
+    )
+    # 3. The parallel edge records are still present (3 A->B records from amod.py).
+    ab = _ab_links(graph_path, a_id, b_id, source_file="amod.py")
+    assert len(ab) == 3, f"all 3 parallel A->B edge records must persist, got {len(ab)}"
+    # 4. The new file's node landed (proves the rebuild actually re-ran, not a no-op).
+    new_labels = {n.get("label", "") for n in rewritten.get("nodes", [])}
+    assert any(lbl.startswith("newfn(") for lbl in new_labels), (
+        "the topology-changing new file must have been extracted into the rewrite"
+    )
+    # 5. The production loader reloads it as a MultiDiGraph with parallels intact —
+    #    the definitive proof there is no deferred collapse to simple.
+    reloaded = load_graph(rewritten)
+    assert isinstance(reloaded, nx.MultiDiGraph), (
+        f"reloaded graph must be a MultiDiGraph, got {type(reloaded).__name__}"
+    )
+    assert reloaded.number_of_edges(a_id, b_id) == 3, (
+        "reloaded MultiDiGraph must keep all 3 parallel A->B edges (NOT collapsed to 1)"
+    )

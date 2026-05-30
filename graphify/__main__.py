@@ -2709,6 +2709,16 @@ def main() -> None:
         if not watch_path.exists():
             print(f"error: path not found: {watch_path}", file=sys.stderr)
             sys.exit(1)
+
+        # PR 7 go/no-go gate: "no silent fallback to simple graph behavior."
+        # No special handling is needed here: watch._rebuild_code now inherits
+        # the saved graph.json profile (it reads the on-disk `multigraph` flag
+        # and rebuilds via build_from_json(multigraph=...), re-stamping
+        # multigraph/directed + graphify_profile on write). A multidigraph
+        # graph.json therefore round-trips through `graphify update` as a
+        # MultiDiGraph with its keyed parallel edges intact — never silently
+        # collapsed to a simple graph — and simple/digraph graphs update exactly
+        # as before.
         from graphify.watch import _rebuild_code
 
         print(f"Re-extracting code files in {watch_path} (no LLM needed)...")

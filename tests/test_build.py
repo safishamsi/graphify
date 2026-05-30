@@ -1086,27 +1086,289 @@ def test_build_skips_malformed_edges_without_crashing(capsys):
     assert "Edge 0 must be an object" in captured.err
 
 
-def test_build_merge_rejects_multigraph_graph_json(tmp_path):
-    """build_merge must refuse a multigraph input rather than silently collapse parallel edges."""
-    import json as _json
+def _write_multigraph_graph_json(graph_path: Path, extraction: dict) -> dict:
+    """Build a MultiDiGraph from *extraction*, persist it via to_json, return the JSON.
+
+    Produces a realistic on-disk multigraph graph.json (multigraph=true, keyed
+    parallel edges) exactly as graphify writes it, so build_merge tests exercise
+    the real load -> merge -> prune round-trip rather than a hand-rolled dict.
+    """
+    from graphify.export import to_json
+
+    G = build_from_json(extraction, multigraph=True)
+    assert type(G) is nx.MultiDiGraph
+    assert to_json(G, {}, str(graph_path), force=True)
+    data = json.loads(graph_path.read_text())
+    assert data["multigraph"] is True
+    return data
+
+
+def _three_parallel_edges_one_pair() -> dict:
+    """A→B carrying three parallel edges, each from a distinct source_file."""
+    return {
+        "nodes": [
+            {"id": "A", "label": "A", "file_type": "code", "source_file": "file1.py"},
+            {"id": "B", "label": "B", "file_type": "code", "source_file": "file2.py"},
+        ],
+        "edges": [
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "file1.py",
+                "source_location": "L1",
+            },
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "file2.py",
+                "source_location": "L2",
+            },
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "file3.py",
+                "source_location": "L3",
+            },
+        ],
+    }
+
+
+def test_build_merge_multigraph_unchanged_file_preserves_parallel_edges(tmp_path):
+    """PR 7 gate: merging a new chunk that does not touch A/B's files must
+    preserve every keyed parallel edge on the existing A→B pair (no silent
+    collapse to a single edge)."""
+    graph_path = tmp_path / "graph.json"
+    _write_multigraph_graph_json(graph_path, _three_parallel_edges_one_pair())
+
+    # New chunk touches only unrelated files (other.py); A/B's files untouched.
+    new_chunk = {
+        "nodes": [
+            {"id": "C", "label": "C", "file_type": "code", "source_file": "other.py"},
+            {"id": "D", "label": "D", "file_type": "code", "source_file": "other.py"},
+        ],
+        "edges": [
+            {
+                "source": "C",
+                "target": "D",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "other.py",
+                "source_location": "L9",
+            }
+        ],
+    }
+
+    G = build_merge([new_chunk], graph_path=graph_path, dedup=False)
+
+    assert type(G) is nx.MultiDiGraph
+    assert G.number_of_edges("A", "B") == 3, "all 3 parallel edges must survive the merge"
+    assert sorted(d.get("source_file") for d in G["A"]["B"].values()) == [
+        "file1.py",
+        "file2.py",
+        "file3.py",
+    ]
+    assert G.number_of_edges("C", "D") == 1, "new chunk edge must be added"
+
+
+def test_build_merge_multigraph_changed_file_evicts_only_its_parallel_edges(tmp_path):
+    """Critical source_file+key intersection: a single A→B pair carries parallel
+    edges from file1.py AND file2.py; build_merge with file1.py in prune_set must
+    remove ONLY file1.py's A→B edge and leave file2.py's A→B edge between the SAME
+    pair intact. This is the core guarantee that key-aware pruning never collapses
+    or over-deletes parallel edges that share an endpoint pair.
+
+    Endpoint nodes deliberately live in a neutral file (defs.py) so that pruning
+    file1.py prunes the EDGE record by its source_file without removing the
+    endpoint nodes — isolating the source_file+key edge-prune behavior. (In the
+    real incremental flow, deleted files populate prune_sources while changed
+    files are re-extracted as fresh chunks; prune runs after the merge.)"""
+    extraction = {
+        "nodes": [
+            {"id": "A", "label": "A", "file_type": "code", "source_file": "defs.py"},
+            {"id": "B", "label": "B", "file_type": "code", "source_file": "defs.py"},
+        ],
+        "edges": [
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "file1.py",
+                "source_location": "L1",
+            },
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "file2.py",
+                "source_location": "L2",
+            },
+        ],
+    }
+    graph_path = tmp_path / "graph.json"
+    _write_multigraph_graph_json(graph_path, extraction)
+
+    G = build_merge([], graph_path=graph_path, prune_sources=["file1.py"], dedup=False)
+
+    assert type(G) is nx.MultiDiGraph
+    # Both endpoint nodes survive (they live in defs.py, not pruned).
+    assert G.has_node("A") and G.has_node("B")
+    remaining = sorted(
+        (d.get("source_file"), d.get("source_location")) for d in G["A"]["B"].values()
+    )
+    # file2.py's parallel edge between A→B survives; file1.py's is evicted.
+    assert remaining == [("file2.py", "L2")], (
+        f"only file1.py's A→B edge must be pruned, file2.py's must survive; got {remaining}"
+    )
+    assert G.number_of_edges("A", "B") == 1
+
+
+def test_build_merge_multigraph_deleted_file_removes_all_its_edge_records(tmp_path):
+    """Deleting a file must remove ALL edge records (including parallel ones)
+    carrying that source_file across every pair, while edges from other files
+    survive — even when they share an endpoint pair."""
+    extraction = {
+        "nodes": [
+            {"id": "A", "label": "A", "file_type": "code", "source_file": "keep.py"},
+            {"id": "B", "label": "B", "file_type": "code", "source_file": "keep.py"},
+            {"id": "C", "label": "C", "file_type": "code", "source_file": "gone.py"},
+        ],
+        "edges": [
+            # Two parallel A→B edges from the deleted file plus one from a kept file.
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "gone.py",
+                "source_location": "L1",
+            },
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "gone.py",
+                "source_location": "L2",
+            },
+            {
+                "source": "A",
+                "target": "B",
+                "relation": "references",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "keep.py",
+                "source_location": "L3",
+            },
+            # An edge on a different pair, also from the deleted file.
+            {
+                "source": "A",
+                "target": "C",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "gone.py",
+                "source_location": "L4",
+            },
+        ],
+    }
+    graph_path = tmp_path / "graph.json"
+    _write_multigraph_graph_json(graph_path, extraction)
+
+    G = build_merge([], graph_path=graph_path, prune_sources=["gone.py"], dedup=False)
+
+    assert type(G) is nx.MultiDiGraph
+    # All gone.py edge records removed across all pairs.
+    assert all(
+        d.get("source_file") != "gone.py" for _u, _v, d in G.edges(data=True)
+    ), "no edge record from the deleted file may survive"
+    # The keep.py A→B parallel edge survives even though gone.py shared that pair.
+    assert G.number_of_edges("A", "B") == 1
+    assert next(iter(G["A"]["B"].values())).get("source_file") == "keep.py"
+    # Node C had source_file gone.py → pruned, so the A→C pair is gone entirely.
+    assert not G.has_node("C")
+
+
+def test_build_merge_multigraph_output_stays_multigraph(tmp_path):
+    """After merge, the written graph.json must still be multigraph=true and
+    reload as a MultiDiGraph — no silent fallback to a simple graph."""
+    from graphify.export import to_json
+    from graphify.graph_loader import load_graph_file
 
     graph_path = tmp_path / "graph.json"
-    graph_path.write_text(
-        _json.dumps(
+    _write_multigraph_graph_json(graph_path, _three_parallel_edges_one_pair())
+
+    G = build_merge([], graph_path=graph_path, dedup=False)
+    assert type(G) is nx.MultiDiGraph
+    assert G.is_multigraph() and G.is_directed()
+
+    # Write back and confirm the multigraph flag round-trips on reload.
+    out_path = tmp_path / "graph_out.json"
+    assert to_json(G, {}, str(out_path), force=True)
+    data = json.loads(out_path.read_text())
+    assert data["multigraph"] is True
+    assert data["directed"] is True
+    reloaded = load_graph_file(out_path)
+    assert type(reloaded) is nx.MultiDiGraph
+    assert reloaded.number_of_edges("A", "B") == 3
+
+
+def test_build_merge_simple_graph_unchanged_regression(tmp_path):
+    """Removing the multigraph rejection must not change simple-graph behavior:
+    a simple/digraph build_merge output is identical to pre-PR7 behavior."""
+    import networkx as nx_local
+
+    # Build and persist a plain directed simple graph (multigraph absent/false).
+    chunk = {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [
             {
-                "directed": True,
-                "multigraph": True,
-                "nodes": [{"id": "a"}, {"id": "b"}],
-                "links": [
-                    {"source": "a", "target": "b", "key": "k1", "relation": "calls"},
-                    {"source": "a", "target": "b", "key": "k2", "relation": "imports"},
-                ],
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "a.py",
+                "weight": 1.0,
             }
-        )
+        ],
+    }
+    G0 = build([chunk], dedup=False)
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(
+        json.dumps(nx_local.node_link_data(G0, edges="edges")), encoding="utf-8"
     )
 
-    with pytest.raises(NotImplementedError, match="multigraph"):
-        build_merge([], graph_path=graph_path)
+    # No new chunks, default args → must inherit simple (non-multigraph) type and
+    # remain a plain undirected Graph here (saved directed flag is false).
+    G = build_merge([], graph_path=graph_path, dedup=False)
+    assert not G.is_multigraph(), "simple-graph build_merge must not upgrade to multigraph"
+    assert type(G) is nx.Graph
+    assert G.number_of_nodes() == 2
+    assert G.number_of_edges() == 1
+    assert G.has_edge("a", "b")
+
+    # Pruning a deleted file on a simple graph still removes the matching edge.
+    G2 = build_merge([], graph_path=graph_path, prune_sources=["a.py"], dedup=False)
+    assert not G2.is_multigraph()
+    assert G2.number_of_edges() == 0, "simple-graph prune path unchanged"
 
 
 def test_build_merge_inherits_directed_from_saved_graph_json(tmp_path):

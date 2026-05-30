@@ -18,6 +18,7 @@ from graphify.security import sanitize_label
 from graphify.analyze import _node_community_map
 from graphify.build import edge_data, edge_datas
 from graphify.edge_identity import make_stable_key
+from graphify.graph_loader import GRAPHIFY_PROFILE_KEY
 from graphify.projections import (
     DEFAULT_RELATIONSHIP_CAP,
     format_relationship_envelope,
@@ -506,6 +507,48 @@ def _git_head() -> str | None:
         return None
 
 
+def _graph_type_for_instance(G: nx.Graph) -> str:
+    """Return the graphify ``graph_type`` token for a live NetworkX instance.
+
+    The instance is authoritative: we classify from ``is_multigraph()`` /
+    ``is_directed()`` rather than from any stored profile, mirroring the
+    ``multigraph``/``directed`` flag logic in :func:`graphify.graph_loader.load_graph`.
+    The vocabulary is kept byte-identical to the loader's
+    :func:`~graphify.graph_loader._set_graph_profile` (``"simple"`` /
+    ``"digraph"`` / ``"multidigraph"``) so a save/load round-trip is stable.
+
+    graphify only ever produces directed multigraphs (``MultiDiGraph``), and the
+    loader normalizes any ``multigraph: true`` payload to ``MultiDiGraph``, so an
+    undirected ``MultiGraph`` instance is still labelled ``"multidigraph"`` for
+    consistency with what a reload would reconstruct.
+    """
+    if G.is_multigraph():
+        return "multidigraph"
+    if G.is_directed():
+        return "digraph"
+    return "simple"
+
+
+def _ensure_graph_profile(G: nx.Graph) -> None:
+    """Stamp ``G.graph[GRAPHIFY_PROFILE_KEY]`` so the profile persists in graph.json.
+
+    A freshly *built* graph (from :func:`graphify.build.build_from_json`) has no
+    ``graphify_profile`` — that key is only set on *load*. Without it the saved
+    JSON would not carry the simple-vs-multidigraph profile that downstream PR 7
+    cache-invalidation / watch profile-mismatch detection relies on.
+
+    Existing profile fields (e.g. from a loaded graph) are preserved, but
+    ``graph_type`` is always overwritten to match the actual instance — the
+    instance is authoritative, so a stale serialized ``graph_type`` can never
+    mislabel the graph we are about to write. This mirrors the overwrite in
+    :func:`graphify.graph_loader._set_graph_profile`.
+    """
+    existing = G.graph.get(GRAPHIFY_PROFILE_KEY)
+    profile = dict(existing) if isinstance(existing, dict) else {}
+    profile["graph_type"] = _graph_type_for_instance(G)
+    G.graph[GRAPHIFY_PROFILE_KEY] = profile
+
+
 def to_json(
     G: nx.Graph,
     communities: dict[int, list[str]],
@@ -539,11 +582,26 @@ def to_json(
                 file=sys.stderr,
             )
 
+    # Persist the graph profile so a later load can detect a simple-vs-
+    # multidigraph mismatch (PR 7 cache invalidation / watch). The profile is
+    # derived from the live instance and written onto G.graph, which
+    # node_link_data surfaces under the top-level "graph" key.
+    _ensure_graph_profile(G)
+
     node_community = _node_community_map(communities)
     try:
         data = json_graph.node_link_data(G, edges="links")
     except TypeError:
         data = json_graph.node_link_data(G)
+    # Defensively guarantee the profile is present under data["graph"] even if a
+    # NetworkX build did not surface G.graph (it normally does). The NetworkX
+    # "multigraph"/"directed" boolean flags are emitted by node_link_data itself.
+    graph_meta = data.get("graph")
+    if not isinstance(graph_meta, dict):
+        graph_meta = {}
+        data["graph"] = graph_meta
+    if GRAPHIFY_PROFILE_KEY not in graph_meta:
+        graph_meta[GRAPHIFY_PROFILE_KEY] = dict(G.graph[GRAPHIFY_PROFILE_KEY])
     for node in data["nodes"]:
         node["community"] = node_community.get(node["id"])
         node["norm_label"] = _strip_diacritics(node.get("label", "")).lower()

@@ -13,6 +13,32 @@ from pathlib import Path
 # absolute path ("/shared/graphify-out").
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
+# Cache schema version — bump this whenever the PRODUCER (AST/semantic
+# extraction) output format or content changes in a way that makes existing
+# cache entries invalid. Entries are stamped with this version on write and
+# revalidated on read; any entry whose recorded version != the current value
+# (including legacy entries written before versioning, which have no version
+# field) is treated as a cache MISS and rebuilt.
+#
+# Why this matters for graph profiles (PR 7): raw extraction output is
+# PROFILE-INDEPENDENT. The simple-graph vs MultiDiGraph distinction is a
+# build-time assembly choice (`build_from_json(multigraph=...)`), not an
+# extraction-time choice — the same nodes/edges are extracted regardless of how
+# they are later assembled. So the raw cache is intentionally NOT keyed by graph
+# profile, and reusing it across profiles is correct and safe (it protects cache
+# hit rate). This version constant is the escape hatch: if a future producer
+# change ever makes cached output differ by profile (or otherwise incompatible),
+# bumping CACHE_SCHEMA_VERSION forces a clean rebuild for everyone, fulfilling
+# the design-doc clause "add profile/version invalidation where graph outputs
+# can differ".
+CACHE_SCHEMA_VERSION = 1
+
+# Reserved metadata key stamped into each cache entry's JSON. Chosen with
+# dunder bracketing so it cannot collide with extraction payload keys (which are
+# plain identifiers like "nodes", "edges", "hyperedges", "source_file"). It is
+# stripped back out on read so callers see only their original result dict.
+_SCHEMA_VERSION_KEY = "__cache_schema_version__"
+
 
 def _body_content(content: bytes) -> bytes:
     """Strip YAML frontmatter from Markdown content, returning only the body."""
@@ -145,6 +171,34 @@ def file_hash(path: Path, root: Path = Path(".")) -> str:
     return digest
 
 
+def _stamp_schema_version(result: dict) -> dict:
+    """Return a shallow copy of result with the current schema version stamped in.
+
+    Used on write so every cache entry records the schema version it was
+    produced under. A shallow copy avoids mutating the caller's dict.
+    """
+    stamped = dict(result)
+    stamped[_SCHEMA_VERSION_KEY] = CACHE_SCHEMA_VERSION
+    return stamped
+
+
+def _validate_schema_version(data: dict) -> dict | None:
+    """Validate a loaded cache entry's schema version, returning the payload.
+
+    Returns the result dict with the reserved version key stripped out (so
+    callers see only their original payload) if the recorded version matches the
+    current CACHE_SCHEMA_VERSION. Returns None — a cache MISS — when the version
+    is missing (legacy entries written before versioning) or mismatched (a stale
+    entry from an older/newer producer). Treating both as a miss triggers a safe
+    rebuild rather than silently reusing potentially-incompatible cached output.
+    """
+    if data.get(_SCHEMA_VERSION_KEY) != CACHE_SCHEMA_VERSION:
+        return None
+    payload = dict(data)
+    payload.pop(_SCHEMA_VERSION_KEY, None)
+    return payload
+
+
 def cache_dir(root: Path = Path("."), kind: str = "ast") -> Path:
     """Returns graphify-out/cache/{kind}/ - creates it if needed.
 
@@ -166,7 +220,10 @@ def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict |
 
     For kind="ast", also checks the legacy flat cache/  directory so users
     upgrading from pre-0.5.3 don't lose their existing AST cache entries.
-    Returns None if no cache entry or file has changed.
+    Returns None if no cache entry, file has changed, or the entry's recorded
+    schema version does not match the current CACHE_SCHEMA_VERSION (including
+    pre-versioning entries that lack the field — these are treated as a miss and
+    rebuilt, the backward-compatible choice).
     """
     try:
         h = file_hash(path, root)
@@ -175,7 +232,7 @@ def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict |
     entry = cache_dir(root, kind) / f"{h}.json"
     if entry.exists():
         try:
-            return json.loads(entry.read_text(encoding="utf-8"))
+            return _validate_schema_version(json.loads(entry.read_text(encoding="utf-8")))
         except (json.JSONDecodeError, OSError):
             return None
     # Migration fallback: check legacy flat cache/ dir for AST entries
@@ -183,7 +240,7 @@ def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict |
         legacy = Path(root).resolve() / _GRAPHIFY_OUT / "cache" / f"{h}.json"
         if legacy.exists():
             try:
-                return json.loads(legacy.read_text(encoding="utf-8"))
+                return _validate_schema_version(json.loads(legacy.read_text(encoding="utf-8")))
             except (json.JSONDecodeError, OSError):
                 return None
     return None
@@ -193,7 +250,10 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
     """Save extraction result for this file.
 
     Stores as graphify-out/cache/{kind}/{hash}.json where hash = SHA256 of current file contents.
-    result should be a dict with 'nodes' and 'edges' lists.
+    result should be a dict with 'nodes' and 'edges' lists. The current
+    CACHE_SCHEMA_VERSION is stamped into the stored JSON (under a reserved key)
+    so load_cached can invalidate stale entries after a producer change; the
+    caller's `result` dict is not mutated.
 
     No-ops if `path` is not a regular file. Subagent-produced semantic fragments
     occasionally carry a directory path in `source_file`; skipping them prevents
@@ -207,7 +267,7 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
     entry = target_dir / f"{h}.json"
     fd, tmp_path = tempfile.mkstemp(dir=target_dir, prefix=f"{h}.", suffix=".tmp")
     try:
-        os.write(fd, json.dumps(result).encode())
+        os.write(fd, json.dumps(_stamp_schema_version(result)).encode())
         os.close(fd)
         try:
             os.replace(tmp_path, entry)

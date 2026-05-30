@@ -208,7 +208,13 @@ def _report_root_label(watch_path: Path) -> str:
 
 
 def _relativize_source_files(payload: dict, root: Path) -> None:
-    for bucket in ("nodes", "edges", "hyperedges"):
+    # Include "links" alongside "edges": modern NetworkX serialises the edge list
+    # under "links", and FIX 3 (source_file-aware edge eviction) compares each
+    # edge's source_file against an eviction set built from repo-relative paths.
+    # Without relativising edge source_files here, an absolute-pathed preserved
+    # edge from an older graph would never match the relative evict_sources and
+    # would survive as stale. Nodes were already relativised; this aligns edges.
+    for bucket in ("nodes", "edges", "links", "hyperedges"):
         for item in payload.get(bucket, []):
             source = item.get("source_file")
             if not source:
@@ -244,6 +250,14 @@ def _node_community_map(graph_data: dict) -> dict[str, int]:
 def _canonical_graph_for_compare(graph_data: dict) -> dict:
     canonical = dict(graph_data)
     canonical.pop("built_at_commit", None)
+    # Graph-level metadata under the top-level "graph" key (graphify_profile, a
+    # duplicate hyperedges copy, NetworkX bookkeeping) is NOT graph structure.
+    # export.to_json now persists graphify_profile there (PR 7 Phase A); without
+    # this strip the on-disk graph ({"graph": {"graphify_profile": ...}}) would
+    # never compare equal to a candidate that lacks it, defeating the
+    # no-change short-circuit. Hyperedge topology is preserved via the
+    # authoritative top-level "hyperedges" key sorted below.
+    canonical.pop("graph", None)
     for key in ("nodes", "links", "edges", "hyperedges"):
         if key in canonical and isinstance(canonical[key], list):
             canonical[key] = sorted(
@@ -256,6 +270,15 @@ def _canonical_graph_for_compare(graph_data: dict) -> dict:
 def _canonical_topology_for_compare(graph_data: dict) -> dict:
     canonical = dict(graph_data)
     canonical.pop("built_at_commit", None)
+    # Graph-level metadata under the top-level "graph" key (graphify_profile, a
+    # duplicate hyperedges copy, NetworkX bookkeeping) is NOT topology. Phase A's
+    # export.to_json persists graphify_profile there; the on-disk graph then has
+    # {"graph": {"graphify_profile": ...}} while a fresh candidate from
+    # _topology_from_graph has {"graph": {}}, which would otherwise be read as a
+    # spurious topology change and needlessly re-run cluster(). Strip it just like
+    # built_at_commit. Hyperedge topology is still compared via the authoritative
+    # top-level "hyperedges" key normalised below.
+    canonical.pop("graph", None)
 
     nodes = canonical.get("nodes")
     if isinstance(nodes, list):
@@ -292,7 +315,24 @@ def _canonical_topology_for_compare(graph_data: dict) -> dict:
             if true_src is not None and true_tgt is not None:
                 e["source"] = true_src
                 e["target"] = true_tgt
+            # VOLATILE fields — derived/recomputed every rebuild, so they must NOT
+            # drive a "topology changed" verdict. confidence_score is recomputed
+            # from confidence on every export (see export._CONFIDENCE_SCORE_DEFAULTS).
             e.pop("confidence_score", None)
+            # IDENTITY fields are everything that survives: source, target,
+            # relation, confidence, source_file, source_location, weight, and —
+            # critically for MultiDiGraphs — `key`. NetworkX guarantees `key` is
+            # unique within a (source, target) pair, so two parallel edges that
+            # share the same relation/source_file/source_location but differ only
+            # in `key` MUST stay distinct in the sorted comparison; otherwise an
+            # unchanged multigraph with parallel edges would read as "changed"
+            # (or a real parallel-edge add/remove would be silently missed). The
+            # json.dumps sort key below already includes `key` because we never
+            # strip it — this assignment makes that contract explicit and guards
+            # against a future edit accidentally dropping it from the canonical
+            # edge. Simple graphs have no `key`, so this is a no-op for them.
+            if "key" in edge:
+                e["key"] = edge["key"]
             norm_edges.append(e)
         canonical[key] = sorted(
             norm_edges,
@@ -318,6 +358,37 @@ def _topology_from_graph(G) -> dict:
         data = json_graph.node_link_data(G)
     data["hyperedges"] = getattr(G, "graph", {}).get("hyperedges", [])
     return data
+
+
+def _existing_is_multigraph(graph_data: dict) -> bool:
+    """Return True when an on-disk ``graph.json`` payload is a MultiDiGraph.
+
+    Mirrors :func:`graphify.graph_loader.load_graph`'s detection so an
+    incremental ``_rebuild_code`` rebuilds with the SAME graph class the file
+    was saved as. Without inheriting this flag, the rebuild would re-emit a
+    simple ``DiGraph`` whose serialized ``graph.json`` declares ``multigraph``
+    unset — a deferred silent fallback: the preserved parallel-edge *records*
+    survive the write, but the next ``load_graph`` collapses them to one edge
+    per pair (the PR 7 go/no-go violation).
+
+    The top-level ``multigraph: true`` boolean is authoritative (it is what
+    ``load_graph`` keys on). A serialized ``graphify_profile.graph_type ==
+    "multidigraph"`` is accepted as a secondary signal for graphs written by a
+    profile-stamping writer that, for any reason, lacked the top-level flag —
+    belt-and-suspenders so a multigraph is never misread as simple.
+    """
+    if not isinstance(graph_data, dict):
+        return False
+    if graph_data.get("multigraph") is True:
+        return True
+    graph_meta = graph_data.get("graph")
+    if isinstance(graph_meta, dict):
+        from graphify.graph_loader import GRAPHIFY_PROFILE_KEY
+
+        profile = graph_meta.get(GRAPHIFY_PROFILE_KEY)
+        if isinstance(profile, dict) and profile.get("graph_type") == "multidigraph":
+            return True
+    return False
 
 
 def _check_shrink(
@@ -571,10 +642,32 @@ def _rebuild_code(
                     and (not evict_sources or n.get("source_file") not in evict_sources)
                 ]
                 all_ids = new_ast_ids | {n["id"] for n in preserved_nodes}
+                # Preserve an existing edge only when BOTH endpoints survive AND
+                # the edge's OWN source_file was not changed/deleted. The
+                # endpoints-survive check alone is insufficient: an edge
+                # CONTRIBUTED by an evicted file (e.g. a `calls` edge recorded in
+                # the changed file) between two nodes that are DEFINED elsewhere
+                # (and therefore survive) would otherwise persist as a stale
+                # link the re-extraction will re-emit fresh — double-counting or,
+                # if the relationship genuinely went away, leaving a phantom edge.
+                #
+                # This is key-aware on a MultiDiGraph for free: each on-disk
+                # "links" record is exactly one keyed parallel edge, so the
+                # per-record source_file test evicts only the parallel edges
+                # belonging to the changed/deleted file between a given (u, v)
+                # pair and leaves parallel edges contributed by other files
+                # intact. (Mirrors the keyed prune in build.build_merge.)
+                #
+                # Simple-graph safety: a simple graph has one edge per pair, so a
+                # surviving edge whose source_file is NOT evicted is unaffected;
+                # the only behavioral change is the correct removal of a stale
+                # cross-file edge the old endpoints-only check wrongly kept.
                 preserved_edges = [
                     e
                     for e in existing.get("links", existing.get("edges", []))
-                    if e.get("source") in all_ids and e.get("target") in all_ids
+                    if e.get("source") in all_ids
+                    and e.get("target") in all_ids
+                    and (not evict_sources or e.get("source_file") not in evict_sources)
                 ]
                 result = {
                     "nodes": result["nodes"] + preserved_nodes,
@@ -599,6 +692,24 @@ def _rebuild_code(
                 **{k: v for k, v in result.items() if k != "edges"},
                 "links": result.get("edges", []),
             }
+            # The no-cluster path writes raw merged extraction JSON directly (it
+            # never goes through build_from_json/to_json), so it would otherwise
+            # emit a graph.json with no multigraph flag — the same deferred
+            # collapse as the clustered path. When the existing graph was a
+            # MultiDiGraph, stamp the multigraph/directed flags + a multidigraph
+            # graphify_profile so the rewritten file reloads as a MultiDiGraph
+            # (preserved parallel-edge records keep their `key`; new AST edges get
+            # a generated key on load). Simple graphs are left untouched.
+            if _existing_is_multigraph(existing_graph_data):
+                from graphify.graph_loader import GRAPHIFY_PROFILE_KEY
+
+                candidate_graph_data["multigraph"] = True
+                candidate_graph_data["directed"] = True
+                graph_meta = candidate_graph_data.get("graph")
+                if not isinstance(graph_meta, dict):
+                    graph_meta = {}
+                graph_meta[GRAPHIFY_PROFILE_KEY] = {"graph_type": "multidigraph"}
+                candidate_graph_data["graph"] = graph_meta
             candidate_graph_text = _json_text(candidate_graph_data)
             same_graph = False
             if existing_graph.exists():
@@ -661,7 +772,16 @@ def _rebuild_code(
             "total_words": detected.get("total_words", 0),
         }
 
-        G = build_from_json(result)
+        # Inherit the existing graph's multigraph class so an incremental rebuild
+        # of a MultiDiGraph graph.json stays a MultiDiGraph. build_from_json with
+        # multigraph=True keeps each preserved edge record's `key`, so parallel
+        # edges survive the rebuild AND the to_json below stamps multigraph=true +
+        # graphify_profile (Phase A) so the file reloads as a MultiDiGraph rather
+        # than silently collapsing to one edge per pair on the next load_graph.
+        # When the existing graph is simple (or absent) this is False — build a
+        # simple graph exactly as before, no behavior change.
+        saved_is_multigraph = _existing_is_multigraph(existing_graph_data)
+        G = build_from_json(result, multigraph=saved_is_multigraph)
         candidate_topology = _topology_from_graph(G)
         if existing_graph_data:
             try:

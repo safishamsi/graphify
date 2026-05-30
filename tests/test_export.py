@@ -1,9 +1,14 @@
 import json
 import tempfile
 from pathlib import Path
+
+import networkx as nx
+from networkx.readwrite import json_graph
+
 from graphify.build import build_from_json
 from graphify.cluster import cluster
 from graphify.export import to_json, to_cypher, to_graphml, to_html, to_canvas
+from graphify.graph_loader import GRAPHIFY_PROFILE_KEY, load_graph
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -291,3 +296,111 @@ def test_backup_env_disable(tmp_path, monkeypatch):
     (tmp_path / "graph.json").write_text('{"nodes":[],"links":[]}')
     (tmp_path / ".graphify_semantic_marker").write_text("{}")
     assert backup_if_protected(tmp_path) is None
+
+
+# ── PR 7: graph profile persistence in graph.json ────────────────────────────
+#
+# to_json must stamp G.graph[GRAPHIFY_PROFILE_KEY] with a graph_type derived
+# from the live NetworkX instance so a later load can detect a
+# simple-vs-multidigraph mismatch (cache invalidation / watch). The graph_type
+# vocabulary ("simple"/"digraph"/"multidigraph") is shared with graph_loader.
+
+
+def _build_extraction():
+    return json.loads((FIXTURES / "extraction.json").read_text())
+
+
+def test_to_json_writes_multidigraph_profile():
+    """A MultiDiGraph export records graph_type=multidigraph and the NetworkX
+    multigraph flag in the saved JSON."""
+    G = build_from_json(_build_extraction(), multigraph=True)
+    assert isinstance(G, nx.MultiDiGraph)
+    communities = {0: list(G.nodes)}
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.json"
+        to_json(G, communities, str(out), force=True)
+        data = json.loads(out.read_text())
+    assert data["graph"][GRAPHIFY_PROFILE_KEY]["graph_type"] == "multidigraph"
+    assert data["multigraph"] is True
+    assert data["directed"] is True
+
+
+def test_to_json_writes_digraph_profile():
+    """A directed simple graph records graph_type=digraph with directed=True,
+    multigraph=False."""
+    G = build_from_json(_build_extraction(), directed=True)
+    assert isinstance(G, nx.DiGraph) and not G.is_multigraph()
+    communities = {0: list(G.nodes)}
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.json"
+        to_json(G, communities, str(out), force=True)
+        data = json.loads(out.read_text())
+    assert data["graph"][GRAPHIFY_PROFILE_KEY]["graph_type"] == "digraph"
+    assert data["directed"] is True
+    assert data["multigraph"] is False
+
+
+def test_to_json_writes_simple_profile():
+    """An undirected nx.Graph records graph_type=simple."""
+    G = build_from_json(_build_extraction())
+    assert type(G) is nx.Graph
+    communities = cluster(G)
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.json"
+        to_json(G, communities, str(out))
+        data = json.loads(out.read_text())
+    assert data["graph"][GRAPHIFY_PROFILE_KEY]["graph_type"] == "simple"
+    assert data["directed"] is False
+    assert data["multigraph"] is False
+
+
+def test_to_json_profile_roundtrips_through_loader():
+    """to_json -> load_graph reconstructs the same graph_type for every type,
+    proving the profile survives a save/load cycle."""
+    cases = [
+        (build_from_json(_build_extraction()), "simple", nx.Graph),
+        (build_from_json(_build_extraction(), directed=True), "digraph", nx.DiGraph),
+        (build_from_json(_build_extraction(), multigraph=True), "multidigraph", nx.MultiDiGraph),
+    ]
+    for G, expected_type, expected_cls in cases:
+        communities = {0: list(G.nodes)}
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "graph.json"
+            to_json(G, communities, str(out), force=True)
+            data = json.loads(out.read_text())
+            reloaded = load_graph(data, require_capabilities=False)
+        assert isinstance(reloaded, expected_cls)
+        assert reloaded.graph[GRAPHIFY_PROFILE_KEY]["graph_type"] == expected_type
+        # node_link_graph (the lower-level loader) also sees G.graph metadata.
+        nlg = json_graph.node_link_graph(data, edges="links")
+        assert nlg.graph[GRAPHIFY_PROFILE_KEY]["graph_type"] == expected_type
+
+
+def test_to_json_simple_graph_regression():
+    """Simple-graph output is unchanged except for the added graphify_profile.
+
+    The "graph" metadata object gains exactly one key (graphify_profile); it was
+    empty ({}) before. Stripping that key leaves the pre-PR7 empty object, and
+    every other structural key (nodes/links/directed/multigraph/hyperedges) is
+    unaffected.
+    """
+    G = build_from_json(_build_extraction())
+    communities = cluster(G)
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.json"
+        to_json(G, communities, str(out))
+        data = json.loads(out.read_text())
+
+    # The only added graph-metadata content is the profile.
+    assert data["graph"] == {GRAPHIFY_PROFILE_KEY: {"graph_type": "simple"}}
+    # Removing the profile yields the pre-change empty "graph" object — nothing
+    # else leaked into the graph-level metadata.
+    data["graph"].pop(GRAPHIFY_PROFILE_KEY)
+    assert data["graph"] == {}
+    # Core structural keys remain present and well-formed.
+    assert isinstance(data["nodes"], list) and data["nodes"]
+    assert isinstance(data["links"], list)
+    assert data["directed"] is False
+    assert data["multigraph"] is False
+    for node in data["nodes"]:
+        assert "id" in node and "community" in node

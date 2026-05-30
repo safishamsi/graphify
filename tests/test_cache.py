@@ -1,7 +1,11 @@
 """Tests for graphify/cache.py."""
 
+import json
+
 import pytest
 from graphify.cache import (
+    CACHE_SCHEMA_VERSION,
+    _SCHEMA_VERSION_KEY,
     file_hash,
     load_cached,
     save_cached,
@@ -9,6 +13,12 @@ from graphify.cache import (
     clear_cache,
     _body_content,
 )
+
+
+def _ast_entry_path(cache_root, src_file):
+    """Path to the on-disk AST cache entry JSON for a source file."""
+    h = file_hash(src_file, cache_root)
+    return cache_root / "graphify-out" / "cache" / "ast" / f"{h}.json"
 
 
 @pytest.fixture
@@ -133,3 +143,104 @@ def test_body_content_no_frontmatter():
     """_body_content returns content unchanged when no frontmatter present."""
     content = b"No frontmatter here."
     assert _body_content(content) == content
+
+
+# --- Cache schema versioning (PR 7: profile/version invalidation) ---
+
+
+def test_cache_schema_version_recorded(tmp_file, cache_root):
+    """A cache write stamps the current CACHE_SCHEMA_VERSION into the stored JSON."""
+    result = {"nodes": [{"id": "n1"}], "edges": []}
+    save_cached(tmp_file, result, root=cache_root)
+
+    entry = _ast_entry_path(cache_root, tmp_file)
+    assert entry.exists()
+    raw = json.loads(entry.read_text(encoding="utf-8"))
+    assert raw[_SCHEMA_VERSION_KEY] == CACHE_SCHEMA_VERSION
+    # The reserved version key must not leak into the payload callers consume.
+    loaded = load_cached(tmp_file, root=cache_root)
+    assert loaded is not None
+    assert loaded == result
+    assert _SCHEMA_VERSION_KEY not in loaded
+
+
+def test_cache_invalidates_on_schema_version_change(tmp_file, cache_root):
+    """An entry written under a mismatched/old version is a miss (rebuilt), not reused.
+
+    Covers both the explicit-but-stale version and the legacy pre-versioning
+    entry that has no version field at all — both must invalidate (return None)
+    so the producer rebuilds rather than silently trusting stale cached output.
+    """
+    result = {"nodes": [{"id": "stale"}], "edges": []}
+    save_cached(tmp_file, result, root=cache_root)
+    entry = _ast_entry_path(cache_root, tmp_file)
+
+    # 1. Stale explicit version (simulate a future producer bump).
+    raw = json.loads(entry.read_text(encoding="utf-8"))
+    raw[_SCHEMA_VERSION_KEY] = CACHE_SCHEMA_VERSION + 1
+    entry.write_text(json.dumps(raw), encoding="utf-8")
+    assert load_cached(tmp_file, root=cache_root) is None
+
+    # 2. Legacy entry with no version field (backward compatibility).
+    legacy = {"nodes": [{"id": "stale"}], "edges": []}
+    entry.write_text(json.dumps(legacy), encoding="utf-8")
+    assert load_cached(tmp_file, root=cache_root) is None
+
+
+def test_cache_hit_when_version_matches(tmp_file, cache_root):
+    """A matching schema version produces a cache hit (no needless invalidation)."""
+    result = {"nodes": [{"id": "n1"}], "edges": [{"source": "a", "target": "b"}]}
+    save_cached(tmp_file, result, root=cache_root)
+    loaded = load_cached(tmp_file, root=cache_root)
+    assert loaded == result  # protects hit rate when nothing changed
+
+
+def test_cache_reused_across_graph_profiles(tmp_path, cache_root):
+    """Raw extraction cache is profile-independent and reused across build profiles.
+
+    Extraction produces nodes + edge records keyed only by file hash; the
+    simple-graph vs MultiDiGraph distinction is a build-time assembly choice
+    (build_from_json(multigraph=...)), not an extraction-time one. The same
+    cached extraction must serve both a simple build and a multigraph build —
+    proving we did NOT needlessly profile-key the raw cache.
+    """
+    src = tmp_path / "module.py"
+    src.write_text("def f():\n    pass\n")
+
+    extraction = {
+        "nodes": [{"id": "module.f", "type": "function"}],
+        "edges": [
+            {"source": "module.f", "target": "module.g", "type": "calls"},
+            {"source": "module.f", "target": "module.g", "type": "imports"},
+        ],
+    }
+    save_cached(src, extraction, root=cache_root)
+
+    # Simulate two separate build runs (simple, then multigraph). Neither passes
+    # any profile to the cache layer; both must read back the identical entry.
+    loaded_for_simple = load_cached(src, root=cache_root)
+    loaded_for_multigraph = load_cached(src, root=cache_root)
+    assert loaded_for_simple == extraction
+    assert loaded_for_multigraph == extraction
+    assert loaded_for_simple == loaded_for_multigraph
+
+    # Only one cache entry exists — the cache was not split per profile.
+    ast_dir = cache_root / "graphify-out" / "cache" / "ast"
+    assert len(list(ast_dir.glob("*.json"))) == 1
+
+
+def test_cache_existing_behavior_regression(tmp_file, cache_root):
+    """Existing round-trip and hashing behavior is unchanged by versioning."""
+    # Round-trip equality (the original test_cache_roundtrip contract).
+    result = {"nodes": [{"id": "n1", "label": "Node1"}], "edges": []}
+    save_cached(tmp_file, result, root=cache_root)
+    assert load_cached(tmp_file, root=cache_root) == result
+
+    # Content change still invalidates.
+    tmp_file.write_text("completely different content")
+    assert load_cached(tmp_file, root=cache_root) is None
+
+    # Hashes remain stable across calls and unaffected by the version stamp.
+    h1 = file_hash(tmp_file, cache_root)
+    h2 = file_hash(tmp_file, cache_root)
+    assert h1 == h2 and len(h1) == 64
