@@ -206,7 +206,7 @@ def _report_root_label(watch_path: Path) -> str:
 
 
 def _relativize_source_files(payload: dict, root: Path) -> None:
-    for bucket in ("nodes", "edges", "hyperedges"):
+    for bucket in ("nodes", "edges", "hyperedges", "unresolved_calls"):
         for item in payload.get(bucket, []):
             source = item.get("source_file")
             if not source:
@@ -396,6 +396,7 @@ def _rebuild_code(
     Returns True on success, False on error or skipped-due-to-lock.
     """
     out = watch_path / _GRAPHIFY_OUT
+    out_abs = out.resolve()
     if acquire_lock:
         # #1059: incremental (changed_paths is not None) hooks must not drop
         # their change set when another rebuild is already running. Queue
@@ -459,6 +460,12 @@ def _rebuild_code(
         from graphify.report import generate
         from graphify.export import to_json, to_html
         from graphify.security import check_graph_file_size_cap
+        from graphify.pipeline import (
+            finalize_extraction_for_build,
+            merge_update_payload,
+            source_keys_from_paths,
+            source_keys_from_payload,
+        )
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
         code_files = [Path(f) for f in detected['files']['code']]
@@ -501,6 +508,16 @@ def _rebuild_code(
             "nodes": [], "edges": [], "hyperedges": [],
             "input_tokens": 0, "output_tokens": 0,
         }
+        evict_sources: set[str] = set(deleted_paths)
+        if changed_paths is not None:
+            for p in extract_targets:
+                try:
+                    evict_sources.add(str(p.relative_to(project_root)))
+                except ValueError:
+                    evict_sources.add(str(p))
+        rebuilt_sources = source_keys_from_paths(list(extract_targets), project_root)
+        _relativize_source_files(result, project_root)
+        rebuilt_sources.update(source_keys_from_payload(result, project_root))
 
         # Preserve semantic nodes/edges from a previous full run.
         # AST-only rebuild replaces nodes for changed files; everything else is kept.
@@ -517,13 +534,8 @@ def _rebuild_code(
                 check_graph_file_size_cap(existing_graph)
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 existing_graph_data = existing
-                new_ast_ids = {n["id"] for n in result["nodes"]}
                 _relativize_source_files(existing, project_root)
-                evict_sources: set[str] = set(deleted_paths)
-                if changed_paths is not None:
-                    for p in extract_targets:
-                        evict_sources.add(_nsf(str(p), str(project_root)) or str(p))
-                else:
+                if changed_paths is None:
                     # Full re-extraction: reconcile against current code files to
                     # evict nodes from files deleted since the last run (#1007).
                     _root_str = str(project_root)
@@ -543,29 +555,37 @@ def _rebuild_code(
                             evict_sources.add(sf)
                             evict_sources.add(norm)
                             deleted_paths.add(norm)
-                preserved_nodes = [
-                    n for n in existing.get("nodes", [])
-                    if n["id"] not in new_ast_ids
-                    and (not evict_sources or n.get("source_file") not in evict_sources)
-                ]
-                all_ids = new_ast_ids | {n["id"] for n in preserved_nodes}
-                preserved_edges = [
-                    e for e in existing.get("links", existing.get("edges", []))
-                    if e.get("source") in all_ids and e.get("target") in all_ids
-                ]
-                result = {
-                    "nodes": result["nodes"] + preserved_nodes,
-                    "edges": result["edges"] + preserved_edges,
-                    "hyperedges": existing.get("hyperedges", []),
-                    "input_tokens": 0,
-                    "output_tokens": 0,
-                }
+                result = merge_update_payload(
+                    existing,
+                    result,
+                    evict_sources=evict_sources,
+                    rebuilt_sources=rebuilt_sources,
+                    root=project_root,
+                )
             except Exception:
                 pass  # corrupt graph.json - proceed with AST-only
 
         _relativize_source_files(result, project_root)
         out.mkdir(exist_ok=True)
         (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
+
+        try:
+            result, lsp_summary = finalize_extraction_for_build(
+                result,
+                root=project_root,
+                graphify_out=out_abs,
+                source_files=extract_targets,
+                evict_sources=evict_sources if changed_paths is not None else None,
+            )
+        except Exception as exc:
+            from graphify.ast_lsp import without_unresolved_calls
+
+            print(f"[graphify watch] warning: LSP enrichment failed: {exc}", file=sys.stderr)
+            result = without_unresolved_calls(result)
+            lsp_summary = None
+        if lsp_summary is not None:
+            for line in lsp_summary.log_lines("[graphify watch]"):
+                print(line)
 
         if no_cluster:
             # Normalise to "links" key so schema is consistent with the full clustered path.

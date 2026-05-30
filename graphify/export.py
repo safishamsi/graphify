@@ -524,6 +524,9 @@ def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str, *,
             link["source"] = true_src
             link["target"] = true_tgt
     data["hyperedges"] = getattr(G, "graph", {}).get("hyperedges", [])
+    enrichments = getattr(G, "graph", {}).get("enrichments", [])
+    if enrichments:
+        data["enrichments"] = enrichments
     commit = built_at_commit if built_at_commit is not None else _git_head()
     if commit:
         data["built_at_commit"] = commit
