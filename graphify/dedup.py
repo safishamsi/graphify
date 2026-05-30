@@ -6,6 +6,7 @@ Jaro-Winkler verification → same-community boost → union-find merge.
 from __future__ import annotations
 import math
 import re
+import unicodedata
 from collections import defaultdict
 
 from datasketch import MinHash, MinHashLSH
@@ -15,8 +16,9 @@ from rapidfuzz.distance import JaroWinkler
 # ── helpers ───────────────────────────────────────────────────────────────────
 
 def _norm(label: str) -> str:
-    """Lowercase + collapse non-alphanumeric runs to space."""
-    return re.sub(r"[^a-z0-9]+", " ", label.lower()).strip()
+    """Lowercase + collapse non-alphanumeric runs to space (Unicode-aware)."""
+    label = unicodedata.normalize("NFKC", label)
+    return re.sub(r"[\W_]+", " ", label.casefold(), flags=re.UNICODE).strip()
 
 
 def _entropy(label: str) -> float:
@@ -44,6 +46,45 @@ def _make_minhash(text: str, num_perm: int = 128) -> MinHash:
     for shingle in _shingles(text.replace(" ", "")):
         m.update(shingle.encode("utf-8"))
     return m
+
+
+# Matches labels whose trailing token is a version/variant suffix:
+# digits optionally followed by letters (chip SKUs: ASR1603, M1, Cortex-A55)
+# or 2+ letters (codename revisions: cranelr vs cranel).
+# Requires the stem to end in a letter so plain words don't accidentally match.
+_VARIANT_SUFFIX = re.compile(r"^(.*[a-z])([0-9]+[a-z]*|[a-z]{2,})$")
+
+
+def _is_variant_pair(a: str, b: str) -> bool:
+    """True if a and b are sibling model/SKU variants (same stem, different suffix).
+
+    Only applied to short labels (< 12 chars); long labels go through JW normally.
+    """
+    if a == b:
+        return False
+    if max(len(a), len(b)) >= 12:
+        return False
+    ma, mb = _VARIANT_SUFFIX.match(a), _VARIANT_SUFFIX.match(b)
+    if not (ma and mb):
+        return False
+    return ma.group(1) == mb.group(1) and ma.group(2) != mb.group(2)
+
+
+def _short_label_blocked(a: str, b: str, jw_score: float) -> bool:
+    """Block fuzzy merge for short labels unless it's a same-length single-char substitution.
+
+    Insertions/deletions on short strings (cranel/cranelr, M1/M1 Pro) produce
+    high Jaro-Winkler scores due to the prefix bonus but are almost never true
+    duplicates — they're abbreviations or variants.
+    """
+    if max(len(a), len(b)) >= 12:
+        return False
+    from rapidfuzz.distance import DamerauLevenshtein
+    # Allow only same-length single-char substitutions (true typos like "Extractor"/"Extractar").
+    # Block length-differing pairs regardless of score.
+    if jw_score >= 97.0 and len(a) == len(b) and DamerauLevenshtein.distance(a, b) <= 1:
+        return False
+    return True
 
 
 # ── union-find ────────────────────────────────────────────────────────────────
@@ -135,13 +176,22 @@ def deduplicate_entities(
             norm_to_nodes[key].append(node)
 
     uf = _UF()
+    exact_merges = 0
     for key, group in norm_to_nodes.items():
-        if len(group) > 1:
-            winner = _pick_winner(group)
-            for node in group:
-                uf.union(winner["id"], node["id"])
-
-    exact_merges = sum(len(g) - 1 for g in norm_to_nodes.values() if len(g) > 1)
+        if len(group) <= 1:
+            continue
+        # Partition by source_file — only merge within the same file in Pass 1.
+        # Cross-file matches fall through to Pass 2 fuzzy matching.
+        by_file: dict[str, list[dict]] = defaultdict(list)
+        for node in group:
+            sf = node.get("source_file") or ""
+            by_file[sf].append(node)
+        for file_group in by_file.values():
+            if len(file_group) > 1:
+                winner = _pick_winner(file_group)
+                for node in file_group:
+                    uf.union(winner["id"], node["id"])
+                exact_merges += len(file_group) - 1
 
     # ── pass 2: MinHash/LSH + Jaro-Winkler (high-entropy nodes only) ─────────
     candidates: list[dict] = []
@@ -185,12 +235,27 @@ def deduplicate_entities(
                 neighbor_norm = _norm(neighbor.get("label", neighbor.get("id", "")))
                 score = JaroWinkler.normalized_similarity(norm_label, neighbor_norm) * 100
 
+                if _is_variant_pair(norm_label, neighbor_norm):
+                    continue
+                if _short_label_blocked(norm_label, neighbor_norm, score):
+                    continue
+
                 c1 = communities.get(node_id)
                 c2 = communities.get(neighbor_id)
-                if c1 is not None and c2 is not None and c1 == c2:
+                if (c1 is not None and c2 is not None and c1 == c2
+                        and min(len(norm_label), len(neighbor_norm)) >= 12):
                     score += _COMMUNITY_BOOST
 
                 if score >= _MERGE_THRESHOLD:
+                    # Identical labels across different source files almost always
+                    # means same-named-but-different symbols (trait impls, wrapper
+                    # methods, common type names). Mirror Pass 1's source_file
+                    # partition for this sub-case. (#1046, leaks #895's fix)
+                    if norm_label == neighbor_norm:
+                        sf_a = node.get("source_file") or ""
+                        sf_b = neighbor.get("source_file") or ""
+                        if sf_a != sf_b:
+                            continue
                     all_group = norm_to_nodes.get(norm_label, [node]) + \
                                 norm_to_nodes.get(neighbor_norm, [neighbor])
                     winner = _pick_winner(all_group)
@@ -297,9 +362,14 @@ def _llm_tiebreak(
                 continue
             norm_j = _norm(neighbor.get("label", neighbor.get("id", "")))
             score = JaroWinkler.normalized_similarity(norm_i, norm_j) * 100
+            if _is_variant_pair(norm_i, norm_j):
+                continue
+            if _short_label_blocked(norm_i, norm_j, score):
+                continue
             c1 = communities.get(node["id"])
             c2 = communities.get(neighbor["id"])
-            if c1 is not None and c2 is not None and c1 == c2:
+            if (c1 is not None and c2 is not None and c1 == c2
+                    and min(len(norm_i), len(norm_j)) >= 12):
                 score += _COMMUNITY_BOOST
             if low <= score < high:
                 ambiguous.append((node, neighbor, score))

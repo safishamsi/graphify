@@ -49,3 +49,22 @@ def test_query_cli_heuristic_context_filter(monkeypatch, tmp_path, capsys):
     assert "Context: call (heuristic)" in out
     assert "cluster" in out
     assert "build" not in out
+
+
+def test_query_cli_rejects_oversized_graph(monkeypatch, tmp_path, capsys):
+    """#F4: query CLI must refuse to parse a graph.json that exceeds the cap."""
+    import pytest
+
+    graph_path = _write_graph(tmp_path)
+    monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 16)
+    monkeypatch.setattr(
+        mainmod.sys,
+        "argv",
+        ["graphify", "query", "extract", "--graph", str(graph_path)],
+    )
+    with pytest.raises(SystemExit):
+        mainmod.main()
+    err = capsys.readouterr().err
+    assert "exceeds" in err
+    assert "byte cap" in err

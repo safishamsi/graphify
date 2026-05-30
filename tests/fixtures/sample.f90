@@ -4,6 +4,11 @@ module geometry
 
   real, parameter :: PI = 3.14159
 
+  type :: Point
+    real :: x
+    real :: y
+  end type Point
+
 contains
 
   subroutine circle_area(radius, area)
@@ -17,6 +22,19 @@ contains
     real :: d
     d = sqrt((x2 - x1)**2 + (y2 - y1)**2)
   end function distance
+
+  subroutine translate(p, dx, dy)
+    type(Point), intent(inout) :: p
+    real, intent(in) :: dx, dy
+    p%x = p%x + dx
+    p%y = p%y + dy
+  end subroutine translate
+
+  function origin() result(p)
+    type(Point) :: p
+    p%x = 0.0
+    p%y = 0.0
+  end function origin
 
   subroutine print_area(radius)
     real, intent(in) :: radius

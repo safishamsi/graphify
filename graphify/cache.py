@@ -1,6 +1,7 @@
 # per-file extraction cache - skip unchanged files on re-run
 from __future__ import annotations
 
+import atexit
 import hashlib
 import json
 import os
@@ -23,6 +24,65 @@ def _body_content(content: bytes) -> bytes:
     return content
 
 
+# Stat-based index: maps absolute path → {size, mtime_ns, hash}.
+# Loaded once per process, flushed via atexit. Skips full file reads when
+# size+mtime_ns are unchanged — same trade-off as make(1).
+# Correctness risks: `touch` causes a harmless extra re-hash; same-size edits
+# within NFS second-resolution mtime have a 1-second window (same as make).
+# Use `graphify extract --force` to bypass when needed.
+_stat_index: dict[str, dict] = {}
+_stat_index_root: Path | None = None
+_stat_index_dirty: bool = False
+
+
+def _stat_index_file(root: Path) -> Path:
+    _out = Path(_GRAPHIFY_OUT)
+    base = _out if _out.is_absolute() else Path(root).resolve() / _out
+    return base / "cache" / "stat-index.json"
+
+
+def _ensure_stat_index(root: Path) -> None:
+    global _stat_index, _stat_index_root, _stat_index_dirty
+    if _stat_index_root is not None:
+        return
+    _stat_index_root = Path(root).resolve()
+    p = _stat_index_file(_stat_index_root)
+    if p.exists():
+        try:
+            _stat_index = json.loads(p.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            _stat_index = {}
+    else:
+        _stat_index = {}
+    atexit.register(_flush_stat_index)
+
+
+def _flush_stat_index() -> None:
+    global _stat_index_dirty, _stat_index_root
+    if not _stat_index_dirty or _stat_index_root is None:
+        return
+    p = _stat_index_file(_stat_index_root)
+    try:
+        p.parent.mkdir(parents=True, exist_ok=True)
+        fd, tmp = tempfile.mkstemp(dir=p.parent, prefix="stat-index.", suffix=".tmp")
+        try:
+            os.write(fd, json.dumps(_stat_index, separators=(",", ":")).encode())
+            os.close(fd)
+            os.replace(tmp, p)
+        except Exception:
+            try:
+                os.close(fd)
+            except OSError:
+                pass
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+    except OSError:
+        pass
+    _stat_index_dirty = False
+
+
 def _normalize_path(path: Path) -> Path:
     """Normalize path for consistent cache keys across Windows path spellings."""
     import sys
@@ -37,6 +97,10 @@ def _normalize_path(path: Path) -> Path:
 def file_hash(path: Path, root: Path = Path(".")) -> str:
     """SHA256 of file contents + path relative to root.
 
+    Uses a stat-based fastpath (size + mtime_ns) to skip full reads when the
+    file hasn't changed. Falls through to full SHA256 on first encounter or
+    when stat changes. Index is flushed atomically at process exit.
+
     Using a relative path (not absolute) makes cache entries portable across
     machines and checkout directories, so shared caches and CI work correctly.
     Falls back to the resolved absolute path if the file is outside root.
@@ -44,10 +108,25 @@ def file_hash(path: Path, root: Path = Path(".")) -> str:
     For Markdown files (.md), only the body below the YAML frontmatter is hashed,
     so metadata-only changes (e.g. reviewed, status, tags) do not invalidate the cache.
     """
+    global _stat_index_dirty
     p = _normalize_path(Path(path))
     root = _normalize_path(Path(root))
     if not p.is_file():
         raise IsADirectoryError(f"file_hash requires a file, got: {p}")
+
+    _ensure_stat_index(root)
+    abs_key = str(p.resolve())
+    st: "os.stat_result | None" = None
+    try:
+        st = p.stat()
+        entry = _stat_index.get(abs_key)
+        if (entry
+                and entry.get("size") == st.st_size
+                and entry.get("mtime_ns") == st.st_mtime_ns):
+            return entry["hash"]
+    except OSError:
+        pass
+
     raw = p.read_bytes()
     content = _body_content(raw) if p.suffix.lower() == ".md" else raw
     h = hashlib.sha256()
@@ -58,7 +137,13 @@ def file_hash(path: Path, root: Path = Path(".")) -> str:
         h.update(rel.as_posix().lower().encode())
     except ValueError:
         h.update(p.resolve().as_posix().lower().encode())
-    return h.hexdigest()
+    digest = h.hexdigest()
+
+    if st is not None:
+        _stat_index[abs_key] = {"size": st.st_size, "mtime_ns": st.st_mtime_ns, "hash": digest}
+        _stat_index_dirty = True
+
+    return digest
 
 
 def cache_dir(root: Path = Path("."), kind: str = "ast") -> Path:

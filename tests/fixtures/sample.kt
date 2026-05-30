@@ -17,6 +17,24 @@ class HttpClient(private val config: Config) {
     }
 }
 
+interface Loggable {
+    fun log()
+}
+
+open class BaseProcessor
+
+class Result<T>
+
+class DataProcessor : BaseProcessor(), Loggable {
+    var current: Result<DataProcessor> = Result()
+
+    fun run(input: DataProcessor): Result<DataProcessor> {
+        return current
+    }
+
+    override fun log() {}
+}
+
 fun createClient(baseUrl: String): HttpClient {
     val config = Config(baseUrl, 30)
     return HttpClient(config)
