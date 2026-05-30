@@ -225,3 +225,58 @@ def test_community_article_handles_null_source_file(tmp_path):
     # Must not raise TypeError
     to_wiki(G, communities, tmp_path, community_labels=labels)
     assert (tmp_path / "index.md").exists()
+
+
+# PR 6: parallel-edge preservation in the god-node "Connections by Relation" section.
+
+
+def test_wiki_neighbor_appears_under_all_parallel_relations(tmp_path):
+    """A neighbor reached by 3 parallel edges must appear under ALL three relation
+    groups in the god-node article, not just the first edge's relation (PR 6)."""
+    G = nx.MultiDiGraph()
+    G.add_node("A", label="alpha", file_type="code", source_file="a.py")
+    G.add_node("B", label="beta", file_type="code", source_file="b.py")
+    # Three parallel relationships A->B, each with a distinct confidence.
+    G.add_edge("A", "B", relation="calls", confidence="EXTRACTED")
+    G.add_edge("A", "B", relation="imports", confidence="INFERRED")
+    G.add_edge("A", "B", relation="contains", confidence="AMBIGUOUS")
+    communities = {0: ["A", "B"]}
+    labels = {0: "Core Logic"}
+    gods = [{"id": "A", "label": "alpha", "degree": 3}]
+    to_wiki(G, communities, tmp_path, community_labels=labels, god_nodes_data=gods)
+    article = (tmp_path / "alpha.md").read_text()
+    # beta must be filed under EVERY distinct relation, not just one.
+    assert "### calls" in article
+    assert "### imports" in article
+    assert "### contains" in article
+    # The neighbor link appears once per relation group (3 total).
+    assert article.count("[[beta]]") == 3
+    # Per-relation confidence suffix is preserved for each single-edge relation.
+    assert "[[beta]] `EXTRACTED`" in article
+    assert "[[beta]] `INFERRED`" in article
+    assert "[[beta]] `AMBIGUOUS`" in article
+
+
+def test_wiki_simple_graph_regression(tmp_path):
+    """Simple DiGraph: a single-relation neighbor appears under exactly one
+    relation with the historical `[conf]` format, byte-stable (PR 6)."""
+    G = nx.DiGraph()
+    G.add_node("A", label="alpha", file_type="code", source_file="a.py")
+    G.add_node("B", label="beta", file_type="code", source_file="b.py")
+    G.add_node("C", label="gamma", file_type="code", source_file="c.py")
+    G.add_edge("A", "B", relation="calls", confidence="EXTRACTED", weight=1.0)
+    G.add_edge("A", "C", relation="imports", confidence="INFERRED", weight=1.0)
+    communities = {0: ["A", "B", "C"]}
+    labels = {0: "Core Logic"}
+    gods = [{"id": "A", "label": "alpha", "degree": 2}]
+    to_wiki(G, communities, tmp_path, community_labels=labels, god_nodes_data=gods)
+    article = (tmp_path / "alpha.md").read_text()
+    # Each neighbor appears under exactly one relation with its `[conf]` suffix,
+    # matching the pre-PR6 single-edge output format byte-for-byte.
+    assert "### calls" in article
+    assert "### imports" in article
+    assert "- [[beta]] `EXTRACTED`" in article
+    assert "- [[gamma]] `INFERRED`" in article
+    # No relation group lists a neighbor more than once on a simple graph.
+    assert article.count("[[beta]]") == 1
+    assert article.count("[[gamma]]") == 1

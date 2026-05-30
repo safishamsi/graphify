@@ -193,3 +193,56 @@ def test_report_god_node_degree_not_inflated():
     gods = god_nodes(G)
     hub_entry = next(g for g in gods if g["label"] == "hub")
     assert hub_entry["degree"] == 3, f"Expected 3 unique neighbors, got {hub_entry['degree']}"
+
+
+# --- PR 6: parallel-edge preservation in per-edge report surfaces ---
+
+
+def test_report_preserves_parallel_inferred_edges():
+    """MultiDiGraph with parallel edges between one pair: every per-edge report
+    surface must preserve ALL parallel edges, not collapse to one (PR 6).
+
+    report.py iterates ``G.edges(data=True)`` for confidence stats, the INFERRED
+    count/avg, and the ambiguous-edges list — on a MultiDiGraph that yields every
+    parallel edge. This confirms the no-collapse contract:
+      - INFERRED count reflects all 3 parallel inferred edges (not 1)
+      - INFERRED avg confidence averages all 3 distinct scores (0.5/0.7/0.9 -> 0.7)
+      - the ambiguous-edges section emits one line per parallel ambiguous edge
+    """
+    G = nx.MultiDiGraph()
+    G.add_node("A", label="alpha", type="entity", source_file="a.py")
+    G.add_node("B", label="beta", type="entity", source_file="b.py")
+    # 3 parallel INFERRED edges between the SAME pair, distinct scores.
+    G.add_edge("A", "B", relation="calls", confidence="INFERRED", confidence_score=0.5)
+    G.add_edge("A", "B", relation="imports", confidence="INFERRED", confidence_score=0.7)
+    G.add_edge("A", "B", relation="contains", confidence="INFERRED", confidence_score=0.9)
+    # 2 parallel AMBIGUOUS edges between the SAME pair, distinct relations.
+    G.add_edge("A", "B", relation="maybe_uses", confidence="AMBIGUOUS")
+    G.add_edge("A", "B", relation="maybe_refs", confidence="AMBIGUOUS")
+    assert G.number_of_edges() == 5
+    report = _minimal_report(G)
+    # All 3 parallel inferred edges are counted (collapse would show "1 edges").
+    assert "INFERRED: 3 edges" in report
+    # Average over all 3 parallel scores, proving each edge contributed.
+    assert "avg confidence: 0.7" in report
+    # The ambiguous-edges list preserves one line per parallel ambiguous edge.
+    assert "relation: maybe_uses" in report
+    assert "relation: maybe_refs" in report
+
+
+def test_report_multigraph_edge_count_unchanged_semantics():
+    """PR4B total-vs-unique-pairs edge-count line still renders correctly on a
+    multigraph with parallel edges (regression for PR 6)."""
+    G = nx.MultiDiGraph()
+    G.add_node("A", label="alpha", type="entity", source_file="a.py")
+    G.add_node("B", label="beta", type="entity", source_file="b.py")
+    G.add_node("C", label="gamma", type="entity", source_file="c.py")
+    # 2 unique pairs, 5 total edges (3 parallel A->B, 2 parallel B->C).
+    G.add_edge("A", "B", relation="calls", confidence="EXTRACTED")
+    G.add_edge("A", "B", relation="imports", confidence="EXTRACTED")
+    G.add_edge("A", "B", relation="contains", confidence="EXTRACTED")
+    G.add_edge("B", "C", relation="calls", confidence="EXTRACTED")
+    G.add_edge("B", "C", relation="imports", confidence="EXTRACTED")
+    assert G.number_of_edges() == 5
+    report = _minimal_report(G)
+    assert "5 edges (2 unique pairs)" in report

@@ -5,7 +5,7 @@ from collections import Counter
 from pathlib import Path
 import networkx as nx
 
-from graphify.build import edge_data
+from graphify.build import edge_datas
 
 
 def _safe_filename(name: str) -> str:
@@ -53,12 +53,18 @@ def _community_article(
     top_nodes = sorted(nodes, key=lambda n: G.degree(n), reverse=True)[:25]
     cross = _cross_community_links(G, nodes, cid, labels, node_community or {})
 
-    # Edge confidence breakdown
+    # Edge confidence breakdown. On a MultiDiGraph a neighbor can be reached by
+    # several parallel edges (calls/imports/contains) with distinct confidences;
+    # count EVERY parallel edge so the audit-trail percentages reflect the full
+    # edge population, not just the first edge per neighbor. On a simple graph
+    # edge_datas() returns the single edge dict, so the historical
+    # count-once-per-directed-neighbor behavior (each undirected edge counted from
+    # both endpoints) is preserved byte-for-byte.
     conf_counts: Counter = Counter()
     for nid in nodes:
         for neighbor in G.neighbors(nid):
-            ed = edge_data(G, nid, neighbor)
-            conf_counts[ed.get("confidence", "EXTRACTED")] += 1
+            for ed in edge_datas(G, nid, neighbor):
+                conf_counts[ed.get("confidence", "EXTRACTED")] += 1
     total_edges = sum(conf_counts.values()) or 1
 
     sources = sorted({G.nodes[n].get("source_file") or "" for n in nodes} - {""})
@@ -125,16 +131,30 @@ def _god_node_article(
     if community_name:
         lines += [f"**Community:** [[{community_name}]]", ""]
 
-    # Group neighbors by relation type
+    # Group neighbors by relation type. A neighbor reached by several parallel
+    # edges (calls/imports/contains) must appear under EVERY distinct relation,
+    # not just the first edge's relation — otherwise parallel relationships are
+    # silently dropped from the wiki. Enumerate all parallel records via
+    # edge_datas() and file the neighbor once per distinct relation, preserving
+    # the historical per-relation `[conf]` suffix for the single-edge case
+    # (exactly one confidence on that relation → show it; multiple distinct
+    # confidences on the same relation → omit, to keep the line deterministic).
     by_relation: dict[str, list[str]] = {}
     for neighbor in sorted(G.neighbors(nid), key=lambda n: G.degree(n), reverse=True):
         nd = G.nodes[neighbor]
-        ed = edge_data(G, nid, neighbor)
-        rel = ed.get("relation", "related")
         neighbor_label = nd.get("label", neighbor)
-        conf = ed.get("confidence", "")
-        conf_str = f" `{conf}`" if conf else ""
-        by_relation.setdefault(rel, []).append(f"[[{neighbor_label}]]{conf_str}")
+        # Map each distinct relation on this neighbor to the set of confidences
+        # carried by the parallel edges under that relation.
+        rel_confs: dict[str, set[str]] = {}
+        for ed in edge_datas(G, nid, neighbor):
+            rel = ed.get("relation", "related")
+            conf = ed.get("confidence", "")
+            rel_confs.setdefault(rel, set())
+            if conf:
+                rel_confs[rel].add(conf)
+        for rel, confs in rel_confs.items():
+            conf_str = f" `{next(iter(confs))}`" if len(confs) == 1 else ""
+            by_relation.setdefault(rel, []).append(f"[[{neighbor_label}]]{conf_str}")
 
     lines += ["## Connections by Relation", ""]
     for rel, targets in sorted(by_relation.items()):
