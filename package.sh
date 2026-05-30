@@ -24,7 +24,7 @@ tar czf "$OUTFILE" \
     --exclude='.ruff_cache' \
     --exclude='.claude' \
     --exclude='.graphify' \
-    --exclude='graphify-out' \
+    --exclude='worked/*/graphify-out' \
     --exclude='orig_skills' \
     --exclude='.vscode' \
     --exclude='.git' \
@@ -33,6 +33,7 @@ tar czf "$OUTFILE" \
     --exclude='*.tar.gz' \
     graphify/ \
     tests/ \
+    examples/ \
     worked/ \
     docs/ \
     pyproject.toml \

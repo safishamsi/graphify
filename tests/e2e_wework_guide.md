@@ -37,7 +37,7 @@ Now, **from within your AI assistant (e.g., Gemini CLI)**, run the extraction. T
 
 ```bash
 # Type this into your agent prompt:
-/pyaag /tmp/wework-s1/raw --domain finance,diligence --db
+/pyaag /tmp/wework-s1/raw --domain finance,diligence --db --out /tmp/wework-s1/
 ```
 
 Verify output exists:

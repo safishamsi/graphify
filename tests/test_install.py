@@ -403,19 +403,19 @@ def test_pyinstall_creates_pyaag_skill(tmp_path):
     assert (skill.parent / "build.md").exists()
     assert (skill.parent / "interact.md").exists()
     
-    # Check transformed content in modular files
+    # Check transformed content in modular files uses resolved python path
     build_content = (skill.parent / "build.md").read_text()
-    assert "python3 -c" in build_content
+    assert f"{sys.executable} -c" in build_content
     assert "from graphify." in build_content
-    
+
     interact_content = (skill.parent / "interact.md").read_text()
-    assert "python3 -m graphify query" in interact_content
-    
+    assert f"{sys.executable} -m graphify query" in interact_content
+
     export_content = (skill.parent / "export.md").read_text()
-    assert "python3 -m graphify export" in export_content
-    
-    # Quick start in main skill uses python3 (pyinstall mode)
-    assert "python3" in content
+    assert f"{sys.executable} -m graphify export" in export_content
+
+    # Quick start in main skill uses resolved python path (pyinstall mode)
+    assert sys.executable in content
     assert "aag eval" not in content
     # /pyaag in usage, not /aag
     assert "/pyaag" in content

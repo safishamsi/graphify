@@ -143,9 +143,13 @@ def test_red_flag_analyzer():
 
     G = nx.Graph()
     # Risk factor edge
-    G.add_node("company", label="ACME Corp", domain="diligence")
+    G.add_node("company", label="ACME Corp", type="company", domain="diligence")
     G.add_node("risk1", label="Risk: Related Party Transactions", domain="diligence")
     G.add_edge("company", "risk1", relation="HAS_RISK_FACTOR")
+    # Make company the highest-degree node (subject entity) so it's excluded, not ceo
+    for i in range(8):
+        G.add_node(f"sub_{i}", label=f"Subsidiary {i}", domain="diligence")
+        G.add_edge("company", f"sub_{i}", relation="subsidiary_of")
     # Related party node
     G.add_node("rp1", label="Loans to Related Parties ($50M)", domain="diligence")
     # Key person (high degree with officer edge)

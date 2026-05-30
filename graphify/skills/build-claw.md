@@ -131,6 +131,33 @@ After transcription:
 - Add them to the docs list before dispatching semantic subagents in Step 3B
 - Print how many transcripts were created: `Transcribed N video file(s) -> treating as docs`
 
+### Step 2.5a - Convert HTML files to Markdown (optimizes token usage)
+
+HTML files are converted to clean Markdown before extraction to reduce token waste and expose section headings.
+
+```bash
+$(cat graphify-out/.aag_python) -c "
+import json
+from pathlib import Path
+from aag.ingest import convert_html_files
+
+detect = json.loads(Path('graphify-out/.aag_detect.json').read_text())
+doc_files = [Path(f) for f in detect.get('files', {}).get('document', [])]
+html_files = [f for f in doc_files if f.suffix.lower() in ('.html', '.htm', '.xhtml')]
+
+if html_files:
+    mapping = convert_html_files(html_files, Path('graphify-out'))
+    Path('graphify-out/.aag_html_mapping.json').write_text(
+        json.dumps({str(k): str(v) for k, v in mapping.items()})
+    )
+"
+```
+
+After conversion:
+- Read `graphify-out/.aag_html_mapping.json`.
+- For every HTML file in the `document` list, **REPLACE** its path with the corresponding `.aag_converted_*.md` path from the mapping before dispatching subagents in Step 3B.
+- This ensures subagents read the clean, lightweight Markdown instead of raw HTML.
+
 ### Step 3 - Extract entities and relationships
 
 **Before starting:** note whether `--mode deep` was given. You must pass `DEEP_MODE=true` to every subagent in Step B2 if it was. Track this from the original invocation - do not lose it.

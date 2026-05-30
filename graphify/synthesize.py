@@ -153,8 +153,8 @@ def _group_findings_by_theme(
         if nodes_in_theme:
             theme["center_node"] = max(nodes_in_theme, key=lambda n: G.degree(n))
 
-    # Filter to themes with ≥2 findings
-    return {k: v for k, v in themes.items() if len(v["findings"]) >= 2}
+    # Filter to themes with findings
+    return {k: v for k, v in themes.items() if len(v["findings"]) >= 1}
 
 
 _SYNTHESIS_PROMPT = """\

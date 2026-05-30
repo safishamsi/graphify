@@ -135,6 +135,72 @@ def _compute_community_domain_mix(G) -> dict:
     return dict(mix)
 
 
+_CANDIDATE_TYPE_LABELS = {
+    "officer_loan": "Possible Loan to/from Officer",
+    "related_party_lease": "Related-Party Lease",
+    "insider_transaction": "Insider Transaction",
+    "self_dealing": "Potential Self-Dealing",
+}
+
+
+def _clean_window_text(text: str) -> str:
+    """Clean raw extracted text: collapse whitespace, remove HTML artifacts."""
+    import re
+    text = text.replace("\xa0", " ")
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n\s*\n", "\n", text)
+    text = re.sub(r"^\s+", "", text, flags=re.MULTILINE)
+    return text.strip()
+
+
+def _generate_candidate_finding(item: dict) -> str:
+    """Generate a layman-readable description of what this candidate means."""
+    ctype = item.get("type", "")
+    amount = item.get("amount", "")
+    window = _clean_window_text(item.get("window", ""))
+
+    if ctype == "officer_loan":
+        # Try to identify what the money is for from context
+        wl = window.lower()
+        if "convertible" in wl and "note" in wl:
+            return (
+                f"A convertible note worth {amount} involves a related party. "
+                "This means an insider holds debt that could convert to ownership shares, "
+                "giving them preferential treatment over regular shareholders."
+            )
+        elif "repurchase" in wl and ("stock" in wl or "share" in wl):
+            return (
+                f"The company repurchased {amount} in shares from an insider. "
+                "If the price paid exceeded fair market value, this may be a way "
+                "to funnel cash to insiders disguised as a stock transaction."
+            )
+        elif "lease" in wl or "rent" in wl:
+            return (
+                f"A {amount} financial arrangement involves property leased from "
+                "or to a company insider. The company may be overpaying rent to "
+                "enrich an officer who is also the landlord."
+            )
+        elif "promissory" in wl or "loan" in wl:
+            return (
+                f"A {amount} promissory note or loan involves a related party. "
+                "Money flowing between the company and its insiders creates conflicts "
+                "of interest — the insider benefits regardless of company performance."
+            )
+        elif "acqui" in wl or "investment" in wl:
+            return (
+                f"A {amount} acquisition or investment involves a related party. "
+                "Insiders may be selling assets to the company at inflated prices, "
+                "or the company may be funding entities that benefit insiders."
+            )
+        else:
+            return (
+                f"A {amount} financial transaction may involve a company officer or insider. "
+                "This requires review to determine whether the terms are fair to shareholders "
+                "or if insiders are extracting value."
+            )
+    return f"A {amount} transaction of type '{ctype}' needs review to confirm whether it represents a conflict of interest."
+
+
 def _compute_pending_candidates(out_path: Path) -> list:
     """Section 6: Read .aag_diligence_candidates.json if it exists."""
     candidates_path = out_path.parent / ".aag_diligence_candidates.json"
@@ -146,13 +212,12 @@ def _compute_pending_candidates(out_path: Path) -> list:
         return []
     results = []
     for item in raw:
-        window = item.get("window", "")
-        if len(window) > 150:
-            window = window[:150]
+        window = _clean_window_text(item.get("window", ""))
         results.append({
-            "type": item.get("type", ""),
+            "type": _CANDIDATE_TYPE_LABELS.get(item.get("type", ""), item.get("type", "")),
             "amount": item.get("amount", ""),
-            "window_snippet": window,
+            "finding": _generate_candidate_finding(item),
+            "context": window[:400],
         })
     return results
 
@@ -198,22 +263,23 @@ _TEMPLATE = r"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Graphify Dashboard</title>
+<title>Due Diligence Risk Report</title>
 <style>
-:root {
-  --bg: #f0f2f5; --fg: #1a1a2e; --card: #ffffff; --border: #e2e8f0;
-  --accent: #3b82f6; --accent-soft: #eff6ff;
-  --danger: #dc2626; --danger-soft: #fef2f2;
-  --warn: #d97706; --warn-soft: #fffbeb;
-  --ok: #059669; --ok-soft: #ecfdf5;
+:root, [data-theme="light"] {
+  --bg: #f8f9fb; --fg: #1a1a2e; --card: #ffffff; --border: #e2e8f0;
+  --accent: #2563eb; --accent-soft: #eff6ff;
+  --danger: #b91c1c; --danger-soft: #fef2f2;
+  --warn: #b45309; --warn-soft: #fffbeb;
+  --ok: #047857; --ok-soft: #ecfdf5;
   --muted: #64748b; --subtle: #f8fafc;
-  --finance: #3b82f6; --diligence: #dc2626; --other: #64748b;
-  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-  --radius: 10px;
+  --finance: #2563eb; --diligence: #b91c1c; --other: #64748b;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
+  --radius: 8px;
+  --bg-offset: #f1f5f9;
+  --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
+[data-theme="dark"] {
     --bg: #0f172a; --fg: #e2e8f0; --card: #1e293b; --border: #334155;
     --accent: #60a5fa; --accent-soft: #1e3a5f;
     --danger: #f87171; --danger-soft: #3b1c1c;
@@ -222,36 +288,57 @@ _TEMPLATE = r"""<!DOCTYPE html>
     --muted: #94a3b8; --subtle: #1e293b;
     --finance: #60a5fa; --diligence: #f87171; --other: #94a3b8;
     --shadow: 0 1px 3px rgba(0,0,0,0.3); --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+    --bg-offset: rgba(255,255,255,0.03);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f172a; --fg: #e2e8f0; --card: #1e293b; --border: #334155;
+    --accent: #60a5fa; --accent-soft: #1e3a5f;
+    --danger: #f87171; --danger-soft: #3b1c1c;
+    --warn: #fbbf24; --warn-soft: #3b2e1c;
+    --ok: #34d399; --ok-soft: #1c3b2e;
+    --muted: #94a3b8; --subtle: #1e293b;
+    --finance: #60a5fa; --diligence: #f87171; --other: #94a3b8;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3); --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+    --bg-offset: rgba(255,255,255,0.03);
   }
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; overflow: auto; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--fg); }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 16px; background: var(--bg); color: var(--fg); line-height: 1.55; -webkit-font-smoothing: antialiased; }
 
-.shell { display: flex; flex-direction: column; min-height: 100vh; max-width: 1500px; margin: 0 auto; padding: 1.25rem 2rem 2rem; }
+.shell { display: flex; flex-direction: column; min-height: 100vh; max-width: 1440px; margin: 0 auto; padding: 1.5rem 2.5rem 3rem; }
 
-/* Header row */
-.header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 1rem; flex-shrink: 0; }
-.header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
-.header .meta { font-size: 0.78rem; color: var(--muted); }
-.header .domain-badges { margin-left: auto; display: flex; gap: 0.4rem; }
+/* Report header */
+.report-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+.report-header-left { display: flex; flex-direction: column; gap: 0.25rem; }
+.report-title { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; color: var(--fg); }
+.report-subject { font-size: 1rem; font-weight: 500; color: var(--accent); }
+.report-meta { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+.report-header-right { display: flex; align-items: center; gap: 0.5rem; }
+.theme-toggle { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; flex-shrink: 0; }
+.theme-toggle:hover { background: var(--accent-soft); border-color: var(--accent); }
+.theme-toggle::after { content: '\263d'; }
+[data-theme="dark"] .theme-toggle::after { content: '\2600'; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-toggle::after { content: '\2600'; } }
 
 /* KPI strip */
-.kpi-strip { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-shrink: 0; flex-wrap: wrap; }
-.kpi { background: var(--card); border-radius: 8px; padding: 0.6rem 1.1rem; box-shadow: var(--shadow); border-left: 3px solid var(--accent); display: flex; align-items: baseline; gap: 0.5rem; }
-.kpi-danger { border-left-color: var(--danger); }
-.kpi-warn { border-left-color: var(--warn); }
-.kpi .kpi-value { font-size: 1.5rem; font-weight: 800; }
-.kpi .kpi-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.kpi-strip { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; flex-shrink: 0; flex-wrap: wrap; }
+.kpi { background: var(--card); border-radius: var(--radius); padding: 0.9rem 1.25rem; box-shadow: var(--shadow); border-top: 3px solid var(--accent); display: flex; flex-direction: column; align-items: flex-start; min-width: 110px; }
+.kpi-danger { border-top-color: var(--danger); }
+.kpi-warn { border-top-color: var(--warn); }
+.kpi .kpi-value { font-size: 1.75rem; font-weight: 800; line-height: 1.1; }
+.kpi .kpi-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.2rem; }
+.kpi .kpi-sub { font-size: 0.72rem; color: var(--danger); font-weight: 600; }
 
 /* Tabs */
 .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 0; flex-shrink: 0; }
-.tab { padding: 0.5rem 1.25rem; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s, border-color 0.15s; user-select: none; }
+.tab { padding: 0.6rem 1.4rem; font-size: 0.88rem; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s, border-color 0.15s; user-select: none; letter-spacing: 0.01em; }
 .tab:hover { color: var(--fg); }
 .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
 /* Tab content */
-.tab-content { display: none; padding-top: 1rem; }
+.tab-content { display: none; padding-top: 1.25rem; }
 .tab-content.active { display: grid; }
 
 /* Two-col layout inside tabs */
@@ -259,24 +346,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 @media (max-width: 900px) { .col-layout { grid-template-columns: 1fr; } }
 
 /* Panels */
-.panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; box-shadow: var(--shadow); min-height: 0; }
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: var(--shadow); min-height: 0; }
 .panel-danger { border-left: 4px solid var(--danger); }
 .panel-warn { border-left: 4px solid var(--warn); }
 .panel-accent { border-left: 4px solid var(--accent); }
-.panel h2 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 0.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
-.panel .section-desc { font-size: 0.74rem; color: var(--muted); margin-bottom: 0.75rem; line-height: 1.4; font-style: italic; }
-.panel-stack { display: flex; flex-direction: column; gap: 1rem; min-height: 0; }
+.panel h2 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+.panel .section-desc { font-size: 0.84rem; color: var(--muted); margin-bottom: 0.9rem; line-height: 1.45; }
+.panel-stack { display: flex; flex-direction: column; gap: 1.25rem; min-height: 0; }
 
 /* Tables */
-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
 thead { position: sticky; top: 0; background: var(--card); z-index: 1; }
-th { padding: 0.5rem 0.6rem; text-align: left; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); border-bottom: 2px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
+th { padding: 0.55rem 0.7rem; text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); border-bottom: 2px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
 th:hover { color: var(--accent); }
-td { padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); }
+td { padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--border); }
+tbody tr:nth-child(even) { background: var(--bg-offset); }
 tbody tr:hover { background: var(--accent-soft); }
 
 /* Badges */
-.badge { display: inline-flex; align-items: center; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.02em; }
+.badge { display: inline-flex; align-items: center; padding: 0.2rem 0.55rem; border-radius: 10px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; }
 .badge-high { background: var(--danger-soft); color: var(--danger); }
 .badge-medium { background: var(--warn-soft); color: var(--warn); }
 .badge-low { background: var(--ok-soft); color: var(--ok); }
@@ -284,34 +372,86 @@ tbody tr:hover { background: var(--accent-soft); }
 .badge-diligence { background: var(--danger-soft); color: var(--diligence); }
 .badge-other { background: var(--subtle); color: var(--other); }
 
+/* Risk tab nav */
+.risk-nav { display: flex; gap: 0.4rem; padding: 0.5rem 0.7rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; position: sticky; top: 0; z-index: 10; }
+.risk-nav-item { font-size: 0.88rem; font-weight: 600; padding: 0.35rem 0.7rem; border-radius: 5px; color: var(--muted); text-decoration: none; transition: background 0.15s, color 0.15s; }
+.risk-nav-item:hover { background: var(--accent-soft); color: var(--accent); }
+
+/* Risk tab layout */
+.risk-layout { display: flex; flex-direction: column; gap: 1.5rem; }
+.risk-mid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+@media (max-width: 900px) { .risk-mid-row { grid-template-columns: 1fr; } }
+.panel-muted { border-left: 4px solid var(--border); }
+.pending-head { display: flex; align-items: center; gap: 0.8rem; }
+.pending-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0.6rem; }
+/* Key-person cards */
+.kp-card { border: 1px solid var(--border); border-radius: 6px; padding: 0.6rem 0.8rem; margin-bottom: 0.5rem; }
+.kp-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.3rem; }
+.kp-name { font-weight: 600; font-size: 0.95rem; }
+.kp-stats { display: flex; gap: 1.2rem; font-size: 0.85rem; color: var(--muted); }
+.kp-frag-high { color: var(--danger); font-weight: 600; }
+
+/* Red flag type labels */
+.rf-type-cell { max-width: 180px; }
+.rf-type-name { font-weight: 600; font-size: 0.88rem; }
+.rf-type-hint { font-size: 0.78rem; color: var(--muted); line-height: 1.3; margin-top: 0.15rem; }
+/* Red flag finding */
+.rf-finding-cell { max-width: 480px; }
+.rf-finding { font-size: 0.9rem; line-height: 1.5; }
+.rf-raw-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; font-family: var(--font-mono, monospace); white-space: pre-wrap; word-break: break-word; }
+
+/* Pending candidates */
+.pending-card { border: 1px solid var(--border); border-radius: 6px; padding: 0.7rem 0.9rem; margin-bottom: 0.5rem; }
+.pending-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+.pending-amount { font-weight: 700; font-size: 0.95rem; }
+.pending-finding { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.4rem; }
+.pending-ctx-row { display: flex; align-items: center; gap: 0.4rem; }
+.pending-context { font-size: 0.8rem; font-family: var(--font-mono, monospace); white-space: pre-wrap; word-break: break-word; line-height: 1.4; color: var(--muted); margin-top: 0.3rem; padding: 0.4rem 0.6rem; background: var(--bg-offset, #f8f9fa); border-radius: 4px; max-height: 10em; overflow-y: auto; }
+
+/* Evidence drawer */
+.evidence-table-wrap table { width: 100%; }
+.evidence-btn { background: var(--subtle); border: 1px solid var(--border); border-radius: 3px; cursor: pointer; font-size: 0.8rem; width: 1.5em; height: 1.5em; display: flex; align-items: center; justify-content: center; color: var(--text); }
+.evidence-btn:hover { background: var(--border); }
+.evidence-drawer { background: var(--bg-offset, #f8f9fa); }
+.evidence-cell { padding: 0.6rem 1rem !important; border-left: 3px solid var(--accent); }
+.ev-section { margin-bottom: 0.4rem; font-size: 0.85rem; line-height: 1.4; }
+.ev-label { font-weight: 600; color: var(--muted); }
+.ev-desc { font-style: italic; color: var(--muted); }
+.xref-block { background: var(--accent-soft, rgba(59,130,246,0.06)); border-radius: 4px; padding: 0.5rem 0.7rem; margin-top: 0.3rem; }
+.xref-block .ev-label { color: var(--accent); font-size: 0.82rem; }
+.ev-excerpt { font-family: var(--font-mono, monospace); font-size: 0.8rem; color: var(--text); white-space: pre-wrap; margin-top: 0.2rem; max-height: 8em; overflow-y: auto; }
+[data-theme="dark"] .evidence-drawer { background: rgba(255,255,255,0.03); }
+[data-theme="dark"] .xref-block { background: rgba(59,130,246,0.08); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .evidence-drawer { background: rgba(255,255,255,0.03); } :root:not([data-theme="light"]) .xref-block { background: rgba(59,130,246,0.08); } }
+
 /* Bar charts */
 .bar-item { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; }
-.bar-label { font-size: 0.78rem; font-weight: 500; min-width: 140px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-label { font-size: 0.88rem; font-weight: 500; min-width: 140px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bar-track { flex: 1; height: 7px; border-radius: 4px; background: var(--border); overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 4px; }
 .bar-fill-accent { background: var(--accent); }
 .bar-fill-danger { background: var(--danger); }
 .bar-fill-ok { background: var(--ok); }
-.bar-val { font-size: 0.72rem; color: var(--muted); min-width: 28px; text-align: right; }
+.bar-val { font-size: 0.82rem; color: var(--muted); min-width: 28px; text-align: right; }
 
 /* Stacked bars */
 .stacked-bar { display: flex; height: 20px; border-radius: 5px; overflow: hidden; margin: 0.3rem 0; }
-.seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: white; }
+.seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: white; }
 .seg-finance { background: var(--finance); }
 .seg-diligence { background: var(--diligence); }
 .seg-other { background: var(--other); }
 
 /* Misc */
-.empty { color: var(--muted); font-style: italic; padding: 1rem 0; text-align: center; font-size: 0.82rem; }
-.banner { padding: 0.5rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.78rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
+.empty { color: var(--muted); font-style: italic; padding: 1rem 0; text-align: center; font-size: 0.9rem; }
+.banner { padding: 0.5rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.88rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
 .banner-warn { background: var(--warn-soft); color: var(--warn); }
 .highlight-billion { font-weight: 700; color: var(--danger); }
 .text-trunc { max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; vertical-align: bottom; }
-.legend { display: flex; gap: 0.75rem; font-size: 0.7rem; margin-top: 0.5rem; }
+.legend { display: flex; gap: 0.75rem; font-size: 0.8rem; margin-top: 0.5rem; }
 .legend-item { display: flex; align-items: center; gap: 0.25rem; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
-.collapsible-hdr { cursor: pointer; display: flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0; font-weight: 600; font-size: 0.8rem; color: var(--fg); }
-.collapsible-hdr::before { content: '\25b8'; font-size: 0.7rem; color: var(--muted); transition: transform 0.15s; }
+.collapsible-hdr { cursor: pointer; display: flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0; font-weight: 600; font-size: 0.9rem; color: var(--fg); }
+.collapsible-hdr::before { content: '\25b8'; font-size: 0.8rem; color: var(--muted); transition: transform 0.15s; }
 .collapsible-hdr.open::before { transform: rotate(90deg); }
 .collapsible-body { display: none; padding-left: 0.75rem; border-left: 2px solid var(--border); margin-top: 0.3rem; }
 .collapsible-body.open { display: block; }
@@ -319,24 +459,66 @@ tbody tr:hover { background: var(--accent-soft); }
 
 /* Narrative cards */
 .narrative-card { border-left: 4px solid var(--accent); margin-bottom: 1.25rem; }
-.narrative-card h3 { font-size: 0.85rem; font-weight: 700; color: var(--fg); margin-top: 0.75rem; margin-bottom: 0.3rem; }
-.narrative-card .narrative-body { font-size: 0.82rem; line-height: 1.55; color: var(--fg); white-space: pre-wrap; margin-bottom: 0.5rem; }
-.narrative-card .narrative-meta { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+.narrative-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--fg); margin-top: 0.75rem; margin-bottom: 0.3rem; }
+.narrative-card .narrative-body { font-size: 0.9rem; line-height: 1.6; color: var(--fg); white-space: pre-wrap; margin-bottom: 0.5rem; }
+.narrative-card .narrative-meta { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.5rem; }
+
+/* Executive summary / Critical findings */
+.exec-summary { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-md); }
+.exec-summary h2 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--danger); margin-bottom: 0.75rem; }
+.exec-item { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+.exec-item:last-child { border-bottom: none; }
+.exec-rank { font-size: 0.8rem; font-weight: 800; color: var(--danger); background: var(--danger-soft); width: 1.6rem; height: 1.6rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.exec-text { font-size: 0.9rem; line-height: 1.5; }
+.exec-text strong { font-weight: 700; }
+
+/* Print */
+@media print {
+  .theme-toggle, .risk-nav, .tab-bar, .evidence-btn, .report-header-right { display: none !important; }
+  .tab-content { display: block !important; page-break-before: always; }
+  .tab-content:first-of-type { page-break-before: avoid; }
+  .panel { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  .evidence-drawer { display: table-row !important; }
+  .kpi-strip { gap: 0.4rem; }
+  .kpi { box-shadow: none; border: 1px solid #ddd; }
+  body { font-size: 11pt; background: white; color: black; }
+  .shell { padding: 0; max-width: 100%; }
+}
 </style>
 </head>
 <body>
 <div class="shell">
-<div class="header">
-  <h1>Knowledge Graph Dashboard</h1>
-  <span class="meta" id="meta-line"></span>
-  <div class="domain-badges" id="domain-badges"></div>
+<div class="report-header">
+  <div class="report-header-left">
+    <div class="report-title">Due Diligence Risk Report</div>
+    <div class="report-subject" id="report-subject"></div>
+    <div class="report-meta" id="report-meta"></div>
+  </div>
+  <div class="report-header-right">
+    <div class="domain-badges" id="domain-badges"></div>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle theme"></button>
+  </div>
 </div>
 <div class="kpi-strip" id="kpi-strip"></div>
+<div class="exec-summary" id="exec-summary"></div>
 <div class="tab-bar" id="tab-bar"></div>
 <div id="tabs-container"></div>
 </div>
 <script>
 /*__DATA__*/
+
+// --- Theme toggle ---
+(function() {
+  const stored = localStorage.getItem('graphify-theme');
+  if (stored) document.documentElement.setAttribute('data-theme', stored);
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('graphify-theme', next);
+  });
+})();
 
 // --- Helpers ---
 function h(tag, attrs, ...children) {
@@ -371,6 +553,129 @@ function sortableTable(headers, rows) {
   return container;
 }
 
+const RF_TYPE_LABELS = {
+  'related_party_exposure': 'Related-Party Exposure',
+  'vie_consolidation': 'Off-Balance-Sheet / VIE Risk',
+  'key_person_risk': 'Key-Person Dependency',
+  'compensation_concentration': 'Compensation Concentration',
+  'conflict_of_interest': 'Conflict of Interest',
+  'risk_factor': 'Disclosed Risk Factor',
+  'concentration_risk': 'Revenue Concentration',
+  'burn_rate': 'Cash Burn Rate',
+  'cash_flow_divergence': 'Cash Flow vs. Earnings Gap',
+  'working_capital_flag': 'Working Capital Deterioration',
+  'debt_maturity': 'Debt Maturity Wall',
+  'total_dilution': 'Shareholder Dilution Risk',
+  'liquidity_runway': 'Liquidity Runway Warning',
+  'valuation_inflated_by': 'Valuation Without Price Discovery',
+};
+const RF_TYPE_HINTS = {
+  'related_party_exposure': 'Transaction between insiders or affiliated entities that may indicate self-dealing',
+  'vie_consolidation': 'Variable interest entity or off-balance-sheet structure that obscures true obligations',
+  'key_person_risk': 'Organization depends critically on this individual; removal would fragment operations',
+  'compensation_concentration': 'Equity compensation disproportionately benefits a single individual',
+  'conflict_of_interest': 'Same person holds roles on both sides of a transaction or decision',
+  'risk_factor': 'Risk explicitly disclosed in the filing',
+  'concentration_risk': 'Material portion of revenue depends on a single counterparty',
+  'burn_rate': 'Company is losing more cash than it earns in revenue',
+  'cash_flow_divergence': 'Operating cash flow is negative while adjusted metrics claim profitability',
+  'working_capital_flag': 'Receivables growing faster than revenue signals collection or channel-stuffing issues',
+  'debt_maturity': 'Large portion of debt matures in near term, creating refinancing risk',
+  'total_dilution': 'Outstanding options, warrants, and convertibles could significantly dilute shareholders',
+  'liquidity_runway': 'Cash reserves cover less than 12 months of operations at current burn rate',
+  'valuation_inflated_by': 'Valuation set by single investor without competitive market price discovery',
+};
+
+function evidenceTable(flags) {
+  const container = h('div', {className: 'evidence-table-wrap'});
+  const table = h('table');
+  table.appendChild(h('thead', null, h('tr', null,
+    h('th', null, 'Sev'), h('th', null, 'Risk Category'), h('th', null, 'Finding'), h('th', {style:'width:2.5em'}, '')
+  )));
+  const tbody = h('tbody');
+  flags.forEach((d, idx) => {
+    const ev = d.evidence || {};
+    const hasEvidence = ev.source_file || (ev.cross_references && ev.cross_references.length) || (ev.neighbors && ev.neighbors.length);
+    const row = h('tr', {className: 'rf-row'});
+    row.appendChild(h('td', null, severityBadge(d.severity||'medium')));
+    const typeLabel = RF_TYPE_LABELS[d.type] || d.type || '';
+    const typeHint = RF_TYPE_HINTS[d.type] || '';
+    const typeCell = h('td', {className: 'rf-type-cell', title: typeHint});
+    typeCell.appendChild(h('div', {className: 'rf-type-name'}, typeLabel));
+    if (typeHint) typeCell.appendChild(h('div', {className: 'rf-type-hint'}, typeHint));
+    row.appendChild(typeCell);
+    const findingCell = h('td', {className: 'rf-finding-cell'});
+    findingCell.appendChild(h('div', {className: 'rf-finding'}, d.finding||d.label||d.node||''));
+    if (d.finding && d.label && d.finding !== d.label) {
+      findingCell.appendChild(h('div', {className: 'rf-raw-label'}, d.label));
+    }
+    row.appendChild(findingCell);
+    const btnCell = h('td');
+    if (hasEvidence) {
+      const btn = h('button', {className: 'evidence-btn', onClick: () => {
+        const drawer = document.getElementById('ev-drawer-' + idx);
+        if (drawer) { drawer.style.display = drawer.style.display === 'none' ? 'table-row' : 'none'; btn.textContent = drawer.style.display === 'none' ? '+' : '\u2212'; }
+      }}, '+');
+      btnCell.appendChild(btn);
+    }
+    row.appendChild(btnCell);
+    tbody.appendChild(row);
+
+    if (hasEvidence) {
+      const drawerRow = h('tr', {className: 'evidence-drawer', style: 'display:none'});
+      drawerRow.id = 'ev-drawer-' + idx;
+      const drawerCell = h('td', {className: 'evidence-cell'});
+      drawerCell.setAttribute('colspan', '4');
+
+      // Source file + section
+      if (ev.source_file) {
+        const srcName = ev.source_file.replace(/.*\//, '');
+        const srcText = ev.section ? srcName + ' \u2014 ' + ev.section : srcName;
+        drawerCell.appendChild(h('div', {className: 'ev-section'}, h('span', {className: 'ev-label'}, 'Source: '), srcText));
+      }
+
+      // Table data
+      if (ev.data && Object.keys(ev.data).length) {
+        const dataDiv = h('div', {className: 'ev-section'});
+        dataDiv.appendChild(h('span', {className: 'ev-label'}, 'Table data: '));
+        const pairs = Object.entries(ev.data).filter(([k,v]) => k !== 'col_0' && v).slice(0, 6);
+        dataDiv.appendChild(document.createTextNode(pairs.map(([k,v]) => k + '=' + String(v).substring(0, 40)).join(', ')));
+        drawerCell.appendChild(dataDiv);
+      }
+
+      // Description
+      if (ev.description) {
+        drawerCell.appendChild(h('div', {className: 'ev-section ev-desc'}, ev.description));
+      }
+
+      // Cross-references
+      if (ev.cross_references && ev.cross_references.length) {
+        ev.cross_references.forEach(xref => {
+          const xdiv = h('div', {className: 'ev-section xref-block'});
+          xdiv.appendChild(h('div', {className: 'ev-label'}, '\ud83d\udccc ' + xref.heading));
+          xdiv.appendChild(h('div', {className: 'ev-excerpt'}, xref.excerpt));
+          drawerCell.appendChild(xdiv);
+        });
+      }
+
+      // Neighbor context
+      if (ev.neighbors && ev.neighbors.length) {
+        const nDiv = h('div', {className: 'ev-section'});
+        nDiv.appendChild(h('span', {className: 'ev-label'}, 'Graph context: '));
+        const nList = ev.neighbors.slice(0, 5).map(n => (n.direction === 'inbound' ? '\u2190 ' : '\u2192 ') + n.relation + ' \u2190 ' + n.label);
+        nDiv.appendChild(document.createTextNode(nList.join(' | ')));
+        drawerCell.appendChild(nDiv);
+      }
+
+      drawerRow.appendChild(drawerCell);
+      tbody.appendChild(drawerRow);
+    }
+  });
+  table.appendChild(tbody);
+  container.appendChild(table);
+  return container;
+}
+
 function barChart(items, fillClass) {
   const max = Math.max(...items.map(i => i.value), 1);
   const frag = document.createDocumentFragment();
@@ -398,31 +703,63 @@ const communityMix = (extra || {}).community_domain_mix || {};
 const domainNodes = (extra || {}).domain_nodes_by_type || {};
 const summary = (da['_summary'] || [null])[0];
 
-// --- Header ---
-document.getElementById('meta-line').textContent = (meta.nodes||0) + ' nodes \u2022 ' + (meta.edges||0) + ' edges \u2022 ' + Object.keys(analysis.communities||{}).length + ' communities \u2022 ' + new Date().toLocaleDateString();
+// --- Report Header ---
+const gods = analysis.gods || [];
+const subjectEntity = gods.length ? gods[0].label || gods[0].node || '' : '';
+const sourceFiles = new Set();
+if (extra && extra.pending_candidates) extra.pending_candidates.forEach(c => { if (c.source_file) sourceFiles.add(c.source_file); });
+const subjectLine = subjectEntity + (sourceFiles.size ? ' \u2014 Filing Analysis' : '');
+document.getElementById('report-subject').textContent = subjectLine;
+const communityCount = Object.keys(analysis.communities||{}).length;
+document.getElementById('report-meta').textContent = 'Generated ' + new Date().toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'}) + ' \u2022 ' + (meta.nodes||0) + ' entities \u2022 ' + (meta.edges||0) + ' relationships \u2022 ' + communityCount + ' clusters';
 if (summary && summary.domains) {
   const db = document.getElementById('domain-badges');
-  Object.entries(summary.domains).forEach(([d, c]) => db.appendChild(domainBadge(d + ': ' + c)));
+  Object.entries(summary.domains).forEach(([d, c]) => db.appendChild(domainBadge(d)));
 }
 
 // --- KPI ---
 const kpiStrip = document.getElementById('kpi-strip');
+const highCount = redFlags.filter(f=>f.severity==='high').length;
+const medCount = redFlags.filter(f=>f.severity==='medium').length;
 const kpis = [
-  {v: meta.nodes||0, l: 'Nodes', c: ''},
-  {v: meta.edges||0, l: 'Edges', c: ''},
-  {v: Object.keys(analysis.communities||{}).length, l: 'Communities', c: ''},
-  {v: redFlags.length, l: redFlags.filter(f=>f.severity==='high').length + ' high risk', c: 'kpi-danger'},
-  {v: keyPerson.length, l: 'Key Persons', c: 'kpi-warn'},
+  {v: redFlags.length, l: 'Red Flags', sub: highCount + ' high', c: 'kpi-danger'},
+  {v: keyPerson.length, l: 'Key Persons', sub: keyPerson.filter(k=>(k.fragments_into||0)>3).length + ' critical', c: 'kpi-warn'},
+  {v: pending.length, l: 'Pending Review', sub: '', c: 'kpi-warn'},
+  {v: meta.nodes||0, l: 'Entities', sub: '', c: ''},
+  {v: meta.edges||0, l: 'Relationships', sub: '', c: ''},
+  {v: communityCount, l: 'Clusters', sub: '', c: ''},
 ];
-if (pending.length) kpis.push({v: pending.length, l: 'Pending Review', c: 'kpi-warn'});
-kpis.forEach(k => kpiStrip.appendChild(h('div', {className: 'kpi ' + k.c}, h('span', {className: 'kpi-value'}, String(k.v)), h('span', {className: 'kpi-label'}, k.l))));
+kpis.forEach(k => {
+  const el = h('div', {className: 'kpi ' + k.c}, h('span', {className: 'kpi-value'}, String(k.v)), h('span', {className: 'kpi-label'}, k.l));
+  if (k.sub) el.appendChild(h('span', {className: 'kpi-sub'}, k.sub));
+  kpiStrip.appendChild(el);
+});
+
+// --- Executive Summary ---
+const execEl = document.getElementById('exec-summary');
+const topRisks = redFlags.filter(f => f.severity === 'high').slice(0, 3);
+if (topRisks.length) {
+  execEl.appendChild(h('h2', null, 'Critical Findings'));
+  topRisks.forEach((r, i) => {
+    const item = h('div', {className: 'exec-item'});
+    item.appendChild(h('span', {className: 'exec-rank'}, String(i + 1)));
+    const text = h('div', {className: 'exec-text'});
+    const typeName = RF_TYPE_LABELS[r.type] || r.type;
+    text.appendChild(h('strong', null, typeName + ': '));
+    text.appendChild(document.createTextNode(r.finding || r.label || ''));
+    item.appendChild(text);
+    execEl.appendChild(item);
+  });
+} else {
+  execEl.style.display = 'none';
+}
 
 // --- Tabs ---
 const tabDefs = [
-  {id: 'risk', label: 'Risk'},
-  {id: 'structure', label: 'Structure'},
-  {id: 'deep', label: 'Deep Dive'},
+  {id: 'risk', label: 'Findings'},
   {id: 'narratives', label: 'Narratives'},
+  {id: 'structure', label: 'Structure'},
+  {id: 'deep', label: 'Data'},
 ];
 const tabBar = document.getElementById('tab-bar');
 const tabsContainer = document.getElementById('tabs-container');
@@ -445,13 +782,30 @@ tabDefs.forEach((td, i) => {
 // ==================== TAB: RISK ====================
 (function buildRiskTab() {
   const tc = tabContents['risk'];
-  tc.style.gridTemplateColumns = '1fr';
-  const layout = h('div', {className: 'col-layout'});
 
-  // Left: Red Flags
-  const leftPanel = h('div', {className: 'panel panel-danger'});
-  leftPanel.appendChild(h('h2', null, '\u26a0 Red Flags'));
-  leftPanel.appendChild(h('p', {className: 'section-desc'}, 'Governance and structural risks detected in the graph: related-party transactions, VIE consolidation risks, key-person dependencies, and conflict-of-interest patterns. Higher severity items represent greater potential exposure.'));
+  // Nav bar
+  const navItems = [
+    {id: 'risk-redflags', label: '\u26a0 Red Flags', count: redFlags.length},
+    {id: 'risk-keyperson', label: '\ud83d\udc64 Key Person', count: keyPerson.length},
+  ];
+  if (relParty.length) navItems.push({id: 'risk-relparty', label: '\ud83d\udd04 Related-Party', count: relParty.length});
+  if (pending.length) navItems.push({id: 'risk-pending', label: '\u23f3 Pending', count: pending.length});
+  const nav = h('div', {className: 'risk-nav'});
+  navItems.forEach(item => {
+    const link = h('a', {className: 'risk-nav-item', href: '#' + item.id, onClick: (e) => {
+      e.preventDefault();
+      document.getElementById(item.id).scrollIntoView({behavior: 'smooth', block: 'start'});
+    }}, item.label + ' (' + item.count + ')');
+    nav.appendChild(link);
+  });
+  tc.appendChild(nav);
+
+  const riskStack = h('div', {className: 'risk-layout'});
+
+  // Section 1: Red Flags (full width)
+  const rfPanel = h('div', {className: 'panel panel-danger', id: 'risk-redflags'});
+  rfPanel.appendChild(h('h2', null, '\u26a0 Red Flags'));
+  rfPanel.appendChild(h('p', {className: 'section-desc'}, 'Governance and structural risks detected in the graph. Higher severity items represent greater potential exposure.'));
   if (redFlags.length) {
     const sev = h('div', {className: 'sev-row'});
     const high = redFlags.filter(f=>f.severity==='high').length;
@@ -460,48 +814,81 @@ tabDefs.forEach((td, i) => {
     if (high) sev.appendChild(h('span', {className: 'badge badge-high'}, high + ' HIGH'));
     if (med) sev.appendChild(h('span', {className: 'badge badge-medium'}, med + ' MEDIUM'));
     if (low) sev.appendChild(h('span', {className: 'badge badge-low'}, low + ' LOW'));
-    leftPanel.appendChild(sev);
-    const rows = redFlags.map(d => [severityBadge(d.severity||'medium'), d.type||'', d.label||d.node||'']);
-    leftPanel.appendChild(sortableTable(['Sev', 'Type', 'Detail'], rows));
-    // Related-party merged in
-    if (relParty.length) {
-      leftPanel.appendChild(h('h2', {style:'margin-top:1rem'}, 'Related-Party Transactions'));
-      leftPanel.appendChild(h('p', {className: 'section-desc'}, 'Transactions between insiders, officers, or affiliated entities\u2014may indicate self-dealing or conflicts of interest requiring disclosure.'));
-      const rpRows = relParty.map(d => [d.source_label, d.target_label, d.relation, String(d.confidence_score||d.confidence||'')]);
-      leftPanel.appendChild(sortableTable(['Source', 'Target', 'Relation', 'Confidence'], rpRows));
-    }
+    rfPanel.appendChild(sev);
+    rfPanel.appendChild(evidenceTable(redFlags));
   } else {
-    leftPanel.appendChild(h('div', {className: 'empty'}, 'No red flags detected.'));
+    rfPanel.appendChild(h('div', {className: 'empty'}, 'No red flags detected.'));
   }
-  layout.appendChild(leftPanel);
+  riskStack.appendChild(rfPanel);
 
-  // Right: Key Person + Pending
-  const rightStack = h('div', {className: 'panel-stack'});
+  // Section 2: Key-Person Risk + Related-Party (side by side)
+  const midRow = h('div', {className: 'risk-mid-row'});
 
-  const kpPanel = h('div', {className: 'panel panel-warn'});
+  const kpPanel = h('div', {className: 'panel panel-warn', id: 'risk-keyperson'});
   kpPanel.appendChild(h('h2', null, '\u{1f464} Key-Person Risk'));
-  kpPanel.appendChild(h('p', {className: 'section-desc'}, 'Individuals whose removal would fragment the graph into disconnected components. High connectivity means the organization\u2019s operations or knowledge flow depend critically on this person.'));
+  kpPanel.appendChild(h('p', {className: 'section-desc'}, 'Individuals whose removal would fragment the graph into disconnected components.'));
   if (keyPerson.length) {
-    const rows = keyPerson.map(d => {
+    keyPerson.forEach(d => {
       const conns = d.connections||d.degree||0, frags = d.fragments_into||0;
       const risk = frags > 5 ? 'high' : conns > 10 ? 'medium' : 'low';
-      return [d.label||d.person, conns, frags, severityBadge(risk)];
+      const card = h('div', {className: 'kp-card'});
+      const cardHead = h('div', {className: 'kp-card-header'});
+      cardHead.appendChild(h('span', {className: 'kp-name'}, d.label||d.person));
+      cardHead.appendChild(severityBadge(risk));
+      card.appendChild(cardHead);
+      card.appendChild(h('div', {className: 'kp-stats'},
+        h('span', null, '\ud83d\udd17 ' + conns + ' connections'),
+        h('span', {className: frags > 3 ? 'kp-frag-high' : ''}, '\u26a1 Fragments into ' + frags + ' pieces if removed')
+      ));
+      kpPanel.appendChild(card);
     });
-    kpPanel.appendChild(sortableTable(['Entity', 'Conn.', 'Fragments', 'Risk'], rows));
   } else { kpPanel.appendChild(h('div', {className: 'empty'}, 'No key-person risk.')); }
-  rightStack.appendChild(kpPanel);
+  midRow.appendChild(kpPanel);
 
+  if (relParty.length) {
+    const rpPanel = h('div', {className: 'panel panel-accent', id: 'risk-relparty'});
+    rpPanel.appendChild(h('h2', null, '\ud83d\udd04 Related-Party Transactions'));
+    rpPanel.appendChild(h('p', {className: 'section-desc'}, 'Transactions between insiders or affiliated entities.'));
+    const rpRows = relParty.map(d => [d.source_label, d.target_label, d.relation, String(d.confidence_score||d.confidence||'')]);
+    rpPanel.appendChild(sortableTable(['Source', 'Target', 'Relation', 'Conf.'], rpRows));
+    midRow.appendChild(rpPanel);
+  }
+  riskStack.appendChild(midRow);
+
+  // Section 3: Pending Candidates (full width)
   if (pending.length) {
-    const pendPanel = h('div', {className: 'panel panel-warn'});
-    pendPanel.appendChild(h('div', {className: 'banner banner-warn'}, '\u23f3 ' + pending.length + ' candidates awaiting resolution'));
-    pendPanel.appendChild(h('h2', null, 'Pending Candidates'));
-    const rows = pending.map(d => [d.type||'', d.amount||'', d.window_snippet||'']);
-    pendPanel.appendChild(sortableTable(['Type', 'Amount', 'Context'], rows));
-    rightStack.appendChild(pendPanel);
+    const pendPanel = h('div', {className: 'panel panel-muted', id: 'risk-pending'});
+    const pendHead = h('div', {className: 'pending-head'});
+    pendHead.appendChild(h('h2', null, '\u23f3 Pending Review'));
+    pendHead.appendChild(h('span', {className: 'badge badge-medium'}, pending.length + ' candidates'));
+    pendPanel.appendChild(pendHead);
+    pendPanel.appendChild(h('p', {className: 'section-desc'}, 'Transactions detected by pattern-matching that need human review to confirm or dismiss. Expand source context to see the original text.'));
+    const pendGrid = h('div', {className: 'pending-grid'});
+    pending.forEach((d, idx) => {
+      const card = h('div', {className: 'pending-card'});
+      const header = h('div', {className: 'pending-header'});
+      header.appendChild(h('span', {className: 'badge badge-medium'}, d.type||''));
+      header.appendChild(h('span', {className: 'pending-amount'}, d.amount||''));
+      card.appendChild(header);
+      card.appendChild(h('div', {className: 'pending-finding'}, d.finding||''));
+      if (d.context) {
+        const toggle = h('button', {className: 'evidence-btn', onClick: () => {
+          const ctx = document.getElementById('pend-ctx-' + idx);
+          if (ctx) { ctx.style.display = ctx.style.display === 'none' ? 'block' : 'none'; toggle.textContent = ctx.style.display === 'none' ? '+' : '\u2212'; }
+        }}, '+');
+        const ctxLabel = h('div', {className: 'pending-ctx-row'});
+        ctxLabel.appendChild(h('span', {className: 'ev-label'}, 'Source context '));
+        ctxLabel.appendChild(toggle);
+        card.appendChild(ctxLabel);
+        card.appendChild(h('div', {className: 'pending-context', style: 'display:none', id: 'pend-ctx-' + idx}, d.context));
+      }
+      pendGrid.appendChild(card);
+    });
+    pendPanel.appendChild(pendGrid);
+    riskStack.appendChild(pendPanel);
   }
 
-  layout.appendChild(rightStack);
-  tc.appendChild(layout);
+  tc.appendChild(riskStack);
 })();
 
 // ==================== TAB: STRUCTURE ====================

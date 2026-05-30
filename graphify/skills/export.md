@@ -1,3 +1,5 @@
+**IMPORTANT: Step 9 (cleanup) deletes intermediate files (`.aag_detect.json`, `.aag_extract.json`, etc.). ALL domain analysis, narrative synthesis, and dashboard generation MUST complete BEFORE Step 9. If you need these files for domain steps, do NOT run Step 9 early.**
+
 ### Step 6 - Generate Obsidian vault (opt-in) + HTML
 
 **Generate HTML always** (unless `--no-viz`). **Obsidian vault only if `--obsidian` was explicitly given** — skip it otherwise, it generates one file per node.
@@ -77,6 +79,23 @@ To configure in Claude Desktop, add to `claude_desktop_config.json`:
   }
 }
 ```
+
+### Step 7e - Dashboard (auto-generated when `--domain` was passed)
+
+**Generate dashboard.html whenever `domain_analysis` is present in `.aag_analysis.json`.** This is NOT optional when domains are active — always run it.
+
+```bash
+$(cat graphify-out/.aag_python) -c "
+from pathlib import Path
+from aag.dashboard import render_dashboard_from_file
+analysis_path = Path('graphify-out/.aag_analysis.json')
+graph_path = Path('graphify-out/graph.db') if Path('graphify-out/graph.db').exists() else Path('graphify-out/graph.json')
+out = render_dashboard_from_file(analysis_path, graph_path)
+print(f'dashboard.html written to {out}')
+"
+```
+
+The dashboard provides an interactive view of domain analysis findings: red flags by severity, key person risk, concentration risk, and synthesized narratives.
 
 ### Step 8 - Token reduction benchmark (only if total_words > 5000)
 

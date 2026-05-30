@@ -120,9 +120,10 @@ Rules:
 
 Node ID format: lowercase, only [a-z0-9_], no dots or slashes.
 Format: {stem}_{entity} where stem = filename without extension, entity = symbol name (both normalised).
+Section: if entity appears under a document heading (# or ##), set "section" to that heading text. Null if unknown.
 
 Output exactly this schema:
-{"nodes":[{"id":"stem_entity","label":"Human Readable Name","file_type":"code|document|paper|image|concept","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[],"input_tokens":0,"output_tokens":0}
+{"nodes":[{"id":"stem_entity","label":"Human Readable Name","file_type":"code|document|paper|image|concept","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null,"section":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[],"input_tokens":0,"output_tokens":0}
 """
 
 
@@ -138,7 +139,11 @@ def _read_files(paths: list[Path], root: Path) -> str:
             content = p.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
-        parts.append(f"=== {rel} ===\n{content[:20000]}")
+        # Convert HTML to markdown to reduce token waste (~80% smaller)
+        if p.suffix.lower() in (".html", ".htm", ".xhtml"):
+            from graphify.ingest import _html_to_markdown
+            content = _html_to_markdown(content)
+        parts.append(f"=== {rel} ===\n{content[:_FILE_CHAR_CAP]}")
     return "\n\n".join(parts)
 
 
@@ -406,19 +411,31 @@ def _estimate_file_tokens(path: Path) -> int:
     `_FILE_CHAR_CAP` to match `_read_files`'s truncation, plus a constant for
     the `=== rel ===` separator. Returns 0 for unreadable paths so they don't
     blow up packing.
+
+    For HTML files, estimates the post-conversion (markdown) size since
+    `_read_files` converts HTML before sending to the LLM.
     """
+    is_html = path.suffix.lower() in (".html", ".htm", ".xhtml")
+
     if _TOKENIZER is None:
         try:
             size = path.stat().st_size
         except OSError:
             return 0
+        # HTML converts to ~20-30% of original size
+        if is_html:
+            size = size // 4
         chars = min(size, _FILE_CHAR_CAP) + _PER_FILE_OVERHEAD_CHARS
         return chars // _CHARS_PER_TOKEN
 
     try:
-        content = path.read_text(encoding="utf-8", errors="replace")[:_FILE_CHAR_CAP]
+        content = path.read_text(encoding="utf-8", errors="replace")
     except OSError:
         return 0
+    if is_html:
+        from graphify.ingest import _html_to_markdown
+        content = _html_to_markdown(content)
+    content = content[:_FILE_CHAR_CAP]
     return len(_TOKENIZER.encode(content)) + (_PER_FILE_OVERHEAD_CHARS // _CHARS_PER_TOKEN)
 
 

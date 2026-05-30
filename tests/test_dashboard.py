@@ -42,7 +42,7 @@ def test_render_dashboard_creates_file(tmp_path, sample_analysis, sample_meta):
     assert result == out
     assert out.exists()
     content = out.read_text()
-    assert "Knowledge Graph Dashboard" in content
+    assert "Due Diligence Risk Report" in content
     assert "JPMorgan" in content
     assert "orphan_liability" in content
 
@@ -68,7 +68,7 @@ def test_render_dashboard_no_domain_analysis(tmp_path, sample_meta):
     render_dashboard(analysis, sample_meta, out)
     assert out.exists()
     content = out.read_text()
-    assert "Knowledge Graph Dashboard" in content
+    assert "Due Diligence Risk Report" in content
 
 
 def test_render_dashboard_from_file(tmp_path, sample_analysis):

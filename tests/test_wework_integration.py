@@ -3,7 +3,7 @@
 SETUP (one-time):
   1. Download d781982ds1.htm from SEC EDGAR:
      https://www.sec.gov/Archives/edgar/data/1533523/000119312519220499/d781982ds1.htm
-  2. Place in: /local-nvme/hfeng/kb/graphify-ext/examples/wework-s1/raw/d781982ds1.htm
+  2. Place in: /home/xfz/kb/graphify-ext/examples/wework-s1/raw/d781982ds1.htm
   3. Build graph:
      cd /local-nvme/hfeng/kb/graphify-ext/examples/wework-s1
      /pyaag raw/ --domain finance,diligence --db
@@ -20,7 +20,9 @@ from pathlib import Path
 
 import pytest
 
-WEWORK_GRAPHIFY_OUT = Path("/local-nvme/hfeng/kb/graphify-ext/examples/wework-s1/graphify-out")
+WEWORK_GRAPHIFY_OUT = Path(__file__).resolve().parent.parent / "examples" / "wework-s1" / "graphify-out"
+if not WEWORK_GRAPHIFY_OUT.exists():
+    WEWORK_GRAPHIFY_OUT = Path("/local-nvme/hfeng/kb/graphify-ext/examples/wework-s1/graphify-out")
 
 pytestmark = pytest.mark.integration
 
@@ -111,7 +113,7 @@ def test_dashboard_renders(wework_graph, red_flags, key_persons, tmp_path):
     assert out.exists()
     assert out.stat().st_size > 10_000, f"Dashboard too small: {out.stat().st_size} bytes"
     content = out.read_text()
-    assert "Knowledge Graph Dashboard" in content
+    assert "Due Diligence Risk Report" in content or "Knowledge Graph Dashboard" in content
 
 
 # ---------------------------------------------------------------------------
