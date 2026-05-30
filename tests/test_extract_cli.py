@@ -216,6 +216,47 @@ def test_extract_multigraph_then_update_sticky(tmp_path):
     assert _graph_type(after_update) == "multidigraph"
 
 
+def test_extract_multigraph_no_cluster_sticky_idempotent(tmp_path):
+    """`--no-cluster` still preserves a sticky multigraph across no-op re-runs.
+
+    A no-cluster incremental scan with no changed files produces an empty fresh
+    extraction. The command must merge that empty delta with the saved graph,
+    not overwrite graph.json with zero nodes/edges.
+    """
+    corpus = _make_code_corpus(tmp_path)
+    env = _clean_env()
+    env["ANTHROPIC_API_KEY"] = "sk-test-fake-key"
+
+    r0 = _run(
+        ["extract", str(corpus), "--backend", "claude", "--multigraph", "--no-cluster"],
+        tmp_path,
+        env=env,
+    )
+    assert r0.returncode == 0, f"initial no-cluster --multigraph failed: {r0.stderr}"
+
+    graph_json = corpus / "graphify-out" / "graph.json"
+    first = json.loads(graph_json.read_text(encoding="utf-8"))
+    first_nodes = len(first.get("nodes", []))
+    first_edges = len(first.get("links", first.get("edges", [])))
+    assert first.get("multigraph") is True
+    assert _graph_type(first) == "multidigraph"
+    assert first_nodes > 0
+    assert first_edges > 0
+
+    for attempt in range(1, 4):
+        r = _run(
+            ["extract", str(corpus), "--backend", "claude", "--no-cluster"],
+            tmp_path,
+            env=env,
+        )
+        assert r.returncode == 0, f"sticky no-cluster re-extract #{attempt} failed: {r.stderr}"
+        data = json.loads(graph_json.read_text(encoding="utf-8"))
+        assert data.get("multigraph") is True
+        assert _graph_type(data) == "multidigraph"
+        assert len(data.get("nodes", [])) == first_nodes
+        assert len(data.get("links", data.get("edges", []))) == first_edges
+
+
 def test_extract_explicit_simple_downgrade_warns(tmp_path):
     """Existing multigraph graph.json + `extract --simple` → builds simple AND warns.
 
@@ -285,9 +326,7 @@ def test_extract_multigraph_capability_failure_message(monkeypatch, tmp_path, ca
 
     with pytest.raises(SystemExit) as exc_info:
         mainmod.main()
-    assert exc_info.value.code == 1, (
-        f"capability failure must exit 1, got {exc_info.value.code}"
-    )
+    assert exc_info.value.code == 1, f"capability failure must exit 1, got {exc_info.value.code}"
 
     err = capsys.readouterr().err
     assert "--multigraph requires" in err, f"clean capability message expected, got: {err}"

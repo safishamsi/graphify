@@ -4114,7 +4114,28 @@ def main() -> None:
             from graphify.export import backup_if_protected as _backup
 
             _backup(graphify_out)
-            if resolved_multigraph:
+            if incremental_mode:
+                # Incremental no-cluster scans are still deltas. If no files
+                # changed, ``merged`` is empty; writing it directly would erase
+                # the saved graph. Reuse build_merge so unchanged nodes/edges,
+                # deleted-file pruning, and sticky multigraph profile handling
+                # match the clustered path while still skipping clustering.
+                from graphify.build import build_merge as _nc_build_merge
+                from graphify.export import to_json as _nc_to_json
+
+                _nc_graph = _nc_build_merge(
+                    [merged],
+                    graph_path=existing_graph_path,
+                    prune_sources=deleted_files or None,
+                    dedup=True,
+                    dedup_llm_backend=backend if dedup_llm else None,
+                    root=target,
+                    multigraph=multigraph_flag,
+                )
+                _nc_to_json(_nc_graph, {}, str(graph_json_path), force=True)
+                n_nodes = _nc_graph.number_of_nodes()
+                n_edges = _nc_graph.number_of_edges()
+            elif resolved_multigraph:
                 # A multigraph profile (sticky-inherited or explicit --multigraph)
                 # cannot be expressed by the raw-merged dump: parallel edges would
                 # be written without keys and the file would lack the multigraph
