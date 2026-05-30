@@ -17,6 +17,8 @@ graphify-out/
 .graphify_*.json
 .graphify_python
 .claude/
+# Allow modular sub-skills in package
+!graphify/skills/
 skills/
 docs/superpowers/
 .vscode/

@@ -85,19 +85,41 @@ def _fetch_html(url: str) -> str:
     return safe_fetch_text(url)
 
 
-def _html_to_markdown(html: str, url: str) -> str:
+def _html_to_markdown(html: str, url: str = "") -> str:
     """Convert HTML to clean markdown. Uses markdownify if available, else basic strip."""
     # Always pre-strip script/style so their text content never leaks into output
     html = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.DOTALL | re.IGNORECASE)
     html = re.sub(r"<style[^>]*>.*?</style>", "", html, flags=re.DOTALL | re.IGNORECASE)
     try:
         from markdownify import markdownify
-        return markdownify(html, heading_style="ATX", bullets="-", strip=["img"])
+        md = markdownify(html, heading_style="ATX", bullets="-", strip=["img"])
     except ImportError:
         # Fallback: basic tag strip
         text = re.sub(r"<[^>]+>", " ", html)
-        text = re.sub(r"\s+", " ", text).strip()
-        return text[:8000]
+        md = re.sub(r"\s+", " ", text).strip()
+    # Collapse 3+ blank lines → 2 (markdownify produces excessive whitespace)
+    md = re.sub(r"\n{3,}", "\n\n", md)
+    return md
+
+
+def convert_html_files(files: list[Path], out_dir: Path) -> dict[Path, Path]:
+    """Convert HTML files to markdown. Returns mapping of original → converted paths.
+
+    Used as a preprocessing step by both the CLI extract pipeline and /pyaag skill
+    to reduce token waste and expose section headings.
+    """
+    mapping: dict[Path, Path] = {}
+    for f in files:
+        if f.suffix.lower() not in (".html", ".htm", ".xhtml"):
+            continue
+        content = f.read_text(errors="replace")
+        md = _html_to_markdown(content)
+        out_path = out_dir / f".aag_converted_{f.stem}.md"
+        out_path.write_text(md)
+        mapping[f] = out_path
+        ratio = 100 - len(md) * 100 // max(len(content), 1)
+        print(f"[graphify] converted {f.name} to markdown ({len(content):,} → {len(md):,} chars, {ratio}% reduction)")
+    return mapping
 
 
 def _fetch_tweet(url: str, author: str | None, contributor: str | None) -> tuple[str, str]:

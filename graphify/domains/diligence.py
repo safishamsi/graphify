@@ -330,8 +330,8 @@ def _diligence_prompt_fragments() -> str:
 
 Extract governance, legal, and risk entities from the document:
 
-**Node types**: entity, person, contract, clause, risk, liability, asset, IP, role, transaction
-**Edge types**: party_to, controls, encumbered_by, licensor_of, material_dependency, officer_of, board_member_of, family_tie, related_party_transaction, self_dealing, asset_leaseback, obligation_to, revenue_dependency, contradicts, risk_factor, ip_transfer, accelerating_loss, nepotism, proceeds_to_insider
+**Node types**: entity, person, contract, clause, risk, liability, asset, IP, role, transaction, metric, obligation
+**Edge types**: party_to, controls, encumbered_by, licensor_of, material_dependency, officer_of, board_member_of, family_tie, related_party_transaction, self_dealing, asset_leaseback, obligation_to, revenue_dependency, contradicts, risk_factor, ip_transfer, accelerating_loss, nepotism, proceeds_to_insider, excludes_from_metric, maturity_mismatch, circular_flow, insider_cashout, controlled_company_exemption, board_independence
 
 Instructions:
 - Extract all named persons with their roles (officer, director, board member, landlord, etc.)
@@ -341,7 +341,6 @@ Instructions:
 - Extract IP ownership and licensing arrangements
 - Extract risk factors and their potential impact
 - Look for narrative contradictions (aspirational claims vs. business mechanics)
-- Extract non-GAAP metric definitions and what costs they exclude
 - For governance tables: each person/role pair becomes a node
 - Flag IP/trademark transfers or licensing between officers and the company (edge: ip_transfer, mark self_dealing if officer is on both sides)
 - Flag accelerating losses: if net loss grows >30% period-over-period, add an accelerating_loss edge between the metric node and the company
@@ -351,6 +350,41 @@ Instructions:
 - Flag vanity projects or subsidiaries with no revenue attribution that serve officer interests
 - Flag company loans to officers/executives: extract the loan amount, recipient, and terms as a node (type: transaction) with edge "loan_to_officer"
 - Flag compensation concentration: if a single person receives >50% of total equity grants/options, extract both the individual amount and total pool
+
+NON-GAAP METRICS:
+- Extract each non-GAAP/adjusted metric as a node (type: metric, label: the metric name)
+- For each real cost excluded from the metric, create a separate edge: excludes_from_metric (source: metric node, target: excluded cost node)
+- This lets downstream analysis count how many real costs are stripped to create fake profitability
+- Example: "Community Adjusted EBITDA" excludes G&A, development, pre-opening costs, stock comp → 4 separate excludes_from_metric edges
+
+MATURITY MISMATCH:
+- Compare the company's longest-duration financial commitment (e.g., 15-year leases) to its shortest-duration revenue source (e.g., month-to-month memberships)
+- Create a maturity_mismatch edge between the obligation node and the revenue node
+- Include metadata: long_term_duration, short_term_duration, long_term_amount, short_term_amount
+- Do NOT flag standard debt (credit facilities, revolvers) — flag the structural mismatch between commitment duration and customer duration
+
+RELATED-PARTY REVENUE GROWTH:
+- If related-party revenue grows faster than total revenue, extract both figures and compute what % of total revenue growth came from related parties
+- Include the percentage in the edge label (e.g., "related_party_revenue_growth: 19x vs 2x organic")
+
+INSIDER CASH-OUTS:
+- Extract any pre-IPO liquidity events for insiders: secondary share sales, loan proceeds used personally, dividends, consulting fees to founders
+- Create insider_cashout edge (source: person, target: company) with dollar amount in label
+- This includes loans FROM the company TO officers that were used to purchase personal assets
+
+BOARD INDEPENDENCE:
+- For each board member, assess independence: are they a major investor, business partner, family member, or employee?
+- Create board_independence edge (source: director, target: company) with metadata: independent=true/false, reason if not independent
+- Count total independent vs non-independent directors
+
+CIRCULAR TRANSACTIONS:
+- Detect when the same person/entity appears on both sides of a financial flow
+- Example: officer buys property → company leases property from officer → rent payments fund officer's loan repayment to company
+- Create circular_flow edge connecting the entities involved, with description of the cycle
+
+CONTROLLED COMPANY:
+- If the company declares "controlled company" status or equivalent, extract it as a node
+- Create controlled_company_exemption edge listing which governance requirements are waived (e.g., independent board majority, independent compensation committee, independent nominating committee)
 
 Mark inferred relationships (not explicitly stated) with confidence < 1.0.
 """
@@ -539,6 +573,212 @@ def _infer_claim_contradictions(G: nx.Graph, max_edges: int = 5) -> None:
                 added += 1
 
 
+def _enrich_evidence(flag: dict, G: nx.Graph) -> None:
+    """Attach evidence metadata to a red flag by looking up the source node."""
+    node = flag.get("node", "")
+    if not node or node not in G:
+        return
+    ndata = G.nodes[node]
+    neighbors = []
+    for u, v, d in G.edges(node, data=True):
+        other = v if u == node else u
+        neighbors.append({
+            "node": other,
+            "label": G.nodes[other].get("label", other) if other in G else other,
+            "relation": d.get("relation", ""),
+            "direction": "outbound" if u == node else "inbound",
+        })
+    flag["evidence"] = {
+        "source_file": ndata.get("source_file", ""),
+        "section": ndata.get("section", ""),
+        "excerpt": ndata.get("label", ""),
+        "data": ndata.get("data", {}),
+        "description": ndata.get("description", ""),
+        "neighbors": neighbors[:10],
+    }
+
+
+_NOTE_RE = re.compile(r"(?:See\s+)?Note\s+(\d+)", re.IGNORECASE)
+_NOTE_HEADING_RE_TEMPLATE = r"Note\s+{num}\b[.\s\u00a0]+([^<]{0,120})"
+
+
+def _resolve_cross_references(flags: list[dict], G: nx.Graph) -> None:
+    """Scan flag labels for 'Note N' references and resolve from raw HTML."""
+    # Collect all note numbers and their source files
+    refs_needed: dict[str, set[int]] = {}  # source_file -> {note_nums}
+    for flag in flags:
+        evidence = flag.get("evidence", {})
+        src = evidence.get("source_file", "")
+        if not src:
+            continue
+        for m in _NOTE_RE.finditer(flag.get("label", "")):
+            refs_needed.setdefault(src, set()).add(int(m.group(1)))
+
+    if not refs_needed:
+        return
+
+    # Read each source file once and extract note content
+    note_cache: dict[tuple[str, int], dict] = {}
+    for src_file, note_nums in refs_needed.items():
+        path = Path(src_file)
+        if not path.is_absolute():
+            # Try relative to common parents
+            candidates = list(Path(".").rglob(path.name))
+            path = candidates[0] if candidates else path
+        if not path.exists():
+            continue
+        try:
+            html = path.read_text(errors="replace")
+        except OSError:
+            continue
+        # Strip HTML tags for plain-text search
+        text = re.sub(r"<[^>]+>", " ", html)
+        text = re.sub(r"&nbsp;", " ", text)
+        text = re.sub(r"\s+", " ", text)
+
+        for num in note_nums:
+            # Find note definition headings: "Note 22. Title" (not "See Note 22")
+            # Prefer patterns that start a sentence/section (after period or start of block)
+            heading_pat = re.compile(
+                rf"(?<![Ss]ee\s)Note\s+{num}\.\s*([A-Z][^\n]{{0,100}})",
+            )
+            all_headings = list(heading_pat.finditer(text))
+            if not all_headings:
+                # Fallback: any "Note N." pattern
+                heading_pat2 = re.compile(rf"Note\s+{num}\.\s*(.{{0,100}})")
+                all_headings = list(heading_pat2.finditer(text))
+            if not all_headings:
+                continue
+            # Use the last match (often the actual note vs. table-of-contents reference)
+            heading_match = all_headings[-1]
+            heading = heading_match.group(0).strip()[:120]
+            # Grab content after heading (up to 500 chars or next Note heading)
+            start = heading_match.end()
+            next_note = re.search(r"Note\s+\d+\.", text[start:start + 2000])
+            end = start + (next_note.start() if next_note else 500)
+            excerpt = text[start:end].strip()[:500]
+            note_cache[(str(src_file), num)] = {
+                "note_num": num,
+                "heading": heading,
+                "excerpt": excerpt,
+            }
+
+    # Attach cross-references to flags
+    for flag in flags:
+        evidence = flag.get("evidence", {})
+        src = evidence.get("source_file", "")
+        if not src:
+            continue
+        xrefs = []
+        for m in _NOTE_RE.finditer(flag.get("label", "")):
+            num = int(m.group(1))
+            cached = note_cache.get((src, num))
+            if cached:
+                xrefs.append(cached)
+        if xrefs:
+            evidence["cross_references"] = xrefs
+
+
+def _generate_finding_description(flag: dict, G: nx.Graph) -> None:
+    """Generate a plain-English finding description that makes sense to a layman."""
+    ftype = flag.get("type", "")
+    node = flag.get("node", "")
+    label = flag.get("label", "")
+    ndata = G.nodes[node] if node and node in G else {}
+    data = ndata.get("data", {})
+
+    # Extract dollar amounts from label or data
+    amounts = re.findall(r"\$[\d,]+(?:\.\d+)?", label)
+    amount_str = amounts[0] if amounts else ""
+
+    # Get the parent entity (who does this relate to?)
+    parent = ""
+    for u, v, d in G.edges(node, data=True) if node and node in G else []:
+        other = u if v == node else v
+        if other in G and G.nodes[other].get("type") in ("company", "entity", "person"):
+            parent = G.nodes[other].get("label", "")
+            break
+
+    if ftype == "related_party_exposure":
+        # Extract what kind of related-party item this is
+        label_lower = label.lower()
+        if "revenue" in label_lower:
+            finding = f"Company earns revenue from transactions with insiders or affiliated entities"
+            if amounts:
+                finding += f" ({', '.join(amounts[:2])})"
+            finding += ". This revenue may not reflect arm's-length pricing and could vanish if the relationship ends."
+        elif "expense" in label_lower:
+            finding = f"Company pays expenses to related parties"
+            if amounts:
+                finding += f" ({', '.join(amounts[:2])})"
+            finding += ". Insiders may be extracting value through inflated costs."
+        elif "loan" in label_lower or "payable" in label_lower:
+            finding = f"Company has financial obligations to insiders"
+            if amount_str:
+                finding += f" ({amount_str})"
+            finding += ". Related-party debt creates conflicts between fiduciary duty and personal interest."
+        elif "convertible" in label_lower:
+            finding = f"Convertible financial instruments are held by related parties"
+            if amount_str:
+                finding += f" ({amount_str})"
+            finding += ". Insiders hold preferential claims that could dilute other shareholders."
+        elif "liabilit" in label_lower:
+            finding = f"Company carries liabilities owed to insiders or affiliates"
+            if amount_str:
+                finding += f" ({amount_str})"
+            finding += ". Money flowing to related parties rather than independent creditors."
+        elif "interest" in label_lower:
+            finding = f"Company pays interest to related parties"
+            if amounts:
+                finding += f" ({', '.join(amounts[:2])})"
+            finding += ". Insiders earn guaranteed returns while other investors bear risk."
+        elif "gain" in label_lower or "fair value" in label_lower:
+            finding = f"Company reports gains on related-party financial instruments. "
+            finding += "These paper gains may not represent real economic value and can be manipulated through related-party pricing."
+        else:
+            finding = f"Financial relationship between the company and its insiders: {label[:80]}. "
+            finding += "Related-party transactions lack the competitive pressure that ensures fair pricing."
+    elif ftype == "vie_consolidation":
+        entity_label = label
+        detail = flag.get("detail", "")
+        finding = f"\"{entity_label}\" is a variable interest entity (VIE) — a separate legal structure "
+        finding += "whose debts and losses may ultimately fall on the parent company, despite appearing off the balance sheet."
+        if detail:
+            finding += f" Relationship: {detail}."
+    elif ftype == "key_person_risk":
+        degree = flag.get("degree", 0)
+        finding = f"\"{label}\" is connected to {degree} other entities in the organization. "
+        finding += "If this person leaves, is incapacitated, or acts against company interests, "
+        finding += "it could disrupt multiple critical relationships simultaneously."
+    elif ftype == "compensation_concentration":
+        # Parse the label for details
+        pct_match = re.search(r"([\d.]+)%", label)
+        name_match = re.search(r":\s*(\w+)", label)
+        person = name_match.group(1) if name_match else "one individual"
+        pct = pct_match.group(1) if pct_match else "majority"
+        finding = f"{person} receives {pct}% of all equity compensation (stock options/grants). "
+        finding += "This extreme concentration means one person captures most of the upside while "
+        finding += "other employees and shareholders are diluted."
+    elif ftype == "conflict_of_interest":
+        finding = f"\"{label}\" holds roles that create conflicting loyalties — "
+        finding += "they may be on both sides of a financial decision, making it impossible to act "
+        finding += "purely in shareholders' best interests."
+    elif ftype == "risk_factor":
+        finding = f"The company explicitly discloses this risk: {label[:120]}."
+    elif ftype == "concentration_risk":
+        exposure = flag.get("exposure_pct")
+        finding = f"A single customer or counterparty (\"{label}\") "
+        if exposure:
+            finding += f"accounts for {exposure:.0f}% of revenue. "
+        else:
+            finding += "represents a material share of revenue. "
+        finding += "Losing this relationship would cause an immediate, significant revenue drop."
+    else:
+        finding = label
+
+    flag["finding"] = finding
+
+
 def red_flag_analyzer(G) -> list[dict]:
     """Detect red flags from graph structure: risk factors, related-party exposure, VIEs, key-person concentration."""
     flags = []
@@ -570,6 +810,12 @@ def red_flag_analyzer(G) -> list[dict]:
         if _rp_kw.search(label):
             # Check if it's a financial item (has dollar amounts or is in financial tables)
             has_amount = bool(re.search(r"\$[\d,]+|[\d,]+\.\d", label))
+            # If it's a table row, also check the data values for dollar amounts
+            if not has_amount and data.get("type") == "table_row":
+                row_data = data.get("data", {})
+                if any(re.search(r"\$[\d,]+|[\d,]+\.\d", str(v)) for v in row_data.values()):
+                    has_amount = True
+            
             flags.append({
                 "type": "related_party_exposure",
                 "node": node,
@@ -591,11 +837,19 @@ def red_flag_analyzer(G) -> list[dict]:
             })
 
     # 4. Key-person concentration: persons with high degree
+    # Exclude the subject entity (highest-degree node) — it's the company being analyzed
+    _top_node = max(G.nodes(), key=lambda n: G.degree(n)) if G.number_of_nodes() else None
+    _kp_prefixes = ("director_of", "officer_of", "controls", "ceo_of", "founder_of")
     for node, data in G.nodes(data=True):
+        if node == _top_node:
+            continue
         ntype = data.get("type", "")
+        # Skip nodes explicitly typed as company/entity/organization
+        if ntype in ("company", "entity", "organization", "fund"):
+            continue
         label = data.get("label", "")
         if ntype == "person" or (not ntype and any(
-            d.get("relation") in ("DIRECTOR_OF", "officer_of", "controls", "CEO_OF")
+            any((d.get("relation") or "").lower().startswith(p) for p in _kp_prefixes)
             for _, _, d in G.edges(node, data=True)
         )):
             degree = G.degree(node)
@@ -629,6 +883,15 @@ def red_flag_analyzer(G) -> list[dict]:
         if key not in seen:
             seen.add(key)
             deduped.append(f)
+
+    # Generate human-readable finding descriptions
+    for f in deduped:
+        _generate_finding_description(f, G)
+
+    # Enrich with evidence
+    for f in deduped:
+        _enrich_evidence(f, G)
+    _resolve_cross_references(deduped, G)
 
     return sorted(deduped, key=lambda x: {"high": 0, "medium": 1, "low": 2}.get(x["severity"], 3))
 
@@ -692,13 +955,18 @@ def key_person_risk_analyzer(G) -> list[dict]:
 
     # Find person-like nodes: explicit type=person, nodes with officer/director edges,
     # or nodes named in "Dependence on X" risk factors
-    _officer_rels = {"DIRECTOR_OF", "officer_of", "controls", "CEO_OF", "FOUNDER_OF"}
+    _officer_prefixes = ("director_of", "officer_of", "controls", "ceo_of", "founder_of", "board_member_of")
     person_set: set = set()
 
     # Nodes with officer/director edges (either direction)
     for u, v, ed in G.edges(data=True):
-        if ed.get("relation") in _officer_rels:
+        rel = (ed.get("relation") or "").lower()
+        if any(rel.startswith(prefix) or rel == prefix for prefix in _officer_prefixes):
             person_set.add(u)
+            # Also add v if it's the source of an inbound officer_of edge
+            # (e.g., "The We Company -> Adam Neumann: officer_of")
+            if rel.startswith("officer_of") or rel.startswith("director_of") or rel.startswith("ceo_of") or rel.startswith("founder_of"):
+                person_set.add(v)
 
     # Explicit type=person
     for n, d in G.nodes(data=True):

@@ -221,38 +221,53 @@ def test_cache_miss_after_file_change(tmp_path):
 
 # ── SQL ───────────────────────────────────────────────────────────────────────
 
+def _has_sql():
+    try:
+        import tree_sitter_sql
+        return True
+    except ImportError:
+        return False
+
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_finds_tables():
     r = extract_sql(FIXTURES / "sample.sql")
     labels = [n["label"] for n in r["nodes"]]
     assert any("users" in l for l in labels)
     assert any("organizations" in l for l in labels)
 
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_finds_view():
     r = extract_sql(FIXTURES / "sample.sql")
     labels = [n["label"] for n in r["nodes"]]
     assert any("active_users" in l for l in labels)
 
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_finds_function():
     r = extract_sql(FIXTURES / "sample.sql")
     labels = [n["label"] for n in r["nodes"]]
     assert any("get_user" in l for l in labels)
 
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_emits_foreign_key_edge():
     r = extract_sql(FIXTURES / "sample.sql")
     relations = {e["relation"] for e in r["edges"]}
     assert "references" in relations
 
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_emits_reads_from_edge():
     r = extract_sql(FIXTURES / "sample.sql")
     relations = {e["relation"] for e in r["edges"]}
     assert "reads_from" in relations
 
 def test_sql_no_dangling_edges():
+    if not _has_sql():
+        pytest.skip("tree-sitter-sql not installed")
     r = extract_sql(FIXTURES / "sample.sql")
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"dangling source: {e['source']}"
 
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_alter_table_fk_edge():
     """ALTER TABLE ... FOREIGN KEY ... REFERENCES produces a references edge."""
     r = extract_sql(FIXTURES / "sample_alter_fk.sql")
@@ -263,6 +278,7 @@ def test_sql_alter_table_fk_edge():
         assert e["source"] in node_ids, f"dangling source: {e['source']}"
         assert e["target"] in node_ids, f"dangling target: {e['target']}"
 
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_schema_qualified_names():
     """Schema-qualified table names (Schema.Table) are preserved."""
     r = extract_sql(FIXTURES / "sample_schema_qualified.sql")
@@ -270,6 +286,7 @@ def test_sql_schema_qualified_names():
     assert any("Sales.Customer" in l for l in labels)
     assert any("Sales.SalesOrder" in l for l in labels)
 
+@pytest.mark.skipif(not _has_sql(), reason="tree-sitter-sql not installed")
 def test_sql_schema_qualified_alter_fk():
     """ALTER TABLE with schema-qualified names produces correct edges."""
     r = extract_sql(FIXTURES / "sample_schema_qualified.sql")

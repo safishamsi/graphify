@@ -98,26 +98,35 @@ def test_install_unknown_platform_exits(tmp_path):
 
 
 def test_codex_skill_contains_spawn_agent():
-    """Codex skill file must reference spawn_agent."""
+    """Codex skill file must reference spawn_agent (via build-codex.md)."""
     import graphify
-    skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text()
-    assert "spawn_agent" in skill
+    skill_dir = Path(graphify.__file__).parent
+    main_skill = (skill_dir / "skill-codex.md").read_text()
+    assert "build-codex.md" in main_skill
+    build_skill = (skill_dir / "skills" / "build-codex.md").read_text()
+    assert "spawn_agent" in build_skill
 
 
 def test_opencode_skill_contains_mention():
-    """OpenCode skill file must reference @mention."""
+    """OpenCode skill file must reference @mention (via build-opencode.md)."""
     import graphify
-    skill = (Path(graphify.__file__).parent / "skill-opencode.md").read_text()
-    assert "@mention" in skill
+    skill_dir = Path(graphify.__file__).parent
+    main_skill = (skill_dir / "skill-opencode.md").read_text()
+    assert "build-opencode.md" in main_skill
+    build_skill = (skill_dir / "skills" / "build-opencode.md").read_text()
+    assert "@mention" in build_skill
 
 
 def test_claw_skill_is_sequential():
-    """OpenClaw skill file must describe sequential extraction."""
+    """OpenClaw skill file must describe sequential extraction (via build-claw.md)."""
     import graphify
-    skill = (Path(graphify.__file__).parent / "skill-claw.md").read_text()
-    assert "sequential" in skill.lower()
-    assert "spawn_agent" not in skill
-    assert "@mention" not in skill
+    skill_dir = Path(graphify.__file__).parent
+    main_skill = (skill_dir / "skill-claw.md").read_text()
+    assert "build-claw.md" in main_skill
+    build_skill = (skill_dir / "skills" / "build-claw.md").read_text()
+    assert "sequential" in build_skill.lower()
+    assert "spawn_agent" not in build_skill
+    assert "@mention" not in build_skill
 
 
 def test_all_skill_files_exist_in_package():
@@ -389,14 +398,25 @@ def test_pyinstall_creates_pyaag_skill(tmp_path):
     # Frontmatter is correct
     assert "name: pyaag" in content
     assert "trigger: /pyaag" in content
-    # Uses python3 -c, not aag eval
-    assert "python3 -c" in content
+
+    # Modular files exist
+    assert (skill.parent / "build.md").exists()
+    assert (skill.parent / "interact.md").exists()
+    
+    # Check transformed content in modular files uses resolved python path
+    build_content = (skill.parent / "build.md").read_text()
+    assert f"{sys.executable} -c" in build_content
+    assert "from graphify." in build_content
+
+    interact_content = (skill.parent / "interact.md").read_text()
+    assert f"{sys.executable} -m graphify query" in interact_content
+
+    export_content = (skill.parent / "export.md").read_text()
+    assert f"{sys.executable} -m graphify export" in export_content
+
+    # Quick start in main skill uses resolved python path (pyinstall mode)
+    assert sys.executable in content
     assert "aag eval" not in content
-    # Uses graphify imports, not aag imports
-    assert "from graphify." in content
-    assert "from aag." not in content
-    # CLI subcommands use python3 -m graphify
-    assert "python3 -m graphify export" in content
     # /pyaag in usage, not /aag
     assert "/pyaag" in content
     assert "/aag" not in content

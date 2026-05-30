@@ -65,14 +65,15 @@ def _refresh_all_version_stamps() -> None:
             vf.write_text(__version__, encoding="utf-8")
 
 
-def _get_specialized_skill_content(src_path: Path) -> str:
-    """Read skill content and specialize it if running as a standalone binary."""
-    content = src_path.read_text(encoding="utf-8")
+def _specialize_skill_text(content: str) -> str:
+    """Specialize skill content if running as a standalone binary."""
     if not getattr(sys, "frozen", False):
         # Even in python mode, the source skill.md uses `aag` module name for branding.
         # We need to replace it with `graphify` so it works in standard python envs.
         content = content.replace("from aag.", "from graphify.")
         content = content.replace("import aag", "import graphify")
+        # Replace standalone 'aag' with 'graphify' for branding/consistency in dev mode
+        content = re.sub(rf"(?<![/a-z])aag(?=\s)", "graphify", content)
         return content
 
     # Specialization for standalone binaries
@@ -92,18 +93,25 @@ echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `aag update` (no args) knows where to look next time
 echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
-    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
+    content = re.sub(step1_pattern, lambda _m: step1_replacement, content, flags=re.DOTALL)
 
     # 2. Replace interpreter + -c with binary + eval
     content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{bin_path} eval \"")
     content = content.replace("\"$PYTHON\" -c \"", f"{bin_path} eval \"")
 
-    # 3. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m or aag.serve
+    # 3. Replace help text for subcommands
+    content = content.replace("$(cat graphify-out/.aag_python) -m aag", f"{bin_path}")
+    content = content.replace("$(cat graphify-out/.aag_python) -m graphify", f"{bin_path}")
+    
+    # 4. Replace standalone 'aag' command with the binary path
+    content = re.sub(rf"(?<![/a-z])aag(?=\s)", lambda _m: bin_path, content)
+
+    # 5. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m or aag.serve
     content = content.replace("python3 -m graphify", bin_path)
     content = content.replace("python3 -m aag.serve", f"{bin_path} serve")
     content = content.replace("python3 -m aag.watch", f"{bin_path} watch")
 
-    # 4. Simplify Interpreter guard for subcommands
+    # 6. Simplify Interpreter guard for subcommands
     guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.aag_python \]; then.*?fi\n```"
     guard_replacement = f"""## Ensure aag binary is available
 
@@ -113,9 +121,14 @@ PYTHON={bin_path}
 mkdir -p graphify-out
 echo "$PYTHON" > graphify-out/.aag_python
 ```"""
-    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
+    content = re.sub(guard_pattern, lambda _m: guard_replacement, content, flags=re.DOTALL)
 
     return content
+
+
+def _get_specialized_skill_content(src_path: Path) -> str:
+    """Read skill content and specialize it if running as a standalone binary."""
+    return _specialize_skill_text(src_path.read_text(encoding="utf-8"))
 
 def _get_interpreter_command() -> str:
     """Return the base command for running python snippets (either python3 -c or aag eval)."""
@@ -269,6 +282,18 @@ _PLATFORM_CONFIG: dict[str, dict] = {
 }
 
 
+def _install_modular_skills(dst_dir: Path, transform_fn=None) -> None:
+    """Install all .md files from graphify/skills/ to dst_dir."""
+    skills_src_dir = _resource_path("skills")
+    if not skills_src_dir.is_dir():
+        return
+    for part in skills_src_dir.glob("*.md"):
+        content = part.read_text(encoding="utf-8")
+        if transform_fn:
+            content = transform_fn(content)
+        (dst_dir / part.name).write_text(content, encoding="utf-8")
+
+
 def install(platform: str = "claude") -> None:
     if platform == "gemini":
         gemini_install()
@@ -311,6 +336,10 @@ def install(platform: str = "claude") -> None:
         content = _get_specialized_skill_content(skill_src)
         tmp_dst.write_text(content, encoding="utf-8")
         os.replace(tmp_dst, skill_dst)
+
+        # Install modular sub-skills
+        _install_modular_skills(skill_dst.parent, transform_fn=_specialize_skill_text)
+
     except Exception:
         try:
             tmp_dst.unlink(missing_ok=True)
@@ -318,7 +347,7 @@ def install(platform: str = "claude") -> None:
             pass
         raise
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
-    print(f"  skill installed  ->  {skill_dst}")
+    print(f"  skill installed  ->  {skill_dst.parent}/")
 
     if cfg["claude_md"]:
         # Register in ~/.claude/CLAUDE.md (Claude Code only)
@@ -349,6 +378,74 @@ def install(platform: str = "claude") -> None:
     print()
 
 
+def _pyinstall_transform_text(content: str, python_path: str = "python3") -> str:
+    """Apply 'pyaag' (python-only) transformations to skill content."""
+    # 1. Frontmatter: rename skill
+    content = content.replace("name: aag", "name: pyaag", 1)
+    content = content.replace("trigger: /aag", "trigger: /pyaag", 1)
+
+    # 2. Module imports: aag -> graphify
+    content = content.replace("from aag.", "from graphify.")
+    content = content.replace("import aag", "import graphify")
+
+    # 3. Replace Quick Start interpreter detection block with resolved python path
+    quick_start_pattern = r"## Quick Start: Build Pipeline.*?```bash\n# Ensure aag is installed and get python path.*?```"
+    quick_start_replacement = f"""## Quick Start: Build Pipeline
+If you are building a new graph or updating an existing one, first ensure the environment is set up:
+
+```bash
+# Using python3 directly (pyinstall mode)
+PYTHON={python_path}
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.aag_python
+# Save scan root so `python3 -m graphify update` (no args) knows where to look next time
+echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
+```"""
+    content = re.sub(quick_start_pattern, lambda _m: quick_start_replacement, content, flags=re.DOTALL)
+
+    # 3b. Replace Step 1 interpreter detection block with resolved python path (for modular files)
+    step1_pattern = r"### Step 1 - Ensure (?:aag|graphify) is installed\n\n```bash\n# (?:Detect the correct Python interpreter|Find a Python).*?\n```"
+    step1_replacement = f"""### Step 1 - Ensure python3 -m graphify is installed
+
+```bash
+# Using python3 directly (pyinstall mode)
+PYTHON={python_path}
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.aag_python
+# Save scan root so `python3 -m graphify update` (no args) knows where to look next time
+echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
+```"""
+    content = re.sub(step1_pattern, lambda _m: step1_replacement, content, flags=re.DOTALL)
+
+    # 4. Replace interpreter invocations with resolved python path
+    content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{python_path} -c \"")
+    content = content.replace("\"$PYTHON\" -c \"", f"{python_path} -c \"")
+
+    # 5. Replace interpreter guard section
+    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.aag_python \]; then.*?fi\n```"
+    guard_replacement = f"""## Ensure python3 is available
+
+```bash
+# Using python3 directly (pyinstall mode)
+PYTHON={python_path}
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.aag_python
+```"""
+    content = re.sub(guard_pattern, lambda _m: guard_replacement, content, flags=re.DOTALL)
+
+    # 6. /aag references in usage -> /pyaag (must come before CLI subcommand replacement)
+    content = content.replace("/aag", "/pyaag")
+
+    # 7. CLI subcommands: aag <cmd> -> {python_path} -m graphify <cmd>
+    content = content.replace("python3 -m aag.serve", f"{python_path} -m graphify serve")
+    content = content.replace("python3 -m aag.watch", f"{python_path} -m graphify watch")
+
+    # Robustly replace standalone 'aag' command
+    content = re.sub(rf"(?<![/a-z])aag(?=\s)", lambda _m: f"{python_path} -m graphify", content)
+
+    return content
+
+
 def pyinstall(platform: str = "claude") -> None:
     """Install the 'pyaag' skill that uses python3 directly (no binary needed)."""
     if platform == "gemini":
@@ -368,58 +465,7 @@ def pyinstall(platform: str = "claude") -> None:
         print(f"error: {cfg['skill_file']} not found in package - reinstall graphify", file=sys.stderr)
         sys.exit(1)
 
-    content = skill_src.read_text(encoding="utf-8")
-
-    # 1. Frontmatter: rename skill
-    content = content.replace("name: aag", "name: pyaag", 1)
-    content = content.replace("trigger: /aag", "trigger: /pyaag", 1)
-
-    # 2. Module imports: aag -> graphify
-    content = content.replace("from aag.", "from graphify.")
-    content = content.replace("import aag", "import graphify")
-
-    # 3. Replace Step 1 interpreter detection block with simple python3
-    step1_pattern = r"### Step 1 - Ensure aag is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
-    step1_replacement = """### Step 1 - Ensure aag is installed
-
-```bash
-# Using python3 directly (pyinstall mode)
-PYTHON=python3
-mkdir -p graphify-out
-echo "$PYTHON" > graphify-out/.aag_python
-# Save scan root so `aag update` (no args) knows where to look next time
-echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
-```"""
-    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
-
-    # 4. Replace interpreter invocations with python3 -c
-    content = content.replace("$(cat graphify-out/.aag_python) -c \"", "python3 -c \"")
-    content = content.replace("\"$PYTHON\" -c \"", "python3 -c \"")
-
-    # 5. Replace interpreter guard section
-    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.aag_python \]; then.*?fi\n```"
-    guard_replacement = """## Ensure python3 is available
-
-```bash
-# Using python3 directly (pyinstall mode)
-PYTHON=python3
-mkdir -p graphify-out
-echo "$PYTHON" > graphify-out/.aag_python
-```"""
-    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
-
-    # 6. /aag references in usage -> /pyaag (must come before CLI subcommand replacement)
-    content = content.replace("/aag", "/pyaag")
-
-    # 7. CLI subcommands: aag <cmd> -> python3 -m graphify <cmd>
-    content = content.replace("python3 -m aag.serve", "python3 -m graphify serve")
-    content = content.replace("python3 -m aag.watch", "python3 -m graphify watch")
-    cli_cmds = [
-        "export", "clone", "watch", "query", "path", "explain",
-        "hook", "claude", "serve", "benchmark", "cluster-only", "update",
-    ]
-    for cmd in cli_cmds:
-        content = re.sub(rf"(?<![/a-z])aag {cmd}", f"python3 -m graphify {cmd}", content)
+    content = _pyinstall_transform_text(skill_src.read_text(encoding="utf-8"), python_path=sys.executable)
 
     # 8. Write to platform-specific skill destination (with 'pyaag' subdirectory)
     skill_dst = Path.home() / cfg["skill_dst"].parent.parent / "pyaag" / "SKILL.md"
@@ -440,6 +486,10 @@ echo "$PYTHON" > graphify-out/.aag_python
     try:
         tmp_dst.write_text(content, encoding="utf-8")
         os.replace(tmp_dst, skill_dst)
+
+        # Install modular sub-skills
+        _install_modular_skills(skill_dst.parent, transform_fn=lambda c: _pyinstall_transform_text(c, python_path=sys.executable))
+
     except Exception:
         try:
             tmp_dst.unlink(missing_ok=True)
@@ -447,7 +497,7 @@ echo "$PYTHON" > graphify-out/.aag_python
             pass
         raise
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
-    print(f"  skill installed  ->  {skill_dst}")
+    print(f"  skill installed  ->  {skill_dst.parent}/")
 
     # 9. Register in platform-specific config (like CLAUDE.md)
     if cfg["claude_md"]:
@@ -480,45 +530,50 @@ def _pyinstall_gemini(project_dir: Path | None = None) -> None:
         skill_dst = Path.home() / ".gemini" / "skills" / "pyaag" / "SKILL.md"
     skill_dst.parent.mkdir(parents=True, exist_ok=True)
 
+    python_path = sys.executable
     content = skill_src.read_text(encoding="utf-8")
     content = content.replace("name: aag", "name: pyaag", 1)
     content = content.replace("trigger: /aag", "trigger: /pyaag", 1)
     content = content.replace("from aag.", "from graphify.")
     content = content.replace("import aag", "import graphify")
-    
+
     # Python path logic
     step1_pattern = r"### Step 1 - Ensure aag is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
-    step1_replacement = """### Step 1 - Ensure aag is installed
+    step1_replacement = f"""### Step 1 - Ensure aag is installed
 
 ```bash
 # Using python3 directly (pyinstall mode)
-PYTHON=python3
+PYTHON={python_path}
 mkdir -p graphify-out
 echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `aag update` (no args) knows where to look next time
 echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
-    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
-    content = content.replace("$(cat graphify-out/.aag_python) -c \"", "python3 -c \"")
-    content = content.replace("\"$PYTHON\" -c \"", "python3 -c \"")
-    
+    content = re.sub(step1_pattern, lambda _m: step1_replacement, content, flags=re.DOTALL)
+    content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{python_path} -c \"")
+    content = content.replace("\"$PYTHON\" -c \"", f"{python_path} -c \"")
+
     guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.aag_python \]; then.*?fi\n```"
-    guard_replacement = """## Ensure python3 is available
+    guard_replacement = f"""## Ensure python3 is available
 
 ```bash
 # Using python3 directly (pyinstall mode)
-PYTHON=python3
+PYTHON={python_path}
 mkdir -p graphify-out
 echo "$PYTHON" > graphify-out/.aag_python
 ```"""
-    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
+    content = re.sub(guard_pattern, lambda _m: guard_replacement, content, flags=re.DOTALL)
     content = content.replace("/aag", "/pyaag")
-    
+
     cli_cmds = ["export", "clone", "watch", "query", "path", "explain", "hook", "claude", "serve", "benchmark", "cluster-only", "update"]
     for cmd in cli_cmds:
-        content = re.sub(rf"(?<![/a-z])aag {cmd}", f"python3 -m graphify {cmd}", content)
+        content = re.sub(rf"(?<![/a-z])aag {cmd}", lambda _m: f"{python_path} -m graphify {cmd}", content)
 
     skill_dst.write_text(content, encoding="utf-8")
+
+    # Install modular sub-skills
+    _install_modular_skills(skill_dst.parent, transform_fn=lambda c: _pyinstall_transform_text(c, python_path=python_path))
+
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
     print(f"  skill installed  ->  {skill_dst}")
 
@@ -615,8 +670,12 @@ def gemini_install(project_dir: Path | None = None) -> None:
 
     content = _get_specialized_skill_content(skill_src)
     skill_dst.write_text(content, encoding="utf-8")
+
+    # Install modular sub-skills
+    _install_modular_skills(skill_dst.parent, transform_fn=_specialize_skill_text)
+
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
-    print(f"  skill installed  ->  {skill_dst}")
+    print(f"  skill installed  ->  {skill_dst.parent}/")
 
     target = (project_dir or Path(".")) / "GEMINI.md"
 
