@@ -111,6 +111,75 @@ def test_razor_missing_file():
     assert "error" in r
 
 
+# ── .cshtml (MVC Razor views) ────────────────────────────────────────────────
+
+def test_cshtml_model():
+    # _make_id casefolds: "MyApp.ViewModels.ArticleViewModel" → contains "articleviewmodel"
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    assert "error" not in r
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "references"}
+    assert any("articleviewmodel" in t for t in targets)
+
+
+def test_cshtml_inject():
+    # _make_id casefolds: "IArticleService" → "iarticleservice"
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "imports"}
+    assert any("iarticleservice" in t for t in targets)
+
+
+def test_cshtml_layout():
+    # _make_id strips leading "_" then casefolds: "_Layout" → "layout"
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "extends"}
+    assert any("layout" in t for t in targets)
+
+
+def test_cshtml_partial_views():
+    # "_AuthorCard" → "authorcard", "_CommentThread" → "commentthread"
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "includes"}
+    assert "authorcard" in targets or "commentthread" in targets
+
+
+def test_cshtml_view_component():
+    # "RelatedArticlesViewComponent" → "relatedarticlesviewcomponent"
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "invokes_component"}
+    assert any("relatedarticles" in t for t in targets)
+
+
+def test_cshtml_section_define():
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    assert "defines_section" in _relations(r)
+
+
+def test_cshtml_form_submission():
+    # "Article.Save" → "article_save" after _make_id
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    targets = {e["target"] for e in r["edges"] if "submits" in e["relation"]}
+    assert any("article" in t and "save" in t for t in targets)
+
+
+def test_cshtml_navigation():
+    # "Article.Delete" / "Article.Save" → contain "article"
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "navigates_to"}
+    assert any("article" in t for t in targets)
+
+
+def test_cshtml_page_link():
+    # "/Articles/Index" → "articles_index"
+    r = extract_razor(FIXTURES / "sample.cshtml")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "links_to_page"}
+    assert any("index" in t or "articles" in t for t in targets)
+
+
+def test_cshtml_missing_file():
+    r = extract_razor(Path("/nonexistent/file.cshtml"))
+    assert "error" in r
+
+
 # ── dispatch & detect integration ────────────────────────────────────────────
 
 def test_dispatch_table():

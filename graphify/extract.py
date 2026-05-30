@@ -9367,6 +9367,93 @@ def extract_razor(path: Path) -> dict:
                               "relation": "contains", "confidence": "EXTRACTED",
                               "source_file": str_path, "weight": 1.0})
 
+    # ── MVC / CSHTML patterns (also valid in Blazor .razor) ─────────────────────
+
+    # Layout = "~/Views/Shared/_Layout.cshtml"
+    for m in re.finditer(r'Layout\s*=\s*["\']([^"\']+)["\']', src):
+        ln = src[:m.start()].count("\n") + 1
+        _add_ref(Path(m.group(1)).stem, "extends", ln)
+
+    # Html.Partial / PartialAsync / RenderPartial / RenderPartialAsync
+    for m in re.finditer(
+        r'Html\.(?:Partial|PartialAsync|RenderPartial|RenderPartialAsync)\s*\(\s*["\']([^"\']+)["\']',
+        src,
+    ):
+        ln = src[:m.start()].count("\n") + 1
+        _add_ref(Path(m.group(1)).stem, "includes", ln)
+
+    # Component.InvokeAsync("Name") — MVC ViewComponents
+    for m in re.finditer(r'Component\.InvokeAsync\s*\(\s*["\']([^"\']+)["\']', src):
+        ln = src[:m.start()].count("\n") + 1
+        _add_ref(f'{m.group(1)}ViewComponent', "invokes_component", ln)
+
+    # @section Name { ... }
+    for m in re.finditer(r'@section\s+(\w+)', src):
+        ln = src[:m.start()].count("\n") + 1
+        _add_ref(f'Section:{m.group(1)}', "defines_section", ln)
+
+    # @RenderSection("Name") / @await RenderSectionAsync("Name")
+    for m in re.finditer(r'@(?:await\s+)?RenderSectionAsync?\s*\(\s*["\']([^"\']+)["\']', src):
+        ln = src[:m.start()].count("\n") + 1
+        _add_ref(f'Section:{m.group(1)}', "renders_section", ln)
+
+    # asp-controller + asp-action — correlate by proximity (within 3 lines)
+    _ctrl_map: dict[int, str] = {}
+    for m in re.finditer(r'asp-controller\s*=\s*["\'](\w+)["\']', src):
+        _ctrl_map[src[:m.start()].count("\n")] = m.group(1)
+    for m in re.finditer(r'asp-action\s*=\s*["\'](\w+)["\']', src):
+        ln = src[:m.start()].count("\n") + 1
+        ctrl = next(
+            (v for k, v in _ctrl_map.items() if abs(k - (ln - 1)) <= 3), None
+        )
+        label = f'{ctrl}.{m.group(1)}' if ctrl else m.group(1)
+        _add_ref(label, "navigates_to", ln)
+
+    # asp-page="..." — Razor Pages router links
+    for m in re.finditer(r'asp-page\s*=\s*["\']([^"\']+)["\']', src):
+        ln = src[:m.start()].count("\n") + 1
+        page_name = Path(m.group(1)).stem if "/" in m.group(1) else m.group(1)
+        _add_ref(page_name, "links_to_page", ln)
+
+    # <form ... method="..." asp-action / action="..."> — form submissions
+    for m in re.finditer(r'<form\b([^>]+)>', src, re.IGNORECASE | re.DOTALL):
+        attrs = m.group(1)
+        method_m = re.search(r'method\s*=\s*["\'](\w+)["\']', attrs, re.IGNORECASE)
+        action_m = re.search(r'asp-action\s*=\s*["\'](\w+)["\']', attrs) or re.search(
+            r'\baction\s*=\s*["\']([^"\']+)["\']', attrs
+        )
+        ctrl_m = re.search(r'asp-controller\s*=\s*["\'](\w+)["\']', attrs)
+        if action_m:
+            method = method_m.group(1).lower() if method_m else "get"
+            ctrl = ctrl_m.group(1) if ctrl_m else None
+            label = f'{ctrl}.{action_m.group(1)}' if ctrl else action_m.group(1)
+            ln = src[:m.start()].count("\n") + 1
+            _add_ref(label, f"submits_{method}_to", ln)
+
+    # Custom TagHelpers by convention: non-standard elements with asp-* attributes
+    _STD_HTML: frozenset[str] = frozenset({
+        "a", "abbr", "address", "article", "aside", "audio", "b", "blockquote",
+        "body", "br", "button", "canvas", "caption", "cite", "code", "col",
+        "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog",
+        "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure",
+        "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header",
+        "hr", "html", "i", "iframe", "img", "input", "ins", "kbd", "label",
+        "legend", "li", "link", "main", "map", "mark", "menu", "meta", "meter",
+        "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p",
+        "picture", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp",
+        "script", "section", "select", "slot", "small", "source", "span",
+        "strong", "style", "sub", "summary", "sup", "table", "tbody", "td",
+        "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr",
+        "track", "u", "ul", "var", "video", "wbr",
+    })
+    for m in re.finditer(r'<([\w-]+)[^>]*\basp-[a-z][^>]*>', src, re.DOTALL):
+        tag = m.group(1).lower()
+        if tag in _STD_HTML:
+            continue
+        pascal = "".join(w.capitalize() for w in tag.split("-"))
+        ln = src[:m.start()].count("\n") + 1
+        _add_ref(f'{pascal}TagHelper', "uses_taghelper", ln)
+
     return {"nodes": nodes, "edges": edges}
 
 
