@@ -93,7 +93,7 @@ echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `aag update` (no args) knows where to look next time
 echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
-    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
+    content = re.sub(step1_pattern, lambda _m: step1_replacement, content, flags=re.DOTALL)
 
     # 2. Replace interpreter + -c with binary + eval
     content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{bin_path} eval \"")
@@ -104,7 +104,7 @@ echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
     content = content.replace("$(cat graphify-out/.aag_python) -m graphify", f"{bin_path}")
     
     # 4. Replace standalone 'aag' command with the binary path
-    content = re.sub(rf"(?<![/a-z])aag(?=\s)", bin_path, content)
+    content = re.sub(rf"(?<![/a-z])aag(?=\s)", lambda _m: bin_path, content)
 
     # 5. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m or aag.serve
     content = content.replace("python3 -m graphify", bin_path)
@@ -121,7 +121,7 @@ PYTHON={bin_path}
 mkdir -p graphify-out
 echo "$PYTHON" > graphify-out/.aag_python
 ```"""
-    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
+    content = re.sub(guard_pattern, lambda _m: guard_replacement, content, flags=re.DOTALL)
 
     return content
 
@@ -401,7 +401,7 @@ echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `python3 -m graphify update` (no args) knows where to look next time
 echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
-    content = re.sub(quick_start_pattern, quick_start_replacement, content, flags=re.DOTALL)
+    content = re.sub(quick_start_pattern, lambda _m: quick_start_replacement, content, flags=re.DOTALL)
 
     # 3b. Replace Step 1 interpreter detection block with resolved python path (for modular files)
     step1_pattern = r"### Step 1 - Ensure (?:aag|graphify) is installed\n\n```bash\n# (?:Detect the correct Python interpreter|Find a Python).*?\n```"
@@ -415,7 +415,7 @@ echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `python3 -m graphify update` (no args) knows where to look next time
 echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
-    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
+    content = re.sub(step1_pattern, lambda _m: step1_replacement, content, flags=re.DOTALL)
 
     # 4. Replace interpreter invocations with resolved python path
     content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{python_path} -c \"")
@@ -431,7 +431,7 @@ PYTHON={python_path}
 mkdir -p graphify-out
 echo "$PYTHON" > graphify-out/.aag_python
 ```"""
-    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
+    content = re.sub(guard_pattern, lambda _m: guard_replacement, content, flags=re.DOTALL)
 
     # 6. /aag references in usage -> /pyaag (must come before CLI subcommand replacement)
     content = content.replace("/aag", "/pyaag")
@@ -441,7 +441,7 @@ echo "$PYTHON" > graphify-out/.aag_python
     content = content.replace("python3 -m aag.watch", f"{python_path} -m graphify watch")
 
     # Robustly replace standalone 'aag' command
-    content = re.sub(rf"(?<![/a-z])aag(?=\s)", f"{python_path} -m graphify", content)
+    content = re.sub(rf"(?<![/a-z])aag(?=\s)", lambda _m: f"{python_path} -m graphify", content)
 
     return content
 
@@ -549,7 +549,7 @@ echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `aag update` (no args) knows where to look next time
 echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
-    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
+    content = re.sub(step1_pattern, lambda _m: step1_replacement, content, flags=re.DOTALL)
     content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{python_path} -c \"")
     content = content.replace("\"$PYTHON\" -c \"", f"{python_path} -c \"")
 
@@ -562,12 +562,12 @@ PYTHON={python_path}
 mkdir -p graphify-out
 echo "$PYTHON" > graphify-out/.aag_python
 ```"""
-    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
+    content = re.sub(guard_pattern, lambda _m: guard_replacement, content, flags=re.DOTALL)
     content = content.replace("/aag", "/pyaag")
 
     cli_cmds = ["export", "clone", "watch", "query", "path", "explain", "hook", "claude", "serve", "benchmark", "cluster-only", "update"]
     for cmd in cli_cmds:
-        content = re.sub(rf"(?<![/a-z])aag {cmd}", f"{python_path} -m graphify {cmd}", content)
+        content = re.sub(rf"(?<![/a-z])aag {cmd}", lambda _m: f"{python_path} -m graphify {cmd}", content)
 
     skill_dst.write_text(content, encoding="utf-8")
 
