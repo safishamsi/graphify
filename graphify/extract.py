@@ -1990,9 +1990,11 @@ def _js_extra_walk(
         parent = node.parent
         is_module_level = parent is not None and (
             parent.type == "program"
-            or (parent.type == "export_statement"
+            or (
+                parent.type == "export_statement"
                 and parent.parent is not None
-                and parent.parent.type == "program")
+                and parent.parent.type == "program"
+            )
         )
 
         # Arrow function declarations and module-level const literals (lexical_declaration only)
@@ -2366,17 +2368,19 @@ def _import_lua(node, source: bytes, file_nid: str, stem: str, edges: list, str_
         if raw_module:
             tgt_nid = _resolve_lua_import_target(raw_module, str_path)
             if tgt_nid:
-                edges.append({
-                    "source": file_nid,
-                    "target": tgt_nid,
-                    "relation": "imports",
-                    "context": "import",
-                    "confidence": "EXTRACTED",
-                    "confidence_score": 1.0,
-                    "source_file": str_path,
-                    "source_location": str(node.start_point[0] + 1),
-                    "weight": 1.0,
-                })
+                edges.append(
+                    {
+                        "source": file_nid,
+                        "target": tgt_nid,
+                        "relation": "imports",
+                        "context": "import",
+                        "confidence": "EXTRACTED",
+                        "confidence_score": 1.0,
+                        "source_file": str_path,
+                        "source_location": str(node.start_point[0] + 1),
+                        "weight": 1.0,
+                    }
+                )
 
 
 _LUA_CONFIG = LanguageConfig(

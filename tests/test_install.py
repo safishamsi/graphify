@@ -362,6 +362,7 @@ def test_antigravity_uninstall_project_removes_project_skill_only(tmp_path, monk
 def test_antigravity_global_install_writes_gemini_config_skills(tmp_path, monkeypatch):
     """Global `graphify antigravity install` must write to ~/.gemini/config/skills/ (#1079)."""
     from graphify.__main__ import main
+
     home = tmp_path / "home"
     project = tmp_path / "project"
     project.mkdir()
@@ -381,6 +382,7 @@ def test_antigravity_global_install_writes_gemini_config_skills(tmp_path, monkey
 def test_antigravity_global_uninstall_removes_gemini_config_skill(tmp_path, monkeypatch):
     """Global `graphify antigravity uninstall` must remove from ~/.gemini/config/skills/ (#1079)."""
     from graphify.__main__ import main
+
     home = tmp_path / "home"
     project = tmp_path / "project"
     project.mkdir()

@@ -553,8 +553,10 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     # Replacing the default prompt eliminates the conflict at the source.
     # Side benefit: cache-creation tokens per call drop ~19% in practice.
     cli_args = [
-        claude_cmd, "-p",
-        "--output-format", "json",
+        claude_cmd,
+        "-p",
+        "--output-format",
+        "json",
         "--no-session-persistence",
         "--system-prompt",
         _extraction_system(deep=deep_mode),

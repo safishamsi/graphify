@@ -2,6 +2,7 @@
 Validator module - checks that parsed documents meet schema requirements
 before they are allowed into storage.
 """
+
 from processor import normalize_text
 
 

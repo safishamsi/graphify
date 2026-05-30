@@ -3,6 +3,7 @@ Transport layer: connection management and low-level HTTP sending.
 HTTPTransport wraps a connection pool. ProxyTransport sits in front of it.
 MockTransport is used in tests.
 """
+
 from models import Request, Response
 from exceptions import TransportError, ConnectError, TimeoutException
 

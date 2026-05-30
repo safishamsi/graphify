@@ -2,6 +2,7 @@
 API module - exposes the document pipeline over HTTP.
 Thin layer over parser, validator, processor, and storage.
 """
+
 from parser import batch_parse, parse_file
 from validator import validate_document, ValidationError
 from processor import process_and_save, enrich_document
@@ -56,11 +57,13 @@ def handle_search(query: str) -> dict:
     for record_id, entry in index.items():
         keywords = set(entry.get("keywords", []))
         if terms & keywords:
-            matches.append({
-                "id": record_id,
-                "title": entry.get("title", ""),
-                "matched_keywords": list(terms & keywords),
-            })
+            matches.append(
+                {
+                    "id": record_id,
+                    "title": entry.get("title", ""),
+                    "matched_keywords": list(terms & keywords),
+                }
+            )
     return {"query": query, "results": matches}
 
 

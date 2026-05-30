@@ -2,6 +2,7 @@
 Storage module - persists documents to disk and maintains the search index.
 All other modules read and write through this interface.
 """
+
 import json
 import uuid
 from pathlib import Path

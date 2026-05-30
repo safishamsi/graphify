@@ -2,6 +2,7 @@
 Utility functions shared across the library.
 Small helpers that don't belong in any one module.
 """
+
 import re
 from models import Cookies
 
@@ -54,10 +55,7 @@ def parse_content_type(content_type: str) -> tuple:
 
 def obfuscate_sensitive_headers(headers: dict) -> dict:
     """Return a copy of headers with sensitive values replaced by [obfuscated]."""
-    return {
-        k: "[obfuscated]" if k.lower() in SENSITIVE_HEADERS else v
-        for k, v in headers.items()
-    }
+    return {k: "[obfuscated]" if k.lower() in SENSITIVE_HEADERS else v for k, v in headers.items()}
 
 
 def unset_all_cookies(cookies: Cookies) -> None:
@@ -68,6 +66,7 @@ def unset_all_cookies(cookies: Cookies) -> None:
 def is_known_encoding(encoding: str) -> bool:
     """Check if a character encoding label is recognized by Python's codec system."""
     import codecs
+
     try:
         codecs.lookup(encoding)
         return True

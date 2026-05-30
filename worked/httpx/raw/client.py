@@ -3,6 +3,7 @@ The main Client and AsyncClient classes.
 BaseClient holds all shared logic. Client and AsyncClient extend it for sync/async.
 This is the integration hub of the library - it imports from every other module.
 """
+
 from models import Request, Response, URL, Headers, Cookies
 from auth import Auth, BasicAuth
 from transport import BaseTransport, HTTPTransport, AsyncHTTPTransport
@@ -60,7 +61,9 @@ class BaseClient:
         for k, v in self._headers.items():
             if k not in headers:
                 headers[k] = v
-        return Request(method, url, headers=headers, content=kwargs.get("content"), cookies=self._cookies)
+        return Request(
+            method, url, headers=headers, content=kwargs.get("content"), cookies=self._cookies
+        )
 
     def _merge_cookies(self, response: Response) -> None:
         for name, value in response.cookies.items():

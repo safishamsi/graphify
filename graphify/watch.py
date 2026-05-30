@@ -414,8 +414,10 @@ def _rebuild_code(
             _queue_pending(out, list(changed_paths))
         with _rebuild_lock(out, blocking=block_on_lock) as got:
             if not got:
-                print("[graphify watch] Rebuild already in progress for "
-                      f"{watch_path.resolve()} - changes queued.")
+                print(
+                    "[graphify watch] Rebuild already in progress for "
+                    f"{watch_path.resolve()} - changes queued."
+                )
                 return False
             # Lock acquired. Drain anything queued by earlier contenders
             # (including, importantly, the paths we just queued ourselves)
@@ -445,14 +447,17 @@ def _rebuild_code(
                     late = _drain_pending(out)
                     if not late:
                         break
-                    ok = _rebuild_code(
-                        watch_path,
-                        changed_paths=late,
-                        follow_symlinks=follow_symlinks,
-                        force=force,
-                        no_cluster=no_cluster,
-                        acquire_lock=False,
-                    ) and ok
+                    ok = (
+                        _rebuild_code(
+                            watch_path,
+                            changed_paths=late,
+                            follow_symlinks=follow_symlinks,
+                            force=force,
+                            no_cluster=no_cluster,
+                            acquire_lock=False,
+                        )
+                        and ok
+                    )
             return ok
 
     watch_root = watch_path.resolve()

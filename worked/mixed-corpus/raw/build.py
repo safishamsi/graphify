@@ -10,7 +10,10 @@ def build_from_json(extraction: dict) -> nx.Graph:
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
     real_errors = [e for e in errors if "does not match any node id" not in e]
     if real_errors:
-        print(f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}", file=sys.stderr)
+        print(
+            f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}",
+            file=sys.stderr,
+        )
     G = nx.Graph()
     for node in extraction.get("nodes", []):
         G.add_node(node["id"], **{k: v for k, v in node.items() if k != "id"})

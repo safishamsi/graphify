@@ -2,6 +2,7 @@
 Processor module - transforms validated documents into enriched records
 ready for storage and retrieval.
 """
+
 import re
 from storage import load_index, save_processed
 
@@ -31,11 +32,13 @@ def extract_keywords(text: str) -> list:
 
 def enrich_document(doc: dict) -> dict:
     """Add keyword index and cross-references to a validated document."""
-    text_blob = " ".join([
-        doc.get("title", ""),
-        " ".join(doc.get("sections", [])),
-        " ".join(doc.get("paragraphs", [])),
-    ])
+    text_blob = " ".join(
+        [
+            doc.get("title", ""),
+            " ".join(doc.get("sections", [])),
+            " ".join(doc.get("paragraphs", [])),
+        ]
+    )
     doc["keywords"] = extract_keywords(text_blob)
     doc["cross_refs"] = find_cross_references(doc)
     return doc

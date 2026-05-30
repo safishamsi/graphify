@@ -158,9 +158,11 @@ def test_windows_prefers_claude_cmd_over_bare_claude(monkeypatch):
             "claude.cmd": r"C:\Users\u\AppData\Roaming\npm\claude.cmd",
         }.get(name)
 
-    with patch("platform.system", return_value="Windows"), \
-         patch("shutil.which", side_effect=fake_which), \
-         patch("subprocess.run", return_value=completed) as run:
+    with (
+        patch("platform.system", return_value="Windows"),
+        patch("shutil.which", side_effect=fake_which),
+        patch("subprocess.run", return_value=completed) as run,
+    ):
         llm._call_claude_cli("dummy", max_tokens=8192)
 
     argv = run.call_args.args[0]
@@ -183,9 +185,11 @@ def test_windows_falls_back_to_bare_claude_when_cmd_missing(monkeypatch):
             return "/usr/local/bin/claude"
         return None
 
-    with patch("platform.system", return_value="Windows"), \
-         patch("shutil.which", side_effect=fake_which), \
-         patch("subprocess.run", return_value=completed) as run:
+    with (
+        patch("platform.system", return_value="Windows"),
+        patch("shutil.which", side_effect=fake_which),
+        patch("subprocess.run", return_value=completed) as run,
+    ):
         llm._call_claude_cli("dummy", max_tokens=8192)
 
     argv = run.call_args.args[0]
@@ -195,8 +199,7 @@ def test_windows_falls_back_to_bare_claude_when_cmd_missing(monkeypatch):
 def test_windows_raises_when_neither_cmd_nor_bare_claude_present():
     """If neither `claude.cmd` nor `claude` are on PATH on Windows,
     raise the standard not-found error."""
-    with patch("platform.system", return_value="Windows"), \
-         patch("shutil.which", return_value=None):
+    with patch("platform.system", return_value="Windows"), patch("shutil.which", return_value=None):
         with pytest.raises(RuntimeError, match="Claude Code CLI not found"):
             llm._call_claude_cli("dummy", max_tokens=8192)
 
@@ -207,9 +210,11 @@ def test_non_windows_uses_bare_claude(monkeypatch):
     completed = MagicMock(returncode=0, stdout=json.dumps(_ENVELOPE), stderr="")
     monkeypatch.setattr(llm, "_response_is_hollow", lambda raw, parsed: False)
 
-    with patch("platform.system", return_value="Linux"), \
-         patch("shutil.which", return_value="/usr/local/bin/claude"), \
-         patch("subprocess.run", return_value=completed) as run:
+    with (
+        patch("platform.system", return_value="Linux"),
+        patch("shutil.which", return_value="/usr/local/bin/claude"),
+        patch("subprocess.run", return_value=completed) as run,
+    ):
         llm._call_claude_cli("dummy", max_tokens=8192)
 
     argv = run.call_args.args[0]

@@ -2,6 +2,7 @@
 Parser module - reads raw input documents and converts them into
 a structured format the rest of the pipeline can work with.
 """
+
 from validator import validate_document
 from storage import save_parsed
 
@@ -49,6 +50,7 @@ def parse_markdown(text: str) -> dict:
 def parse_json(text: str) -> dict:
     """Parse a JSON document into a structured dict."""
     import json
+
     data = json.loads(text)
     return {"data": data, "format": "json"}
 

@@ -1253,19 +1253,16 @@ def test_js_module_level_arrow_produces_node_and_call_edges(tmp_path):
 
     The scope guard must not accidentally suppress top-level arrow functions.
     """
-    src = (
-        "function helper() { return 1; }\n"
-        "const handler = () => {\n"
-        "  helper();\n"
-        "};\n"
-    )
+    src = "function helper() { return 1; }\nconst handler = () => {\n  helper();\n};\n"
     f = tmp_path / "arrows.js"
     f.write_text(src)
     r = extract_js(f)
     labels = _labels(r)
     relations = _relations(r)
 
-    assert any("handler" in label for label in labels), f"module-level arrow 'handler' missing: {labels}"
+    assert any("handler" in label for label in labels), (
+        f"module-level arrow 'handler' missing: {labels}"
+    )
     assert "calls" in relations, f"expected 'calls' edge from handler->helper: {relations}"
 
 
@@ -1323,8 +1320,10 @@ def test_markdown_skips_fenced_code_blocks():
     """
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     labels = _labels(r)
-    assert not any(label.startswith("code:") for label in labels), \
+    assert not any(label.startswith("code:") for label in labels), (
         f"Expected no code:* nodes after #1077 fix, got: {[label for label in labels if label.startswith('code:')]}"
+    )
+
 
 def test_markdown_contains_edges():
     """Headings should be connected via 'contains' edges (file->h, h->h)."""
@@ -1344,15 +1343,9 @@ def test_markdown_fenced_heading_not_parsed():
     """
     import os
     import tempfile
+
     src = (
-        "# Real Heading\n"
-        "\n"
-        "```bash\n"
-        "## Not A Heading\n"
-        "echo hello\n"
-        "```\n"
-        "\n"
-        "## Another Real Heading\n"
+        "# Real Heading\n\n```bash\n## Not A Heading\necho hello\n```\n\n## Another Real Heading\n"
     )
     with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False) as fh:
         fh.write(src)
@@ -1364,9 +1357,12 @@ def test_markdown_fenced_heading_not_parsed():
         os.unlink(fpath)
 
     assert any("Real Heading" in label for label in labels), f"'Real Heading' missing: {labels}"
-    assert any("Another Real Heading" in label for label in labels), f"'Another Real Heading' missing: {labels}"
-    assert not any("Not A Heading" in label for label in labels), \
+    assert any("Another Real Heading" in label for label in labels), (
+        f"'Another Real Heading' missing: {labels}"
+    )
+    assert not any("Not A Heading" in label for label in labels), (
         f"fenced '## Not A Heading' was incorrectly parsed as a node: {labels}"
+    )
 
 
 def test_markdown_no_dangling_edges():

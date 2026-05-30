@@ -189,11 +189,7 @@ def test_cypher_emits_distinct_edge_per_parallel():
 
     # The three A->B parallel edges all sit between the same endpoints but keep
     # distinct keys, so MERGE treats them as three relationships, not one.
-    ab_lines = [
-        ln
-        for ln in merge_lines
-        if "{id: 'a'}" in ln and "{id: 'b'}" in ln
-    ]
+    ab_lines = [ln for ln in merge_lines if "{id: 'a'}" in ln and "{id: 'b'}" in ln]
     assert len(ab_lines) == 3
     ab_keys = set()
     for ln in ab_lines:
@@ -220,11 +216,28 @@ def test_canvas_edge_ids_unique():
 
     # Golden / deterministic ordering for the A->B trio (3 <= cap, all drawn).
     ab_ids = sorted(
-        e["id"]
-        for e in data["edges"]
-        if e["fromNode"] == "n_a" and e["toNode"] == "n_b"
+        e["id"] for e in data["edges"] if e["fromNode"] == "n_a" and e["toNode"] == "n_b"
     )
     assert ab_ids == ["e_a_b_0", "e_a_b_1", "e_a_b_2"]
+
+
+def test_canvas_edge_ids_unique_when_node_ids_contain_underscores():
+    """Tuple-concatenated ids must not collide for ambiguous underscore splits."""
+    G = nx.MultiDiGraph()
+    for node_id in ["a_b", "c", "a", "b_c"]:
+        G.add_node(node_id, label=node_id)
+    G.add_edge("a_b", "c", relation="r", confidence="EXTRACTED", weight=1.0)
+    G.add_edge("a", "b_c", relation="s", confidence="EXTRACTED", weight=1.0)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.canvas"
+        to_canvas(G, {0: list(G.nodes)}, str(out))
+        data = json.loads(out.read_text())
+
+    edge_ids = [edge["id"] for edge in data["edges"]]
+    assert len(edge_ids) == 2
+    assert len(edge_ids) == len(set(edge_ids))
+    assert all(edge_id.startswith("e_a_b_c_0") for edge_id in edge_ids)
 
 
 def test_canvas_visual_cap_summary():
@@ -236,9 +249,7 @@ def test_canvas_visual_cap_summary():
         to_canvas(G, COMMUNITIES, str(out))
         data = json.loads(out.read_text())
 
-    cd_edges = [
-        e for e in data["edges"] if e["fromNode"] == "n_c" and e["toNode"] == "n_d"
-    ]
+    cd_edges = [e for e in data["edges"] if e["fromNode"] == "n_c" and e["toNode"] == "n_d"]
     # 5 parallel edges -> cap drawn + 1 summary edge.
     assert len(cd_edges) == cap + 1
     cd_ids = sorted(e["id"] for e in cd_edges)
@@ -309,16 +320,12 @@ def test_html_svg_visual_cap():
     cd_real = [
         e
         for e in raw_edges
-        if e.get("from") == "c"
-        and e.get("to") == "d"
-        and e.get("confidence") != "SUMMARY"
+        if e.get("from") == "c" and e.get("to") == "d" and e.get("confidence") != "SUMMARY"
     ]
     cd_summary = [
         e
         for e in raw_edges
-        if e.get("from") == "c"
-        and e.get("to") == "d"
-        and e.get("confidence") == "SUMMARY"
+        if e.get("from") == "c" and e.get("to") == "d" and e.get("confidence") == "SUMMARY"
     ]
     assert len(cd_real) == cap
     assert len(cd_summary) == 1
@@ -501,9 +508,7 @@ def test_export_simple_graph_regression():
         # Cypher — exact line including the new edge_key property.
         cypher_out = Path(tmp) / "cypher.txt"
         to_cypher(G, str(cypher_out))
-        cypher_lines = [
-            ln for ln in cypher_out.read_text().splitlines() if ln.startswith("MATCH")
-        ]
+        cypher_lines = [ln for ln in cypher_out.read_text().splitlines() if ln.startswith("MATCH")]
         assert cypher_lines == [
             "MATCH (a {id: 'A'}), (b {id: 'B'}) "
             f"MERGE (a)-[:CALLS {{edge_key: '{expected_key}', confidence: 'EXTRACTED'}}]->(b);"
@@ -526,9 +531,7 @@ def test_export_simple_graph_regression():
         obs_out = Path(tmp) / "vault"
         to_obsidian(G, comm, str(obs_out))
         conn_lines = [
-            ln
-            for ln in (obs_out / "Alpha.md").read_text().splitlines()
-            if ln.startswith("- [[")
+            ln for ln in (obs_out / "Alpha.md").read_text().splitlines() if ln.startswith("- [[")
         ]
         assert conn_lines == ["- [[Beta]] - `calls` [EXTRACTED]"]
 

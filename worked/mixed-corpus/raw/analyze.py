@@ -1,4 +1,5 @@
 """Graph analysis: god nodes (most connected), surprising connections (cross-community), suggested questions."""
+
 from __future__ import annotations
 import networkx as nx
 
@@ -44,11 +45,13 @@ def god_nodes(G: nx.Graph, top_n: int = 10) -> list[dict]:
     for node_id, deg in sorted_nodes:
         if _is_file_node(G, node_id) or _is_concept_node(G, node_id):
             continue
-        result.append({
-            "id": node_id,
-            "label": G.nodes[node_id].get("label", node_id),
-            "edges": deg,
-        })
+        result.append(
+            {
+                "id": node_id,
+                "label": G.nodes[node_id].get("label", node_id),
+                "edges": deg,
+            }
+        )
         if len(result) >= top_n:
             break
     return result
@@ -74,9 +77,7 @@ def surprising_connections(
     """
     # Identify unique source files (ignore empty/null source_file)
     source_files = {
-        data.get("source_file", "")
-        for _, data in G.nodes(data=True)
-        if data.get("source_file", "")
+        data.get("source_file", "") for _, data in G.nodes(data=True) if data.get("source_file", "")
     }
     is_multi_source = len(source_files) > 1
 
@@ -105,7 +106,23 @@ def _is_concept_node(G: nx.Graph, node_id: str) -> bool:
     return False
 
 
-_CODE_EXTENSIONS = {"py", "ts", "tsx", "js", "go", "rs", "java", "rb", "cpp", "c", "h", "cs", "kt", "scala", "php"}
+_CODE_EXTENSIONS = {
+    "py",
+    "ts",
+    "tsx",
+    "js",
+    "go",
+    "rs",
+    "java",
+    "rb",
+    "cpp",
+    "c",
+    "h",
+    "cs",
+    "kt",
+    "scala",
+    "php",
+}
 _DOC_EXTENSIONS = {"md", "txt", "rst"}
 _PAPER_EXTENSIONS = {"pdf"}
 _IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "gif", "svg"}
@@ -213,18 +230,20 @@ def _cross_file_surprises(G: nx.Graph, communities: dict[int, list[str]], top_n:
         score, reasons = _surprise_score(G, u, v, data, node_community, u_source, v_source)
         src_id = data.get("_src", u)
         tgt_id = data.get("_tgt", v)
-        candidates.append({
-            "_score": score,
-            "source": G.nodes[src_id].get("label", src_id),
-            "target": G.nodes[tgt_id].get("label", tgt_id),
-            "source_files": [
-                G.nodes[src_id].get("source_file", ""),
-                G.nodes[tgt_id].get("source_file", ""),
-            ],
-            "confidence": data.get("confidence", "EXTRACTED"),
-            "relation": relation,
-            "why": "; ".join(reasons) if reasons else "cross-file semantic connection",
-        })
+        candidates.append(
+            {
+                "_score": score,
+                "source": G.nodes[src_id].get("label", src_id),
+                "target": G.nodes[tgt_id].get("label", tgt_id),
+                "source_files": [
+                    G.nodes[src_id].get("source_file", ""),
+                    G.nodes[tgt_id].get("source_file", ""),
+                ],
+                "confidence": data.get("confidence", "EXTRACTED"),
+                "relation": relation,
+                "why": "; ".join(reasons) if reasons else "cross-file semantic connection",
+            }
+        )
 
     candidates.sort(key=lambda x: x["_score"], reverse=True)
     for c in candidates:
@@ -257,17 +276,19 @@ def _cross_community_surprises(
         result = []
         for (u, v), score in top_edges:
             data = G.edges[u, v]
-            result.append({
-                "source": G.nodes[u].get("label", u),
-                "target": G.nodes[v].get("label", v),
-                "source_files": [
-                    G.nodes[u].get("source_file", ""),
-                    G.nodes[v].get("source_file", ""),
-                ],
-                "confidence": data.get("confidence", "EXTRACTED"),
-                "relation": data.get("relation", ""),
-                "note": f"Bridges graph structure (betweenness={score:.3f})",
-            })
+            result.append(
+                {
+                    "source": G.nodes[u].get("label", u),
+                    "target": G.nodes[v].get("label", v),
+                    "source_files": [
+                        G.nodes[u].get("source_file", ""),
+                        G.nodes[v].get("source_file", ""),
+                    ],
+                    "confidence": data.get("confidence", "EXTRACTED"),
+                    "relation": data.get("relation", ""),
+                    "note": f"Bridges graph structure (betweenness={score:.3f})",
+                }
+            )
         return result
 
     # Build node → community map
@@ -289,18 +310,20 @@ def _cross_community_surprises(
         confidence = data.get("confidence", "EXTRACTED")
         src_id = data.get("_src", u)
         tgt_id = data.get("_tgt", v)
-        surprises.append({
-            "source": G.nodes[src_id].get("label", src_id),
-            "target": G.nodes[tgt_id].get("label", tgt_id),
-            "source_files": [
-                G.nodes[src_id].get("source_file", ""),
-                G.nodes[tgt_id].get("source_file", ""),
-            ],
-            "confidence": confidence,
-            "relation": relation,
-            "note": f"Bridges community {cid_u} → community {cid_v}",
-            "_pair": tuple(sorted([cid_u, cid_v])),
-        })
+        surprises.append(
+            {
+                "source": G.nodes[src_id].get("label", src_id),
+                "target": G.nodes[tgt_id].get("label", tgt_id),
+                "source_files": [
+                    G.nodes[src_id].get("source_file", ""),
+                    G.nodes[tgt_id].get("source_file", ""),
+                ],
+                "confidence": confidence,
+                "relation": relation,
+                "note": f"Bridges community {cid_u} → community {cid_v}",
+                "_pair": tuple(sorted([cid_u, cid_v])),
+            }
+        )
 
     # Sort: AMBIGUOUS first, then INFERRED, then EXTRACTED
     order = {"AMBIGUOUS": 0, "INFERRED": 1, "EXTRACTED": 2}
@@ -338,35 +361,46 @@ def suggest_questions(
             ul = G.nodes[u].get("label", u)
             vl = G.nodes[v].get("label", v)
             relation = data.get("relation", "related to")
-            questions.append({
-                "type": "ambiguous_edge",
-                "question": f"What is the exact relationship between `{ul}` and `{vl}`?",
-                "why": f"Edge tagged AMBIGUOUS (relation: {relation}) - confidence is low.",
-            })
+            questions.append(
+                {
+                    "type": "ambiguous_edge",
+                    "question": f"What is the exact relationship between `{ul}` and `{vl}`?",
+                    "why": f"Edge tagged AMBIGUOUS (relation: {relation}) - confidence is low.",
+                }
+            )
 
     # 2. Bridge nodes (high betweenness) → cross-cutting concern questions
     if G.number_of_edges() > 0:
         betweenness = nx.betweenness_centrality(G)
         # Top bridge nodes that are NOT file-level hubs
         bridges = sorted(
-            [(n, s) for n, s in betweenness.items()
-             if not _is_file_node(G, n) and not _is_concept_node(G, n) and s > 0],
+            [
+                (n, s)
+                for n, s in betweenness.items()
+                if not _is_file_node(G, n) and not _is_concept_node(G, n) and s > 0
+            ],
             key=lambda x: x[1],
             reverse=True,
         )[:3]
         for node_id, score in bridges:
             label = G.nodes[node_id].get("label", node_id)
             cid = node_community.get(node_id)
-            comm_label = community_labels.get(cid, f"Community {cid}") if cid is not None else "unknown"
+            comm_label = (
+                community_labels.get(cid, f"Community {cid}") if cid is not None else "unknown"
+            )
             neighbors = list(G.neighbors(node_id))
-            neighbor_comms = {node_community.get(n) for n in neighbors if node_community.get(n) != cid}
+            neighbor_comms = {
+                node_community.get(n) for n in neighbors if node_community.get(n) != cid
+            }
             if neighbor_comms:
                 other_labels = [community_labels.get(c, f"Community {c}") for c in neighbor_comms]
-                questions.append({
-                    "type": "bridge_node",
-                    "question": f"Why does `{label}` connect `{comm_label}` to {', '.join(f'`{l}`' for l in other_labels)}?",
-                    "why": f"High betweenness centrality ({score:.3f}) - this node is a cross-community bridge.",
-                })
+                questions.append(
+                    {
+                        "type": "bridge_node",
+                        "question": f"Why does `{label}` connect `{comm_label}` to {', '.join(f'`{l}`' for l in other_labels)}?",
+                        "why": f"High betweenness centrality ({score:.3f}) - this node is a cross-community bridge.",
+                    }
+                )
 
     # 3. God nodes with many INFERRED edges → verification questions
     degree = dict(G.degree())
@@ -377,7 +411,8 @@ def suggest_questions(
     )[:5]
     for node_id, _ in top_nodes:
         inferred = [
-            (u, v, d) for u, v, d in G.edges(node_id, data=True)
+            (u, v, d)
+            for u, v, d in G.edges(node_id, data=True)
             if d.get("confidence") == "INFERRED"
         ]
         if len(inferred) >= 2:
@@ -389,48 +424,58 @@ def suggest_questions(
                 tgt_id = d.get("_tgt", v)
                 other_id = tgt_id if src_id == node_id else src_id
                 others.append(G.nodes[other_id].get("label", other_id))
-            questions.append({
-                "type": "verify_inferred",
-                "question": f"Are the {len(inferred)} inferred relationships involving `{label}` (e.g. with `{others[0]}` and `{others[1]}`) actually correct?",
-                "why": f"`{label}` has {len(inferred)} INFERRED edges - model-reasoned connections that need verification.",
-            })
+            questions.append(
+                {
+                    "type": "verify_inferred",
+                    "question": f"Are the {len(inferred)} inferred relationships involving `{label}` (e.g. with `{others[0]}` and `{others[1]}`) actually correct?",
+                    "why": f"`{label}` has {len(inferred)} INFERRED edges - model-reasoned connections that need verification.",
+                }
+            )
 
     # 4. Isolated or weakly-connected nodes → exploration questions
     isolated = [
-        n for n in G.nodes()
+        n
+        for n in G.nodes()
         if G.degree(n) <= 1 and not _is_file_node(G, n) and not _is_concept_node(G, n)
     ]
     if isolated:
         labels = [G.nodes[n].get("label", n) for n in isolated[:3]]
-        questions.append({
-            "type": "isolated_nodes",
-            "question": f"What connects {', '.join(f'`{l}`' for l in labels)} to the rest of the system?",
-            "why": f"{len(isolated)} weakly-connected nodes found - possible documentation gaps or missing edges.",
-        })
+        questions.append(
+            {
+                "type": "isolated_nodes",
+                "question": f"What connects {', '.join(f'`{l}`' for l in labels)} to the rest of the system?",
+                "why": f"{len(isolated)} weakly-connected nodes found - possible documentation gaps or missing edges.",
+            }
+        )
 
     # 5. Low-cohesion communities → structural questions
     from .cluster import cohesion_score
+
     for cid, nodes in communities.items():
         score = cohesion_score(G, nodes)
         if score < 0.15 and len(nodes) >= 5:
             label = community_labels.get(cid, f"Community {cid}")
-            questions.append({
-                "type": "low_cohesion",
-                "question": f"Should `{label}` be split into smaller, more focused modules?",
-                "why": f"Cohesion score {score} - nodes in this community are weakly interconnected.",
-            })
+            questions.append(
+                {
+                    "type": "low_cohesion",
+                    "question": f"Should `{label}` be split into smaller, more focused modules?",
+                    "why": f"Cohesion score {score} - nodes in this community are weakly interconnected.",
+                }
+            )
 
     if not questions:
-        return [{
-            "type": "no_signal",
-            "question": None,
-            "why": (
-                "Not enough signal to generate questions. "
-                "This usually means the corpus has no AMBIGUOUS edges, no bridge nodes, "
-                "no INFERRED relationships, and all communities are tightly cohesive. "
-                "Add more files or run with --mode deep to extract richer edges."
-            ),
-        }]
+        return [
+            {
+                "type": "no_signal",
+                "question": None,
+                "why": (
+                    "Not enough signal to generate questions. "
+                    "This usually means the corpus has no AMBIGUOUS edges, no bridge nodes, "
+                    "no INFERRED relationships, and all communities are tightly cohesive. "
+                    "Add more files or run with --mode deep to extract richer edges."
+                ),
+            }
+        ]
 
     return questions[:top_n]
 
@@ -453,26 +498,16 @@ def graph_diff(G_old: nx.Graph, G_new: nx.Graph) -> dict:
     added_node_ids = new_nodes - old_nodes
     removed_node_ids = old_nodes - new_nodes
 
-    new_nodes_list = [
-        {"id": n, "label": G_new.nodes[n].get("label", n)}
-        for n in added_node_ids
-    ]
+    new_nodes_list = [{"id": n, "label": G_new.nodes[n].get("label", n)} for n in added_node_ids]
     removed_nodes_list = [
-        {"id": n, "label": G_old.nodes[n].get("label", n)}
-        for n in removed_node_ids
+        {"id": n, "label": G_old.nodes[n].get("label", n)} for n in removed_node_ids
     ]
 
     def edge_key(G: nx.Graph, u: str, v: str, data: dict) -> tuple:
         return (u, v, data.get("relation", ""))
 
-    old_edge_keys = {
-        edge_key(G_old, u, v, d)
-        for u, v, d in G_old.edges(data=True)
-    }
-    new_edge_keys = {
-        edge_key(G_new, u, v, d)
-        for u, v, d in G_new.edges(data=True)
-    }
+    old_edge_keys = {edge_key(G_old, u, v, d) for u, v, d in G_old.edges(data=True)}
+    new_edge_keys = {edge_key(G_new, u, v, d) for u, v, d in G_new.edges(data=True)}
 
     added_edge_keys = new_edge_keys - old_edge_keys
     removed_edge_keys = old_edge_keys - new_edge_keys
@@ -480,22 +515,26 @@ def graph_diff(G_old: nx.Graph, G_new: nx.Graph) -> dict:
     new_edges_list = []
     for u, v, d in G_new.edges(data=True):
         if edge_key(G_new, u, v, d) in added_edge_keys:
-            new_edges_list.append({
-                "source": u,
-                "target": v,
-                "relation": d.get("relation", ""),
-                "confidence": d.get("confidence", ""),
-            })
+            new_edges_list.append(
+                {
+                    "source": u,
+                    "target": v,
+                    "relation": d.get("relation", ""),
+                    "confidence": d.get("confidence", ""),
+                }
+            )
 
     removed_edges_list = []
     for u, v, d in G_old.edges(data=True):
         if edge_key(G_old, u, v, d) in removed_edge_keys:
-            removed_edges_list.append({
-                "source": u,
-                "target": v,
-                "relation": d.get("relation", ""),
-                "confidence": d.get("confidence", ""),
-            })
+            removed_edges_list.append(
+                {
+                    "source": u,
+                    "target": v,
+                    "relation": d.get("relation", ""),
+                    "confidence": d.get("confidence", ""),
+                }
+            )
 
     parts = []
     if new_nodes_list:
@@ -503,9 +542,13 @@ def graph_diff(G_old: nx.Graph, G_new: nx.Graph) -> dict:
     if new_edges_list:
         parts.append(f"{len(new_edges_list)} new edge{'s' if len(new_edges_list) != 1 else ''}")
     if removed_nodes_list:
-        parts.append(f"{len(removed_nodes_list)} node{'s' if len(removed_nodes_list) != 1 else ''} removed")
+        parts.append(
+            f"{len(removed_nodes_list)} node{'s' if len(removed_nodes_list) != 1 else ''} removed"
+        )
     if removed_edges_list:
-        parts.append(f"{len(removed_edges_list)} edge{'s' if len(removed_edges_list) != 1 else ''} removed")
+        parts.append(
+            f"{len(removed_edges_list)} edge{'s' if len(removed_edges_list) != 1 else ''} removed"
+        )
     summary = ", ".join(parts) if parts else "no changes"
 
     return {

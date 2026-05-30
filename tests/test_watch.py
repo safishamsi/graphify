@@ -545,7 +545,9 @@ def test_queue_and_drain_pending_round_trip(tmp_path):
     assert pending_file.exists()
     # Each path written on its own line.
     assert pending_file.read_text(encoding="utf-8").splitlines() == [
-        "a.py", "sub/b.py", "c.md",
+        "a.py",
+        "sub/b.py",
+        "c.md",
     ]
 
     drained = _drain_pending(out)

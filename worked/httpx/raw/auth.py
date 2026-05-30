@@ -4,6 +4,7 @@ Auth objects are callables that modify a request before it is sent.
 DigestAuth is the most interesting: it participates in a full request/response cycle,
 reading the 401 response to build the challenge before re-sending.
 """
+
 import hashlib
 import time
 from models import Request, Response
@@ -26,6 +27,7 @@ class BasicAuth(Auth):
 
     def auth_flow(self, request: Request):
         import base64
+
         credentials = f"{self.username}:{self.password}".encode()
         encoded = base64.b64encode(credentials).decode()
         request.headers["Authorization"] = f"Basic {encoded}"
@@ -102,6 +104,7 @@ class NetRCAuth(Auth):
 
     def auth_flow(self, request: Request):
         import netrc
+
         try:
             credentials = netrc.netrc().authenticators(request.url.host)
             if credentials:

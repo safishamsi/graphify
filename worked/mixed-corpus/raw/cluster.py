@@ -1,4 +1,5 @@
 """Leiden community detection on NetworkX graphs. Splits oversized communities. Returns cohesion scores."""
+
 from __future__ import annotations
 import networkx as nx
 
@@ -20,8 +21,9 @@ def build_graph(nodes: list[dict], edges: list[dict]) -> nx.Graph:
         G.add_edge(e["source"], e["target"], **attrs)
     return G
 
-_MAX_COMMUNITY_FRACTION = 0.25   # communities larger than 25% of graph get split
-_MIN_SPLIT_SIZE = 10             # only split if community has at least this many nodes
+
+_MAX_COMMUNITY_FRACTION = 0.25  # communities larger than 25% of graph get split
+_MIN_SPLIT_SIZE = 10  # only split if community has at least this many nodes
 
 
 def cluster(G: nx.Graph) -> dict[int, list[str]]:
@@ -77,6 +79,7 @@ def _split_community(G: nx.Graph, nodes: list[str]) -> list[list[str]]:
         return [[n] for n in sorted(nodes)]
     try:
         from graspologic.partition import leiden
+
         sub_partition: dict[str, int] = leiden(subgraph)
         sub_communities: dict[int, list[str]] = {}
         for node, cid in sub_partition.items():
