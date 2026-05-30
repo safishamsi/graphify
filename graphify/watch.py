@@ -349,6 +349,66 @@ def _canonical_topology_for_compare(graph_data: dict) -> dict:
     return canonical
 
 
+def _dedupe_rebuilt_edge_records(edges: list[dict]) -> list[dict]:
+    """Remove duplicate edge records introduced by preserving + re-extracting.
+
+    A full AST rebuild re-extracts all code edges and also preserves existing
+    graph links so semantic/non-code relationships survive. Without this pass,
+    raw ``--no-cluster`` rebuilds append the same AST links on every run.
+
+    Distinct keyed parallels remain distinct. When the same relationship appears
+    once with a key and once without one, prefer the keyed record because it
+    carries the stable MultiDiGraph identity from the previous graph.
+    """
+
+    def fingerprint(edge: dict) -> str:
+        comparable = dict(edge)
+        comparable.pop("key", None)
+        comparable.pop("confidence_score", None)
+        return json.dumps(comparable, sort_keys=True, ensure_ascii=False, default=str)
+
+    kept: list[dict] = []
+    by_fingerprint: dict[str, list[int]] = {}
+    for edge in edges:
+        if not isinstance(edge, dict):
+            kept.append(edge)
+            continue
+        fp = fingerprint(edge)
+        key = edge.get("key")
+        existing_indexes = by_fingerprint.get(fp, [])
+        if not existing_indexes:
+            by_fingerprint[fp] = [len(kept)]
+            kept.append(edge)
+            continue
+
+        if key is None:
+            # A keyless duplicate is either an exact repeat from a previous raw
+            # no-cluster rebuild or a fresh AST record that matches a preserved
+            # keyed edge. In both cases the existing record is authoritative.
+            continue
+
+        same_key = False
+        replace_keyless_index: int | None = None
+        for idx in existing_indexes:
+            existing = kept[idx]
+            if not isinstance(existing, dict):
+                continue
+            existing_key = existing.get("key")
+            if existing_key == key:
+                same_key = True
+                break
+            if existing_key is None and replace_keyless_index is None:
+                replace_keyless_index = idx
+        if same_key:
+            continue
+        if replace_keyless_index is not None:
+            kept[replace_keyless_index] = edge
+            continue
+        existing_indexes.append(len(kept))
+        kept.append(edge)
+    return kept
+
+
 def _topology_from_graph(G) -> dict:
     from networkx.readwrite import json_graph
 
@@ -683,6 +743,7 @@ def _rebuild_code(
                 )
 
         _relativize_source_files(result, project_root)
+        result["edges"] = _dedupe_rebuilt_edge_records(result.get("edges", []))
         out.mkdir(exist_ok=True)
         (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
 

@@ -755,9 +755,7 @@ def test_merge_changed_paths_dedupes_in_order():
 def _git_init(path: Path) -> None:
     """Initialise a throwaway git repo so detect() treats `path` as a real corpus."""
     subprocess.run(["git", "init", "-q", str(path)], check=True)
-    subprocess.run(
-        ["git", "-C", str(path), "config", "user.email", "test@example.com"], check=True
-    )
+    subprocess.run(["git", "-C", str(path), "config", "user.email", "test@example.com"], check=True)
     subprocess.run(["git", "-C", str(path), "config", "user.name", "Test"], check=True)
 
 
@@ -828,12 +826,33 @@ def test_watch_multigraph_unchanged_file_parallel_edges_persist(tmp_path):
         a_id,
         b_id,
         [
-            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
-             "source_file": "edgesrc.py", "source_location": "L1", "key": "k1"},
-            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
-             "source_file": "edgesrc.py", "source_location": "L2", "key": "k2"},
-            {"source": a_id, "target": b_id, "relation": "references", "confidence": "EXTRACTED",
-             "source_file": "edgesrc.py", "source_location": "L3", "key": "k3"},
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "edgesrc.py",
+                "source_location": "L1",
+                "key": "k1",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "source_file": "edgesrc.py",
+                "source_location": "L2",
+                "key": "k2",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "references",
+                "confidence": "EXTRACTED",
+                "source_file": "edgesrc.py",
+                "source_location": "L3",
+                "key": "k3",
+            },
         ],
     )
 
@@ -866,12 +885,33 @@ def test_watch_multigraph_changed_file_evicts_its_parallel_edges(tmp_path):
         a_id,
         b_id,
         [
-            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
-             "source_file": "file1.py", "source_location": "L1", "key": "k_f1_a"},
-            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
-             "source_file": "file1.py", "source_location": "L2", "key": "k_f1_b"},
-            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
-             "source_file": "file2.py", "source_location": "L9", "key": "k_f2_a"},
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "file1.py",
+                "source_location": "L1",
+                "key": "k_f1_a",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "source_file": "file1.py",
+                "source_location": "L2",
+                "key": "k_f1_b",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "file2.py",
+                "source_location": "L9",
+                "key": "k_f2_a",
+            },
         ],
     )
 
@@ -908,8 +948,15 @@ def test_watch_multigraph_changed_file_evicts_stale_cross_file_edge(tmp_path):
         a_id,
         b_id,
         [
-            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
-             "source_file": "file1.py", "source_location": "L1", "key": "stale"},
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "file1.py",
+                "source_location": "L1",
+                "key": "stale",
+            },
         ],
     )
 
@@ -941,12 +988,33 @@ def test_watch_multigraph_deleted_file_removes_all_its_edge_records(tmp_path):
         a_id,
         b_id,
         [
-            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
-             "source_file": "file1.py", "source_location": "L1", "key": "d1"},
-            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
-             "source_file": "file1.py", "source_location": "L2", "key": "d2"},
-            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
-             "source_file": "file2.py", "source_location": "L3", "key": "keep"},
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "file1.py",
+                "source_location": "L1",
+                "key": "d1",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "source_file": "file1.py",
+                "source_location": "L2",
+                "key": "d2",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "file2.py",
+                "source_location": "L3",
+                "key": "keep",
+            },
         ],
     )
 
@@ -975,10 +1043,22 @@ def test_watch_canonical_comparison_distinguishes_parallel_edges():
     from graphify.watch import _canonical_topology_for_compare
 
     nodes = [{"id": "A", "label": "A"}, {"id": "B", "label": "B"}]
-    e1 = {"source": "A", "target": "B", "relation": "calls",
-          "source_file": "f1.py", "source_location": "L1", "key": "k1"}
-    e2 = {"source": "A", "target": "B", "relation": "calls",
-          "source_file": "f1.py", "source_location": "L2", "key": "k2"}
+    e1 = {
+        "source": "A",
+        "target": "B",
+        "relation": "calls",
+        "source_file": "f1.py",
+        "source_location": "L1",
+        "key": "k1",
+    }
+    e2 = {
+        "source": "A",
+        "target": "B",
+        "relation": "calls",
+        "source_file": "f1.py",
+        "source_location": "L2",
+        "key": "k2",
+    }
     profile = {"graphify_profile": {"graph_type": "multidigraph"}}
 
     two = {"nodes": nodes, "links": [dict(e1), dict(e2)], "graph": dict(profile)}
@@ -992,10 +1072,22 @@ def test_watch_canonical_comparison_distinguishes_parallel_edges():
     assert canon(two) == canon(two_again), "identical multigraphs must compare equal"
 
     # Two parallels identical in every field EXCEPT key must remain distinct.
-    twin_a = {"source": "A", "target": "B", "relation": "calls",
-              "source_file": "f1.py", "source_location": "L1", "key": "ka"}
-    twin_b = {"source": "A", "target": "B", "relation": "calls",
-              "source_file": "f1.py", "source_location": "L1", "key": "kb"}
+    twin_a = {
+        "source": "A",
+        "target": "B",
+        "relation": "calls",
+        "source_file": "f1.py",
+        "source_location": "L1",
+        "key": "ka",
+    }
+    twin_b = {
+        "source": "A",
+        "target": "B",
+        "relation": "calls",
+        "source_file": "f1.py",
+        "source_location": "L1",
+        "key": "kb",
+    }
     twins = {"nodes": nodes, "links": [twin_a, twin_b]}
     canon_twins = _canonical_topology_for_compare(twins)
     assert len(canon_twins["links"]) == 2, "key-only-different parallels must not collapse"
@@ -1034,7 +1126,7 @@ def test_watch_simple_mode_unchanged_regression(tmp_path, monkeypatch):
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
-def test_watch_multigraph_full_rebuild_preserves_profile_flag(tmp_path):
+def test_watch_multigraph_full_rebuild_preserves_profile_flag(tmp_path, monkeypatch):
     """Regression for the DEFERRED silent collapse to simple graph.
 
     A MultiDiGraph graph.json with keyed parallel edges, put through a
@@ -1056,7 +1148,15 @@ def test_watch_multigraph_full_rebuild_preserves_profile_flag(tmp_path):
     """
     from graphify.watch import _rebuild_code
     from graphify.graph_loader import load_graph, GRAPHIFY_PROFILE_KEY
+    from graphify import cluster as cluster_mod
     import networkx as nx
+
+    monkeypatch.setattr(
+        cluster_mod,
+        "cluster",
+        lambda G: {0: sorted(G.nodes(), key=str)},
+    )
+    monkeypatch.setattr(cluster_mod, "score_all", lambda _G, comm: {cid: 1.0 for cid in comm})
 
     graph_path, a_id, b_id = _build_multigraph_repo(tmp_path)
     data = json.loads(graph_path.read_text(encoding="utf-8"))
@@ -1069,12 +1169,33 @@ def test_watch_multigraph_full_rebuild_preserves_profile_flag(tmp_path):
         a_id,
         b_id,
         [
-            {"source": a_id, "target": b_id, "relation": "calls", "confidence": "EXTRACTED",
-             "source_file": "amod.py", "source_location": "L1", "key": "mk1"},
-            {"source": a_id, "target": b_id, "relation": "imports", "confidence": "EXTRACTED",
-             "source_file": "amod.py", "source_location": "L2", "key": "mk2"},
-            {"source": a_id, "target": b_id, "relation": "references", "confidence": "EXTRACTED",
-             "source_file": "amod.py", "source_location": "L3", "key": "mk3"},
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "amod.py",
+                "source_location": "L1",
+                "key": "mk1",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "source_file": "amod.py",
+                "source_location": "L2",
+                "key": "mk2",
+            },
+            {
+                "source": a_id,
+                "target": b_id,
+                "relation": "references",
+                "confidence": "EXTRACTED",
+                "source_file": "amod.py",
+                "source_location": "L3",
+                "key": "mk3",
+            },
         ],
     )
 
@@ -1116,3 +1237,86 @@ def test_watch_multigraph_full_rebuild_preserves_profile_flag(tmp_path):
     assert reloaded.number_of_edges(a_id, b_id) == 3, (
         "reloaded MultiDiGraph must keep all 3 parallel A->B edges (NOT collapsed to 1)"
     )
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_no_cluster_full_rebuild_does_not_duplicate_links(tmp_path):
+    """A full raw rebuild must be idempotent for links.
+
+    The full no-cluster path re-extracts every code file and also preserves
+    existing links. Without a dedupe pass, each full rebuild appends another copy
+    of the same AST edge records.
+    """
+    from graphify.watch import _rebuild_code
+
+    (tmp_path / "app.py").write_text(
+        "def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n",
+        encoding="utf-8",
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        assert _rebuild_code(tmp_path, no_cluster=True, acquire_lock=False)
+        graph_path = tmp_path / "graphify-out" / "graph.json"
+        first = json.loads(graph_path.read_text(encoding="utf-8"))
+        first_links = first.get("links", [])
+
+        assert _rebuild_code(tmp_path, no_cluster=True, acquire_lock=False)
+        second = json.loads(graph_path.read_text(encoding="utf-8"))
+    finally:
+        os.chdir(cwd)
+
+    second_links = second.get("links", [])
+    assert len(second_links) == len(first_links)
+
+    def fingerprint(edge: dict) -> str:
+        comparable = dict(edge)
+        comparable.pop("key", None)
+        comparable.pop("confidence_score", None)
+        return json.dumps(comparable, sort_keys=True, ensure_ascii=False)
+
+    assert len({fingerprint(edge) for edge in second_links}) == len(second_links)
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_no_cluster_full_rebuild_keeps_distinct_keyed_parallels(tmp_path):
+    """Dedupe removes the fresh keyless duplicate, not the keyed parallels."""
+    from graphify.watch import _rebuild_code
+
+    (tmp_path / "app.py").write_text(
+        "def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n",
+        encoding="utf-8",
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        assert _rebuild_code(tmp_path, no_cluster=True, acquire_lock=False)
+        graph_path = tmp_path / "graphify-out" / "graph.json"
+        data = json.loads(graph_path.read_text(encoding="utf-8"))
+        base_links = data["links"]
+        selected = dict(base_links[0])
+        selected_a = dict(selected, key="parallel-a")
+        selected_b = dict(selected, key="parallel-b")
+        data["links"] = [selected_a, selected_b]
+        data["multigraph"] = True
+        data["directed"] = True
+        graph_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+        assert _rebuild_code(tmp_path, no_cluster=True, acquire_lock=False)
+        rebuilt = json.loads(graph_path.read_text(encoding="utf-8"))
+    finally:
+        os.chdir(cwd)
+
+    def same_relationship(edge: dict) -> bool:
+        comparable = dict(edge)
+        comparable.pop("key", None)
+        comparable.pop("confidence_score", None)
+        expected = dict(selected)
+        expected.pop("confidence_score", None)
+        return comparable == expected
+
+    matching = [edge for edge in rebuilt["links"] if same_relationship(edge)]
+    assert {edge.get("key") for edge in matching} == {"parallel-a", "parallel-b"}
+    assert len(matching) == 2

@@ -1294,9 +1294,9 @@ def test_build_merge_multigraph_deleted_file_removes_all_its_edge_records(tmp_pa
 
     assert type(G) is nx.MultiDiGraph
     # All gone.py edge records removed across all pairs.
-    assert all(
-        d.get("source_file") != "gone.py" for _u, _v, d in G.edges(data=True)
-    ), "no edge record from the deleted file may survive"
+    assert all(d.get("source_file") != "gone.py" for _u, _v, d in G.edges(data=True)), (
+        "no edge record from the deleted file may survive"
+    )
     # The keep.py A→B parallel edge survives even though gone.py shared that pair.
     assert G.number_of_edges("A", "B") == 1
     assert next(iter(G["A"]["B"].values())).get("source_file") == "keep.py"
@@ -1352,9 +1352,7 @@ def test_build_merge_simple_graph_unchanged_regression(tmp_path):
     }
     G0 = build([chunk], dedup=False)
     graph_path = tmp_path / "graph.json"
-    graph_path.write_text(
-        json.dumps(nx_local.node_link_data(G0, edges="edges")), encoding="utf-8"
-    )
+    graph_path.write_text(json.dumps(nx_local.node_link_data(G0, edges="edges")), encoding="utf-8")
 
     # No new chunks, default args → must inherit simple (non-multigraph) type and
     # remain a plain undirected Graph here (saved directed flag is false).
