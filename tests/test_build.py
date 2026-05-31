@@ -357,8 +357,6 @@ def test_edge_data_node_link_multigraph_roundtrip():
     assert d.get("relation") in ("calls", "references")
     ds = edge_datas(G, "a", "b")
     assert len(ds) == 2
-
-
 def test_build_from_json_relativizes_absolute_source_file(tmp_path):
     """Semantic subagents emit absolute source_file paths; build_from_json must
     relativize them to root so MCP traversal works correctly (#932)."""
@@ -468,3 +466,38 @@ def test_build_merge_rejects_oversized_existing_graph(monkeypatch, tmp_path):
     monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
     with pytest.raises(ValueError, match="exceeds"):
         build_merge([], graph_path, dedup=False)
+
+
+def test_duplicate_same_context_edge_does_not_emit_singleton_contexts():
+    extraction = {
+        "nodes": [
+            {"id": "caller", "label": "caller()", "file_type": "code", "source_file": "a.py"},
+            {"id": "target", "label": "target()", "file_type": "code", "source_file": "a.py"},
+        ],
+        "edges": [
+            {
+                "source": "caller",
+                "target": "target",
+                "relation": "calls",
+                "context": "call",
+                "confidence": "EXTRACTED",
+                "source_file": "a.py",
+            },
+            {
+                "source": "caller",
+                "target": "target",
+                "relation": "calls",
+                "context": "call",
+                "confidence": "EXTRACTED",
+                "source_file": "a.py",
+            },
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+
+    G = build_from_json(extraction)
+    edge = edge_data(G, "caller", "target")
+
+    assert edge["context"] == "call"
+    assert "contexts" not in edge

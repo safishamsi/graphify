@@ -15,10 +15,10 @@
 #    source_location. If you need to change the priority, reorder extractions
 #    passed to build().
 #
-# 3. Semantic merge (skill): before calling build(), the skill merges cached
-#    and new semantic results using an explicit `seen` set keyed on node["id"],
-#    so duplicates across cache hits and new extractions are resolved there
-#    before any graph construction happens.
+# 3. Pipeline merge: AST, cached semantic, and new semantic fragments are kept
+#    in order until build_from_json() runs. Duplicate node IDs are resolved by
+#    NetworkX add_node(), so later semantic attributes can still overwrite
+#    earlier AST attributes consistently across CLI, watch, and skill paths.
 #
 from __future__ import annotations
 import json
@@ -102,6 +102,149 @@ def edge_datas(G: nx.Graph, u: str, v: str) -> list[dict]:
     if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
         return list(raw.values())
     return [raw]
+
+
+_PRIMARY_EDGE_FIELDS = {
+    "relation",
+    "context",
+    "confidence",
+    "confidence_score",
+    "source_file",
+    "source_location",
+    "weight",
+    "callee",
+    "receiver",
+    "receiver_node_type",
+    "call_shape",
+    "callee_range",
+    "_src",
+    "_tgt",
+}
+
+
+def _is_lsp_edge(attrs: dict) -> bool:
+    return str(attrs.get("context", "")).startswith("lsp_definition")
+
+
+def _merge_values(existing: dict, key: str, values) -> None:
+    merged: list[str] = []
+    current = existing.get(key)
+    if isinstance(current, list):
+        merged.extend(str(value) for value in current if value)
+    elif current:
+        merged.append(str(current))
+    if isinstance(values, list):
+        merged.extend(str(value) for value in values if value)
+    elif values:
+        merged.append(str(values))
+    unique = sorted(set(merged))
+    if unique:
+        existing[key] = unique
+
+
+def _merge_context_values(existing: dict, values) -> None:
+    """Merge edge contexts, keeping the list only when it adds information."""
+    current = existing.get("contexts")
+    merged: list[str] = []
+    if isinstance(current, list):
+        merged.extend(str(value) for value in current if value)
+    elif current:
+        merged.append(str(current))
+    if isinstance(values, list):
+        merged.extend(str(value) for value in values if value)
+    elif values:
+        merged.append(str(values))
+    unique = sorted(set(merged))
+    if len(unique) > 1:
+        existing["contexts"] = unique
+    else:
+        existing.pop("contexts", None)
+
+
+def _merge_lsp_metadata(existing: dict, incoming: dict) -> None:
+    context = incoming.get("context")
+    if context:
+        _merge_values(existing, "lsp_contexts", context)
+    _merge_values(
+        existing,
+        "lsp_resolvers",
+        incoming.get("lsp_resolvers") or incoming.get("lsp_resolver"),
+    )
+    _merge_values(
+        existing,
+        "lsp_servers",
+        incoming.get("lsp_servers") or incoming.get("lsp_server"),
+    )
+    if "lsp_resolvers" in existing:
+        existing["lsp_resolver_count"] = len(existing["lsp_resolvers"])
+        if existing["lsp_resolver_count"] == 1:
+            existing["lsp_resolver"] = existing["lsp_resolvers"][0]
+        else:
+            existing.pop("lsp_resolver", None)
+    if "lsp_servers" in existing:
+        existing["lsp_server_count"] = len(existing["lsp_servers"])
+        if existing["lsp_server_count"] == 1:
+            existing["lsp_server"] = existing["lsp_servers"][0]
+        else:
+            existing.pop("lsp_server", None)
+    for key, value in incoming.items():
+        if key in _PRIMARY_EDGE_FIELDS or key in (
+            "lsp_resolver",
+            "lsp_resolvers",
+            "lsp_server",
+            "lsp_servers",
+        ):
+            continue
+        if key.startswith("lsp_"):
+            if key == "lsp_callsite_count":
+                existing[key] = int(existing.get(key, 0) or 0) + int(value or 0)
+            elif key.endswith("_count") and isinstance(value, (int, float)):
+                existing[key] = max(int(existing.get(key, 0) or 0), int(value))
+            elif key not in existing:
+                existing[key] = value
+        elif key in (
+            "definition_file",
+            "definition_uri",
+            "definition_range",
+            "receiver_type",
+            "receiver_type_confidence",
+        ):
+            existing.setdefault(key, value)
+
+
+def _merge_edge_attrs(existing: dict, incoming: dict) -> None:
+    existing_context = existing.get("context")
+    incoming_context = incoming.get("context")
+    if existing_context or incoming_context:
+        _merge_context_values(
+            existing,
+            [value for value in (existing_context, incoming_context) if value],
+        )
+
+    existing_is_lsp = _is_lsp_edge(existing)
+    incoming_is_lsp = _is_lsp_edge(incoming)
+    if incoming_is_lsp:
+        _merge_lsp_metadata(existing, incoming)
+    if existing_is_lsp:
+        _merge_values(existing, "lsp_contexts", existing_context)
+
+    if existing_is_lsp and not incoming_is_lsp:
+        for key in _PRIMARY_EDGE_FIELDS:
+            if key in incoming:
+                existing[key] = incoming[key]
+        return
+    if incoming_is_lsp and not existing_is_lsp:
+        for key in (
+            "callee",
+            "receiver",
+            "receiver_node_type",
+            "call_shape",
+            "callee_range",
+        ):
+            if key in incoming and key not in existing:
+                existing[key] = incoming[key]
+        return
+    existing.update(incoming)
 
 
 def build_from_json(extraction: dict, *, directed: bool = False, root: str | Path | None = None) -> nx.Graph:
@@ -223,10 +366,16 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
                 existing.get("_src") == tgt and existing.get("_tgt") == src
             ):
                 continue
-        G.add_edge(src, tgt, **attrs)
+        if G.has_edge(src, tgt):
+            _merge_edge_attrs(edge_data(G, src, tgt), attrs)
+        else:
+            G.add_edge(src, tgt, **attrs)
     hyperedges = extraction.get("hyperedges", [])
     if hyperedges:
         G.graph["hyperedges"] = hyperedges
+    enrichments = extraction.get("enrichments", [])
+    if enrichments:
+        G.graph["enrichments"] = enrichments
     return G
 
 
@@ -253,11 +402,19 @@ def build(
     reverse the order if you prefer AST source_location precision to win.
     """
     from graphify.dedup import deduplicate_entities
-    combined: dict = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+    combined: dict = {
+        "nodes": [],
+        "edges": [],
+        "hyperedges": [],
+        "enrichments": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
     for ext in extractions:
         combined["nodes"].extend(ext.get("nodes", []))
         combined["edges"].extend(ext.get("edges", []))
         combined["hyperedges"].extend(ext.get("hyperedges", []))
+        combined["enrichments"].extend(ext.get("enrichments", []))
         combined["input_tokens"] += ext.get("input_tokens", 0)
         combined["output_tokens"] += ext.get("output_tokens", 0)
     if dedup and combined["nodes"]:
@@ -325,6 +482,7 @@ def build_merge(
     graph_path: str | Path = "graphify-out/graph.json",
     prune_sources: list[str] | None = None,
     *,
+    prune_edge_sources: list[str] | None = None,
     directed: bool = False,
     dedup: bool = True,
     dedup_llm_backend: str | None = None,
@@ -332,11 +490,15 @@ def build_merge(
 ) -> nx.Graph:
     """Load existing graph.json, merge new chunks into it, and save back.
 
-    Never replaces - only grows (or prunes deleted-file nodes via prune_sources).
-    Safe to call repeatedly: existing nodes and edges are preserved.
+    Never replaces - only grows (or prunes deleted-file nodes via prune_sources
+    and selected edge source files via prune_edge_sources). Safe to call
+    repeatedly: existing nodes and edges are preserved unless explicitly pruned.
     root: if given, absolute source_file paths in new_chunks are made relative (#932).
-    """
+"""
     graph_path = Path(graph_path)
+    prune_edge_source_set = {
+        _norm_source_file(source) for source in (prune_edge_sources or [])
+    }
     if graph_path.exists():
         # Read JSON directly instead of going through node_link_graph().
         # The latter rebuilds an undirected nx.Graph and then enumerating
@@ -351,7 +513,28 @@ def build_merge(
         links_key = "links" if "links" in data else "edges"
         existing_nodes = list(data.get("nodes", []))
         existing_edges = list(data.get(links_key, []))
-        base = [{"nodes": existing_nodes, "edges": existing_edges}]
+        if prune_edge_source_set:
+            before = len(existing_edges)
+            existing_edges = [
+                edge for edge in existing_edges
+                if not (
+                    str(edge.get("context", "")).startswith("lsp_definition")
+                    and _norm_source_file(edge.get("source_file")) in prune_edge_source_set
+                )
+            ]
+            removed = before - len(existing_edges)
+            if removed:
+                print(
+                    f"[graphify] Pruned {removed} LSP edge(s) from "
+                    f"{len(prune_edge_source_set)} changed/deleted source file(s).",
+                    file=sys.stderr,
+                )
+        base = [{
+            "nodes": existing_nodes,
+            "edges": existing_edges,
+            "hyperedges": list(data.get("hyperedges", [])),
+            "enrichments": list(data.get("enrichments", [])),
+        }]
     else:
         existing_nodes = []
         base = []

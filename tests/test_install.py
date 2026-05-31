@@ -259,6 +259,36 @@ def test_all_skill_files_exist_in_package():
         assert (pkg / name).exists(), f"Missing: {name}"
 
 
+def test_packaged_skill_pipelines_use_canonical_enrichment_helper():
+    """Direct skill snippets must not bypass configured post-AST enrichments."""
+    import graphify
+    pkg = Path(graphify.__file__).parent
+    for path in sorted(pkg.glob("skill*.md")):
+        text = path.read_text(encoding="utf-8")
+        assert "finalize_extraction_files" in text, f"{path.name} bypasses pipeline finalization"
+
+
+def test_packaged_skill_structural_extraction_includes_supported_documents():
+    """Direct skill snippets should match update's structural document extraction."""
+    import graphify
+    pkg = Path(graphify.__file__).parent
+    for path in sorted(pkg.glob("skill*.md")):
+        text = path.read_text(encoding="utf-8")
+        assert "_get_extractor" in text, f"{path.name} skips document extractor detection"
+        assert ".get('document'" in text, f"{path.name} skips supported document files"
+
+
+def test_graphify_out_skill_temp_paths_are_consistent():
+    """Skills that write graphify-out state should not read root-level temp files."""
+    import re
+    import graphify
+    pkg = Path(graphify.__file__).parent
+    for name in ("skill.md", "skill-pi.md", "skill-opencode.md"):
+        text = (pkg / name).read_text(encoding="utf-8")
+        bare_temp_refs = re.findall(r"(?<!graphify-out/)\.graphify_[A-Za-z0-9_*.-]+", text)
+        assert bare_temp_refs == [], f"{name} has bare temp refs: {sorted(set(bare_temp_refs))}"
+
+
 def test_claude_install_registers_claude_md(tmp_path):
     """Claude platform install writes CLAUDE.md; others do not."""
     _install(tmp_path, "claude")
