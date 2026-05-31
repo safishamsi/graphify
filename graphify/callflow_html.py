@@ -361,7 +361,7 @@ def html_comment_text(text: str) -> str:
 def stable_ascii_id(raw: str, prefix: str = "node", limit: int = 48) -> str:
     """Build a Mermaid-safe ASCII identifier with a hash suffix to avoid collisions."""
     raw = str(raw or "")
-    digest = hashlib.sha1(raw.encode("utf-8")).hexdigest()[:8]
+    digest = hashlib.sha1(raw.encode("utf-8"), usedforsecurity=False).hexdigest()[:8]
     slug = re.sub(r"[^A-Za-z0-9_]+", "_", raw)
     slug = re.sub(r"_+", "_", slug).strip("_")
     if not slug:
@@ -652,7 +652,7 @@ def html_anchor_id(raw: str, fallback: str, used: set) -> str:
     base = base[:48].strip("-") or "section"
     candidate = base
     if candidate in used:
-        candidate = f"{base}-{hashlib.sha1(raw.encode('utf-8')).hexdigest()[:6]}"
+        candidate = f"{base}-{hashlib.sha1(raw.encode('utf-8'), usedforsecurity=False).hexdigest()[:6]}"
     suffix = 2
     while candidate in used:
         candidate = f"{base}-{suffix}"

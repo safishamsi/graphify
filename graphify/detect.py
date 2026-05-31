@@ -671,7 +671,9 @@ def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> boo
 
     def _eval(target: Path) -> bool:
         """Apply last-match-wins to a single target path."""
-        def _matches(rel: str, p: str) -> bool:
+        def _matches(rel: str, p: str, anchored: bool) -> bool:
+            if anchored:
+                return fnmatch.fnmatch(rel, p)
             parts = rel.split("/")
             if fnmatch.fnmatch(rel, p):
                 return True
@@ -697,19 +699,19 @@ def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> boo
             if anchored:
                 try:
                     rel_anchor = str(target.relative_to(anchor)).replace(os.sep, "/")
-                    matched = _matches(rel_anchor, p)
+                    matched = _matches(rel_anchor, p, anchored=True)
                 except ValueError:
                     pass
             else:
                 try:
                     rel = str(target.relative_to(root)).replace(os.sep, "/")
-                    matched = _matches(rel, p)
+                    matched = _matches(rel, p, anchored=False)
                 except ValueError:
                     pass
                 if not matched and anchor != root:
                     try:
                         rel_anchor = str(target.relative_to(anchor)).replace(os.sep, "/")
-                        matched = _matches(rel_anchor, p)
+                        matched = _matches(rel_anchor, p, anchored=False)
                     except ValueError:
                         pass
 
@@ -769,7 +771,9 @@ def _is_included(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bo
     if not patterns:
         return False
 
-    def _matches(rel: str, p: str) -> bool:
+    def _matches(rel: str, p: str, anchored: bool) -> bool:
+        if anchored:
+            return fnmatch.fnmatch(rel, p)
         parts = rel.split("/")
         if fnmatch.fnmatch(rel, p):
             return True
@@ -790,21 +794,21 @@ def _is_included(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bo
         if anchored:
             try:
                 rel_anchor = str(path.relative_to(anchor)).replace(os.sep, "/")
-                if _matches(rel_anchor, p):
+                if _matches(rel_anchor, p, anchored=True):
                     return True
             except ValueError:
                 pass
         else:
             try:
                 rel = str(path.relative_to(root)).replace(os.sep, "/")
-                if _matches(rel, p):
+                if _matches(rel, p, anchored=False):
                     return True
             except ValueError:
                 pass
             if anchor != root:
                 try:
                     rel_anchor = str(path.relative_to(anchor)).replace(os.sep, "/")
-                    if _matches(rel_anchor, p):
+                    if _matches(rel_anchor, p, anchored=False):
                         return True
                 except ValueError:
                     pass
@@ -926,6 +930,8 @@ def detect(root: Path, *, follow_symlinks: bool | None = None, google_workspace:
                     seen.add(p)
                     all_files.append(p)
 
+    all_files.sort(key=lambda p: str(p))
+
     converted_dir = root / "graphify-out" / "converted"
 
     for p in all_files:
@@ -978,6 +984,9 @@ def detect(root: Path, *, follow_symlinks: bool | None = None, google_workspace:
             files[ftype].append(str(p))
             if ftype != FileType.VIDEO:
                 total_words += count_words(p)
+
+    for ftype in files:
+        files[ftype].sort()
 
     total_files = sum(len(v) for v in files.values())
     needs_graph = total_words >= CORPUS_WARN_THRESHOLD

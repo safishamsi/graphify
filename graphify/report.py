@@ -119,6 +119,21 @@ def generate(
     else:
         lines.append("- None detected - all connections are within the same source files.")
 
+    # Circular imports surfaced from file-level dependency graph.
+    from .analyze import find_import_cycles
+    cycles = find_import_cycles(G)
+    lines += ["", "## Import Cycles"]
+    if cycles:
+        for c in cycles:
+            cycle = c.get("cycle", [])
+            length = c.get("length", len(cycle))
+            if not cycle:
+                continue
+            cycle_path = " -> ".join(cycle + [cycle[0]])
+            lines.append(f"- {length}-file cycle: `{cycle_path}`")
+    else:
+        lines.append("- None detected.")
+
     hyperedges = G.graph.get("hyperedges", [])
     if hyperedges:
         lines += ["", "## Hyperedges (group relationships)"]

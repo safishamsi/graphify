@@ -211,6 +211,19 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         # causing display functions to show edges backwards.
         attrs["_src"] = src
         attrs["_tgt"] = tgt
+        # When the graph is undirected and the same node pair appears twice with
+        # the same relation but opposite directions (e.g. a `calls` b and b `calls` a),
+        # nx.Graph collapses them into one edge. The deterministic sort above means
+        # the lexicographically-later direction would systematically overwrite the
+        # earlier one's _src/_tgt, silently flipping the surviving edge's caller
+        # and callee. First-seen direction wins instead — drop the redundant
+        # reverse-direction duplicate so the original direction is preserved (#1061).
+        if not G.is_directed() and G.has_edge(src, tgt):
+            existing = edge_data(G, src, tgt)
+            if existing.get("relation") == attrs.get("relation") and (
+                existing.get("_src") == tgt and existing.get("_tgt") == src
+            ):
+                continue
         G.add_edge(src, tgt, **attrs)
     hyperedges = extraction.get("hyperedges", [])
     if hyperedges:
