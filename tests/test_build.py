@@ -1142,6 +1142,174 @@ def _three_parallel_edges_one_pair() -> dict:
     }
 
 
+def _dedup_pressure_multigraph_extraction() -> dict:
+    """A saved graph containing legitimate same-label nodes.
+
+    Stateful no-op merges must preserve these records exactly. Re-running entity
+    deduplication over the already-saved base graph would collapse ``worker_a``
+    and ``worker_b`` because they share a label and source_file, even though no
+    new extraction data asked for a merge.
+    """
+    return {
+        "nodes": [
+            {
+                "id": "worker_a",
+                "label": "Worker",
+                "file_type": "code",
+                "source_file": "keep_shared.py",
+            },
+            {
+                "id": "worker_b",
+                "label": "Worker",
+                "file_type": "code",
+                "source_file": "keep_shared.py",
+            },
+            {
+                "id": "sink",
+                "label": "Sink",
+                "file_type": "code",
+                "source_file": "sink.py",
+            },
+            {
+                "id": "gone",
+                "label": "Gone",
+                "file_type": "code",
+                "source_file": "gone.py",
+            },
+        ],
+        "edges": [
+            {
+                "source": "worker_a",
+                "target": "sink",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "keep_a.py",
+                "source_location": "L1",
+            },
+            {
+                "source": "worker_b",
+                "target": "sink",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "keep_b.py",
+                "source_location": "L2",
+            },
+            {
+                "source": "gone",
+                "target": "sink",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "gone.py",
+                "source_location": "L3",
+            },
+        ],
+    }
+
+
+def _multigraph_edge_signature(
+    G: nx.MultiDiGraph,
+) -> list[tuple[object, object, str, object, object]]:
+    return sorted(
+        (
+            u,
+            v,
+            str(k),
+            d.get("source_file"),
+            d.get("source_location"),
+        )
+        for u, v, k, d in G.edges(keys=True, data=True)
+    )
+
+
+def test_build_merge_empty_delta_with_dedup_preserves_saved_multigraph(tmp_path):
+    graph_path = tmp_path / "graph.json"
+    _write_multigraph_graph_json(graph_path, _dedup_pressure_multigraph_extraction())
+    before = build_merge([], graph_path=graph_path, dedup=False)
+
+    after = build_merge([], graph_path=graph_path, dedup=True)
+
+    assert isinstance(before, nx.MultiDiGraph)
+    assert isinstance(after, nx.MultiDiGraph)
+    assert type(after) is nx.MultiDiGraph
+    assert set(after.nodes) == set(before.nodes)
+    assert dict(after.nodes["worker_a"]) == dict(before.nodes["worker_a"])
+    assert dict(after.nodes["worker_b"]) == dict(before.nodes["worker_b"])
+    assert _multigraph_edge_signature(after) == _multigraph_edge_signature(before)
+
+
+def test_build_merge_nonempty_delta_with_dedup_preserves_saved_base(tmp_path):
+    graph_path = tmp_path / "graph.json"
+    _write_multigraph_graph_json(graph_path, _dedup_pressure_multigraph_extraction())
+    before = build_merge([], graph_path=graph_path, dedup=False)
+
+    after = build_merge(
+        [
+            {
+                "nodes": [
+                    {
+                        "id": "new_node",
+                        "label": "New Node",
+                        "file_type": "code",
+                        "source_file": "new.py",
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "new_node",
+                        "target": "sink",
+                        "relation": "calls",
+                        "confidence": "EXTRACTED",
+                        "source_file": "new.py",
+                        "source_location": "L9",
+                    }
+                ],
+                "hyperedges": [],
+            }
+        ],
+        graph_path=graph_path,
+        dedup=True,
+    )
+
+    assert isinstance(before, nx.MultiDiGraph)
+    assert isinstance(after, nx.MultiDiGraph)
+    assert type(after) is nx.MultiDiGraph
+    assert set(before.nodes).issubset(set(after.nodes))
+    assert after.has_node("new_node")
+    assert dict(after.nodes["worker_a"]) == dict(before.nodes["worker_a"])
+    assert dict(after.nodes["worker_b"]) == dict(before.nodes["worker_b"])
+    assert after.has_edge("new_node", "sink")
+    assert set(_multigraph_edge_signature(before)).issubset(set(_multigraph_edge_signature(after)))
+
+
+def test_build_merge_delete_only_delta_with_dedup_prunes_without_rededuplicating_base(
+    tmp_path,
+):
+    graph_path = tmp_path / "graph.json"
+    _write_multigraph_graph_json(graph_path, _dedup_pressure_multigraph_extraction())
+
+    G = build_merge(
+        [{"nodes": [], "edges": [], "hyperedges": []}],
+        graph_path=graph_path,
+        prune_sources=["gone.py"],
+        dedup=True,
+    )
+
+    assert type(G) is nx.MultiDiGraph
+    assert set(G.nodes) == {"worker_a", "worker_b", "sink"}
+    assert all(d.get("source_file") != "gone.py" for _u, _v, d in G.edges(data=True))
+    assert G.has_edge("worker_a", "sink")
+    assert G.has_edge("worker_b", "sink")
+    assert sorted(
+        (u, v, d.get("source_file"), d.get("source_location")) for u, v, d in G.edges(data=True)
+    ) == [
+        ("worker_a", "sink", "keep_a.py", "L1"),
+        ("worker_b", "sink", "keep_b.py", "L2"),
+    ]
+
+
 def test_build_merge_multigraph_unchanged_file_preserves_parallel_edges(tmp_path):
     """PR 7 gate: merging a new chunk that does not touch A/B's files must
     preserve every keyed parallel edge on the existing A→B pair (no silent

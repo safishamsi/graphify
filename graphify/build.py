@@ -520,19 +520,7 @@ def build(
     """
     from graphify.dedup import deduplicate_entities
 
-    combined: dict = {
-        "nodes": [],
-        "edges": [],
-        "hyperedges": [],
-        "input_tokens": 0,
-        "output_tokens": 0,
-    }
-    for ext in extractions:
-        combined["nodes"].extend(ext.get("nodes", []))
-        combined["edges"].extend(ext.get("edges", []))
-        combined["hyperedges"].extend(ext.get("hyperedges", []))
-        combined["input_tokens"] += ext.get("input_tokens", 0)
-        combined["output_tokens"] += ext.get("output_tokens", 0)
+    combined = _combine_extractions(extractions)
     dedup_diagnostics: dict = {}
     if dedup and combined["nodes"]:
         combined["nodes"], combined["edges"] = deduplicate_entities(
@@ -548,6 +536,23 @@ def build(
         existing.update(dedup_diagnostics)
         G.graph["graphify_multigraph_diagnostics"] = existing
     return G
+
+
+def _combine_extractions(extractions: list[dict]) -> dict:
+    combined: dict = {
+        "nodes": [],
+        "edges": [],
+        "hyperedges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    for ext in extractions:
+        combined["nodes"].extend(ext.get("nodes", []))
+        combined["edges"].extend(ext.get("edges", []))
+        combined["hyperedges"].extend(ext.get("hyperedges", []))
+        combined["input_tokens"] += ext.get("input_tokens", 0)
+        combined["output_tokens"] += ext.get("output_tokens", 0)
+    return combined
 
 
 def _norm_label(label: str) -> str:
@@ -600,6 +605,12 @@ def deduplicate_by_label(nodes: list[dict], edges: list[dict]) -> tuple[list[dic
         if e["source"] != e["target"]:
             deduped_edges.append(e)
     return deduped_nodes, deduped_edges
+
+
+def _chunk_has_graph_records(chunk: dict) -> bool:
+    return bool(
+        chunk.get("nodes") or chunk.get("edges") or chunk.get("links") or chunk.get("hyperedges")
+    )
 
 
 def build_merge(
@@ -700,15 +711,41 @@ def build_merge(
         existing_nodes = []
         base = []
 
-    all_chunks = base + list(new_chunks)
+    incoming_chunks = list(new_chunks)
+    incoming_has_records = any(_chunk_has_graph_records(chunk) for chunk in incoming_chunks)
+    dedup_diagnostics: dict = {}
+    if graph_path.exists() and dedup:
+        effective_dedup = False
+        if incoming_has_records:
+            from graphify.dedup import deduplicate_entities
+
+            incoming = _combine_extractions(incoming_chunks)
+            if incoming["nodes"]:
+                incoming["nodes"], incoming["edges"] = deduplicate_entities(
+                    incoming["nodes"],
+                    incoming["edges"],
+                    communities={},
+                    dedup_llm_backend=dedup_llm_backend,
+                    diagnostics=dedup_diagnostics,
+                )
+            all_chunks = base + [incoming]
+        else:
+            all_chunks = base + incoming_chunks
+    else:
+        effective_dedup = dedup
+        all_chunks = base + incoming_chunks
     G = build(
         all_chunks,
         directed=directed,
-        dedup=dedup,
+        dedup=effective_dedup,
         dedup_llm_backend=dedup_llm_backend,
         root=root,
         multigraph=multigraph,
     )
+    if multigraph and dedup_diagnostics:
+        existing = G.graph.get("graphify_multigraph_diagnostics", {})
+        existing.update(dedup_diagnostics)
+        G.graph["graphify_multigraph_diagnostics"] = existing
 
     # Prune nodes and edges from deleted source files
     if prune_sources:
@@ -775,9 +812,10 @@ def build_merge(
                 file=sys.stderr,
             )
 
-    # Safety check: refuse to shrink the graph silently (#479)
-    # Skip when dedup or prune_sources is active — shrinkage is intentional there.
-    if graph_path.exists() and not dedup and not prune_sources:
+    # Safety check: refuse to shrink the graph silently (#479).
+    # Stateful dedup applies only to incoming chunks, so only explicit pruning
+    # may reduce the saved graph's node count.
+    if graph_path.exists() and not prune_sources:
         existing_n = len(existing_nodes)
         new_n = G.number_of_nodes()
         if new_n < existing_n:
