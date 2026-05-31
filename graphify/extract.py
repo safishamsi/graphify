@@ -134,6 +134,7 @@ def _safe_extract(extractor: Callable, path: Path) -> dict:
     except Exception as e:
         if os.environ.get("GRAPHIFY_DEBUG"):
             import traceback
+
             traceback.print_exc(file=sys.stderr)
         print(f"  warning: skipped {path} ({type(e).__name__}: {e})", file=sys.stderr, flush=True)
         return {"nodes": [], "edges": [], "error": f"{type(e).__name__}: {e}"}

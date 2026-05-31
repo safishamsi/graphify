@@ -1533,13 +1533,138 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
     return dest
 
 
+def _read_provider_registry(path: Path) -> dict:
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    if isinstance(data, dict):
+        return data
+    return {}
+
+
+def _provider_cmd(args: list[str]) -> None:
+    from graphify.llm import BACKENDS, _custom_providers_path
+
+    subcmd = args[0] if args else ""
+    global_path = _custom_providers_path(global_=True)
+
+    if subcmd == "list":
+        global_path.parent.mkdir(parents=True, exist_ok=True)
+        existing = _read_provider_registry(global_path)
+        if not existing:
+            print("No custom providers registered.")
+        else:
+            for name in existing:
+                print(f"  {name}  ({existing[name].get('base_url', '')})")
+
+    elif subcmd == "show":
+        name = args[1] if len(args) > 1 else ""
+        if not name:
+            print("Usage: graphify provider show <name>", file=sys.stderr)
+            sys.exit(1)
+        existing = _read_provider_registry(global_path)
+        if name not in existing:
+            print(f"Provider '{name}' not found.", file=sys.stderr)
+            sys.exit(1)
+        print(json.dumps({name: existing[name]}, indent=2))
+
+    elif subcmd == "add":
+        add_args = args[1:]
+        name = add_args[0] if add_args and not add_args[0].startswith("-") else ""
+        if not name:
+            print(
+                "Usage: graphify provider add <name> --base-url URL --default-model MODEL --env-key KEY",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        if name in BACKENDS:
+            print(
+                f"Error: '{name}' is a built-in provider and cannot be overridden.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        base_url = ""
+        default_model = ""
+        env_key = ""
+        pricing_input = 0.0
+        pricing_output = 0.0
+        i = 1
+        while i < len(add_args):
+            a = add_args[i]
+            if a == "--base-url" and i + 1 < len(add_args):
+                base_url = add_args[i + 1]
+                i += 2
+            elif a.startswith("--base-url="):
+                base_url = a.split("=", 1)[1]
+                i += 1
+            elif a == "--default-model" and i + 1 < len(add_args):
+                default_model = add_args[i + 1]
+                i += 2
+            elif a.startswith("--default-model="):
+                default_model = a.split("=", 1)[1]
+                i += 1
+            elif a == "--env-key" and i + 1 < len(add_args):
+                env_key = add_args[i + 1]
+                i += 2
+            elif a.startswith("--env-key="):
+                env_key = a.split("=", 1)[1]
+                i += 1
+            elif a == "--pricing-input" and i + 1 < len(add_args):
+                pricing_input = float(add_args[i + 1])
+                i += 2
+            elif a == "--pricing-output" and i + 1 < len(add_args):
+                pricing_output = float(add_args[i + 1])
+                i += 2
+            else:
+                i += 1
+        if not base_url or not default_model or not env_key:
+            print(
+                "Error: --base-url, --default-model, and --env-key are required.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        global_path.parent.mkdir(parents=True, exist_ok=True)
+        existing = _read_provider_registry(global_path)
+        existing[name] = {
+            "base_url": base_url,
+            "default_model": default_model,
+            "env_key": env_key,
+            "pricing": {"input": pricing_input, "output": pricing_output},
+            "temperature": 0,
+        }
+        global_path.write_text(json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+        print(f"Provider '{name}' added. Use with: graphify extract . --backend {name}")
+
+    elif subcmd == "remove":
+        name = args[1] if len(args) > 1 else ""
+        if not name:
+            print("Usage: graphify provider remove <name>", file=sys.stderr)
+            sys.exit(1)
+        existing = _read_provider_registry(global_path)
+        if name not in existing:
+            print(f"Provider '{name}' not found.", file=sys.stderr)
+            sys.exit(1)
+        del existing[name]
+        global_path.write_text(json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+        print(f"Provider '{name}' removed.")
+
+    else:
+        print("Usage: graphify provider [add|list|show|remove]", file=sys.stderr)
+        if subcmd:
+            sys.exit(1)
+
+
 def main() -> None:
     for _stream in (sys.stdout, sys.stderr):
-        if _stream is not None and hasattr(_stream, "reconfigure"):
+        reconfigure = getattr(_stream, "reconfigure", None) if _stream is not None else None
+        if callable(reconfigure):
             try:
-                _stream.reconfigure(encoding="utf-8", errors="replace")
-            except Exception:
-                pass
+                reconfigure(encoding="utf-8", errors="replace")
+            except Exception as exc:
+                _ = exc
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
     # Skip during hook-check — it runs on every editor tool use and must be silent.
@@ -1968,118 +2093,7 @@ def main() -> None:
             print("Usage: graphify antigravity [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd == "provider":
-        from graphify.llm import _custom_providers_path, BACKENDS
-        import json as _json
-        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
-        global_path = _custom_providers_path(global_=True)
-
-        if subcmd == "list":
-            global_path.parent.mkdir(parents=True, exist_ok=True)
-            existing: dict = {}
-            if global_path.is_file():
-                try:
-                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
-                except Exception:
-                    pass
-            if not existing:
-                print("No custom providers registered.")
-            else:
-                for name in existing:
-                    print(f"  {name}  ({existing[name].get('base_url', '')})")
-
-        elif subcmd == "show":
-            name = sys.argv[3] if len(sys.argv) > 3 else ""
-            if not name:
-                print("Usage: graphify provider show <name>", file=sys.stderr)
-                sys.exit(1)
-            existing = {}
-            if global_path.is_file():
-                try:
-                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
-                except Exception:
-                    pass
-            if name not in existing:
-                print(f"Provider '{name}' not found.", file=sys.stderr)
-                sys.exit(1)
-            print(_json.dumps({name: existing[name]}, indent=2))
-
-        elif subcmd == "add":
-            args = sys.argv[3:]
-            name = args[0] if args and not args[0].startswith("-") else ""
-            if not name:
-                print("Usage: graphify provider add <name> --base-url URL --default-model MODEL --env-key KEY", file=sys.stderr)
-                sys.exit(1)
-            if name in BACKENDS:
-                print(f"Error: '{name}' is a built-in provider and cannot be overridden.", file=sys.stderr)
-                sys.exit(1)
-            base_url = ""
-            default_model = ""
-            env_key = ""
-            pricing_input = 0.0
-            pricing_output = 0.0
-            i = 1
-            while i < len(args):
-                a = args[i]
-                if a == "--base-url" and i + 1 < len(args):
-                    base_url = args[i + 1]; i += 2
-                elif a.startswith("--base-url="):
-                    base_url = a.split("=", 1)[1]; i += 1
-                elif a == "--default-model" and i + 1 < len(args):
-                    default_model = args[i + 1]; i += 2
-                elif a.startswith("--default-model="):
-                    default_model = a.split("=", 1)[1]; i += 1
-                elif a == "--env-key" and i + 1 < len(args):
-                    env_key = args[i + 1]; i += 2
-                elif a.startswith("--env-key="):
-                    env_key = a.split("=", 1)[1]; i += 1
-                elif a == "--pricing-input" and i + 1 < len(args):
-                    pricing_input = float(args[i + 1]); i += 2
-                elif a == "--pricing-output" and i + 1 < len(args):
-                    pricing_output = float(args[i + 1]); i += 2
-                else:
-                    i += 1
-            if not base_url or not default_model or not env_key:
-                print("Error: --base-url, --default-model, and --env-key are required.", file=sys.stderr)
-                sys.exit(1)
-            global_path.parent.mkdir(parents=True, exist_ok=True)
-            existing = {}
-            if global_path.is_file():
-                try:
-                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
-                except Exception:
-                    pass
-            existing[name] = {
-                "base_url": base_url,
-                "default_model": default_model,
-                "env_key": env_key,
-                "pricing": {"input": pricing_input, "output": pricing_output},
-                "temperature": 0,
-            }
-            global_path.write_text(_json.dumps(existing, indent=2) + "\n", encoding="utf-8")
-            print(f"Provider '{name}' added. Use with: graphify extract . --backend {name}")
-
-        elif subcmd == "remove":
-            name = sys.argv[3] if len(sys.argv) > 3 else ""
-            if not name:
-                print("Usage: graphify provider remove <name>", file=sys.stderr)
-                sys.exit(1)
-            existing = {}
-            if global_path.is_file():
-                try:
-                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
-                except Exception:
-                    pass
-            if name not in existing:
-                print(f"Provider '{name}' not found.", file=sys.stderr)
-                sys.exit(1)
-            del existing[name]
-            global_path.write_text(_json.dumps(existing, indent=2) + "\n", encoding="utf-8")
-            print(f"Provider '{name}' removed.")
-
-        else:
-            print("Usage: graphify provider [add|list|show|remove]", file=sys.stderr)
-            if subcmd:
-                sys.exit(1)
+        _provider_cmd(sys.argv[2:])
     elif cmd == "prs":
         from graphify.prs import cmd_prs
 
@@ -4132,7 +4146,21 @@ def main() -> None:
                     root=target,
                     multigraph=multigraph_flag,
                 )
-                _nc_to_json(_nc_graph, {}, str(graph_json_path), force=True)
+                # RISK 4 — Guard 1 signaling: to_json's empty-merge floor returns
+                # False (and PRESERVES the populated graph.json) when the merged
+                # graph has 0 nodes over a populated file. force=True bypasses the
+                # shrink guard (Guard 2), so under force the ONLY False return is
+                # that 0-node floor — never a legitimate non-zero shrink. Honor the
+                # refusal: do NOT fall through to the success line. A 0-node merge
+                # over a populated graph is an aborted extraction, so signal it
+                # (exit 1) instead of falsely reporting "wrote ... 0 nodes".
+                if not _nc_to_json(_nc_graph, {}, str(graph_json_path), force=True):
+                    print(
+                        "[graphify extract] extraction aborted: the merge produced an "
+                        "empty (0-node) graph; the previous graph.json was preserved.",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
                 n_nodes = _nc_graph.number_of_nodes()
                 n_edges = _nc_graph.number_of_edges()
             elif resolved_multigraph:
@@ -4146,10 +4174,51 @@ def main() -> None:
                 from graphify.export import to_json as _nc_to_json
 
                 _nc_graph = _build_from_json(merged, multigraph=True, root=target)
-                _nc_to_json(_nc_graph, {}, str(graph_json_path), force=True)
+                # RISK 4 — Guard 1 signaling (multigraph sibling): identical to the
+                # incremental site above. A non-incremental run can still see a
+                # populated graph.json on disk (graph.json present, manifest.json
+                # absent), so to_json's 0-node floor can refuse and preserve it.
+                # Honor the False return — exit 1 rather than print the misleading
+                # "wrote ... 0 nodes" success line. Under force=True the only False
+                # return is the 0-node floor, so a legitimate non-zero multigraph
+                # build (True) is completely unaffected.
+                if not _nc_to_json(_nc_graph, {}, str(graph_json_path), force=True):
+                    print(
+                        "[graphify extract] extraction aborted: the merge produced an "
+                        "empty (0-node) graph; the previous graph.json was preserved.",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
                 n_nodes = _nc_graph.number_of_nodes()
                 n_edges = _nc_graph.number_of_edges()
             else:
+                # Empty-merge floor (RISK 4 — Guard 3): this raw write is the one
+                # no-cluster path that does NOT route through to_json (Guard 1) or
+                # _check_shrink (Guard 2), so a 0-node ``merged`` here would silently
+                # overwrite a populated graph.json — the exact failed/aborted-
+                # extraction wipe the clustered sibling already blocks via its
+                # ``if G.number_of_nodes() == 0`` exit. Refuse the overwrite when the
+                # merged extraction is empty AND an existing graph.json on disk is
+                # populated. Read the existing node count defensively: any error
+                # (missing/corrupt file) is treated as 0 nodes so a fresh or
+                # unreadable target leaves the floor inert and the write proceeds
+                # exactly as before (no new exit on a legitimately-empty fresh run).
+                if len(merged.get("nodes", [])) == 0 and graph_json_path.exists():
+                    try:
+                        _existing_n = len(
+                            json.loads(graph_json_path.read_text(encoding="utf-8")).get("nodes", [])
+                        )
+                    except Exception:
+                        _existing_n = 0
+                    if _existing_n > 0:
+                        print(
+                            f"[graphify] ERROR: refusing to overwrite a populated "
+                            f"graph.json ({_existing_n} nodes) with an EMPTY (0-node) "
+                            f"graph - this is a failed/aborted extraction, not a real "
+                            f"result. The previous graph is preserved.",
+                            file=sys.stderr,
+                        )
+                        sys.exit(1)
                 graph_json_path.write_text(json.dumps(merged, indent=2), encoding="utf-8")
                 n_nodes = len(merged["nodes"])
                 n_edges = len(merged["edges"])

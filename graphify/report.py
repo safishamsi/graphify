@@ -146,6 +146,7 @@ def generate(
 
     # Circular imports surfaced from file-level dependency graph.
     from .analyze import find_import_cycles
+
     cycles = find_import_cycles(G)
     lines += ["", "## Import Cycles"]
     if cycles:

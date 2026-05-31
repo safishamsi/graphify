@@ -404,3 +404,117 @@ def test_to_json_simple_graph_regression():
     assert data["multigraph"] is False
     for node in data["nodes"]:
         assert "id" in node and "community" in node
+
+
+# ── RISK 4: empty-merge floor in to_json (Guard 1) ───────────────────────────
+#
+# to_json must refuse to overwrite a populated on-disk graph.json (>0 nodes)
+# with an EMPTY (0-node) graph — a 0-node write over a populated graph is a
+# failed/aborted extraction, never a real result. This floor engages
+# REGARDLESS of force=True (force is the bug enabler here), and only when the
+# *new* graph has 0 nodes AND the existing file is populated. It must NOT block
+# a fresh empty write (no existing file), a non-zero dedup shrink, or a
+# 0-over-0 write (nothing populated to protect).
+
+
+def test_to_json_floor_blocks_zero_over_populated_even_with_force(tmp_path):
+    """Existing populated graph.json + a 0-node graph with force=True must be
+    refused (return False) and leave the on-disk graph untouched. This is the
+    RED-before-fix case: without the floor, force=True wipes 4 nodes to 0."""
+    out = tmp_path / "graph.json"
+
+    # Seed a populated graph.json (4 nodes) via the real write path.
+    populated = build_from_json(_build_extraction())
+    assert populated.number_of_nodes() == 4
+    assert to_json(populated, cluster(populated), str(out), force=True) is True
+    assert len(json.loads(out.read_text())["nodes"]) == 4
+
+    # Attempt to overwrite with a 0-node graph, force=True.
+    empty = nx.Graph()
+    assert empty.number_of_nodes() == 0
+    assert to_json(empty, {}, str(out), force=True) is False
+
+    # The previous populated graph is preserved on disk.
+    assert len(json.loads(out.read_text())["nodes"]) == 4
+
+
+def test_to_json_floor_blocks_zero_over_populated_without_force(tmp_path, capsys):
+    """Guard 1 (not the pre-existing shrink guard) fires for force=False + 0-node
+    over populated.  Pre-fix the shrink guard fired and emitted a WARNING; Guard 1
+    emits a distinct ERROR message.  Asserting the exact Guard-1 text makes this
+    test red-before-fix / green-after-fix, eliminating the vacuousness identified
+    by the bug-hunter."""
+    out = tmp_path / "graph.json"
+
+    populated = build_from_json(_build_extraction())
+    assert populated.number_of_nodes() == 4
+    assert to_json(populated, cluster(populated), str(out), force=True) is True
+    assert len(json.loads(out.read_text())["nodes"]) == 4
+
+    empty = nx.Graph()
+    result = to_json(empty, {}, str(out), force=False)
+
+    # Guard 1 must have fired: return False and preserve the on-disk graph.
+    assert result is False
+    assert len(json.loads(out.read_text())["nodes"]) == 4
+
+    # The exact Guard-1 ERROR message must appear on stderr.  Pre-fix the shrink
+    # guard fires instead and emits a WARNING with different text, making the
+    # assertion below fail on unfixed code.
+    captured = capsys.readouterr()
+    assert (
+        "[graphify] ERROR: refusing to overwrite a populated graph.json "
+        "(4 nodes) with an EMPTY (0-node) graph - this is a "
+        "failed/aborted extraction, not a real result. The previous "
+        "graph is preserved."
+    ) in captured.err
+
+
+def test_to_json_allows_fresh_empty_no_existing_file(tmp_path):
+    """A7: no existing file + 0-node graph + force=True is allowed — the floor
+    must NOT engage when existing_path.exists() is False. Writes a valid
+    0-node graph.json."""
+    out = tmp_path / "graph.json"
+    assert not out.exists()
+
+    empty = nx.Graph()
+    assert to_json(empty, {}, str(out), force=True) is True
+
+    data = json.loads(out.read_text())
+    assert data["nodes"] == []
+
+
+def test_to_json_allows_nonzero_dedup_shrink_with_force(tmp_path):
+    """A10: existing 4 nodes, new 2-node graph, force=True is allowed — only a
+    new graph with 0 nodes trips the floor. A non-zero dedup/shrink under force
+    is a legitimate result."""
+    out = tmp_path / "graph.json"
+
+    populated = build_from_json(_build_extraction())
+    assert populated.number_of_nodes() == 4
+    assert to_json(populated, cluster(populated), str(out), force=True) is True
+    assert len(json.loads(out.read_text())["nodes"]) == 4
+
+    smaller = nx.Graph()
+    smaller.add_node("a")
+    smaller.add_node("b")
+    assert smaller.number_of_nodes() == 2
+    assert to_json(smaller, {}, str(out), force=True) is True
+
+    assert len(json.loads(out.read_text())["nodes"]) == 2
+
+
+def test_to_json_allows_zero_over_empty_existing(tmp_path):
+    """An existing file with 0 nodes + a new 0-node graph is allowed — there is
+    nothing populated to protect, so the floor must NOT engage."""
+    out = tmp_path / "graph.json"
+
+    # Seed a 0-node graph.json (no existing file → floor inert on first write).
+    first_empty = nx.Graph()
+    assert to_json(first_empty, {}, str(out), force=True) is True
+    assert json.loads(out.read_text())["nodes"] == []
+
+    # Overwrite 0-over-0: allowed.
+    second_empty = nx.Graph()
+    assert to_json(second_empty, {}, str(out), force=True) is True
+    assert json.loads(out.read_text())["nodes"] == []

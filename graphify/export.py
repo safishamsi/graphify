@@ -559,6 +559,30 @@ def to_json(
 ) -> bool:
     # Safety check: refuse to silently shrink an existing graph (#479)
     existing_path = Path(output_path)
+    # Empty-merge floor (RISK 4): refuse to overwrite a populated graph.json
+    # (>0 nodes) with an EMPTY (0-node) graph. A 0-node write over a populated
+    # graph is a failed/aborted extraction, never a real result, so this floor
+    # engages REGARDLESS of force — no legitimate caller writes 0 nodes over a
+    # populated graph, and force=True is exactly the bug enabler. Read the
+    # existing node count defensively: any error (missing/corrupt file) is
+    # treated as 0 nodes so a corrupt existing file cannot crash the write
+    # (the floor then stays inert, which is acceptable — there is no verified
+    # populated graph to protect).
+    if existing_path.exists() and G.number_of_nodes() == 0:
+        try:
+            existing_data = json.loads(existing_path.read_text(encoding="utf-8"))
+            existing_n = len(existing_data.get("nodes", []))
+        except Exception:
+            existing_n = 0
+        if existing_n > 0:
+            print(
+                f"[graphify] ERROR: refusing to overwrite a populated graph.json "
+                f"({existing_n} nodes) with an EMPTY (0-node) graph - this is a "
+                f"failed/aborted extraction, not a real result. The previous "
+                f"graph is preserved.",
+                file=sys.stderr,
+            )
+            return False
     if not force and existing_path.exists():
         try:
             from graphify.security import check_graph_file_size_cap

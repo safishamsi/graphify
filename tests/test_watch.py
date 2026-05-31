@@ -1320,3 +1320,222 @@ def test_watch_no_cluster_full_rebuild_keeps_distinct_keyed_parallels(tmp_path):
     matching = [edge for edge in rebuilt["links"] if same_relationship(edge)]
     assert {edge.get("key") for edge in matching} == {"parallel-a", "parallel-b"}
     assert len(matching) == 2
+
+
+# --- RISK 3: no-cluster compare must not flap on a legacy edges-keyed graph.json ---
+
+
+def _downgrade_to_legacy_edges(graph_path: Path) -> None:
+    """Rewrite ``graph_path`` in the pre-modern on-disk shape that triggered the
+    no-cluster flap: the edge list keyed as ``edges`` (not ``links``), a
+    ``confidence_score`` stamped on every edge (a recomputed/volatile field), and
+    the top-level ``hyperedges`` key dropped entirely (null-vs-[] history).
+
+    All three deviations are required to reproduce the full bug: a fixture that
+    only renames ``links``->``edges`` (without injecting ``confidence_score`` and
+    without dropping ``hyperedges``) would falsely pass once the key fold lands,
+    masking the volatile-field and missing-hyperedges legs of the same flap.
+    """
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    links = data.pop("links", data.pop("edges", []))
+    data["edges"] = [{**edge, "confidence_score": 0.9} for edge in links]
+    data.pop("hyperedges", None)
+    graph_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_rebuild_code_no_cluster_does_not_flap_on_legacy_edges_key(tmp_path):
+    """RISK 3: a no-op ``--no-cluster`` rebuild over a graph.json written in the
+    legacy ``edges``-keyed shape must detect "no change" and leave graph.json
+    byte-for-byte untouched (no flap).
+
+    The legacy downgrade renames ``links``->``edges``, stamps a volatile
+    ``confidence_score`` on each edge, and drops the top-level ``hyperedges``
+    key. ``_canonical_graph_for_compare`` must fold all three back so the
+    on-disk legacy graph compares EQUAL to the freshly-extracted candidate;
+    otherwise every watcher tick rewrites graph.json forever.
+    """
+    from graphify.watch import _rebuild_code
+
+    repo = tmp_path / "corpus"
+    repo.mkdir()
+    _git_init(repo)
+    (repo / "app.py").write_text(
+        "def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n",
+        encoding="utf-8",
+    )
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(repo)
+        # Real build to get an authentic no-cluster graph.json for this corpus.
+        assert _rebuild_code(repo, no_cluster=True, acquire_lock=False) is True
+        graph_path = repo / "graphify-out" / "graph.json"
+        assert graph_path.exists()
+
+        # The idempotence requirement is >=3 consecutive no-op rebuilds.  We
+        # re-apply the legacy downgrade IMMEDIATELY before each measured run
+        # because a buggy _rebuild_code rewrites edges->links on the first
+        # flap; without re-downgrading, subsequent runs would compare links vs
+        # links and falsely pass (masking the regression).
+        #
+        # Each run captures its own before-state (mtime + bytes) AFTER the
+        # downgrade but BEFORE the sleep+rebuild, then asserts the rebuild
+        # leaves the file untouched.  Comparing within each run (not across
+        # runs) is correct because _downgrade_to_legacy_edges itself writes the
+        # file and therefore changes its mtime — only the rebuild must be a
+        # no-op.
+        for run_idx in range(3):
+            _downgrade_to_legacy_edges(graph_path)
+            pre_bytes = graph_path.read_bytes()
+            pre_mtime = graph_path.stat().st_mtime_ns
+
+            # No source change — a correct compare must short-circuit to "no change".
+            time.sleep(0.01)  # ensure any rewrite would move mtime measurably
+            assert _rebuild_code(repo, no_cluster=True, acquire_lock=False) is True
+
+            post_bytes = graph_path.read_bytes()
+            post_mtime = graph_path.stat().st_mtime_ns
+
+            assert post_bytes == pre_bytes, (
+                f"run {run_idx + 1}: legacy edges-keyed graph.json was rewritten "
+                "on a no-op no-cluster rebuild — the canonical compare flapped "
+                "(edges->links / confidence_score / missing-hyperedges not folded)"
+            )
+            assert post_mtime == pre_mtime, (
+                f"run {run_idx + 1}: graph.json mtime changed on a no-op rebuild (flap)"
+            )
+    finally:
+        os.chdir(cwd)
+
+
+# --- RISK 4 Guard 2: a failed/aborted extraction must not wipe a populated graph ---
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_no_cluster_delete_all_preserves_graph(tmp_path, monkeypatch):
+    """RISK 4: when a declared-deletion rebuild ends with 0 nodes because the
+    remaining files' extraction aborted (a failed/half-written extraction, not a
+    real empty result), the no-cluster raw-write site must REFUSE to overwrite a
+    populated graph.json and preserve the previous graph.
+
+    Reproduction: a two-file corpus is built, ``a.py`` is deleted (declared via
+    ``changed_paths`` so ``had_explicit_deletions`` is True and the existing
+    shrink guard is bypassed), ``b.py`` stays on disk (so the "no code files"
+    early return does NOT fire), and ``extract`` is stubbed to return nothing
+    (the aborted extraction). Without the 0-floor the graph is wiped to 0 nodes.
+    """
+    import graphify.extract as extract_mod
+    from graphify.watch import _rebuild_code
+
+    repo = tmp_path / "corpus"
+    repo.mkdir()
+    _git_init(repo)
+    (repo / "a.py").write_text("def f():\n    return 1\n", encoding="utf-8")
+    (repo / "b.py").write_text("def g():\n    return 2\n", encoding="utf-8")
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(repo)
+        assert _rebuild_code(repo, no_cluster=True, acquire_lock=False) is True
+        graph_path = repo / "graphify-out" / "graph.json"
+        before = json.loads(graph_path.read_text(encoding="utf-8"))
+        nodes_before = len(before.get("nodes", []))
+        assert nodes_before > 0
+        before_bytes = graph_path.read_bytes()
+
+        # Delete a.py (declared deletion -> had_explicit_deletions=True). Keep
+        # b.py on disk so detect() still returns code files, but make extraction
+        # abort to empty so the merged candidate has 0 nodes.
+        (repo / "a.py").unlink()
+
+        def aborted_extract(_targets, cache_root=None):
+            return {
+                "nodes": [],
+                "edges": [],
+                "hyperedges": [],
+                "input_tokens": 0,
+                "output_tokens": 0,
+            }
+
+        monkeypatch.setattr(extract_mod, "extract", aborted_extract)
+        result = _rebuild_code(
+            repo,
+            changed_paths=[Path("a.py"), Path("b.py")],
+            no_cluster=True,
+            acquire_lock=False,
+        )
+
+        after = json.loads(graph_path.read_text(encoding="utf-8"))
+        after_bytes = graph_path.read_bytes()
+    finally:
+        os.chdir(cwd)
+
+    assert result is False, "rebuild must refuse the empty overwrite"
+    assert len(after.get("nodes", [])) == nodes_before, (
+        "populated graph.json must be preserved when a failed extraction yields 0 nodes"
+    )
+    assert after_bytes == before_bytes, "graph.json must be byte-for-byte untouched"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_watch_clustered_delete_all_preserves_graph(tmp_path, monkeypatch):
+    """RISK 4: the clustered ``tmp.replace`` write site must likewise refuse to
+    overwrite a populated graph.json with an empty (0-node) graph produced by a
+    failed/aborted extraction during a declared-deletion rebuild.
+
+    Same reproduction as the no-cluster sibling, exercising the clustered path
+    (the ``graph_tmp.replace(existing_graph)`` write guarded by ``_check_shrink``).
+    """
+    import graphify.extract as extract_mod
+    from graphify.watch import _rebuild_code
+
+    repo = tmp_path / "corpus"
+    repo.mkdir()
+    _git_init(repo)
+    (repo / "a.py").write_text("def f():\n    return 1\n", encoding="utf-8")
+    (repo / "b.py").write_text("def g():\n    return 2\n", encoding="utf-8")
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(repo)
+        # no_viz keeps the clustered path fast (skips graph.html generation).
+        assert _rebuild_code(repo, no_viz=True, acquire_lock=False) is True
+        graph_path = repo / "graphify-out" / "graph.json"
+        before = json.loads(graph_path.read_text(encoding="utf-8"))
+        nodes_before = len(before.get("nodes", []))
+        assert nodes_before > 0
+        before_bytes = graph_path.read_bytes()
+
+        (repo / "a.py").unlink()
+
+        def aborted_extract(_targets, cache_root=None):
+            return {
+                "nodes": [],
+                "edges": [],
+                "hyperedges": [],
+                "input_tokens": 0,
+                "output_tokens": 0,
+            }
+
+        monkeypatch.setattr(extract_mod, "extract", aborted_extract)
+        result = _rebuild_code(
+            repo,
+            changed_paths=[Path("a.py"), Path("b.py")],
+            no_viz=True,
+            acquire_lock=False,
+        )
+
+        after = json.loads(graph_path.read_text(encoding="utf-8"))
+        after_bytes = graph_path.read_bytes()
+    finally:
+        os.chdir(cwd)
+
+    assert result is False, "clustered rebuild must refuse the empty overwrite"
+    assert len(after.get("nodes", [])) == nodes_before, (
+        "populated graph.json must be preserved when a failed extraction yields 0 nodes "
+        "(clustered path)"
+    )
+    assert after_bytes == before_bytes, (
+        "graph.json must be byte-for-byte untouched (clustered path)"
+    )

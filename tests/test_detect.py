@@ -531,9 +531,11 @@ def test_negation_ancestor_itself_reincluded(tmp_path):
 
 # Regression tests for #1087 - anchored patterns must not match basename deep in tree
 
+
 def test_anchored_dir_not_matched_at_depth(tmp_path):
     """/inbox/ must not match src/inbox/ — only inbox/ at the anchor root."""
     from graphify.detect import _is_ignored, _load_graphifyignore
+
     src_inbox = tmp_path / "src" / "inbox"
     src_inbox.mkdir(parents=True)
     f = src_inbox / "main.rs"
@@ -551,35 +553,32 @@ def test_anchored_dir_not_matched_at_depth(tmp_path):
 def test_anchored_dir_matches_at_root(tmp_path):
     """/inbox/ must still match inbox/ at the anchor root (positive case)."""
     from graphify.detect import _is_ignored, _load_graphifyignore
+
     inbox = tmp_path / "inbox"
     inbox.mkdir()
     f = inbox / "data.json"
     f.write_text("{}")
     (tmp_path / ".graphifyignore").write_text("/inbox/\n")
     patterns = _load_graphifyignore(tmp_path)
-    assert _is_ignored(f, tmp_path, patterns), (
-        "inbox/data.json must be ignored by /inbox/"
-    )
-    assert _is_ignored(inbox, tmp_path, patterns), (
-        "inbox/ must be ignored by /inbox/"
-    )
+    assert _is_ignored(f, tmp_path, patterns), "inbox/data.json must be ignored by /inbox/"
+    assert _is_ignored(inbox, tmp_path, patterns), "inbox/ must be ignored by /inbox/"
 
 
 def test_anchored_file_not_matched_at_depth(tmp_path):
     """/build must not match src/build."""
     from graphify.detect import _is_ignored, _load_graphifyignore
+
     src_build = tmp_path / "src" / "build"
     src_build.mkdir(parents=True)
     (tmp_path / ".graphifyignore").write_text("/build\n")
     patterns = _load_graphifyignore(tmp_path)
-    assert not _is_ignored(src_build, tmp_path, patterns), (
-        "src/build must NOT be ignored by /build"
-    )
+    assert not _is_ignored(src_build, tmp_path, patterns), "src/build must NOT be ignored by /build"
 
 
 def test_unanchored_dir_still_matches_at_depth(tmp_path):
     """inbox/ (no leading /) must still match src/inbox/ anywhere in the tree."""
     from graphify.detect import _is_ignored, _load_graphifyignore
+
     src_inbox = tmp_path / "src" / "inbox"
     src_inbox.mkdir(parents=True)
     f = src_inbox / "main.rs"
@@ -594,6 +593,7 @@ def test_unanchored_dir_still_matches_at_depth(tmp_path):
 def test_anchored_multi_segment_pattern(tmp_path):
     """/src/inbox/ must match src/inbox/ but not x/src/inbox/."""
     from graphify.detect import _is_ignored, _load_graphifyignore
+
     (tmp_path / "src" / "inbox").mkdir(parents=True)
     (tmp_path / "x" / "src" / "inbox").mkdir(parents=True)
     target_ok = tmp_path / "src" / "inbox" / "a.py"

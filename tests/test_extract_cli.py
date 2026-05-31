@@ -470,3 +470,211 @@ def test_extract_succeeds_when_at_least_one_chunk_completes(monkeypatch, tmp_pat
     assert (out_dir / "graphify-out" / "graph.json").exists(), (
         "graph.json must be written on the happy path"
     )
+
+
+def test_extract_no_cluster_refuses_to_zero_populated_graph(monkeypatch, tmp_path, capsys):
+    """RISK 4 — Guard 3: the non-incremental no-cluster simple path must NOT wipe a
+    populated graph.json with a 0-node extraction.
+
+    The bug: with an existing populated (simple) graph.json but NO manifest.json
+    (so the run is non-incremental) the ``--no-cluster`` branch falls to the raw
+    ``graph_json_path.write_text(json.dumps(merged, ...))`` ``else`` case. That raw
+    write bypasses both existing empty-merge guards (``export.to_json`` /
+    ``watch._check_shrink``). When AST extraction aborts (returns 0 nodes) the raw
+    write overwrites the saved graph with an EMPTY one — a failed extraction
+    silently destroys real data. The clustered sibling already guards this with
+    ``if G.number_of_nodes() == 0: ... sys.exit(1)``; the no-cluster simple path
+    must do the same. The command must instead exit non-zero, print the byte-
+    identical guard message, and leave the populated graph.json untouched.
+    """
+    corpus = _make_code_corpus(tmp_path)
+    out = corpus / "graphify-out"
+    out.mkdir(exist_ok=True)
+    graph_json = out / "graph.json"
+
+    # Seed a POPULATED *simple* graph.json the way the pipeline persists it
+    # (build_from_json default-simple -> to_json). Simple (not multigraph) so the
+    # sticky profile resolves to non-multigraph and the run takes the raw-write
+    # ``else`` branch — exactly the unguarded site. NO manifest.json is written,
+    # so the run is non-incremental (the path the incremental build_merge floor
+    # never protects).
+    seed_nodes = [
+        {
+            "id": n,
+            "label": f"{n}()",
+            "file_type": "code",
+            "source_file": "app.py",
+            "source_location": "L1",
+        }
+        for n in ("main", "helper", "extra")
+    ]
+    seed_edges = [
+        {
+            "source": "main",
+            "target": "helper",
+            "relation": "calls",
+            "confidence": "EXTRACTED",
+            "source_file": "app.py",
+            "source_location": "L5",
+        }
+    ]
+    G_seed = build_from_json({"nodes": seed_nodes, "edges": seed_edges})
+    assert not G_seed.is_multigraph(), "seed must be a simple graph (non-multigraph)"
+    to_json(G_seed, {0: ["main", "helper", "extra"]}, str(graph_json), force=True)
+    before = json.loads(graph_json.read_text(encoding="utf-8"))
+    seeded_n = len(before.get("nodes", []))
+    assert seeded_n == 3, "seed graph.json must start populated with 3 nodes"
+    assert before.get("multigraph") is False, "seed graph.json must be simple"
+    assert not (out / "manifest.json").exists(), "no manifest → non-incremental run"
+
+    # Force the AST extraction to abort so the merged extraction yields 0 nodes.
+    # This mirrors the real trigger (a parser/extractor blowing up): the extract
+    # handler's ``except`` resets ast_result to an empty dict, and a code-only
+    # corpus has no semantic pass, so ``merged`` collapses to 0 nodes. The extract
+    # handler imports ``extract`` from graphify.extract at call time, so patching
+    # the source symbol is picked up.
+    def _ast_boom(paths, **kwargs):
+        raise RuntimeError("simulated AST extractor failure (parser crash)")
+
+    import graphify.extract as _extract_mod
+
+    monkeypatch.setattr(_extract_mod, "extract", _ast_boom)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test-fake-key")  # code-only: LLM never called
+    monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
+    monkeypatch.setattr(
+        mainmod.sys,
+        "argv",
+        ["graphify", "extract", str(corpus), "--backend", "claude", "--no-cluster"],
+    )
+
+    with pytest.raises(SystemExit) as exc_info:
+        mainmod.main()
+    assert exc_info.value.code == 1, (
+        f"a 0-node no-cluster extraction over a populated graph must exit 1, "
+        f"got {exc_info.value.code}"
+    )
+
+    err = capsys.readouterr().err
+    # Byte-identical to the Guard 1 / Guard 2 message.
+    assert (
+        f"[graphify] ERROR: refusing to overwrite a populated graph.json "
+        f"({seeded_n} nodes) with an EMPTY (0-node) graph - this is a "
+        f"failed/aborted extraction, not a real result. The previous graph "
+        f"is preserved." in err
+    ), f"guard message must match Guards 1/2 byte-for-byte, got: {err!r}"
+
+    # The populated graph.json must be PRESERVED — not wiped to an empty graph.
+    after = json.loads(graph_json.read_text(encoding="utf-8"))
+    assert len(after.get("nodes", [])) == seeded_n, (
+        "the populated graph.json must NOT be overwritten with a 0-node graph"
+    )
+
+
+def test_extract_no_cluster_incremental_zero_merge_exits_nonzero_and_preserves_graph(
+    monkeypatch, tmp_path, capsys
+):
+    """RISK 4 — Guard 1 signaling gap: the INCREMENTAL no-cluster path must SIGNAL
+    failure (exit non-zero, no false-success line) when the merge yields 0 nodes.
+
+    The incremental no-cluster branch writes through
+    ``to_json(_nc_graph, {}, ..., force=True)`` (Guard 1). When ``build_merge``
+    collapses to a 0-node graph over a populated graph.json, Guard 1's empty-merge
+    floor correctly *returns False and PRESERVES the data* — but the caller ignored
+    that return value: it fell through, printed the success line
+    ``[graphify extract] wrote ... graph.json — 0 nodes, 0 edges (no clustering)``
+    and exited 0. The data was safe, but a failed/aborted extraction reported a
+    misleading false success (wrong exit code + message).
+
+    The fix captures Guard 1's ``False`` return at the no-cluster incremental write
+    site and, on refusal only, emits an aborted-extraction stderr note and exits 1
+    — never the bogus "wrote ... 0 nodes" success line. A populated graph.json plus
+    a manifest.json makes the run incremental; ``build_merge`` is forced to yield an
+    empty graph to model the aborted/pruned-to-empty merge. The legitimate sticky
+    no-cluster case (``test_extract_multigraph_no_cluster_sticky_idempotent``) keeps
+    exit 0 because ``build_merge`` preserves the existing nodes there (True return).
+    """
+    from graphify.detect import save_manifest
+
+    corpus = _make_code_corpus(tmp_path)
+    out = corpus / "graphify-out"
+    out.mkdir(exist_ok=True)
+    graph_json = out / "graph.json"
+
+    # Seed a POPULATED *simple* graph.json the way the pipeline persists it.
+    seed_nodes = [
+        {
+            "id": n,
+            "label": f"{n}()",
+            "file_type": "code",
+            "source_file": "app.py",
+            "source_location": "L1",
+        }
+        for n in ("main", "helper", "extra")
+    ]
+    seed_edges = [
+        {
+            "source": "main",
+            "target": "helper",
+            "relation": "calls",
+            "confidence": "EXTRACTED",
+            "source_file": "app.py",
+            "source_location": "L5",
+        }
+    ]
+    G_seed = build_from_json({"nodes": seed_nodes, "edges": seed_edges})
+    assert not G_seed.is_multigraph(), "seed must be a simple graph (non-multigraph)"
+    to_json(G_seed, {0: ["main", "helper", "extra"]}, str(graph_json), force=True)
+
+    # A manifest.json alongside the populated graph.json makes the run INCREMENTAL
+    # (incremental_mode = manifest.exists() and graph.json.exists()), so the write
+    # routes through the incremental ``to_json(..., force=True)`` site, not the
+    # raw-write else-branch the Guard 3 sibling covers.
+    save_manifest(
+        {"code": [str(corpus / "app.py")]},
+        manifest_path=str(out / "manifest.json"),
+        kind="both",
+    )
+
+    before = json.loads(graph_json.read_text(encoding="utf-8"))
+    seeded_n = len(before.get("nodes", []))
+    assert seeded_n == 3, "seed graph.json must start populated with 3 nodes"
+    assert before.get("multigraph") is False, "seed graph.json must be simple"
+    assert (out / "manifest.json").exists(), "manifest → incremental run"
+
+    # Force the incremental merge to yield a 0-node graph (aborted / pruned-to-empty
+    # extraction). The no-cluster incremental branch imports build_merge from
+    # graphify.build at call time, so patching the source symbol is picked up.
+    def _empty_merge(*args, **kwargs):
+        return build_from_json({"nodes": [], "edges": []})
+
+    import graphify.build as _build_mod
+
+    monkeypatch.setattr(_build_mod, "build_merge", _empty_merge)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test-fake-key")  # code-only: LLM never called
+    monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
+    monkeypatch.setattr(
+        mainmod.sys,
+        "argv",
+        ["graphify", "extract", str(corpus), "--backend", "claude", "--no-cluster"],
+    )
+
+    with pytest.raises(SystemExit) as exc_info:
+        mainmod.main()
+    assert exc_info.value.code == 1, (
+        f"a 0-node incremental no-cluster merge over a populated graph must exit 1, "
+        f"got {exc_info.value.code}"
+    )
+
+    captured = capsys.readouterr()
+    # The misleading false-success line must NOT be printed.
+    assert "0 nodes, 0 edges" not in captured.out, (
+        f"a 0-node aborted merge must NOT print the 'wrote ... 0 nodes' success "
+        f"line, got stdout: {captured.out!r}"
+    )
+
+    # The populated graph.json must be PRESERVED — not wiped to an empty graph.
+    after = json.loads(graph_json.read_text(encoding="utf-8"))
+    assert len(after.get("nodes", [])) == seeded_n, (
+        "the populated graph.json must NOT be overwritten with a 0-node graph"
+    )
+    assert after == before, "graph.json must be byte-for-byte unchanged after the refused write"

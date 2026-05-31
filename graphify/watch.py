@@ -258,7 +258,53 @@ def _canonical_graph_for_compare(graph_data: dict) -> dict:
     # no-change short-circuit. Hyperedge topology is preserved via the
     # authoritative top-level "hyperedges" key sorted below.
     canonical.pop("graph", None)
-    for key in ("nodes", "links", "edges", "hyperedges"):
+    # Fold the legacy edge-list key so a graph.json written under the old "edges"
+    # key compares equal to a modern candidate keyed "links". Without this fold a
+    # legacy file ({"edges": [...]}) and the fresh candidate ({"links": [...]})
+    # canonicalise to dicts with DIFFERENT keys and the no-change short-circuit
+    # flaps — every watcher tick rewrites graph.json forever (RISK 3). Mirrors the
+    # edge handling in _canonical_topology_for_compare; the deliberate difference
+    # is that node fields (community/norm_label) are NOT stripped here so existing
+    # watch graph-compare tests keep passing.
+    if "links" not in canonical and "edges" in canonical:
+        canonical["links"] = canonical.pop("edges")
+    # Treat a missing hyperedges key as an empty list so a null-vs-[] history
+    # (older writers omitted the key; modern ones persist []) does not register
+    # as a change.
+    if "hyperedges" not in canonical:
+        canonical["hyperedges"] = []
+
+    links = canonical.get("links")
+    if isinstance(links, list):
+        norm_links = []
+        for edge in links:
+            if not isinstance(edge, dict):
+                norm_links.append(edge)
+                continue
+            e = dict(edge)
+            # to_json overwrites source/target with the canonical _src/_tgt before
+            # serialising, so the on-disk graph has no _src/_tgt while a candidate
+            # fresh from node_link_data still does. Pop and reassign so both sides
+            # compare on the same directed endpoints (existing gets no-op pops).
+            true_src = e.pop("_src", None)
+            true_tgt = e.pop("_tgt", None)
+            if true_src is not None and true_tgt is not None:
+                e["source"] = true_src
+                e["target"] = true_tgt
+            # VOLATILE: confidence_score is recomputed from confidence on every
+            # export, so a legacy file that stamped it must not differ from a
+            # candidate that has not yet had it recomputed.
+            e.pop("confidence_score", None)
+            # PRESERVE key: NetworkX guarantees `key` is unique within a
+            # (source, target) pair, so parallel edges differ only by key and must
+            # stay distinct in the sorted comparison. The json.dumps sort key below
+            # already includes it because we never strip it; this is explicit.
+            if "key" in edge:
+                e["key"] = edge["key"]
+            norm_links.append(e)
+        canonical["links"] = norm_links
+
+    for key in ("nodes", "links", "hyperedges"):
         if key in canonical and isinstance(canonical[key], list):
             canonical[key] = sorted(
                 canonical[key],
@@ -279,6 +325,19 @@ def _canonical_topology_for_compare(graph_data: dict) -> dict:
     # built_at_commit. Hyperedge topology is still compared via the authoritative
     # top-level "hyperedges" key normalised below.
     canonical.pop("graph", None)
+    # Fold the legacy edge-list key so a graph.json written under the old "edges"
+    # key compares equal to a modern candidate keyed "links". The clustered
+    # compare otherwise normalises "edges" and "links" under their OWN keys, so a
+    # legacy file ({"edges": [...]}) and a fresh candidate ({"links": [...]})
+    # canonicalise to dicts with DIFFERENT keys and the topology compare flaps —
+    # needlessly re-running cluster() on every tick (same root cause as the
+    # no-cluster RISK 3 flap fixed in _canonical_graph_for_compare).
+    if "links" not in canonical and "edges" in canonical:
+        canonical["links"] = canonical.pop("edges")
+    # Treat a missing hyperedges key as an empty list so a legacy file that
+    # dropped the key does not differ from a candidate carrying [].
+    if "hyperedges" not in canonical:
+        canonical["hyperedges"] = []
 
     nodes = canonical.get("nodes")
     if isinstance(nodes, list):
@@ -295,7 +354,7 @@ def _canonical_topology_for_compare(graph_data: dict) -> dict:
             key=lambda item: json.dumps(item, sort_keys=True, ensure_ascii=False, default=str),
         )
 
-    for key in ("links", "edges"):
+    for key in ("links",):
         items = canonical.get(key)
         if not isinstance(items, list):
             continue
@@ -470,10 +529,28 @@ def _check_shrink(
     a ``D`` in ``git diff --name-only``) and a smaller graph is the expected
     outcome — skip the guard so legitimate refactors don't require ``--force``.
     """
+    existing_n = len(existing_data.get("nodes", [])) if existing_data else 0
+    new_n = len(new_data.get("nodes", []))
+    # ABSOLUTE 0-floor: a populated graph must NEVER be overwritten with an empty
+    # (0-node) one. A 0-node candidate over a populated graph is the signature of
+    # a failed/aborted extraction (a crashed or half-written pass), not a real
+    # result — even a total delete-all leaves the corpus build at the "no code
+    # files" early return rather than a 0-node write. This floor sits BEFORE the
+    # force/had_explicit_deletions short-circuit on purpose: neither --force nor a
+    # declared deletion is a license to wipe a populated graph to nothing.
+    if existing_n > 0 and new_n == 0:
+        if tmp is not None:
+            tmp.unlink(missing_ok=True)
+        print(
+            f"[graphify] ERROR: refusing to overwrite a populated graph.json "
+            f"({existing_n} nodes) with an EMPTY (0-node) graph - this is a "
+            f"failed/aborted extraction, not a real result. The previous graph "
+            f"is preserved.",
+            file=sys.stderr,
+        )
+        return False
     if force or not existing_data or had_explicit_deletions:
         return True
-    existing_n = len(existing_data.get("nodes", []))
-    new_n = len(new_data.get("nodes", []))
     if new_n < existing_n:
         if tmp is not None:
             tmp.unlink(missing_ok=True)
@@ -913,6 +990,14 @@ def _rebuild_code(
             + "\n"
         )
         graph_tmp = out / ".graph.tmp.json"
+        # NOTE: Guard 1 in to_json (the empty-merge floor that refuses to
+        # overwrite a populated graph.json with 0 nodes) is INERT here.
+        # graph_tmp is a not-yet-existing temp file, so existing_path.exists()
+        # is False and the guard never engages.  The RISK 4 protection on this
+        # code path comes from Guard 2 (_check_shrink, called below), which
+        # fires before the force/had_explicit_deletions short-circuit and
+        # refuses the graph_tmp.replace(existing_graph) when the candidate has
+        # 0 nodes and the on-disk graph is populated.
         json_written = to_json(G, communities, str(graph_tmp), force=True, built_at_commit=commit)
         if not json_written:
             return False

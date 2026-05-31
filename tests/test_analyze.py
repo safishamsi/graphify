@@ -812,6 +812,8 @@ def test_god_nodes_filter_is_case_insensitive():
     labels = [r["label"] for r in result]
     for variant in ("Start", "START", "Name", "ID"):
         assert variant not in labels, f"`{variant}` should be filtered as JSON-key noise"
+
+
 # ── find_import_cycles tests ──────────────────────────────────────────────────
 
 
@@ -854,7 +856,9 @@ def _make_cycle_graph_directed() -> nx.DiGraph:
     G.add_edge(a_id, ext_id, relation="contains", source_file="src/a.ts", confidence="EXTRACTED")
 
     # Edge whose target has no source_file: must be skipped, no garbage label fallback
-    G.add_edge(a_id, ext_id, relation="imports_from", source_file="src/a.ts", confidence="EXTRACTED")
+    G.add_edge(
+        a_id, ext_id, relation="imports_from", source_file="src/a.ts", confidence="EXTRACTED"
+    )
 
     return G
 

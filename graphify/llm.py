@@ -137,8 +137,8 @@ def _load_custom_providers() -> dict[str, dict]:
                             if "pricing" not in cfg:
                                 cfg = dict(cfg, pricing={"input": 0.0, "output": 0.0})
                             providers[name] = cfg
-            except Exception:
-                pass
+            except Exception as exc:
+                _ = exc
     return providers
 
 
@@ -1284,7 +1284,16 @@ def detect_backend() -> str | None:
         _validate_ollama_base_url(ollama_url)
         return "ollama"
     for name in BACKENDS:
-        if name not in ("gemini", "kimi", "claude", "openai", "deepseek", "bedrock", "ollama", "claude-cli"):
+        if name not in (
+            "gemini",
+            "kimi",
+            "claude",
+            "openai",
+            "deepseek",
+            "bedrock",
+            "ollama",
+            "claude-cli",
+        ):
             if _get_backend_api_key(name):
                 return name
     return None

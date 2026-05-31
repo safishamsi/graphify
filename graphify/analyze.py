@@ -689,6 +689,7 @@ def find_import_cycles(
           "why": "circular dependency"
         }
     """
+
     def _endpoint_source_file(node_id: str) -> str:
         attrs = G.nodes.get(node_id, {})
         src_file = attrs.get("source_file", "")
@@ -760,10 +761,12 @@ def find_import_cycles(
 
     result: list[dict] = []
     for cycle in unique_cycles:
-        result.append({
-            "cycle": cycle,
-            "length": len(cycle),
-            "why": "circular dependency",
-        })
+        result.append(
+            {
+                "cycle": cycle,
+                "length": len(cycle),
+                "why": "circular dependency",
+            }
+        )
 
     return result
