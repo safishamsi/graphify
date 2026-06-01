@@ -4089,8 +4089,51 @@ def extract_blade(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
+def _strip_generics(text: str) -> str:
+    """Drop balanced `<...>` generic spans, including nested ones, so that
+    `Foo<A, Bar<B, C>>` collapses to `Foo`. A plain regex can't track nesting."""
+    out, depth = [], 0
+    for ch in text:
+        if ch == "<":
+            depth += 1
+        elif ch == ">":
+            depth = max(0, depth - 1)
+        elif depth == 0:
+            out.append(ch)
+    return "".join(out)
+
+
+# Dart class header, e.g. `Dog extends Animal with A, B implements C`. Clauses
+# are optional and always appear in this order; each captures a comma-separated
+# type list that `_dart_inheritance` splits.
+_DART_HEADER_RE = re.compile(
+    r"\bextends\s+(?P<extends>[\w, .]+?)\s*(?=\bwith\b|\bimplements\b|$)"
+    r"|\bwith\s+(?P<mixes_in>[\w, .]+?)\s*(?=\bimplements\b|$)"
+    r"|\bimplements\s+(?P<implements>[\w, .]+)$"
+)
+_DART_RELATIONS = {"extends": "inherits", "mixes_in": "mixes_in", "implements": "implements"}
+
+
+def _dart_inheritance(header: str):
+    """Yield (relation, base_type) pairs from a class declaration header.
+
+    `extends` -> inherits, `with` -> mixes_in, `implements` -> implements.
+    Generic arguments are removed first so commas inside them don't split a
+    base type. Targets are bare type names (cross-file resolution is out of
+    scope for the regex extractor, like how imports target a raw package path).
+    """
+    for m in _DART_HEADER_RE.finditer(_strip_generics(header)):
+        group = m.lastgroup
+        relation = _DART_RELATIONS[group]
+        for base in m.group(group).split(","):
+            base = base.strip()
+            if base:
+                yield relation, base
+
+
 def extract_dart(path: Path) -> dict:
-    """Extract classes, mixins, functions, imports, and calls from a .dart file using regex."""
+    """Extract classes, mixins, functions, imports, and inheritance
+    (extends/implements/with) from a .dart file using regex."""
     try:
         src = path.read_text(encoding="utf-8", errors="replace")
     except OSError:
@@ -4104,16 +4147,35 @@ def extract_dart(path: Path) -> dict:
     edges = []
     defined: set[str] = set()
 
-    # Classes and mixins
-    for m in re.finditer(r"^\s*(?:abstract\s+)?(?:class|mixin)\s+(\w+)", src, re.MULTILINE):
-        nid = _make_id(stem, m.group(1))
-        if nid not in defined:
-            nodes.append({"id": nid, "label": m.group(1), "file_type": "code",
+    def add_node(node_id, label):
+        """Register a child node once; `defined` guards against duplicates."""
+        if node_id not in defined:
+            nodes.append({"id": node_id, "label": label, "file_type": "code",
                           "source_file": str(path), "source_location": None})
-            edges.append({"source": file_nid, "target": nid, "relation": "defines",
-                          "confidence": "EXTRACTED", "confidence_score": 1.0,
-                          "source_file": str(path), "source_location": None, "weight": 1.0})
-            defined.add(nid)
+            defined.add(node_id)
+
+    def add_edge(source, target, relation):
+        edges.append({"source": source, "target": target, "relation": relation,
+                      "confidence": "EXTRACTED", "confidence_score": 1.0,
+                      "source_file": str(path), "source_location": None, "weight": 1.0})
+
+    # Classes and mixins. Capture the declaration header (everything up to the
+    # opening brace, the `=` of a `class X = A with B;` alias, or `;`) so the
+    # extends/with/implements clauses can be parsed by `_dart_inheritance`.
+    for m in re.finditer(
+        r"^\s*(?:abstract\s+)?(?:class|mixin)\s+(\w+)(?:\s*<[^{=;]*>)?([^{=;]*)",
+        src, re.MULTILINE,
+    ):
+        cls = m.group(1)
+        nid = _make_id(stem, cls)
+        if nid not in defined:
+            add_node(nid, cls)
+            add_edge(file_nid, nid, "defines")
+
+        for relation, base in _dart_inheritance(m.group(2) or ""):
+            tgt_nid = _make_id(base)
+            add_node(tgt_nid, base)
+            add_edge(nid, tgt_nid, relation)
 
     # Top-level and member functions/methods
     for m in re.finditer(r"^\s*(?:static\s+|async\s+)?(?:\w+\s+)+(\w+)\s*\(", src, re.MULTILINE):

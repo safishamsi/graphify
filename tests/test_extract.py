@@ -1060,3 +1060,91 @@ def test_dart_child_node_ids_are_stem_based(tmp_path):
         )
 
 
+def test_dart_extracts_inheritance_edges(tmp_path):
+    """extends -> inherits, with -> mixes_in, implements -> implements."""
+    from graphify.extract import extract_dart, _file_stem, _make_id
+
+    src_file = tmp_path / "sample.dart"
+    src_file.write_text(
+        "class Animal {}\n"
+        "mixin Walks {}\n"
+        "abstract class Pet {}\n"
+        "class Dog extends Animal with Walks implements Pet {}\n"
+    )
+
+    result = extract_dart(src_file)
+
+    stem = _file_stem(src_file)
+    dog_nid = _make_id(stem, "Dog")
+    edges = {
+        (e["source"], e["relation"], e["target"])
+        for e in result["edges"]
+    }
+
+    assert (dog_nid, "inherits", _make_id("Animal")) in edges, (
+        "extract_dart should emit an 'inherits' edge for `extends`."
+    )
+    assert (dog_nid, "mixes_in", _make_id("Walks")) in edges, (
+        "extract_dart should emit a 'mixes_in' edge for `with`."
+    )
+    assert (dog_nid, "implements", _make_id("Pet")) in edges, (
+        "extract_dart should emit an 'implements' edge for `implements`."
+    )
+
+
+def test_dart_inheritance_handles_multiple_bases_and_generics(tmp_path):
+    """Comma-separated `implements`/`with` lists each become an edge; generics are stripped."""
+    from graphify.extract import extract_dart, _file_stem, _make_id
+
+    src_file = tmp_path / "sample.dart"
+    src_file.write_text(
+        "class Cat extends Animal implements Pet, Comparable<Cat> {}\n"
+        "class Robot with Walks, Talks {}\n"
+    )
+
+    result = extract_dart(src_file)
+
+    stem = _file_stem(src_file)
+    cat_nid = _make_id(stem, "Cat")
+    robot_nid = _make_id(stem, "Robot")
+    edges = {
+        (e["source"], e["relation"], e["target"])
+        for e in result["edges"]
+    }
+
+    assert (cat_nid, "inherits", _make_id("Animal")) in edges
+    assert (cat_nid, "implements", _make_id("Pet")) in edges
+    # Generic argument `<Cat>` must be stripped from the base name.
+    assert (cat_nid, "implements", _make_id("Comparable")) in edges
+    assert (robot_nid, "mixes_in", _make_id("Walks")) in edges
+    assert (robot_nid, "mixes_in", _make_id("Talks")) in edges
+
+
+def test_dart_inheritance_strips_multi_arg_and_nested_generics(tmp_path):
+    """Commas inside generic args must not split a base type into fragments."""
+    from graphify.extract import extract_dart, _file_stem, _make_id
+
+    src_file = tmp_path / "sample.dart"
+    # The generic `<GFooItem, FooModelItem>` contains a comma; a naive split
+    # would wrongly produce `BaseMapper<GFooItem` and `FooModelItem>` targets.
+    src_file.write_text(
+        "class FooMapper extends BaseMapper<GFooItem, FooModelItem> {}\n"
+        "class Tree extends Node<Tree<int>> {}\n"
+    )
+
+    result = extract_dart(src_file)
+
+    stem = _file_stem(src_file)
+    foo_nid = _make_id(stem, "FooMapper")
+    tree_nid = _make_id(stem, "Tree")
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    inherits = {}
+    for e in result["edges"]:
+        if e["relation"] == "inherits":
+            inherits.setdefault(e["source"], []).append(labels[e["target"]])
+
+    assert inherits.get(foo_nid) == ["BaseMapper"], inherits.get(foo_nid)
+    assert inherits.get(tree_nid) == ["Node"], inherits.get(tree_nid)
+    # No target label should retain angle brackets from a generic.
+    for label in labels.values():
+        assert "<" not in label and ">" not in label, label
