@@ -280,6 +280,18 @@ graphify prs --conflicts           # PRs sharing graph communities — merge-ord
 
 See the [full command reference](#full-command-reference) below.
 
+### Public X/Twitter research from OpenClaw
+
+OpenClaw agents can use [TweetClaw](https://github.com/Xquik-dev/tweetclaw) to scrape tweets, search tweets, search tweet replies, export followers, look up users, download media, monitor tweets, receive webhooks, and run giveaway draws. Save reviewed TweetClaw results as Markdown or JSON notes, then graph the folder:
+
+```bash
+openclaw plugins install @xquik/tweetclaw
+mkdir -p research/x-twitter
+/graphify ./research/x-twitter --update
+```
+
+Store source tweet URLs or IDs, capture dates, short summaries, and next actions. Keep raw timelines, direct messages, and private account data out of the graph.
+
 ---
 
 ## Ignoring files
