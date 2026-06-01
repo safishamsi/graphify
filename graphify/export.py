@@ -837,6 +837,7 @@ def to_obsidian(
     output_dir: str,
     community_labels: dict[int, str] | None = None,
     cohesion: dict[int, float] | None = None,
+    folders: bool = False,
 ) -> int:
     """Export graph as an Obsidian vault - one .md file per node with [[wikilinks]],
     plus one _COMMUNITY_name.md overview note per community (sorted to top by underscore prefix).
@@ -844,10 +845,45 @@ def to_obsidian(
     Open the output directory as a vault in Obsidian to get an interactive
     graph view with community colors and full-text search over node metadata.
 
+    When *folders* is True the vault is organised into subdirectories:
+
+    * ``_Communities/`` – community overview notes
+    * ``Code/``         – nodes whose ``file_type`` is ``code``
+    * ``Docs/``         – nodes whose ``file_type`` is ``document``
+    * ``Concepts/``     – nodes whose ``file_type`` is ``concept``  (semantic extraction)
+    * ``Papers/``       – nodes whose ``file_type`` is ``paper`` or ``rationale``
+    * ``Other/``        – everything else
+
+    Wikilinks are kept as bare ``[[filename]]`` references so they resolve
+    correctly regardless of which subfolder they live in (Obsidian uses
+    shortest-unique-path resolution by default).
+
     Returns the number of node notes + community notes written.
     """
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
+
+    # Map file_type → subfolder name used when folders=True
+    _FTYPE_FOLDER: dict[str, str] = {
+        "code": "Code",
+        "document": "Docs",
+        "concept": "Concepts",
+        "paper": "Papers",
+        "rationale": "Papers",
+    }
+    _COMMUNITY_FOLDER = "_Communities"
+
+    def _node_dir(file_type: str) -> Path:
+        """Return the target directory for a node note (only used when folders=True)."""
+        folder = _FTYPE_FOLDER.get(file_type, "Other")
+        d = out / folder
+        d.mkdir(exist_ok=True)
+        return d
+
+    def _community_dir() -> Path:
+        d = out / _COMMUNITY_FOLDER
+        d.mkdir(exist_ok=True)
+        return d
 
     node_community = _node_community_map(communities)
 
@@ -941,7 +977,8 @@ def to_obsidian(
         lines.append(inline_tags)
 
         fname = node_filename[node_id] + ".md"
-        (out / fname).write_text("\n".join(lines), encoding="utf-8")  # nosec
+        dest_dir = _node_dir(ftype) if folders else out
+        (dest_dir / fname).write_text("\n".join(lines), encoding="utf-8")  # nosec
 
     # Write one _COMMUNITY_name.md overview note per community
     # Build inter-community edge counts for "Connections to other communities"
@@ -1058,7 +1095,8 @@ def to_obsidian(
 
         community_safe = safe_name(community_name)
         fname = f"_COMMUNITY_{community_safe}.md"
-        (out / fname).write_text("\n".join(lines), encoding="utf-8")  # nosec
+        dest_dir = _community_dir() if folders else out
+        (dest_dir / fname).write_text("\n".join(lines), encoding="utf-8")  # nosec
         community_notes_written += 1
 
     # Improvement 4: write .obsidian/graph.json to color nodes by community in graph view

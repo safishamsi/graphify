@@ -2714,7 +2714,7 @@ def main() -> None:
             print("  html      [--graph PATH] [--labels PATH] [--node-limit N] [--no-viz]", file=sys.stderr)
             print("  callflow-html [GRAPH|DIR] [--graph PATH] [--labels PATH] [--report PATH] [--sections PATH] [--output HTML]", file=sys.stderr)
             print("            [--lang auto|zh-CN|en] [--max-sections N] [--diagram-scale N]", file=sys.stderr)
-            print("  obsidian  [--graph PATH] [--labels PATH] [--dir PATH]", file=sys.stderr)
+            print("  obsidian  [--graph PATH] [--labels PATH] [--dir PATH] [--folders]", file=sys.stderr)
             print("  wiki      [--graph PATH] [--labels PATH]", file=sys.stderr)
             print("  svg       [--graph PATH] [--labels PATH]", file=sys.stderr)
             print("  graphml   [--graph PATH]", file=sys.stderr)
@@ -2740,6 +2740,7 @@ def main() -> None:
         analysis_path = Path(_GRAPHIFY_OUT) / ".graphify_analysis.json"
         node_limit = 5000
         no_viz = False
+        obsidian_folders = False
         obsidian_dir = Path(_GRAPHIFY_OUT) / "obsidian"
         neo4j_uri: str | None = None
         neo4j_user = "neo4j"
@@ -2794,6 +2795,8 @@ def main() -> None:
                 node_limit = int(args[i + 1]); i += 2
             elif a == "--no-viz":
                 no_viz = True; i += 1
+            elif a == "--folders":
+                obsidian_folders = True; i += 1
             elif a == "--dir" and i + 1 < len(args):
                 obsidian_dir = Path(args[i + 1]); i += 2
             elif a == "--push" and i + 1 < len(args):
@@ -2915,7 +2918,8 @@ def main() -> None:
         elif subcmd == "obsidian":
             from graphify.export import to_obsidian as _to_obsidian, to_canvas as _to_canvas
             n = _to_obsidian(G, communities, str(obsidian_dir),
-                             community_labels=labels or None, cohesion=cohesion or None)
+                             community_labels=labels or None, cohesion=cohesion or None,
+                             folders=obsidian_folders)
             print(f"Obsidian vault: {n} notes in {obsidian_dir}/")
             _to_canvas(G, communities, str(obsidian_dir / "graph.canvas"),
                        community_labels=labels or None)
