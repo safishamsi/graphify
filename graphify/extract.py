@@ -4716,7 +4716,7 @@ def extract_verilog(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
-def extract_sql(path: Path) -> dict:
+def extract_sql(path: Path, content: str | bytes | None = None) -> dict:
     """Extract tables, views, functions, and relationships from .sql files via tree-sitter."""
     try:
         import tree_sitter_sql as tssql
@@ -4727,11 +4727,16 @@ def extract_sql(path: Path) -> dict:
     try:
         language = Language(tssql.language())
         parser = Parser(language)
-        source = path.read_bytes()
+        source = (
+            content.encode("utf-8") if isinstance(content, str)
+            else content if content is not None
+            else path.read_bytes()
+        )
         tree = parser.parse(source)
         root = tree.root_node
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
+
 
     stem = _file_stem(path)
     str_path = str(path)

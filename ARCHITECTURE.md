@@ -16,6 +16,7 @@ Each stage is a single function in its own module. They communicate through plai
 |--------|----------|----------------|
 | `detect.py` | `collect_files(root)` | directory → `[Path]` filtered list |
 | `extract.py` | `extract(path)` | file path → `{nodes, edges}` dict |
+| `pg_introspect.py` | `introspect_postgres(dsn)` | PostgreSQL DSN → DDL → `extract_sql()` → `{nodes, edges}` dict |
 | `build.py` | `build_graph(extractions)` | list of extraction dicts → `nx.Graph` |
 | `cluster.py` | `cluster(G)` | graph → graph with `community` attr on each node |
 | `analyze.py` | `analyze(G)` | graph → analysis dict (god nodes, surprises, questions) |
