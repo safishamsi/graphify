@@ -1,0 +1,3 @@
+{
+  # Dummy Nix module
+}

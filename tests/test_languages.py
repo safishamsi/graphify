@@ -7,7 +7,7 @@ from graphify.extract import (
     extract_csharp, extract_kotlin, extract_scala, extract_php,
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
     extract_groovy, extract_sln, extract_csproj, extract_razor,
-    extract_dm, extract_dmi, extract_dmm, extract_dmf,
+    extract_nix, extract_dm, extract_dmi, extract_dmm, extract_dmf,
     extract_powershell,
 )
 
@@ -1531,3 +1531,27 @@ def test_razor_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids
+
+
+# ── Nix ───────────────────────────────────────────────────────────────────────
+
+def test_nix_extraction():
+    result = extract_nix(FIXTURES / "sample.nix")
+    assert "error" not in result
+
+    node_labels = _labels(result)
+    assert "sample.nix" in node_labels
+    assert "local-helper" in node_labels
+    assert "my-package" in node_labels
+
+    edges = result["edges"]
+    assert len(edges) > 0
+
+    defines_edges = [e for e in edges if e["relation"] == "defines"]
+    assert len(defines_edges) >= 2
+
+    import_edges = [e for e in edges if e["relation"] == "imports"]
+    assert len(import_edges) == 2
+
+
+

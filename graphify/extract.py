@@ -1807,6 +1807,89 @@ def _swift_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path: s
     return False
 
 
+# ── Nix extra walk for imports and bindings ───────────────────────────────────
+
+def _nix_get_import_argument(node, source: bytes) -> str | None:
+    curr = node
+    while curr.type == "apply_expression":
+        func_child = curr.child(0)
+        if func_child and func_child.type == "variable_expression":
+            id_node = func_child.child(0)
+            if id_node and id_node.type == "identifier" and _read_text(id_node, source).strip() == "import":
+                arg_node = curr.child(1)
+                if arg_node:
+                    if arg_node.type == "path_expression":
+                        return _read_text(arg_node, source).strip()
+                    elif arg_node.type == "string_expression":
+                        return _read_text(arg_node, source).strip().strip('"\'')
+                    elif arg_node.type == "spath_expression":
+                        return _read_text(arg_node, source).strip()
+            curr = func_child
+        else:
+            curr = func_child
+    return None
+
+def _nix_add_import_edge(path_str: str, parent_nid: str, line: int, add_edge_fn, str_path: str):
+    if path_str.startswith("<"):
+        return
+    try:
+        resolved_path = (Path(str_path).parent / path_str).resolve()
+        if resolved_path.exists() and resolved_path.is_file():
+            imported_nid = _make_id(str(resolved_path))
+            add_edge_fn(parent_nid, imported_nid, "imports", line, context="import")
+    except Exception:
+        pass
+
+def _nix_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path: str,
+                    nodes: list, edges: list, seen_ids: set, function_bodies: list,
+                    parent_class_nid: str | None, add_node_fn, add_edge_fn, walk_fn) -> bool:
+    """Handle binding and imports for Nix. Returns True if handled."""
+    parent_nid = parent_class_nid if parent_class_nid else file_nid
+    import_arg = _nix_get_import_argument(node, source)
+    if import_arg:
+        _nix_add_import_edge(import_arg, parent_nid, node.start_point[0] + 1, add_edge_fn, str_path)
+    
+    if node.type == "binding":
+        attrpath_node = None
+        expr_node = None
+        for child in node.children:
+            if child.type == "attrpath":
+                attrpath_node = child
+            elif child.type.endswith("_expression"):
+                expr_node = child
+
+        if not attrpath_node and node.children:
+            attrpath_node = node.children[0]
+        if not expr_node and len(node.children) > 2:
+            expr_node = node.children[2]
+
+        if attrpath_node and expr_node:
+            attr_name = _read_text(attrpath_node, source).strip()
+            if attr_name == "imports":
+                if expr_node.type == "list_expression":
+                    for child in expr_node.children:
+                        if child.type == "path_expression":
+                            _nix_add_import_edge(_read_text(child, source).strip(), parent_nid, node.start_point[0] + 1, add_edge_fn, str_path)
+                        elif child.type == "string_expression":
+                            _nix_add_import_edge(_read_text(child, source).strip().strip('"\''), parent_nid, node.start_point[0] + 1, add_edge_fn, str_path)
+                        elif child.type in ("parenthesized_expression", "apply_expression"):
+                            walk_fn(child, parent_nid)
+                return True
+            else:
+                is_complex = expr_node.type in (
+                    "function_expression", "attrset_expression", 
+                    "rec_attrset_expression", "let_expression", "apply_expression"
+                )
+                if is_complex:
+                    binding_nid = _make_id(parent_nid, attr_name) if parent_nid and parent_nid != file_nid else _make_id(stem, attr_name)
+                    line = node.start_point[0] + 1
+                    add_node_fn(binding_nid, attr_name, line)
+                    add_edge_fn(parent_nid, binding_nid, "defines", line)
+                    walk_fn(expr_node, binding_nid)
+                    return True
+    return False
+
+
 # ── Language configs ──────────────────────────────────────────────────────────
 
 _PYTHON_CONFIG = LanguageConfig(
@@ -3104,6 +3187,12 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                                   parent_class_nid, add_node, add_edge):
                 return
 
+        if config.ts_module == "tree_sitter_nix":
+            if _nix_extra_walk(node, source, file_nid, stem, str_path,
+                                  nodes, edges, seen_ids, function_bodies,
+                                  parent_class_nid, add_node, add_edge, walk):
+                return
+              
         # Python's `@property` / `@staticmethod` / `@classmethod` wrap the
         # inner function_definition in a `decorated_definition` node. The
         # default recurse below clears parent_class_nid, which would cause the
@@ -10015,6 +10104,13 @@ def extract_json(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
+_NIX_CONFIG = LanguageConfig(
+    ts_module="tree_sitter_nix"
+)
+
+def extract_nix(path: Path) -> dict:
+    return _extract_generic(path, _NIX_CONFIG)
+  
 # ── DM (BYOND DreamMaker) extractor ──────────────────────────────────────────
 # DM identity is path-based (`/datum/object/proc/New()`), not block-based, so
 # the generic class-body walker doesn't fit well.
@@ -10524,6 +10620,7 @@ def extract_dmf(path: Path) -> dict:
 
 
 _DISPATCH: dict[str, Any] = {
+    ".nix": extract_nix,
     ".py": extract_python,
     ".js": extract_js,
     ".jsx": extract_js,
