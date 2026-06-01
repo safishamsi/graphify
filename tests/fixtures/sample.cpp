@@ -16,6 +16,7 @@ public:
 
 private:
     std::string baseUrl_;
+    std::vector<std::string> tags_;
 
     std::string buildRequest(const std::string& method, const std::string& path) {
         return method + " " + baseUrl_ + path;

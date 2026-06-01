@@ -61,8 +61,8 @@ def _refresh_all_version_stamps() -> None:
     Prevents stale-version warnings from platforms that were installed previously
     but not explicitly re-installed during this upgrade.
     """
-    for cfg in _PLATFORM_CONFIG.values():
-        skill_dst = Path.home() / cfg["skill_dst"]
+    for name in _PLATFORM_CONFIG:
+        skill_dst = _platform_skill_destination(name)
         vf = skill_dst.parent / ".graphify_version"
         if skill_dst.exists():
             vf.write_text(__version__, encoding="utf-8")
@@ -86,6 +86,12 @@ def _platform_skill_destination(platform_name: str, *, project: bool = False, pr
         if project:
             return (project_dir or Path(".")) / ".devin" / "skills" / "graphify" / "SKILL.md"
         return Path.home() / ".config" / "devin" / "skills" / "graphify" / "SKILL.md"
+
+    if platform_name in ("antigravity", "antigravity-windows"):
+        if project:
+            return (project_dir or Path(".")) / ".agents" / "skills" / "graphify" / "SKILL.md"
+        # Global Antigravity skill dir (all workspaces): ~/.gemini/config/skills/
+        return Path.home() / ".gemini" / "config" / "skills" / "graphify" / "SKILL.md"
 
     cfg = _PLATFORM_CONFIG[platform_name]
     if project:
@@ -678,7 +684,7 @@ description: Turn any folder of files into a navigable knowledge graph
 
 # Workflow: graphify
 
-Follow the graphify skill installed at ~/.agents/skills/graphify/SKILL.md to run the full pipeline.
+Follow the graphify skill installed at ~/.gemini/config/skills/graphify/SKILL.md to run the full pipeline.
 
 If no path argument is given, use `.` (current directory).
 """
@@ -753,11 +759,11 @@ def _kiro_uninstall(project_dir: Path) -> None:
 
 def _antigravity_install(project_dir: Path) -> None:
     """Install graphify for Google Antigravity: skill + .agents/rules + .agents/workflows."""
-    # 1. Copy skill file to ~/.agents/skills/graphify/SKILL.md
+    # 1. Copy skill file to ~/.gemini/config/skills/graphify/SKILL.md (global)
     install(platform="antigravity")
 
     # 1.5. Inject YAML frontmatter for native Antigravity tool discovery
-    skill_dst = _PLATFORM_CONFIG["antigravity"]["skill_dst"]
+    skill_dst = _platform_skill_destination("antigravity")
     if skill_dst.exists():
         content = skill_dst.read_text(encoding="utf-8")
         if not content.startswith("---\n"):
@@ -803,7 +809,7 @@ def _antigravity_install(project_dir: Path) -> None:
     print('  }')
 
 
-def _antigravity_uninstall(project_dir: Path) -> None:
+def _antigravity_uninstall(project_dir: Path, *, project: bool = False) -> None:
     """Remove graphify Antigravity rules, workflow, and skill files."""
     # Remove rules file
     rules_path = project_dir / _ANTIGRAVITY_RULES_PATH
@@ -820,7 +826,7 @@ def _antigravity_uninstall(project_dir: Path) -> None:
         print(f"graphify workflow removed from {wf_path.resolve()}")
 
     # Remove skill file
-    skill_dst = _PLATFORM_CONFIG["antigravity"]["skill_dst"]
+    skill_dst = _platform_skill_destination("antigravity", project=project, project_dir=project_dir)
     if skill_dst.exists():
         skill_dst.unlink()
         print(f"graphify skill removed from {skill_dst}")
@@ -1114,7 +1120,7 @@ def _agents_install(project_dir: Path, platform: str) -> None:
     if platform not in ("codex", "opencode"):
         print()
         print("Note: unlike Claude Code, there is no PreToolUse hook equivalent for")
-        print(f"{platform.capitalize()} — the AGENTS.md rules are the always-on mechanism.")
+        print(f"{platform.capitalize()} - the AGENTS.md rules are the always-on mechanism.")
 
 
 def _project_install(platform_name: str, project_dir: Path | None = None) -> None:
@@ -1171,7 +1177,7 @@ def _project_uninstall(platform_name: str, project_dir: Path | None = None) -> N
         if platform_name == "codex":
             _uninstall_codex_hook(project_dir)
     elif platform_name == "antigravity":
-        _antigravity_uninstall(project_dir)
+        _antigravity_uninstall(project_dir, project=True)
     elif platform_name == "devin":
         removed = _remove_skill_file("devin", project=True, project_dir=project_dir)
         _devin_rules_uninstall(project_dir)
@@ -1395,7 +1401,7 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
         sys.exit(1)
 
     if dest.exists():
-        print(f"Repo already cloned at {dest} — pulling latest...", flush=True)
+        print(f"Repo already cloned at {dest} - pulling latest...", flush=True)
         cmd = ["git", "-C", str(dest), "pull"]
         if branch:
             cmd += ["origin", "--", branch]
@@ -1419,6 +1425,12 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
 
 
 def main() -> None:
+    for _stream in (sys.stdout, sys.stderr):
+        if _stream is not None and hasattr(_stream, "reconfigure"):
+            try:
+                _stream.reconfigure(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
     # Skip during hook-check — it runs on every editor tool use and must be silent.
@@ -1471,6 +1483,10 @@ def main() -> None:
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("    --graph <path>          path to graph.json (default <path>/graphify-out/graph.json)")
+        print("    --no-label              keep 'Community N' placeholders (skip LLM community naming)")
+        print("    --backend=<name>        backend to use for community naming (default: auto-detect)")
+        print("  label <path>            (re)name communities with the configured LLM backend, regenerate report")
+        print("    --backend=<name>        backend to use (default: auto-detect from API keys)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --context C             explicit edge-context filter (repeatable)")
@@ -1774,6 +1790,119 @@ def main() -> None:
         else:
             print("Usage: graphify antigravity [install|uninstall]", file=sys.stderr)
             sys.exit(1)
+    elif cmd == "provider":
+        from graphify.llm import _custom_providers_path, BACKENDS
+        import json as _json
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        global_path = _custom_providers_path(global_=True)
+
+        if subcmd == "list":
+            global_path.parent.mkdir(parents=True, exist_ok=True)
+            existing: dict = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            if not existing:
+                print("No custom providers registered.")
+            else:
+                for name in existing:
+                    print(f"  {name}  ({existing[name].get('base_url', '')})")
+
+        elif subcmd == "show":
+            name = sys.argv[3] if len(sys.argv) > 3 else ""
+            if not name:
+                print("Usage: graphify provider show <name>", file=sys.stderr)
+                sys.exit(1)
+            existing = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            if name not in existing:
+                print(f"Provider '{name}' not found.", file=sys.stderr)
+                sys.exit(1)
+            print(_json.dumps({name: existing[name]}, indent=2))
+
+        elif subcmd == "add":
+            args = sys.argv[3:]
+            name = args[0] if args and not args[0].startswith("-") else ""
+            if not name:
+                print("Usage: graphify provider add <name> --base-url URL --default-model MODEL --env-key KEY", file=sys.stderr)
+                sys.exit(1)
+            if name in BACKENDS:
+                print(f"Error: '{name}' is a built-in provider and cannot be overridden.", file=sys.stderr)
+                sys.exit(1)
+            base_url = ""
+            default_model = ""
+            env_key = ""
+            pricing_input = 0.0
+            pricing_output = 0.0
+            i = 1
+            while i < len(args):
+                a = args[i]
+                if a == "--base-url" and i + 1 < len(args):
+                    base_url = args[i + 1]; i += 2
+                elif a.startswith("--base-url="):
+                    base_url = a.split("=", 1)[1]; i += 1
+                elif a == "--default-model" and i + 1 < len(args):
+                    default_model = args[i + 1]; i += 2
+                elif a.startswith("--default-model="):
+                    default_model = a.split("=", 1)[1]; i += 1
+                elif a == "--env-key" and i + 1 < len(args):
+                    env_key = args[i + 1]; i += 2
+                elif a.startswith("--env-key="):
+                    env_key = a.split("=", 1)[1]; i += 1
+                elif a == "--pricing-input" and i + 1 < len(args):
+                    pricing_input = float(args[i + 1]); i += 2
+                elif a == "--pricing-output" and i + 1 < len(args):
+                    pricing_output = float(args[i + 1]); i += 2
+                else:
+                    i += 1
+            if not base_url or not default_model or not env_key:
+                print("Error: --base-url, --default-model, and --env-key are required.", file=sys.stderr)
+                sys.exit(1)
+            global_path.parent.mkdir(parents=True, exist_ok=True)
+            existing = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            existing[name] = {
+                "base_url": base_url,
+                "default_model": default_model,
+                "env_key": env_key,
+                "pricing": {"input": pricing_input, "output": pricing_output},
+                "temperature": 0,
+            }
+            global_path.write_text(_json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+            print(f"Provider '{name}' added. Use with: graphify extract . --backend {name}")
+
+        elif subcmd == "remove":
+            name = sys.argv[3] if len(sys.argv) > 3 else ""
+            if not name:
+                print("Usage: graphify provider remove <name>", file=sys.stderr)
+                sys.exit(1)
+            existing = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            if name not in existing:
+                print(f"Provider '{name}' not found.", file=sys.stderr)
+                sys.exit(1)
+            del existing[name]
+            global_path.write_text(_json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+            print(f"Provider '{name}' removed.")
+
+        else:
+            print("Usage: graphify provider [add|list|show|remove]", file=sys.stderr)
+            if subcmd:
+                sys.exit(1)
     elif cmd == "prs":
         from graphify.prs import cmd_prs
         cmd_prs(sys.argv[2:])
@@ -2211,10 +2340,16 @@ def main() -> None:
             print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
 
-    elif cmd == "cluster-only":
+    elif cmd in ("cluster-only", "label"):
+        # `label` is `cluster-only` that always (re)generates community names with
+        # the configured backend, even when a .graphify_labels.json already exists.
+        force_relabel = cmd == "label"
         # Mirror the tree/export arg-parsing pattern: walk argv so flags and
         # the optional positional path can appear in any order (#724).
         no_viz = "--no-viz" in sys.argv
+        no_label = "--no-label" in sys.argv
+        _backend_arg = next((a for a in sys.argv if a.startswith("--backend=")), None)
+        label_backend = _backend_arg.split("=", 1)[1] if _backend_arg else None
         _min_cs_arg = next((a for a in sys.argv if a.startswith("--min-community-size=")), None)
         min_community_size = int(_min_cs_arg.split("=")[1]) if _min_cs_arg else 3
         args = sys.argv[2:]
@@ -2247,7 +2382,7 @@ def main() -> None:
             watch_path = Path(".")
         graph_json = graph_override if graph_override is not None else watch_path / "graphify-out" / "graph.json"
         if not graph_json.exists():
-            print(f"error: no graph found at {graph_json} — run /graphify first", file=sys.stderr)
+            print(f"error: no graph found at {graph_json} - run /graphify first", file=sys.stderr)
             sys.exit(1)
         from networkx.readwrite import json_graph as _jg
         from graphify.build import build_from_json
@@ -2281,13 +2416,25 @@ def main() -> None:
         out = watch_path / "graphify-out"
         out.mkdir(parents=True, exist_ok=True)
         labels_path = out / ".graphify_labels.json"
-        if labels_path.exists():
+        if labels_path.exists() and not force_relabel:
             try:
                 labels = {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
             except Exception:
                 labels = {cid: f"Community {cid}" for cid in communities}
-        else:
+        elif no_label and not force_relabel:
             labels = {cid: f"Community {cid}" for cid in communities}
+        else:
+            # No labels file yet (or `graphify label` forced a refresh). When run
+            # standalone there is no orchestrating agent to do skill.md Step 5, so
+            # auto-name communities with the configured backend rather than leave
+            # "Community N" (#1097). Degrades to placeholders if no backend/on error.
+            from graphify.llm import generate_community_labels
+            print("Labeling communities...")
+            # The final labels (LLM or placeholder fallback) are persisted to
+            # .graphify_labels.json by the unconditional write below.
+            labels, _ = generate_community_labels(
+                G, communities, backend=label_backend, gods=gods
+            )
         questions = suggest_questions(G, communities, labels)
         tokens = {"input": 0, "output": 0}
         from graphify.export import _git_head as _gh
@@ -2310,16 +2457,16 @@ def main() -> None:
         if no_viz:
             if html_target.exists():
                 html_target.unlink()
-            print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated (--no-viz; graph.html removed).")
+            print(f"Done - {len(communities)} communities. GRAPH_REPORT.md and graph.json updated (--no-viz; graph.html removed).")
         else:
             try:
                 to_html(G, communities, str(html_target), community_labels=labels or None)
-                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
+                print(f"Done - {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
             except ValueError as viz_err:
                 if html_target.exists():
                     html_target.unlink()
                 print(f"Skipped graph.html: {viz_err}")
-                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated.")
+                print(f"Done - {len(communities)} communities. GRAPH_REPORT.md and graph.json updated.")
 
     elif cmd == "update":
         force = os.environ.get("GRAPHIFY_FORCE", "").lower() in ("1", "true", "yes")
@@ -2370,7 +2517,7 @@ def main() -> None:
             ):
                 print("Tip: set GEMINI_API_KEY or GOOGLE_API_KEY to use Gemini for semantic extraction.")
         else:
-            print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
+            print("Nothing to update or rebuild failed - check output above.", file=sys.stderr)
             sys.exit(1)
 
     elif cmd == "hook-check":
@@ -2864,7 +3011,7 @@ def main() -> None:
             try:
                 result = _global_add(source, tag)
                 if result["skipped"]:
-                    print(f"'{tag}' unchanged since last add — global graph not modified.")
+                    print(f"'{tag}' unchanged since last add - global graph not modified.")
                 else:
                     print(f"Added '{tag}' to global graph: +{result['nodes_added']} nodes, "
                           f"-{result['nodes_removed']} pruned. Global: {_global_path()}")
@@ -3341,7 +3488,7 @@ def main() -> None:
                 try:
                     result = _global_add(graphify_out / "graph.json", _tag)
                     if result["skipped"]:
-                        print(f"[graphify global] '{_tag}' unchanged since last add — skipped.")
+                        print(f"[graphify global] '{_tag}' unchanged since last add - skipped.")
                     else:
                         print(f"[graphify global] '{_tag}' merged into global graph "
                               f"(+{result['nodes_added']} nodes, -{result['nodes_removed']} pruned).")
@@ -3403,7 +3550,7 @@ def main() -> None:
             try:
                 result = _global_add(graphify_out / "graph.json", _tag)
                 if result["skipped"]:
-                    print(f"[graphify global] '{_tag}' unchanged since last add — skipped.")
+                    print(f"[graphify global] '{_tag}' unchanged since last add - skipped.")
                 else:
                     print(f"[graphify global] '{_tag}' merged into global graph "
                           f"(+{result['nodes_added']} nodes, -{result['nodes_removed']} pruned).")
@@ -3448,6 +3595,14 @@ def main() -> None:
                 f"{merged['output_tokens']:,} out, "
                 f"est. cost (~{backend}): ${cost:.4f}"
             )
+        # extract intentionally stops at graph.json + analysis; the report and
+        # community labels are produced by `cluster-only` (or an agent's Step 5).
+        # Point standalone users at it so communities get named (#1097).
+        print(
+            "[graphify extract] next: run "
+            f"`graphify cluster-only {graphify_out.parent}` "
+            "to generate GRAPH_REPORT.md and name communities"
+        )
 
     elif cmd == "cache-check":
         # graphify cache-check <files_from> [--root <dir>]

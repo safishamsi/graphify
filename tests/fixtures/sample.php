@@ -33,6 +33,39 @@ class ApiClient
     }
 }
 
+interface Loggable
+{
+    public function log(): void;
+}
+
+trait HasName
+{
+    public function getName(): string
+    {
+        return '';
+    }
+}
+
+class BaseProcessor {}
+
+class Result {}
+
+class DataProcessor extends BaseProcessor implements Loggable
+{
+    use HasName;
+
+    private Result $current;
+
+    public function run(DataProcessor $input): Result
+    {
+        return new Result();
+    }
+
+    public function log(): void
+    {
+    }
+}
+
 function parseResponse(string $raw): array
 {
     return json_decode($raw, true);

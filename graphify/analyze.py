@@ -606,3 +606,107 @@ def graph_diff(G_old: nx.Graph, G_new: nx.Graph) -> dict:
         "removed_edges": removed_edges_list,
         "summary": summary,
     }
+
+
+def find_import_cycles(
+    G: nx.Graph,
+    max_cycle_length: int = 5,
+    top_n: int = 20,
+) -> list[dict]:
+    """Detect circular import dependencies at the file level.
+
+    Collapses symbol-level nodes to their parent file (using source_file attr
+    or 'contains' edges), builds a directed file-level graph from imports_from
+    edges, then finds simple cycles.
+
+    Args:
+        G: The full knowledge graph (may be undirected or directed).
+        max_cycle_length: Only report cycles with at most this many files.
+        top_n: Maximum number of cycles to return (shortest first).
+
+    Returns:
+        List of cycle records with stable structure:
+        {
+          "cycle": ["a.ts", "b.ts"],
+          "length": 2,
+          "why": "circular dependency"
+        }
+    """
+    def _endpoint_source_file(node_id: str) -> str:
+        attrs = G.nodes.get(node_id, {})
+        src_file = attrs.get("source_file", "")
+        return src_file if isinstance(src_file, str) else ""
+
+    # Step 1: Build a directed file-level graph from import/re-export edges.
+    # IMPORTANT: resolve endpoints using source_file only; never infer from label/id.
+    file_graph = nx.DiGraph()
+
+    for u, v, data in G.edges(data=True):
+        rel = data.get("relation", "")
+        if rel not in ("imports_from", "re_exports"):
+            continue
+
+        src_file_attr = data.get("source_file", "")
+        if not isinstance(src_file_attr, str) or not src_file_attr:
+            continue
+
+        u_file = _endpoint_source_file(u)
+        v_file = _endpoint_source_file(v)
+
+        # Works for both DiGraph and Graph inputs:
+        # orient edge from edge.source_file endpoint to the opposite endpoint.
+        if u_file == src_file_attr:
+            tgt_file = v_file
+        elif v_file == src_file_attr:
+            tgt_file = u_file
+        else:
+            # Fallback: if source endpoint cannot be matched exactly,
+            # still treat edge.source_file as source and pick the opposite endpoint
+            # only if one endpoint has a real source_file.
+            tgt_file = v_file if v_file and v_file != src_file_attr else u_file
+
+        if not tgt_file:
+            continue
+
+        file_graph.add_edge(src_file_attr, tgt_file)
+
+    if not file_graph.edges():
+        return []
+
+    # Step 2: Find simple cycles, bounded by length.
+    cycles: list[list[str]] = []
+    for cycle in nx.simple_cycles(file_graph):
+        if len(cycle) <= max_cycle_length:
+            cycles.append(cycle)
+        if len(cycles) >= top_n * 10:
+            # Stop early to avoid combinatorial explosion
+            break
+
+    # Step 3: Sort by length (shortest = tightest coupling), then deduplicate.
+    cycles.sort(key=len)
+
+    # Deduplicate rotations: normalize each cycle by starting from the
+    # lexicographically smallest element.
+    seen: set[tuple[str, ...]] = set()
+    unique_cycles: list[list[str]] = []
+    for cycle in cycles:
+        core = list(cycle)
+        if not core:
+            continue
+        min_idx = core.index(min(core))
+        normalized = tuple(core[min_idx:] + core[:min_idx])
+        if normalized not in seen:
+            seen.add(normalized)
+            unique_cycles.append(list(normalized))
+            if len(unique_cycles) >= top_n:
+                break
+
+    result: list[dict] = []
+    for cycle in unique_cycles:
+        result.append({
+            "cycle": cycle,
+            "length": len(cycle),
+            "why": "circular dependency",
+        })
+
+    return result

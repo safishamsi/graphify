@@ -9,6 +9,83 @@ import time
 from pathlib import Path
 
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
+_PENDING_FILENAME = ".pending_changes"
+_PENDING_DRAIN_MAX_PASSES = 20
+
+
+def _queue_pending(out_dir: Path, changed_paths: list[Path]) -> None:
+    """Append ``changed_paths`` to ``out_dir/.pending_changes`` (one per line).
+
+    Used by a post-commit hook process that cannot acquire ``_rebuild_lock``
+    so its change set is not silently dropped (#1059). The lock-holding
+    process drains this file before and after its rebuild and merges the
+    contents with its own change set.
+
+    Opened in append mode so concurrent writers do not clobber each other on
+    POSIX; each ``write()`` of a small payload is effectively atomic. A
+    trailing newline is always written so partial-line corruption stays
+    confined to the offending entry and is skipped on drain.
+    """
+    if not changed_paths:
+        return
+    out_dir.mkdir(parents=True, exist_ok=True)
+    pending = out_dir / _PENDING_FILENAME
+    payload = "".join(f"{os.fspath(p)}\n" for p in changed_paths)
+    with open(pending, "a", encoding="utf-8") as fh:
+        fh.write(payload)
+
+
+def _drain_pending(out_dir: Path) -> list[Path]:
+    """Read + unlink ``out_dir/.pending_changes`` and return deduplicated paths.
+
+    Returns an empty list if the file does not exist. Empty/whitespace lines
+    are silently skipped so a partial concurrent write that left only a
+    fragment cannot poison the merge.
+    """
+    pending = out_dir / _PENDING_FILENAME
+    if not pending.exists():
+        return []
+    try:
+        raw = pending.read_text(encoding="utf-8")
+    except OSError:
+        return []
+    # Unlink BEFORE returning so a crash between read and process retains the
+    # data in the next caller's view via the lines we are about to return —
+    # i.e. losing the file after reading is fine, losing it before would be a
+    # bug. Use missing_ok to tolerate a racing drain on platforms where
+    # rename/unlink may interleave.
+    with contextlib.suppress(FileNotFoundError):
+        pending.unlink()
+    seen: set[str] = set()
+    out: list[Path] = []
+    for line in raw.splitlines():
+        s = line.strip()
+        if not s or s in seen:
+            continue
+        seen.add(s)
+        out.append(Path(s))
+    return out
+
+
+def _merge_changed_paths(*sources: "list[Path] | None") -> list[Path]:
+    """Concatenate path lists, preserving order and dropping duplicates.
+
+    Used to combine a hook process's own ``changed_paths`` with the drained
+    contents of ``.pending_changes`` so the lock-holding rebuild covers
+    every queued commit's worth of files (#1059).
+    """
+    seen: set[str] = set()
+    out: list[Path] = []
+    for src in sources:
+        if not src:
+            continue
+        for p in src:
+            key = os.fspath(p)
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(p)
+    return out
 
 
 @contextlib.contextmanager
@@ -320,19 +397,55 @@ def _rebuild_code(
     """
     out = watch_path / _GRAPHIFY_OUT
     if acquire_lock:
+        # #1059: incremental (changed_paths is not None) hooks must not drop
+        # their change set when another rebuild is already running. Queue
+        # before attempting the lock so a non-blocking failure still records
+        # the work; the lock-holder drains the queue and merges it in. Full-
+        # corpus rebuilds skip the queue entirely — they already cover every
+        # file, so there is nothing to merge.
+        if changed_paths is not None and not block_on_lock:
+            _queue_pending(out, list(changed_paths))
         with _rebuild_lock(out, blocking=block_on_lock) as got:
             if not got:
                 print("[graphify watch] Rebuild already in progress for "
-                      f"{watch_path.resolve()} - skipping.")
+                      f"{watch_path.resolve()} - changes queued.")
                 return False
-            return _rebuild_code(
+            # Lock acquired. Drain anything queued by earlier contenders
+            # (including, importantly, the paths we just queued ourselves)
+            # and merge with our own change set so a single rebuild covers
+            # everything outstanding.
+            if changed_paths is not None:
+                merged = _merge_changed_paths(changed_paths, _drain_pending(out))
+            else:
+                # Full-corpus rebuild supersedes any queued incremental work.
+                _drain_pending(out)
+                merged = None
+            ok = _rebuild_code(
                 watch_path,
-                changed_paths=changed_paths,
+                changed_paths=merged,
                 follow_symlinks=follow_symlinks,
                 force=force,
                 no_cluster=no_cluster,
                 acquire_lock=False,
             )
+            # Late-arrival drain: another hook may have queued work while we
+            # were rebuilding. Loop up to _PENDING_DRAIN_MAX_PASSES times so a
+            # storm of commits eventually quiesces without livelocking. A full
+            # rebuild already saw everything, so skip this for changed_paths is None.
+            if merged is not None:
+                for _ in range(_PENDING_DRAIN_MAX_PASSES):
+                    late = _drain_pending(out)
+                    if not late:
+                        break
+                    ok = _rebuild_code(
+                        watch_path,
+                        changed_paths=late,
+                        follow_symlinks=follow_symlinks,
+                        force=force,
+                        no_cluster=no_cluster,
+                        acquire_lock=False,
+                    ) and ok
+            return ok
 
     watch_root = watch_path.resolve()
     project_root = Path.cwd().resolve() if not watch_path.is_absolute() else watch_root

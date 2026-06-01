@@ -75,20 +75,37 @@ GRAPHIFY_OUT="${GRAPHIFY_OUT:-graphify-out}"
 ### Step 1 - Ensure graphify is installed
 
 ```bash
-# Detect the correct Python interpreter (handles pipx, venv, system installs)
+# Detect the correct Python interpreter (handles uv tool, pipx, venv, system installs)
+PYTHON=""
 GRAPHIFY_BIN=$(which graphify 2>/dev/null)
-if [ -n "$GRAPHIFY_BIN" ]; then
-    PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
-    case "$PYTHON" in
-        *[!a-zA-Z0-9/_.-]*) PYTHON="python3" ;;
-    esac
-else
-    PYTHON="python3"
+# 1. uv tool installs — most reliable on modern Mac/Linux
+if [ -z "$PYTHON" ] && command -v uv >/dev/null 2>&1; then
+    _UV_PY=$(uv tool run graphifyy python -c "import sys; print(sys.executable)" 2>/dev/null)
+    if [ -n "$_UV_PY" ]; then PYTHON="$_UV_PY"; fi
 fi
-"$PYTHON" -c "import graphify" 2>/dev/null || "$PYTHON" -m pip install graphifyy -q 2>/dev/null || "$PYTHON" -m pip install graphifyy -q --break-system-packages 2>&1 | tail -3
+# 2. Read shebang from graphify binary (pipx and direct pip installs)
+if [ -z "$PYTHON" ] && [ -n "$GRAPHIFY_BIN" ]; then
+    _SHEBANG=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
+    case "$_SHEBANG" in
+        *[!a-zA-Z0-9/_.-]*) ;;
+        *) "$_SHEBANG" -c "import graphify" 2>/dev/null && PYTHON="$_SHEBANG" ;;
+    esac
+fi
+# 3. Fall back to python3
+if [ -z "$PYTHON" ]; then PYTHON="python3"; fi
+if ! "$PYTHON" -c "import graphify" 2>/dev/null; then
+    if command -v uv >/dev/null 2>&1; then
+        uv tool install --upgrade graphifyy -q 2>&1 | tail -3
+        _UV_PY=$(uv tool run graphifyy python -c "import sys; print(sys.executable)" 2>/dev/null)
+        if [ -n "$_UV_PY" ]; then PYTHON="$_UV_PY"; fi
+    else
+        "$PYTHON" -m pip install graphifyy -q 2>/dev/null \
+          || "$PYTHON" -m pip install graphifyy -q --break-system-packages 2>&1 | tail -3
+    fi
+fi
+# Write interpreter path for all subsequent steps (persists across invocations)
 mkdir -p $GRAPHIFY_OUT
-# Write interpreter path for all subsequent steps
-"$PYTHON" -c "import sys; open('$GRAPHIFY_OUT/.graphify_python', 'w').write(sys.executable)"
+"$PYTHON" -c "import sys; open('$GRAPHIFY_OUT/.graphify_python', 'w', encoding='utf-8').write(sys.executable)"
 # Force UTF-8 I/O on Windows (prevents garbled CJK/non-ASCII output)
 export PYTHONUTF8=1
 ```

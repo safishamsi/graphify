@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  🇺🇸 <a href="README.md">English</a> | 🇨🇳 <a href="docs/translations/README.zh-CN.md">简体中文</a> | 🇯🇵 <a href="docs/translations/README.ja-JP.md">日本語</a> | 🇰🇷 <a href="docs/translations/README.ko-KR.md">한국어</a> | 🇩🇪 <a href="docs/translations/README.de-DE.md">Deutsch</a> | 🇫🇷 <a href="docs/translations/README.fr-FR.md">Français</a> | 🇪🇸 <a href="docs/translations/README.es-ES.md">Español</a> | 🇮🇳 <a href="docs/translations/README.hi-IN.md">हिन्दी</a> | 🇧🇷 <a href="docs/translations/README.pt-BR.md">Português</a> | 🇷🇺 <a href="docs/translations/README.ru-RU.md">Русский</a> | 🇸🇦 <a href="docs/translations/README.ar-SA.md">العربية</a> | 🇮🇹 <a href="docs/translations/README.it-IT.md">Italiano</a> | 🇵🇱 <a href="docs/translations/README.pl-PL.md">Polski</a> | 🇳🇱 <a href="docs/translations/README.nl-NL.md">Nederlands</a> | 🇹🇷 <a href="docs/translations/README.tr-TR.md">Türkçe</a> | 🇺🇦 <a href="docs/translations/README.uk-UA.md">Українська</a> | 🇻🇳 <a href="docs/translations/README.vi-VN.md">Tiếng Việt</a> | 🇮🇩 <a href="docs/translations/README.id-ID.md">Bahasa Indonesia</a> | 🇸🇪 <a href="docs/translations/README.sv-SE.md">Svenska</a> | 🇬🇷 <a href="docs/translations/README.el-GR.md">Ελληνικά</a> | 🇷🇴 <a href="docs/translations/README.ro-RO.md">Română</a> | 🇨🇿 <a href="docs/translations/README.cs-CZ.md">Čeština</a> | 🇫🇮 <a href="docs/translations/README.fi-FI.md">Suomi</a> | 🇩🇰 <a href="docs/translations/README.da-DK.md">Dansk</a> | 🇳🇴 <a href="docs/translations/README.no-NO.md">Norsk</a> | 🇭🇺 <a href="docs/translations/README.hu-HU.md">Magyar</a> | 🇹🇭 <a href="docs/translations/README.th-TH.md">ภาษาไทย</a> | 🇺🇿 <a href="docs/translations/README.uz-UZ.md">Oʻzbekcha</a> | 🇹🇼 <a href="docs/translations/README.zh-TW.md">繁體中文</a>
+  🇺🇸 <a href="README.md">English</a> | 🇨🇳 <a href="docs/translations/README.zh-CN.md">简体中文</a> | 🇯🇵 <a href="docs/translations/README.ja-JP.md">日本語</a> | 🇰🇷 <a href="docs/translations/README.ko-KR.md">한국어</a> | 🇩🇪 <a href="docs/translations/README.de-DE.md">Deutsch</a> | 🇫🇷 <a href="docs/translations/README.fr-FR.md">Français</a> | 🇪🇸 <a href="docs/translations/README.es-ES.md">Español</a> | 🇮🇳 <a href="docs/translations/README.hi-IN.md">हिन्दी</a> | 🇧🇷 <a href="docs/translations/README.pt-BR.md">Português</a> | 🇷🇺 <a href="docs/translations/README.ru-RU.md">Русский</a> | 🇸🇦 <a href="docs/translations/README.ar-SA.md">العربية</a> | 🇮🇹 <a href="docs/translations/README.it-IT.md">Italiano</a> | 🇵🇱 <a href="docs/translations/README.pl-PL.md">Polski</a> | 🇳🇱 <a href="docs/translations/README.nl-NL.md">Nederlands</a> | 🇹🇷 <a href="docs/translations/README.tr-TR.md">Türkçe</a> | 🇺🇦 <a href="docs/translations/README.uk-UA.md">Українська</a> | 🇻🇳 <a href="docs/translations/README.vi-VN.md">Tiếng Việt</a> | 🇮🇩 <a href="docs/translations/README.id-ID.md">Bahasa Indonesia</a> | 🇸🇪 <a href="docs/translations/README.sv-SE.md">Svenska</a> | 🇬🇷 <a href="docs/translations/README.el-GR.md">Ελληνικά</a> | 🇷🇴 <a href="docs/translations/README.ro-RO.md">Română</a> | 🇨🇿 <a href="docs/translations/README.cs-CZ.md">Čeština</a> | 🇫🇮 <a href="docs/translations/README.fi-FI.md">Suomi</a> | 🇩🇰 <a href="docs/translations/README.da-DK.md">Dansk</a> | 🇳🇴 <a href="docs/translations/README.no-NO.md">Norsk</a> | 🇭🇺 <a href="docs/translations/README.hu-HU.md">Magyar</a> | 🇹🇭 <a href="docs/translations/README.th-TH.md">ภาษาไทย</a> | 🇺🇿 <a href="docs/translations/README.uz-UZ.md">Oʻzbekcha</a> | 🇹🇼 <a href="docs/translations/README.zh-TW.md">繁體中文</a> | 🇵🇭 <a href="docs/translations/README.fil-PH.md">Filipino</a>
 </p>
 
 <p align="center">
@@ -87,7 +87,7 @@ uv tool install graphifyy
 
 # Alternatives:
 pipx install graphifyy
-pip install graphifyy
+pip install graphifyy  # may need PATH setup — see note below
 ```
 
 **Step 2 — register the skill with your AI assistant:**
@@ -115,6 +115,8 @@ for example `graphify claude install --project` or `graphify codex install --pro
 > **PowerShell note:** Use `graphify .` not `/graphify .` — the leading slash is a path separator in PowerShell.
 
 > **`graphify: command not found`?** Use `uv tool install graphifyy` or `pipx install graphifyy` — both put the CLI on PATH automatically. With plain `pip`, add `~/.local/bin` (Linux) or `~/Library/Python/3.x/bin` (Mac) to your PATH, or run `python -m graphify`.
+
+> **Avoid `pip install` on Mac/Windows** if possible. The skill resolves Python at runtime from `graphify-out/.graphify_python`; if that points to a different environment than where `pip` installed the package, you'll get `ModuleNotFoundError: No module named 'graphify'`. `uv tool install` and `pipx install` isolate the package in their own env and avoid this entirely.
 
 ### Pick your platform
 
@@ -365,6 +367,7 @@ These are only needed for **headless / CI extraction** (`graphify extract`). Whe
 - **Code files** — processed locally via tree-sitter. Nothing leaves your machine.
 - **Video / audio** — transcribed locally with faster-whisper. Nothing leaves your machine.
 - **Docs, PDFs, images** — sent to your AI assistant for semantic extraction (via the `/graphify` skill, using whatever model your IDE session runs). Headless `graphify extract` requires `GEMINI_API_KEY` / `GOOGLE_API_KEY` (Gemini), `MOONSHOT_API_KEY` (Kimi), `ANTHROPIC_API_KEY` (Claude), `OPENAI_API_KEY` (OpenAI), `DEEPSEEK_API_KEY` (DeepSeek), a running Ollama instance (`OLLAMA_BASE_URL`), AWS credentials via the standard provider chain (Bedrock - no API key needed, uses IAM), or the `claude` CLI binary (Claude Code - no API key needed, uses your Claude subscription). The `--dedup-llm` flag uses the same key.
+- **Data residency** — `graphify extract` auto-detects which provider to use based on which API key is set (priority: Gemini → Kimi → Claude → OpenAI → DeepSeek → Bedrock → Ollama). For code with data-residency requirements, use `--backend ollama` (fully local) or pass an explicit `--backend` flag. Kimi (`MOONSHOT_API_KEY`) routes to Moonshot AI servers in China.
 - No telemetry, no usage tracking, no analytics.
 
 ---
@@ -527,7 +530,13 @@ graphify cluster-only ./my-project
 graphify cluster-only ./my-project --graph path/to/graph.json  # custom graph location
 graphify cluster-only ./my-project --resolution 1.5            # more, smaller communities
 graphify cluster-only ./my-project --exclude-hubs 99           # exclude p99 degree nodes from partitioning
+graphify cluster-only ./my-project --no-label                  # keep "Community N" placeholders
+graphify cluster-only ./my-project --backend=gemini            # backend for community naming
+graphify label ./my-project                                    # (re)name communities with the configured backend
+graphify label ./my-project --backend=openai                   # force a specific backend
 ```
+
+> **Community names:** inside an agent (Claude Code, Gemini CLI) the agent names communities itself. When you run the bare CLI, `cluster-only` auto-names them with the configured backend (built-in or custom OpenAI-compatible provider) — pass `--no-label` to keep `Community N`, or run `graphify label` to (re)generate names on demand.
 
 ---
 
@@ -554,34 +563,31 @@ Built for people whose work lives across hundreds of conversations and documents
 
 ### Development setup
 
-Clone the repo and install in editable mode:
+The project uses [uv](https://docs.astral.sh/uv/) for dev workflow. Install it once, then:
 
 ```bash
 git clone https://github.com/safishamsi/graphify.git
 cd graphify
 git checkout v8                        # active development branch
 
-# Create a virtual environment (Python 3.10+ required):
-python3 -m venv .venv
-source .venv/bin/activate              # Windows: .venv\Scripts\activate
-
-# Install in editable mode with all optional extras:
-pip install -e ".[all]"
+# Create the project venv and install graphify + all extras + the dev group
+# (pytest). uv installs the dev dependency group by default; pass --no-dev to
+# skip it.
+uv sync --all-extras
 ```
 
 Verify the editable install:
 ```bash
-graphify --version
-python -c "import graphify; print(graphify.__file__)"
+uv run graphify --version
+uv run python -c "import graphify; print(graphify.__file__)"
 ```
 
 ### Running tests
 
 ```bash
-pip install pytest
-pytest tests/ -q                       # run the full suite
-pytest tests/test_extract.py -q        # one module
-pytest tests/ -q -k "python"           # filter by name
+uv run pytest tests/ -q                # run the full suite
+uv run pytest tests/test_extract.py -q # one module
+uv run pytest tests/ -q -k "python"    # filter by name
 ```
 
 > macOS note: the test suite includes both `sample.f90` and `sample.F90` fixtures. These collide on case-insensitive HFS+ / APFS file systems. Run on Linux or in a Docker container if you need to test both Fortran variants simultaneously.
@@ -590,7 +596,7 @@ pytest tests/ -q -k "python"           # filter by name
 
 - Active development happens on the `v8` branch.
 - Commit style: `fix: <description>` / `feat: <description>` / `docs: <description>`
-- Before opening a PR, run `pytest tests/ -q` and confirm it passes.
+- Before opening a PR, run `uv run pytest tests/ -q` and confirm it passes.
 - Add a fixture file to `tests/fixtures/` and tests to `tests/test_languages.py` for any new language extractor.
 
 ### What to contribute

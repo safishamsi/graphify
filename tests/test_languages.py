@@ -8,6 +8,7 @@ from graphify.extract import (
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
     extract_groovy, extract_sln, extract_csproj, extract_razor,
     extract_dm, extract_dmi, extract_dmm, extract_dmf,
+    extract_powershell,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -138,6 +139,12 @@ def test_c_import_edges_have_import_context():
     assert all(e.get("context") == "import" for e in import_edges)
 
 
+def test_c_parameter_and_return_type_contexts():
+    r = extract_c(FIXTURES / "sample.c")
+    assert ("make_rect", "Rectangle") in _edge_labels(r, "references", "parameter_type")
+    assert ("make_rect", "Rectangle") in _edge_labels(r, "references", "return_type")
+
+
 def test_c_call_edges_have_call_context():
     r = extract_c(FIXTURES / "sample.c")
     call_edges = _edges_with_relation(r, "calls")
@@ -171,6 +178,19 @@ def test_cpp_import_edges_have_import_context():
     import_edges = _edges_with_relation(r, "imports", "imports_from")
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
+
+
+def test_cpp_method_parameter_and_return_type_contexts():
+    r = extract_cpp(FIXTURES / "sample.cpp")
+    assert ("get", "string") in _edge_labels(r, "references", "parameter_type")
+    assert ("get", "string") in _edge_labels(r, "references", "return_type")
+
+
+def test_cpp_field_and_template_argument_contexts():
+    r = extract_cpp(FIXTURES / "sample.cpp")
+    assert ("HttpClient", "string") in _edge_labels(r, "references", "field")
+    assert ("HttpClient", "vector") in _edge_labels(r, "references", "field")
+    assert ("HttpClient", "string") in _edge_labels(r, "references", "generic_arg")
 
 
 def test_cpp_class_inherits_edge():
@@ -348,6 +368,20 @@ def test_kotlin_emits_in_file_calls():
     assert ("createClient()", "HttpClient") in calls
 
 
+def test_kotlin_splits_inherits_and_implements():
+    r = extract_kotlin(FIXTURES / "sample.kt")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+
+
+def test_kotlin_parameter_return_generic_and_field_contexts():
+    r = extract_kotlin(FIXTURES / "sample.kt")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "generic_arg")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
+
+
 # ── Scala ─────────────────────────────────────────────────────────────────────
 
 def test_scala_no_error():
@@ -374,6 +408,27 @@ def test_scala_import_edges_have_import_context():
     import_edges = _edges_with_relation(r, "imports", "imports_from")
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
+
+
+def test_scala_splits_inherits_and_mixes_in():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("HttpClient", "BaseClient") in _edge_labels(r, "inherits")
+    assert ("HttpClient", "Loggable") in _edge_labels(r, "mixes_in")
+
+
+def test_scala_constructor_parameter_field_context():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("HttpClient", "Config") in _edge_labels(r, "references", "field")
+
+
+def test_scala_val_definition_field_context():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("HttpClient", "Config") in _edge_labels(r, "references", "field")
+
+
+def test_scala_method_return_type_context():
+    r = extract_scala(FIXTURES / "sample.scala")
+    assert ("create", "HttpClient") in _edge_labels(r, "references", "return_type")
 
 
 def test_scala_call_edges_have_call_context():
@@ -474,6 +529,20 @@ def test_php_event_listener_links_event_to_listener():
     assert any("UserRegistered" in src and "SendWelcomeEmail" in tgt for src, tgt in listened)
 
 
+def test_php_splits_inherits_implements_mixes_in():
+    r = extract_php(FIXTURES / "sample.php")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+    assert ("DataProcessor", "HasName") in _edge_labels(r, "mixes_in")
+
+
+def test_php_property_parameter_and_return_contexts():
+    r = extract_php(FIXTURES / "sample.php")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+
+
 # ── Swift ────────────────────────────────────────────────────────────────────
 
 def test_swift_no_error():
@@ -568,31 +637,28 @@ def test_swift_extension_does_not_duplicate_type_node():
     config_nodes = [n for n in r["nodes"] if n["label"] == "Config"]
     assert len(config_nodes) == 1, f"Config should appear once, got {len(config_nodes)}"
 
-def test_swift_conformance_edge():
+def test_swift_protocol_conformance_emits_implements():
     r = extract_swift(FIXTURES / "sample.swift")
-    inherits_edges = [e for e in r["edges"] if e["relation"] == "inherits"]
-    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
-    found = False
-    for e in inherits_edges:
-        src_label = node_by_id.get(e["source"], "")
-        tgt_label = node_by_id.get(e["target"], "")
-        if "DataProcessor" in src_label and "Processor" in tgt_label:
-            found = True
-            break
-    assert found, "DataProcessor should have inherits edge to Processor"
+    assert ("DataProcessor", "Processor") in _edge_labels(r, "implements")
 
-def test_swift_extension_conformance_edge():
+
+def test_swift_extension_conformance_emits_implements():
     r = extract_swift(FIXTURES / "sample.swift")
-    inherits_edges = [e for e in r["edges"] if e["relation"] == "inherits"]
-    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
-    found = False
-    for e in inherits_edges:
-        src_label = node_by_id.get(e["source"], "")
-        tgt_label = node_by_id.get(e["target"], "")
-        if "DataProcessor" in src_label and "Loggable" in tgt_label:
-            found = True
-            break
-    assert found, "extension should add conformance edge DataProcessor -> Loggable"
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+
+
+def test_swift_splits_inherits_and_implements():
+    r = extract_swift(FIXTURES / "sample.swift")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Processor") in _edge_labels(r, "implements")
+
+
+def test_swift_parameter_return_generic_and_field_contexts():
+    r = extract_swift(FIXTURES / "sample.swift")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "generic_arg")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
 
 def test_swift_emits_calls():
     r = extract_swift(FIXTURES / "sample.swift")
@@ -715,6 +781,18 @@ def test_objc_inherits_edge():
     assert len(inherits) >= 1
 
 
+def test_objc_splits_inherits_and_implements():
+    r = extract_objc(FIXTURES / "sample.m")
+    assert ("Animal", "NSObject") in _edge_labels(r, "inherits")
+    assert ("Dog", "Animal") in _edge_labels(r, "inherits")
+    assert ("Animal", "SampleDelegate") in _edge_labels(r, "implements")
+
+
+def test_objc_property_type_context():
+    r = extract_objc(FIXTURES / "sample.m")
+    assert ("Animal", "NSString") in _edge_labels(r, "references", "field")
+
+
 def test_objc_no_dangling_edges():
     r = extract_objc(FIXTURES / "sample.m")
     node_ids = {n["id"] for n in r["nodes"]}
@@ -797,6 +875,19 @@ def test_julia_finds_inherits():
     assert len(inherits) >= 1
 
 
+def test_julia_abstract_concrete_hierarchy_inherits():
+    r = extract_julia(FIXTURES / "sample.jl")
+    assert ("Point", "Shape") in _edge_labels(r, "inherits")
+    assert ("Circle", "Shape") in _edge_labels(r, "inherits")
+
+
+def test_julia_struct_field_type_context():
+    r = extract_julia(FIXTURES / "sample.jl")
+    assert ("Point", "Float64") in _edge_labels(r, "references", "field")
+    assert ("Circle", "Point") in _edge_labels(r, "references", "field")
+    assert ("Circle", "Float64") in _edge_labels(r, "references", "field")
+
+
 def test_julia_finds_calls():
     r = extract_julia(FIXTURES / "sample.jl")
     call_edges = [e for e in r["edges"] if e["relation"] == "calls"]
@@ -871,6 +962,18 @@ def test_fortran_case_insensitive_names():
     assert "main" in labels
 
 
+def test_fortran_finds_derived_type():
+    r = extract_fortran(FIXTURES / "sample.f90")
+    labels = [n["label"] for n in r["nodes"]]
+    assert "point" in labels
+
+
+def test_fortran_parameter_and_return_type_contexts():
+    r = extract_fortran(FIXTURES / "sample.f90")
+    assert ("translate", "point") in _edge_labels(r, "references", "parameter_type")
+    assert ("origin", "point") in _edge_labels(r, "references", "return_type")
+
+
 def test_fortran_no_dangling_edges():
     r = extract_fortran(FIXTURES / "sample.f90")
     node_ids = {n["id"] for n in r["nodes"]}
@@ -884,6 +987,32 @@ def test_fortran_capital_F_parses_preprocessed():
     labels = [n["label"] for n in r["nodes"]]
     assert "shapes" in labels
     assert any("compute_volume" in l for l in labels)
+
+
+# ── PowerShell ───────────────────────────────────────────────────────────────
+
+def test_powershell_no_error():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    assert "error" not in r
+
+
+def test_powershell_finds_class_and_method():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    labels = [n["label"] for n in r["nodes"]]
+    assert "DataProcessor" in labels
+    assert any("Transform" in l for l in labels)
+
+
+def test_powershell_property_field_type_context():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    assert ("DataProcessor", "string") in _edge_labels(r, "references", "field")
+
+
+def test_powershell_method_parameter_and_return_type_contexts():
+    r = extract_powershell(FIXTURES / "sample.ps1")
+    assert ("Transform", "string") in _edge_labels(r, "references", "parameter_type")
+    assert ("Transform", "string") in _edge_labels(r, "references", "return_type")
+    assert ("Save", "void") in _edge_labels(r, "references", "return_type")
 
 
 # ── TypeScript dynamic imports ───────────────────────────────────────────────
@@ -951,6 +1080,75 @@ def test_ts_static_template_literal_resolved():
         f"Static template literal import not resolved: {targets}"
 
 
+def test_js_local_const_does_not_emit_phantom_node(tmp_path):
+    """Local const/let/var inside an arrow callback must NOT emit a node (#1077).
+
+    Previously `_js_extra_walk` recursed into arrow_function bodies and
+    emitted a node for every `const x = ...` inside e.g. `describe(() => {})`,
+    so bare names like `set`, `sorted` collided across unrelated test files.
+    """
+    src = (
+        "describe('suite', () => {\n"
+        "  const inner = new Set([1, 2, 3]);\n"
+        "  let other = [1, 2];\n"
+        "});\n"
+        "\n"
+        "const moduleConst = new Set([4, 5]);\n"
+        "export const exportedConst = { a: 1 };\n"
+    )
+    f = tmp_path / "scope_guard.js"
+    f.write_text(src)
+    r = extract_js(f)
+    labels = _labels(r)
+
+    # Locals inside the arrow callback must not produce nodes.
+    assert "inner" not in labels, f"phantom node for arrow-body local 'inner': {labels}"
+    assert "other" not in labels, f"phantom node for arrow-body local 'other': {labels}"
+
+    # Module-level consts should still produce nodes.
+    assert "moduleConst" in labels, f"module-level const 'moduleConst' missing: {labels}"
+    assert "exportedConst" in labels, f"exported const 'exportedConst' missing: {labels}"
+
+
+def test_js_module_level_arrow_produces_node_and_call_edges(tmp_path):
+    """Module-level arrow functions must still emit a node and capture their calls (#1077).
+
+    The scope guard must not accidentally suppress top-level arrow functions.
+    """
+    src = (
+        "function helper() { return 1; }\n"
+        "const handler = () => {\n"
+        "  helper();\n"
+        "};\n"
+    )
+    f = tmp_path / "arrows.js"
+    f.write_text(src)
+    r = extract_js(f)
+    labels = _labels(r)
+    relations = _relations(r)
+
+    assert any("handler" in l for l in labels), f"module-level arrow 'handler' missing: {labels}"
+    assert "calls" in relations, f"expected 'calls' edge from handler->helper: {relations}"
+
+
+def test_ts_local_const_does_not_emit_phantom_node(tmp_path):
+    """Scope guard applies to TypeScript files too (shared _js_extra_walk path)."""
+    src = (
+        "describe('suite', () => {\n"
+        "  const inner: Set<number> = new Set([1, 2]);\n"
+        "});\n"
+        "\n"
+        "export const topLevel = { a: 1 };\n"
+    )
+    f = tmp_path / "scope_guard.ts"
+    f.write_text(src)
+    r = extract_js(f)
+    labels = _labels(r)
+
+    assert "inner" not in labels, f"phantom TS node for arrow-body local 'inner': {labels}"
+    assert "topLevel" in labels, f"module-level TS const 'topLevel' missing: {labels}"
+
+
 # ── Markdown ─────────────────────────────────────────────────────────────────
 
 from graphify.extract import extract_markdown
@@ -973,19 +1171,59 @@ def test_markdown_finds_nested_heading():
     labels = _labels(r)
     assert any("Database Migration" in l for l in labels)
 
-def test_markdown_finds_code_blocks():
+def test_markdown_skips_fenced_code_blocks():
+    """Fenced code blocks should NOT emit nodes (#1077).
+
+    They were always orphans (single contains edge to parent doc) and
+    inflated the disconnected-component count. We still skip over their
+    *contents* when parsing so the inside of a fence is not misread as a
+    heading.
+    """
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     labels = _labels(r)
-    assert any("code:bash" in l for l in labels)
-    assert any("code:sql" in l for l in labels)
-    assert any("code:python" in l for l in labels)
+    assert not any(l.startswith("code:") for l in labels), \
+        f"Expected no code:* nodes after #1077 fix, got: {[l for l in labels if l.startswith('code:')]}"
 
 def test_markdown_contains_edges():
-    """Headings and code blocks should be connected via 'contains' edges."""
+    """Headings should be connected via 'contains' edges (file->h, h->h)."""
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     assert "contains" in _relations(r)
     contains_edges = [e for e in r["edges"] if e["relation"] == "contains"]
-    assert len(contains_edges) >= 5  # file->h1, h1->h2s, h2->h3, h2->codeblocks
+    # deploy_guide.md has: file->h1, h1->h2(Prerequisites), h1->h2(Full Deploy),
+    # h2(Full Deploy)->h3(Database Migration), h1->h2(Rollback) = 5 edges
+    assert len(contains_edges) >= 5, f"expected >= 5 contains edges, got {len(contains_edges)}"
+
+
+def test_markdown_fenced_heading_not_parsed():
+    """A '## heading' inside a fenced block must not produce a heading node (#1077).
+
+    The fence-toggle skips over fenced contents so interior markdown syntax
+    is not misread as document structure.
+    """
+    import tempfile, os
+    src = (
+        "# Real Heading\n"
+        "\n"
+        "```bash\n"
+        "## Not A Heading\n"
+        "echo hello\n"
+        "```\n"
+        "\n"
+        "## Another Real Heading\n"
+    )
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False) as fh:
+        fh.write(src)
+        fpath = fh.name
+    try:
+        r = extract_markdown(Path(fpath))
+        labels = _labels(r)
+    finally:
+        os.unlink(fpath)
+
+    assert any("Real Heading" in l for l in labels), f"'Real Heading' missing: {labels}"
+    assert any("Another Real Heading" in l for l in labels), f"'Another Real Heading' missing: {labels}"
+    assert not any("Not A Heading" in l for l in labels), \
+        f"fenced '## Not A Heading' was incorrectly parsed as a node: {labels}"
 
 def test_markdown_no_dangling_edges():
     r = extract_markdown(FIXTURES / "deploy_guide.md")

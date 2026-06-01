@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from graphify.extract import _file_stem, _make_id, extract
+from graphify.extract import _file_node_id, _file_stem, _make_id, extract
 
 
 def _write(path: Path, text: str) -> Path:
@@ -17,7 +17,7 @@ def _extract_for(paths: list[Path], root: Path):
 
 
 def _has_edge(result: dict, source: str, target: str, relation: str = "imports_from") -> bool:
-    expected = (_make_id(source), _make_id(target), relation)
+    expected = (_file_node_id(Path(source)), _file_node_id(Path(target)), relation)
     actual = {
         (edge["source"], edge["target"], edge["relation"])
         for edge in result["edges"]
@@ -32,7 +32,7 @@ def _has_symbol_edge(
     symbol: str,
     relation: str = "imports",
 ) -> bool:
-    expected = (_make_id(source), _make_id(_file_stem(Path(target_file)), symbol), relation)
+    expected = (_file_node_id(Path(source)), _make_id(_file_stem(Path(target_file)), symbol), relation)
     actual = {
         (edge["source"], edge["target"], edge["relation"])
         for edge in result["edges"]
@@ -423,6 +423,30 @@ def test_workspace_package_cache_refreshes_between_extract_calls(tmp_path: Path)
     second = _extract_for([target, importer], tmp_path)
 
     assert _has_edge(second, "apps/web/src/page.ts", "packages/types/src/index.ts")
+
+
+def test_pnpm_workspace_dot_package_does_not_crash(tmp_path: Path):
+    """packages: - '.' in pnpm-workspace.yaml must not raise IndexError on any Python version."""
+    _write(
+        tmp_path / "pnpm-workspace.yaml",
+        "packages:\n  - '.'\n  - 'examples/*'\n",
+    )
+    _write(
+        tmp_path / "package.json",
+        json.dumps({"name": "my-app"}),
+    )
+    src = _write(
+        tmp_path / "index.ts",
+        "import { foo } from 'my-app';\n",
+    )
+
+    result = _extract_for([src], tmp_path)
+
+    nodes = result.get("nodes", [])
+    assert isinstance(nodes, list)
+    for node in nodes:
+        error = node.get("error", "") if isinstance(node, dict) else ""
+        assert "IndexError" not in error
 
 
 def test_ts_type_relationships_and_contexts(tmp_path: Path):
