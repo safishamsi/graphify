@@ -1235,6 +1235,116 @@ def _resolve_js_import_target(raw: str, str_path: str) -> "tuple[str, Path | Non
     return _make_id(module_name), None
 
 
+def _file_node_id(path: Path, root: Path | None = None) -> str:
+    """Return the graph node id for a file path, relative to root when possible."""
+    if root is not None:
+        try:
+            return _make_id(str(path.relative_to(root)))
+        except ValueError:
+            pass
+    return _make_id(str(path))
+
+
+def _iter_lua_requires(path: Path) -> list[tuple[str, int]]:
+    """Collect Lua require() module strings and 1-based line numbers from a file."""
+    try:
+        import tree_sitter_lua as tslua
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return []
+
+    try:
+        source = path.read_bytes()
+    except OSError:
+        return []
+
+    parser = Parser(Language(tslua.language()))
+    try:
+        tree = parser.parse(source)
+    except Exception:
+        return []
+
+    requires: list[tuple[str, int]] = []
+    seen: set[tuple[str, int]] = set()
+
+    def walk(node) -> None:
+        if node.type == "function_call":
+            named_children = [child for child in node.children if child.is_named]
+            callee = named_children[0] if named_children else None
+            if callee is not None and callee.type == "identifier":
+                if source[callee.start_byte:callee.end_byte].decode("utf-8", errors="replace") == "require":
+                    args = next((child for child in node.children if child.type == "arguments"), None)
+                    if args is not None:
+                        for child in args.children:
+                            if child.type != "string":
+                                continue
+                            raw = source[child.start_byte:child.end_byte].decode("utf-8", errors="replace").strip("'\"` ")
+                            if raw:
+                                item = (raw, node.start_point[0] + 1)
+                                if item not in seen:
+                                    requires.append(item)
+                                    seen.add(item)
+                            break
+        for child in node.children:
+            walk(child)
+
+    walk(tree.root_node)
+    return requires
+
+
+def _resolve_lua_module_path(
+    raw: str,
+    source_path: Path,
+    root: Path,
+    logical_paths: set[Path],
+    resolved_to_logical: dict[Path, Path],
+) -> Path | None:
+    """Resolve a Lua dotted module path to a file within the extracted corpus.
+
+    Returns the logical corpus path, not the fully resolved filesystem path, so
+    file node ids stay aligned with the rest of extraction even when the corpus
+    contains symlinks.
+    """
+    raw = raw.strip().strip("'\"` ")
+    if not raw:
+        return None
+
+    parts = [part for part in raw.split(".") if part]
+    if not parts:
+        return None
+
+    module_base = Path(*parts)
+    bases: list[Path] = []
+    seen_bases: set[Path] = set()
+    for base in [source_path.parent, *source_path.parents]:
+        if base in seen_bases:
+            continue
+        bases.append(base)
+        seen_bases.add(base)
+        if base == root:
+            break
+    if root not in seen_bases:
+        bases.append(root)
+
+    for base in bases:
+        for candidate in (
+            (base / module_base).with_suffix(".lua"),
+            (base / module_base).with_suffix(".luau"),
+            base / module_base / "init.lua",
+            base / module_base / "init.luau",
+        ):
+            if candidate in logical_paths:
+                return candidate
+            try:
+                resolved = candidate.resolve()
+            except OSError:
+                continue
+            logical = resolved_to_logical.get(resolved)
+            if logical is not None:
+                return logical
+    return None
+
+
 def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
     is_reexport = node.type == "export_statement"
     # Only handle export_statement if it has a `from` clause (re-export).
@@ -7828,6 +7938,59 @@ def _merge_swift_extensions(
     all_edges[:] = rewritten
 
 
+def _resolve_cross_file_lua_imports(
+    paths: list[Path],
+    root: Path,
+) -> list[dict]:
+    """Resolve Lua require() calls to file-level imports_from edges.
+
+    This post-pass looks across the extracted corpus so dotted module names like
+    `pkg.mod` can be resolved to actual file nodes such as `pkg/mod.lua`.
+    """
+    lua_paths = [p for p in paths if p.suffix in {".lua", ".luau"}]
+    if not lua_paths:
+        return []
+
+    logical_paths = set(lua_paths)
+    resolved_to_logical: dict[Path, Path] = {}
+    for path in lua_paths:
+        try:
+            resolved_to_logical.setdefault(path.resolve(), path)
+        except OSError:
+            pass
+
+    new_edges: list[dict] = []
+    seen: set[tuple[str, str, str]] = set()
+
+    for path in lua_paths:
+        src_nid = _file_node_id(path, root)
+        source_file = str(path)
+        for raw, line in _iter_lua_requires(path):
+            resolved = _resolve_lua_module_path(raw, path, root, logical_paths, resolved_to_logical)
+            if resolved is None:
+                continue
+            tgt_nid = _file_node_id(resolved, root)
+            if src_nid == tgt_nid:
+                continue
+            key = (src_nid, tgt_nid, "imports_from")
+            if key in seen:
+                continue
+            seen.add(key)
+            new_edges.append({
+                "source": src_nid,
+                "target": tgt_nid,
+                "relation": "imports_from",
+                "context": "import",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": source_file,
+                "source_location": f"L{line}",
+                "weight": 1.0,
+            })
+
+    return new_edges
+
+
 def _resolve_cross_file_java_imports(
     per_file: list[dict],
     paths: list[Path],
@@ -10963,6 +11126,15 @@ def extract(
         except Exception as exc:
             import logging
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
+
+    # Cross-file Lua require() resolution to file-level dependency edges
+    lua_paths = [p for p in paths if p.suffix in {".lua", ".luau"}]
+    if lua_paths:
+        try:
+            all_edges.extend(_resolve_cross_file_lua_imports(lua_paths, root))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Lua cross-file import resolution failed, skipping: %s", exc)
 
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all
