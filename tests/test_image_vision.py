@@ -45,6 +45,32 @@ def _make_corpus(tmp_path):
 
 # ── pure helpers ──────────────────────────────────────────────────────────────
 
+def test_pdf_routed_through_pypdf_not_readtext(tmp_path, monkeypatch):
+    # A PDF is binary; reading it as text yields garbage (the bug). It must be
+    # routed through the pypdf extractor, and the raw bytes must never reach the
+    # prompt.
+    pdf = tmp_path / "paper.pdf"
+    pdf.write_bytes(b"%PDF-1.4 RAWBINARYGARBAGE\x00\xff")
+    import graphify.detect as detect
+    monkeypatch.setattr(detect, "extract_pdf_text", lambda p: "EXTRACTED PDF TEXT")
+    out = llm._read_files([pdf], tmp_path)
+    assert "EXTRACTED PDF TEXT" in out
+    assert "RAWBINARYGARBAGE" not in out
+
+
+def test_pdf_is_not_treated_as_vision_image(tmp_path):
+    pdf = tmp_path / "paper.pdf"
+    pdf.write_bytes(b"%PDF-1.4")
+    text_files, image_files = llm._partition_semantic_files([pdf])
+    assert text_files == [pdf] and image_files == []
+
+
+def test_non_pdf_still_read_as_plain_text(tmp_path):
+    md = tmp_path / "a.md"
+    md.write_text("# hello")
+    assert "# hello" in llm._file_to_text(md)
+
+
 def test_partition_splits_raster_from_text(tmp_path):
     img, svg, doc = _make_corpus(tmp_path)
     text_files, image_files = llm._partition_semantic_files([doc, img, svg])

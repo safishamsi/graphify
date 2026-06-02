@@ -212,6 +212,20 @@ def _extraction_system(*, deep: bool = False) -> str:
     return _EXTRACTION_SYSTEM + _DEEP_EXTRACTION_SUFFIX
 
 
+def _file_to_text(path: Path) -> str:
+    """Return a text-like file's content for the extraction prompt.
+
+    Most files are read directly. PDFs are binary, so reading them with
+    `read_text` yields garbage (the same failure images had); route them through
+    pypdf instead. A scanned PDF with no text layer extracts to an empty string,
+    which still produces a reference node rather than noise.
+    """
+    if path.suffix.lower() == ".pdf":
+        from graphify.detect import extract_pdf_text
+        return extract_pdf_text(path)
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
 def _read_files(paths: list[Path], root: Path) -> str:
     """Return file contents formatted for the extraction prompt."""
     parts: list[str] = []
@@ -221,7 +235,7 @@ def _read_files(paths: list[Path], root: Path) -> str:
         except ValueError:
             rel = p
         try:
-            content = p.read_text(encoding="utf-8", errors="replace")
+            content = _file_to_text(p)
         except OSError:
             continue
         parts.append(f"=== {rel} ===\n{content[:20000]}")
