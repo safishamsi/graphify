@@ -178,8 +178,13 @@ def cluster(
             second_pass.append(nodes)
     final_communities = second_pass
 
-    # Re-index by size descending for deterministic ordering
-    final_communities.sort(key=len, reverse=True)
+    # Re-index by size descending. The tuple(sorted(nodes)) tiebreak makes this a
+    # TOTAL order, so an identical grouping always gets identical community IDs.
+    # Without it, the hundreds of equal-sized small communities are ordered by the
+    # partitioner's (not seed-stable) enumeration order, so their integer IDs
+    # permute run-to-run - which reads as massive "community churn" in a per-node
+    # cid diff even though the actual grouping is reproducible (#1090 follow-up).
+    final_communities.sort(key=lambda nodes: (-len(nodes), tuple(sorted(map(str, nodes)))))
     return {i: sorted(nodes) for i, nodes in enumerate(final_communities)}
 
 

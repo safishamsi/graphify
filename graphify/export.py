@@ -86,11 +86,11 @@ def backup_if_protected(out_dir: Path) -> "Path | None":
                 except Exception:
                     pass
         if copied:
-            print(f"[graphify] backed up {reason} graph ({copied} files) → {backup_dir.name}/")
+            print(f"[graphify] backed up {reason} graph ({copied} files) -> {backup_dir.name}/")
         return backup_dir
     except Exception as exc:
         import sys
-        print(f"[graphify] warning: backup failed ({exc}) — continuing with overwrite", file=sys.stderr)
+        print(f"[graphify] warning: backup failed ({exc}) - continuing with overwrite", file=sys.stderr)
         return None
 
 def _obsidian_tag(name: str) -> str:
@@ -814,6 +814,23 @@ def to_html(
 generate_html = to_html
 
 
+def _cap_filename(s: str, limit: int = 200) -> str:
+    """Cap a filename stem to ``limit`` UTF-8 bytes so it stays under the 255-byte
+    filesystem limit even after the ``.md`` extension and dedup suffix are added
+    (#1094). The cap is on BYTES, not chars, because a label of multibyte
+    characters (CJK, accented) can exceed 255 bytes well under 255 chars. When
+    truncation happens, an 8-char hash of the full label is appended so two
+    distinct labels sharing a long prefix produce distinct, deterministic
+    filenames instead of colliding."""
+    b = s.encode("utf-8")
+    if len(b) <= limit:
+        return s
+    digest = hashlib.sha1(s.encode("utf-8")).hexdigest()[:8]  # nosec - not security
+    keep = limit - 9  # "_" + 8 hex chars
+    truncated = b[:keep].decode("utf-8", "ignore")  # "ignore" drops a split trailing char
+    return f"{truncated}_{digest}"
+
+
 def to_obsidian(
     G: nx.Graph,
     communities: dict[int, list[str]],
@@ -840,7 +857,7 @@ def to_obsidian(
         cleaned = re.sub(r'[\\/*?:"<>|#^[\]]', "", label.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")).strip()
         # Strip trailing .md/.mdx/.markdown so "CLAUDE.md" doesn't become "CLAUDE.md.md"
         cleaned = re.sub(r"\.(md|mdx|qmd|markdown)$", "", cleaned, flags=re.IGNORECASE)
-        return cleaned or "unnamed"
+        return _cap_filename(cleaned) if cleaned else "unnamed"
 
     node_filename: dict[str, str] = {}
     seen_names: dict[str, int] = {}
@@ -1080,7 +1097,7 @@ def to_canvas(
     def safe_name(label: str) -> str:
         cleaned = re.sub(r'[\\/*?:"<>|#^[\]]', "", label.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")).strip()
         cleaned = re.sub(r"\.(md|mdx|qmd|markdown)$", "", cleaned, flags=re.IGNORECASE)
-        return cleaned or "unnamed"
+        return _cap_filename(cleaned) if cleaned else "unnamed"
 
     # Build node_filenames if not provided (same dedup logic as to_obsidian)
     if node_filenames is None:

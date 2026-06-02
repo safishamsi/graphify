@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import time
 from collections.abc import Callable
@@ -116,6 +117,32 @@ BACKENDS: dict[str, dict] = {
         "max_tokens": 16384,
     },
 }
+
+
+def _custom_providers_path(global_: bool = True) -> Path:
+    if global_:
+        return Path.home() / ".graphify" / "providers.json"
+    return Path(".graphify") / "providers.json"
+
+
+def _load_custom_providers() -> dict[str, dict]:
+    providers: dict[str, dict] = {}
+    for path in (_custom_providers_path(global_=False), _custom_providers_path(global_=True)):
+        if path.is_file():
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+                if isinstance(data, dict):
+                    for name, cfg in data.items():
+                        if isinstance(name, str) and isinstance(cfg, dict) and name not in BACKENDS:
+                            if "pricing" not in cfg:
+                                cfg = dict(cfg, pricing={"input": 0.0, "output": 0.0})
+                            providers[name] = cfg
+            except Exception:
+                pass
+    return providers
+
+
+BACKENDS.update(_load_custom_providers())
 
 
 def _resolve_max_tokens(default: int) -> int:
@@ -490,10 +517,27 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     ANTHROPIC_API_KEY. Useful for Pro/Max subscribers who don't want to provision
     a pay-as-you-go API key just to run graphify's semantic pass.
     """
+    import platform
     import shutil
     import subprocess
 
-    if shutil.which("claude") is None:
+    # On Windows, npm installs `claude` as both `claude.ps1` and `claude.cmd`
+    # alongside each other. When PATHEXT lists `.PS1` before `.CMD`,
+    # `shutil.which("claude")` returns `claude.ps1`, which `CreateProcess`
+    # cannot execute directly — it raises `[WinError 2] The system cannot
+    # find the file specified`. `claude.cmd` IS executable by CreateProcess,
+    # so prefer it explicitly on Windows. See issue #1072.
+    claude_cmd = "claude"
+    if platform.system() == "Windows":
+        cmd_path = shutil.which("claude.cmd")
+        if cmd_path:
+            claude_cmd = cmd_path
+        elif shutil.which("claude") is None:
+            raise RuntimeError(
+                "Claude Code CLI not found on $PATH. Install from "
+                "https://claude.ai/code and run `claude` once to authenticate."
+            )
+    elif shutil.which("claude") is None:
         raise RuntimeError(
             "Claude Code CLI not found on $PATH. Install from "
             "https://claude.ai/code and run `claude` once to authenticate."
@@ -508,7 +552,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     # Replacing the default prompt eliminates the conflict at the source.
     # Side benefit: cache-creation tokens per call drop ~19% in practice.
     cli_args = [
-        "claude", "-p",
+        claude_cmd, "-p",
         "--output-format", "json",
         "--no-session-persistence",
         "--system-prompt", _extraction_system(deep=deep_mode),
@@ -612,7 +656,7 @@ def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, *, deep
 
 def extract_files_direct(
     files: list[Path],
-    backend: str = "kimi",
+    backend: str | None = None,
     api_key: str | None = None,
     model: str | None = None,
     root: Path = Path("."),
@@ -622,8 +666,17 @@ def extract_files_direct(
     """Extract semantic nodes/edges from a list of files using the given backend.
 
     Returns dict with nodes, edges, hyperedges, input_tokens, output_tokens.
-    Raises ValueError for unknown backends. Raises ImportError if SDK missing.
+    Raises ValueError for unknown backends or when no API key is configured.
+    Raises ImportError if SDK missing.
     """
+    if backend is None:
+        backend = detect_backend()
+        if backend is None:
+            raise ValueError(
+                "No LLM backend configured. Set one of: GEMINI_API_KEY, ANTHROPIC_API_KEY, "
+                "OPENAI_API_KEY, DEEPSEEK_API_KEY, MOONSHOT_API_KEY, OLLAMA_BASE_URL, "
+                "or AWS credentials. Pass backend= explicitly to select a provider."
+            )
     if backend not in BACKENDS:
         raise ValueError(f"Unknown backend {backend!r}. Available: {sorted(BACKENDS)}")
 
@@ -1195,4 +1248,147 @@ def detect_backend() -> str | None:
     if ollama_url:
         _validate_ollama_base_url(ollama_url)
         return "ollama"
+    for name in BACKENDS:
+        if name not in ("gemini", "kimi", "claude", "openai", "deepseek", "bedrock", "ollama", "claude-cli"):
+            if _get_backend_api_key(name):
+                return name
     return None
+
+
+# ── Community labeling ────────────────────────────────────────────────────────
+# When graphify runs inside an orchestrating agent (Claude Code / Gemini CLI),
+# the agent names communities itself per skill.md Step 5 - it reads the analysis
+# file and writes 2-5 word names with its own reasoning, no API call. When
+# graphify is run as a bare CLI (``graphify extract . --backend X``), there is no
+# agent to do that step, so community labels stay ``Community 0/1/2...``. These
+# helpers fill that gap: ask the configured backend to name communities in ONE
+# batched call and return a complete ``{cid: name}`` map (#1097).
+
+_LABEL_FENCE_RE = re.compile(r"^\s*```(?:json)?\s*|\s*```\s*$", re.IGNORECASE)
+_LABEL_MAX_COMMUNITIES = 200   # cap LLM-named communities; tail stays placeholder
+_LABEL_TOP_K = 12              # node labels sampled per community for the prompt
+_LABEL_MAXLEN = 60             # truncate individual labels to keep the prompt small
+
+
+def _placeholder_community_labels(communities) -> dict[int, str]:
+    return {int(cid): f"Community {cid}" for cid in communities}
+
+
+def _community_label_lines(G, communities, gods, max_communities, top_k):
+    """One prompt line per community (largest first), sampling up to ``top_k``
+    representative node labels (god nodes first). Returns (lines, labeled_cids);
+    skips communities with no resolvable nodes."""
+    # gods may be node-id strings or god_nodes() dicts ({"id": ..., "label": ...}).
+    god_set = {g["id"] if isinstance(g, dict) else g for g in (gods or [])}
+    ordered = sorted(communities.items(), key=lambda kv: -len(kv[1]))
+    lines: list[str] = []
+    labeled_cids: list[int] = []
+    for cid, members in ordered[:max_communities]:
+        ranked = [m for m in members if m in god_set] + [m for m in members if m not in god_set]
+        names: list[str] = []
+        seen: set[str] = set()
+        for nid in ranked:
+            label = str(G.nodes[nid].get("label", nid)) if nid in G.nodes else str(nid)
+            label = label.strip().strip("()")[:_LABEL_MAXLEN]
+            if label and label.lower() not in seen:
+                seen.add(label.lower())
+                names.append(label)
+            if len(names) >= top_k:
+                break
+        if names:
+            lines.append(f"Community {cid}: {', '.join(names)}")
+            labeled_cids.append(int(cid))
+    return lines, labeled_cids
+
+
+def _parse_label_response(text: str, labeled_cids: list[int]) -> dict[int, str]:
+    """Parse the backend's JSON ``{cid: name}`` reply. Raises on non-JSON or a
+    non-object payload; silently ignores cids it didn't name."""
+    cleaned = _LABEL_FENCE_RE.sub("", text.strip())
+    if not cleaned.startswith("{"):
+        start, end = cleaned.find("{"), cleaned.rfind("}")
+        if start != -1 and end > start:
+            cleaned = cleaned[start:end + 1]
+    data = json.loads(cleaned)
+    if not isinstance(data, dict):
+        raise ValueError("label response is not a JSON object")
+    out: dict[int, str] = {}
+    for cid in labeled_cids:
+        name = data.get(str(cid))
+        if name is None:
+            name = data.get(cid)
+        if isinstance(name, str) and name.strip():
+            out[cid] = name.strip()
+    return out
+
+
+def label_communities(
+    G,
+    communities,
+    *,
+    backend: str,
+    gods=None,
+    max_communities: int = _LABEL_MAX_COMMUNITIES,
+    top_k: int = _LABEL_TOP_K,
+) -> dict[int, str]:
+    """Return a complete ``{cid: name}`` map using ``backend`` for naming.
+
+    Placeholders (``Community N``) are used for any community the backend did not
+    name. Raises on backend/parse failure - callers that want graceful
+    degradation should use :func:`generate_community_labels`.
+    """
+    labels = _placeholder_community_labels(communities)
+    lines, labeled_cids = _community_label_lines(G, communities, gods, max_communities, top_k)
+    if not lines:
+        return labels
+
+    prompt = (
+        "You are naming clusters in a knowledge graph. For each community below, "
+        "return a concise 2-5 word plain-language name describing what it is about "
+        "(e.g. \"Order Management\", \"Payment Flow\", \"Auth Middleware\"). "
+        "Respond ONLY with a JSON object mapping the community id (as a string) to "
+        "its name - no prose, no markdown fences.\n\n" + "\n".join(lines)
+    )
+
+    max_tokens = min(40 + 16 * len(labeled_cids), 4096)
+    text = _call_llm(prompt, backend=backend, max_tokens=max_tokens)
+    labels.update(_parse_label_response(text, labeled_cids))
+    return labels
+
+
+def generate_community_labels(
+    G,
+    communities,
+    *,
+    backend: str | None = None,
+    gods=None,
+    quiet: bool = False,
+) -> tuple[dict[int, str], str]:
+    """CLI entry point: resolve a backend, name communities, and degrade to
+    ``Community N`` placeholders on any failure (no backend, API error, malformed
+    reply). Returns ``(labels, source)`` where source is ``"llm"`` or
+    ``"placeholder"``. Never raises."""
+    if backend is None:
+        try:
+            backend = detect_backend()
+        except Exception:
+            backend = None
+    if not backend:
+        if not quiet:
+            print(
+                "[graphify label] no LLM backend configured; keeping Community N "
+                "placeholders. Set an API key (e.g. GOOGLE_API_KEY) or pass --backend.",
+                file=sys.stderr,
+            )
+        return _placeholder_community_labels(communities), "placeholder"
+    try:
+        labels = label_communities(G, communities, backend=backend, gods=gods)
+        return labels, "llm"
+    except Exception as exc:
+        if not quiet:
+            print(
+                f"[graphify label] warning: community labeling failed ({exc}); "
+                "using Community N placeholders.",
+                file=sys.stderr,
+            )
+        return _placeholder_community_labels(communities), "placeholder"

@@ -1,4 +1,5 @@
 """graphify CLI - `graphify install` sets up the Claude Code skill."""
+
 from __future__ import annotations
 import json
 import os
@@ -10,6 +11,7 @@ from pathlib import Path
 
 try:
     from importlib.metadata import version as _pkg_version
+
     __version__ = _pkg_version("graphifyy")
 except Exception:
     __version__ = "unknown"
@@ -61,8 +63,8 @@ def _refresh_all_version_stamps() -> None:
     Prevents stale-version warnings from platforms that were installed previously
     but not explicitly re-installed during this upgrade.
     """
-    for cfg in _PLATFORM_CONFIG.values():
-        skill_dst = Path.home() / cfg["skill_dst"]
+    for name in _PLATFORM_CONFIG:
+        skill_dst = _platform_skill_destination(name)
         vf = skill_dst.parent / ".graphify_version"
         if skill_dst.exists():
             vf.write_text(__version__, encoding="utf-8")
@@ -86,6 +88,12 @@ def _platform_skill_destination(platform_name: str, *, project: bool = False, pr
         if project:
             return (project_dir or Path(".")) / ".devin" / "skills" / "graphify" / "SKILL.md"
         return Path.home() / ".config" / "devin" / "skills" / "graphify" / "SKILL.md"
+
+    if platform_name in ("antigravity", "antigravity-windows"):
+        if project:
+            return (project_dir or Path(".")) / ".agents" / "skills" / "graphify" / "SKILL.md"
+        # Global Antigravity skill dir (all workspaces): ~/.gemini/config/skills/
+        return Path.home() / ".gemini" / "config" / "skills" / "graphify" / "SKILL.md"
 
     cfg = _PLATFORM_CONFIG[platform_name]
     if project:
@@ -227,6 +235,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
     "opencode": {
         "skill_file": "skill-opencode.md",
         "skill_dst": Path(".config") / "opencode" / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
+    "kilo": {
+        "skill_file": "skill-kilo.md",
+        "skill_dst": Path(".config") / "kilo" / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
     "aider": {
@@ -375,6 +388,20 @@ def install(platform: str = "claude", *, project: bool = False, project_dir: Pat
     project_dir = project_dir or Path(".")
     skill_dst = _copy_skill_file(platform, project=project, project_dir=project_dir)
 
+    if platform == "kilo":
+        # Kilo Code also supports a native /graphify command file.
+        command_src = Path(__file__).parent / "command-kilo.md"
+        if not command_src.exists():
+            print(
+                f"error: command-kilo.md not found in package - reinstall graphify",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        command_dst = Path.home() / ".config" / "kilo" / "command" / "graphify.md"
+        command_dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(command_src, command_dst)
+        print(f"  command installed ->  {command_dst}")
+
     if cfg["claude_md"]:
         # Register in the matching Claude Code scope.
         claude_md = (project_dir / ".claude" / "CLAUDE.md") if project else Path.home() / ".claude" / "CLAUDE.md"
@@ -515,11 +542,17 @@ def _install_gemini_hook(project_dir: Path) -> None:
     settings_path = project_dir / ".gemini" / "settings.json"
     settings_path.parent.mkdir(parents=True, exist_ok=True)
     try:
-        settings = json.loads(settings_path.read_text(encoding="utf-8")) if settings_path.exists() else {}
+        settings = (
+            json.loads(settings_path.read_text(encoding="utf-8"))
+            if settings_path.exists()
+            else {}
+        )
     except json.JSONDecodeError:
         settings = {}
     before_tool = settings.setdefault("hooks", {}).setdefault("BeforeTool", [])
-    settings["hooks"]["BeforeTool"] = [h for h in before_tool if "graphify" not in str(h)]
+    settings["hooks"]["BeforeTool"] = [
+        h for h in before_tool if "graphify" not in str(h)
+    ]
     settings["hooks"]["BeforeTool"].append(_GEMINI_HOOK)
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
     print("  .gemini/settings.json  ->  BeforeTool hook registered")
@@ -555,7 +588,9 @@ def gemini_uninstall(project_dir: Path | None = None, *, project: bool = False) 
     if _GEMINI_MD_MARKER not in content:
         print("graphify section not found in GEMINI.md - nothing to do")
         return
-    cleaned = re.sub(r"\n*## graphify\n.*?(?=\n## |\Z)", "", content, flags=re.DOTALL).rstrip()
+    cleaned = re.sub(
+        r"\n*## graphify\n.*?(?=\n## |\Z)", "", content, flags=re.DOTALL
+    ).rstrip()
     if cleaned:
         target.write_text(cleaned + "\n", encoding="utf-8")
         print(f"graphify section removed from {target.resolve()}")
@@ -615,7 +650,9 @@ def vscode_install(project_dir: Path | None = None) -> None:
         print(f"  {instructions}  ->  created")
 
     print()
-    print("VS Code Copilot Chat configured. Type /graphify in the chat panel to build the graph.")
+    print(
+        "VS Code Copilot Chat configured. Type /graphify in the chat panel to build the graph."
+    )
     print("Note: for GitHub Copilot CLI (terminal), use: graphify copilot install")
 
 
@@ -628,7 +665,11 @@ def vscode_uninstall(project_dir: Path | None = None) -> None:
     version_file = skill_dst.parent / ".graphify_version"
     if version_file.exists():
         version_file.unlink()
-    for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+    for d in (
+        skill_dst.parent,
+        skill_dst.parent.parent,
+        skill_dst.parent.parent.parent,
+    ):
         try:
             d.rmdir()
         except OSError:
@@ -640,7 +681,9 @@ def vscode_uninstall(project_dir: Path | None = None) -> None:
     content = instructions.read_text(encoding="utf-8")
     if _VSCODE_INSTRUCTIONS_MARKER not in content:
         return
-    cleaned = re.sub(r"\n*## graphify\n.*?(?=\n## |\Z)", "", content, flags=re.DOTALL).rstrip()
+    cleaned = re.sub(
+        r"\n*## graphify\n.*?(?=\n## |\Z)", "", content, flags=re.DOTALL
+    ).rstrip()
     if cleaned:
         instructions.write_text(cleaned + "\n", encoding="utf-8")
         print(f"  graphify section removed from {instructions}")
@@ -677,7 +720,7 @@ description: Turn any folder of files into a navigable knowledge graph
 
 # Workflow: graphify
 
-Follow the graphify skill installed at ~/.agents/skills/graphify/SKILL.md to run the full pipeline.
+Follow the graphify skill installed at ~/.gemini/config/skills/graphify/SKILL.md to run the full pipeline.
 
 If no path argument is given, use `.` (current directory).
 """
@@ -752,11 +795,11 @@ def _kiro_uninstall(project_dir: Path) -> None:
 
 def _antigravity_install(project_dir: Path) -> None:
     """Install graphify for Google Antigravity: skill + .agents/rules + .agents/workflows."""
-    # 1. Copy skill file to ~/.agents/skills/graphify/SKILL.md
+    # 1. Copy skill file to ~/.gemini/config/skills/graphify/SKILL.md (global)
     install(platform="antigravity")
 
     # 1.5. Inject YAML frontmatter for native Antigravity tool discovery
-    skill_dst = _PLATFORM_CONFIG["antigravity"]["skill_dst"]
+    skill_dst = _platform_skill_destination("antigravity")
     if skill_dst.exists():
         content = skill_dst.read_text(encoding="utf-8")
         if not content.startswith("---\n"):
@@ -795,14 +838,18 @@ def _antigravity_install(project_dir: Path) -> None:
     print("Antigravity will now check the knowledge graph before answering")
     print("codebase questions. Run /graphify first to build the graph.")
     print()
-    print("To enable full MCP architecture navigation, add this to ~/.gemini/antigravity/mcp_config.json:")
+    print(
+        "To enable full MCP architecture navigation, add this to ~/.gemini/antigravity/mcp_config.json:"
+    )
     print('  "graphify": {')
     print('    "command": "uv",')
-    print('    "args": ["run", "--with", "graphifyy", "--with", "mcp", "-m", "graphify.serve", "${workspace.path}/graphify-out/graph.json"]')
-    print('  }')
+    print(
+        '    "args": ["run", "--with", "graphifyy", "--with", "mcp", "-m", "graphify.serve", "${workspace.path}/graphify-out/graph.json"]'
+    )
+    print("  }")
 
 
-def _antigravity_uninstall(project_dir: Path) -> None:
+def _antigravity_uninstall(project_dir: Path, *, project: bool = False) -> None:
     """Remove graphify Antigravity rules, workflow, and skill files."""
     # Remove rules file
     rules_path = project_dir / _ANTIGRAVITY_RULES_PATH
@@ -819,14 +866,18 @@ def _antigravity_uninstall(project_dir: Path) -> None:
         print(f"graphify workflow removed from {wf_path.resolve()}")
 
     # Remove skill file
-    skill_dst = _PLATFORM_CONFIG["antigravity"]["skill_dst"]
+    skill_dst = _platform_skill_destination("antigravity", project=project, project_dir=project_dir)
     if skill_dst.exists():
         skill_dst.unlink()
         print(f"graphify skill removed from {skill_dst}")
     version_file = skill_dst.parent / ".graphify_version"
     if version_file.exists():
         version_file.unlink()
-    for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+    for d in (
+        skill_dst.parent,
+        skill_dst.parent.parent,
+        skill_dst.parent.parent.parent,
+    ):
         try:
             d.rmdir()
         except OSError:
@@ -911,6 +962,175 @@ def _devin_rules_uninstall(project_dir: Path) -> None:
         return
     rules_path.unlink()
     print(f"  rules removed  ->  {rules_path}")
+
+
+_KILO_PLUGIN_JS = """\
+// graphify Kilo plugin
+// Injects a knowledge graph reminder before bash tool calls when the graph exists.
+import { existsSync } from "fs";
+import { join } from "path";
+
+export const GraphifyPlugin = async ({ directory }) => {
+  let reminded = false;
+
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (reminded) return;
+      if (!existsSync(join(directory, "graphify-out", "graph.json"))) return;
+
+      if (input.tool === "bash") {
+        output.args.command =
+          'echo "[graphify] Knowledge graph available. Read graphify-out/GRAPH_REPORT.md for god nodes and architecture context before searching files." && ' +
+          output.args.command;
+        reminded = true;
+      }
+    },
+  };
+};
+"""
+
+_KILO_PLUGIN_PATH = Path(".kilo") / "plugins" / "graphify.js"
+_KILO_CONFIG_JSON_PATH = Path(".kilo") / "kilo.json"
+_KILO_CONFIG_JSONC_PATH = Path(".kilo") / "kilo.jsonc"
+
+
+def _strip_json_comments(raw: str) -> str:
+    """Remove JSONC-style comments while leaving string content intact."""
+    result: list[str] = []
+    in_string = False
+    escaped = False
+    line_comment = False
+    block_comment = False
+    i = 0
+
+    while i < len(raw):
+        ch = raw[i]
+        nxt = raw[i + 1] if i + 1 < len(raw) else ""
+
+        if line_comment:
+            if ch == "\n":
+                line_comment = False
+                result.append(ch)
+            i += 1
+            continue
+
+        if block_comment:
+            if ch == "*" and nxt == "/":
+                block_comment = False
+                i += 2
+            else:
+                i += 1
+            continue
+
+        if in_string:
+            result.append(ch)
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_string = False
+            i += 1
+            continue
+
+        if ch == "/" and nxt == "/":
+            line_comment = True
+            i += 2
+            continue
+        if ch == "/" and nxt == "*":
+            block_comment = True
+            i += 2
+            continue
+
+        result.append(ch)
+        if ch == '"':
+            in_string = True
+        i += 1
+
+    return re.sub(r",(\s*[}\]])", r"\1", "".join(result))
+
+
+def _load_json_like(config_file: Path) -> dict:
+    if not config_file.exists():
+        return {}
+    try:
+        raw = config_file.read_text(encoding="utf-8")
+        if config_file.suffix == ".jsonc":
+            raw = _strip_json_comments(raw)
+        loaded = json.loads(raw)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return loaded if isinstance(loaded, dict) else {}
+
+
+def _kilo_config_path(project_dir: Path) -> Path:
+    kilo_dir = (project_dir or Path(".")) / ".kilo"
+    json_path = kilo_dir / _KILO_CONFIG_JSON_PATH.name
+    if json_path.exists():
+        return json_path
+    jsonc_path = kilo_dir / _KILO_CONFIG_JSONC_PATH.name
+    if jsonc_path.exists():
+        return jsonc_path
+    return json_path
+
+
+def _kilo_config_write_path(project_dir: Path) -> Path:
+    """Write automated Kilo edits to kilo.json so existing JSONC stays untouched."""
+    kilo_dir = (project_dir or Path(".")) / ".kilo"
+    return kilo_dir / _KILO_CONFIG_JSON_PATH.name
+
+
+def _install_kilo_plugin(project_dir: Path) -> None:
+    """Write graphify.js plugin and register it without rewriting user JSONC."""
+    plugin_file = project_dir / _KILO_PLUGIN_PATH
+    plugin_file.parent.mkdir(parents=True, exist_ok=True)
+    plugin_file.write_text(_KILO_PLUGIN_JS, encoding="utf-8")
+    print(f"  {_KILO_PLUGIN_PATH}  ->  tool.execute.before hook written")
+
+    config_file = _kilo_config_path(project_dir)
+    write_config_file = _kilo_config_write_path(project_dir)
+    write_config_file.parent.mkdir(parents=True, exist_ok=True)
+    config = _load_json_like(config_file)
+    plugins = config.get("plugin")
+    if not isinstance(plugins, list):
+        plugins = []
+        config["plugin"] = plugins
+    entry = plugin_file.resolve().as_uri()
+    if entry not in plugins:
+        plugins.append(entry)
+        write_config_file.write_text(json.dumps(config, indent=2), encoding="utf-8")
+        print(f"  {write_config_file.relative_to(project_dir)}  ->  plugin registered")
+    else:
+        print(
+            f"  {config_file.relative_to(project_dir)}  ->  plugin already registered (no change)"
+        )
+
+
+def _uninstall_kilo_plugin(project_dir: Path) -> None:
+    """Remove graphify.js plugin and deregister it without rewriting user JSONC."""
+    plugin_file = project_dir / _KILO_PLUGIN_PATH
+    if plugin_file.exists():
+        plugin_file.unlink()
+        print(f"  {_KILO_PLUGIN_PATH}  ->  removed")
+
+    config_file = _kilo_config_path(project_dir)
+    if not config_file.exists():
+        return
+    write_config_file = _kilo_config_write_path(project_dir)
+    config = _load_json_like(config_file)
+    plugins = config.get("plugin", [])
+    if not isinstance(plugins, list):
+        plugins = []
+    entry = plugin_file.resolve().as_uri()
+    if entry in plugins:
+        config["plugin"] = [plugin for plugin in plugins if plugin != entry]
+        if not config["plugin"]:
+            config.pop("plugin")
+        write_config_file.parent.mkdir(parents=True, exist_ok=True)
+        write_config_file.write_text(json.dumps(config, indent=2), encoding="utf-8")
+        print(
+            f"  {write_config_file.relative_to(project_dir)}  ->  plugin deregistered"
+        )
 
 
 # OpenCode tool.execute.before plugin — fires before every tool call.
@@ -1084,7 +1304,7 @@ def _uninstall_codex_hook(project_dir: Path) -> None:
 
 
 def _agents_install(project_dir: Path, platform: str) -> None:
-    """Write the graphify section to the local AGENTS.md (Codex/OpenCode/OpenClaw)."""
+    """Write the graphify section to the local AGENTS.md for always-on platforms."""
     target = (project_dir or Path(".")) / "AGENTS.md"
 
     if target.exists():
@@ -1105,14 +1325,20 @@ def _agents_install(project_dir: Path, platform: str) -> None:
         _install_codex_hook(project_dir or Path("."))
     elif platform == "opencode":
         _install_opencode_plugin(project_dir or Path("."))
+    elif platform == "kilo":
+        _install_kilo_plugin(project_dir or Path("."))
 
     print()
-    print(f"{platform.capitalize()} will now check the knowledge graph before answering")
+    print(
+        f"{platform.capitalize()} will now check the knowledge graph before answering"
+    )
     print("codebase questions and rebuild it after code changes.")
-    if platform not in ("codex", "opencode"):
+    if platform not in ("codex", "opencode", "kilo"):
         print()
         print("Note: unlike Claude Code, there is no PreToolUse hook equivalent for")
-        print(f"{platform.capitalize()} — the AGENTS.md rules are the always-on mechanism.")
+        print(
+            f"{platform.capitalize()} — the AGENTS.md rules are the always-on mechanism."
+        )
 
 
 def _project_install(platform_name: str, project_dir: Path | None = None) -> None:
@@ -1169,7 +1395,7 @@ def _project_uninstall(platform_name: str, project_dir: Path | None = None) -> N
         if platform_name == "codex":
             _uninstall_codex_hook(project_dir)
     elif platform_name == "antigravity":
-        _antigravity_uninstall(project_dir)
+        _antigravity_uninstall(project_dir, project=True)
     elif platform_name == "devin":
         removed = _remove_skill_file("devin", project=True, project_dir=project_dir)
         _devin_rules_uninstall(project_dir)
@@ -1200,11 +1426,19 @@ def _agents_uninstall(project_dir: Path, platform: str = "") -> None:
 
     if not target.exists():
         print("No AGENTS.md found in current directory - nothing to do")
+        if platform == "opencode":
+            _uninstall_opencode_plugin(project_dir or Path("."))
+        elif platform == "kilo":
+            _uninstall_kilo_plugin(project_dir or Path("."))
         return
 
     content = target.read_text(encoding="utf-8")
     if _AGENTS_MD_MARKER not in content:
         print("graphify section not found in AGENTS.md - nothing to do")
+        if platform == "opencode":
+            _uninstall_opencode_plugin(project_dir or Path("."))
+        elif platform == "kilo":
+            _uninstall_kilo_plugin(project_dir or Path("."))
         return
 
     cleaned = re.sub(
@@ -1222,6 +1456,52 @@ def _agents_uninstall(project_dir: Path, platform: str = "") -> None:
 
     if platform == "opencode":
         _uninstall_opencode_plugin(project_dir or Path("."))
+    elif platform == "kilo":
+        _uninstall_kilo_plugin(project_dir or Path("."))
+
+
+def _kilo_uninstall_global() -> list[str]:
+    removed = []
+    command_dst = Path.home() / ".config" / "kilo" / "command" / "graphify.md"
+    if command_dst.exists():
+        command_dst.unlink()
+        removed.append(f"command removed: {command_dst}")
+    try:
+        command_dst.parent.rmdir()
+    except OSError:
+        pass
+
+    skill_dst = Path.home() / _PLATFORM_CONFIG["kilo"]["skill_dst"]
+    if skill_dst.exists():
+        skill_dst.unlink()
+        removed.append(f"skill removed: {skill_dst}")
+    version_file = skill_dst.parent / ".graphify_version"
+    if version_file.exists():
+        version_file.unlink()
+    for d in (
+        skill_dst.parent,
+        skill_dst.parent.parent,
+        skill_dst.parent.parent.parent,
+    ):
+        try:
+            d.rmdir()
+        except OSError:
+            break
+
+    return removed
+
+
+def _kilo_install(project_dir: Path) -> None:
+    """Install native Kilo skill + command globally and always-on project wiring locally."""
+    install(platform="kilo")
+    _agents_install(project_dir or Path("."), "kilo")
+
+
+def _kilo_uninstall(project_dir: Path) -> None:
+    """Remove Kilo always-on project wiring and global skill/command files."""
+    _agents_uninstall(project_dir or Path("."), platform="kilo")
+    removed = _kilo_uninstall_global()
+    print("; ".join(removed) if removed else "nothing to remove")
 
 
 def claude_install(project_dir: Path | None = None) -> None:
@@ -1359,7 +1639,9 @@ def claude_uninstall(project_dir: Path | None = None) -> None:
     _uninstall_claude_hook(project_dir or Path("."))
 
 
-def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None) -> Path:
+def _clone_repo(
+    url: str, branch: str | None = None, out_dir: Path | None = None
+) -> Path:
     """Clone a GitHub repo to a local cache dir and return the path.
 
     Clones into ~/.graphify/repos/<owner>/<repo> by default so repeated
@@ -1393,7 +1675,7 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
         sys.exit(1)
 
     if dest.exists():
-        print(f"Repo already cloned at {dest} — pulling latest...", flush=True)
+        print(f"Repo already cloned at {dest} - pulling latest...", flush=True)
         cmd = ["git", "-C", str(dest), "pull"]
         if branch:
             cmd += ["origin", "--", branch]
@@ -1417,6 +1699,12 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
 
 
 def main() -> None:
+    for _stream in (sys.stdout, sys.stderr):
+        if _stream is not None and hasattr(_stream, "reconfigure"):
+            try:
+                _stream.reconfigure(encoding="utf-8", errors="replace")
+            except Exception:
+                pass
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
     # Skip during hook-check — it runs on every editor tool use and must be silent.
@@ -1469,6 +1757,10 @@ def main() -> None:
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("    --graph <path>          path to graph.json (default <path>/graphify-out/graph.json)")
+        print("    --no-label              keep 'Community N' placeholders (skip LLM community naming)")
+        print("    --backend=<name>        backend to use for community naming (default: auto-detect)")
+        print("  label <path>            (re)name communities with the configured LLM backend, regenerate report")
+        print("    --backend=<name>        backend to use (default: auto-detect from API keys)")
         print("  cypher \"MATCH ...\"       execute a Cypher query against graph.db (requires neug)")
         print("    --db <path>             path to graph.db (default graphify-out/graph.db)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
@@ -1483,7 +1775,9 @@ def main() -> None:
         print("  save-result             save a Q&A result to graphify-out/memory/ for graph feedback loop")
         print("    --question Q            the question asked")
         print("    --answer A              the answer to save")
-        print("    --type T                query type: query|path_query|explain (default: query)")
+        print(
+            "    --type T                query type: query|path_query|explain (default: query)"
+        )
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
         print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
@@ -1517,35 +1811,67 @@ def main() -> None:
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
-        print("  gemini install          write GEMINI.md section + BeforeTool hook (Gemini CLI)")
+        print(
+            "  gemini install          write GEMINI.md section + BeforeTool hook (Gemini CLI)"
+        )
         print("  gemini uninstall        remove GEMINI.md section + BeforeTool hook")
         print("  cursor install          write .cursor/rules/graphify.mdc (Cursor)")
         print("  cursor uninstall        remove .cursor/rules/graphify.mdc")
-        print("  claude install          write graphify section to CLAUDE.md + PreToolUse hook (Claude Code)")
-        print("  claude uninstall        remove graphify section from CLAUDE.md + PreToolUse hook")
+        print(
+            "  claude install          write graphify section to CLAUDE.md + PreToolUse hook (Claude Code)"
+        )
+        print(
+            "  claude uninstall        remove graphify section from CLAUDE.md + PreToolUse hook"
+        )
         print("  codex install           write graphify section to AGENTS.md (Codex)")
         print("  codex uninstall         remove graphify section from AGENTS.md")
-        print("  opencode install        write graphify section to AGENTS.md + tool.execute.before plugin (OpenCode)")
-        print("  opencode uninstall      remove graphify section from AGENTS.md + plugin")
+        print(
+            "  opencode install        write graphify section to AGENTS.md + tool.execute.before plugin (OpenCode)"
+        )
+        print(
+            "  opencode uninstall      remove graphify section from AGENTS.md + plugin"
+        )
+        print(
+            "  kilo install            install native Kilo skill + command + AGENTS.md + .kilo plugin"
+        )
+        print(
+            "  kilo uninstall          remove native Kilo skill + command + AGENTS.md + .kilo plugin"
+        )
         print("  aider install           write graphify section to AGENTS.md (Aider)")
         print("  aider uninstall         remove graphify section from AGENTS.md")
-        print("  copilot install         copy graphify skill to ~/.copilot/skills (GitHub Copilot CLI)")
+        print(
+            "  copilot install         copy graphify skill to ~/.copilot/skills (GitHub Copilot CLI)"
+        )
         print("  copilot uninstall       remove graphify skill from ~/.copilot/skills")
-        print("  vscode install          configure VS Code Copilot Chat (skill + .github/copilot-instructions.md)")
+        print(
+            "  vscode install          configure VS Code Copilot Chat (skill + .github/copilot-instructions.md)"
+        )
         print("  vscode uninstall        remove VS Code Copilot Chat configuration")
-        print("  claw install            write graphify section to AGENTS.md (OpenClaw)")
+        print(
+            "  claw install            write graphify section to AGENTS.md (OpenClaw)"
+        )
         print("  claw uninstall          remove graphify section from AGENTS.md")
-        print("  droid install           write graphify section to AGENTS.md (Factory Droid)")
+        print(
+            "  droid install           write graphify section to AGENTS.md (Factory Droid)"
+        )
         print("  droid uninstall        remove graphify section from AGENTS.md")
         print("  trae install            write graphify section to AGENTS.md (Trae)")
         print("  trae uninstall         remove graphify section from AGENTS.md")
         print("  trae-cn install         write graphify section to AGENTS.md (Trae CN)")
         print("  trae-cn uninstall      remove graphify section from AGENTS.md")
-        print("  antigravity install     write .agents/rules + .agents/workflows + skill (Google Antigravity)")
-        print("  antigravity uninstall   remove .agents/rules, .agents/workflows, and skill")
-        print("  hermes install          write skill to ~/.hermes/skills/graphify/ (Hermes)")
+        print(
+            "  antigravity install     write .agents/rules + .agents/workflows + skill (Google Antigravity)"
+        )
+        print(
+            "  antigravity uninstall   remove .agents/rules, .agents/workflows, and skill"
+        )
+        print(
+            "  hermes install          write skill to ~/.hermes/skills/graphify/ (Hermes)"
+        )
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
-        print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
+        print(
+            "  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)"
+        )
         print("  kiro uninstall          remove skill + steering file")
         print("  pi install              write skill to ~/.pi/agent/skills/graphify/ (Pi coding agent)")
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
@@ -1702,6 +2028,15 @@ def main() -> None:
         else:
             print("Usage: graphify copilot [install|uninstall]", file=sys.stderr)
             sys.exit(1)
+    elif cmd == "kilo":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            _kilo_install(Path("."))
+        elif subcmd == "uninstall":
+            _kilo_uninstall(Path("."))
+        else:
+            print("Usage: graphify kilo [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
     elif cmd == "kiro":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
@@ -1774,11 +2109,129 @@ def main() -> None:
         else:
             print("Usage: graphify antigravity [install|uninstall]", file=sys.stderr)
             sys.exit(1)
+    elif cmd == "provider":
+        from graphify.llm import _custom_providers_path, BACKENDS
+        import json as _json
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        global_path = _custom_providers_path(global_=True)
+
+        if subcmd == "list":
+            global_path.parent.mkdir(parents=True, exist_ok=True)
+            existing: dict = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            if not existing:
+                print("No custom providers registered.")
+            else:
+                for name in existing:
+                    print(f"  {name}  ({existing[name].get('base_url', '')})")
+
+        elif subcmd == "show":
+            name = sys.argv[3] if len(sys.argv) > 3 else ""
+            if not name:
+                print("Usage: graphify provider show <name>", file=sys.stderr)
+                sys.exit(1)
+            existing = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            if name not in existing:
+                print(f"Provider '{name}' not found.", file=sys.stderr)
+                sys.exit(1)
+            print(_json.dumps({name: existing[name]}, indent=2))
+
+        elif subcmd == "add":
+            args = sys.argv[3:]
+            name = args[0] if args and not args[0].startswith("-") else ""
+            if not name:
+                print("Usage: graphify provider add <name> --base-url URL --default-model MODEL --env-key KEY", file=sys.stderr)
+                sys.exit(1)
+            if name in BACKENDS:
+                print(f"Error: '{name}' is a built-in provider and cannot be overridden.", file=sys.stderr)
+                sys.exit(1)
+            base_url = ""
+            default_model = ""
+            env_key = ""
+            pricing_input = 0.0
+            pricing_output = 0.0
+            i = 1
+            while i < len(args):
+                a = args[i]
+                if a == "--base-url" and i + 1 < len(args):
+                    base_url = args[i + 1]; i += 2
+                elif a.startswith("--base-url="):
+                    base_url = a.split("=", 1)[1]; i += 1
+                elif a == "--default-model" and i + 1 < len(args):
+                    default_model = args[i + 1]; i += 2
+                elif a.startswith("--default-model="):
+                    default_model = a.split("=", 1)[1]; i += 1
+                elif a == "--env-key" and i + 1 < len(args):
+                    env_key = args[i + 1]; i += 2
+                elif a.startswith("--env-key="):
+                    env_key = a.split("=", 1)[1]; i += 1
+                elif a == "--pricing-input" and i + 1 < len(args):
+                    pricing_input = float(args[i + 1]); i += 2
+                elif a == "--pricing-output" and i + 1 < len(args):
+                    pricing_output = float(args[i + 1]); i += 2
+                else:
+                    i += 1
+            if not base_url or not default_model or not env_key:
+                print("Error: --base-url, --default-model, and --env-key are required.", file=sys.stderr)
+                sys.exit(1)
+            global_path.parent.mkdir(parents=True, exist_ok=True)
+            existing = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            existing[name] = {
+                "base_url": base_url,
+                "default_model": default_model,
+                "env_key": env_key,
+                "pricing": {"input": pricing_input, "output": pricing_output},
+                "temperature": 0,
+            }
+            global_path.write_text(_json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+            print(f"Provider '{name}' added. Use with: graphify extract . --backend {name}")
+
+        elif subcmd == "remove":
+            name = sys.argv[3] if len(sys.argv) > 3 else ""
+            if not name:
+                print("Usage: graphify provider remove <name>", file=sys.stderr)
+                sys.exit(1)
+            existing = {}
+            if global_path.is_file():
+                try:
+                    existing = _json.loads(global_path.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+            if name not in existing:
+                print(f"Provider '{name}' not found.", file=sys.stderr)
+                sys.exit(1)
+            del existing[name]
+            global_path.write_text(_json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+            print(f"Provider '{name}' removed.")
+
+        else:
+            print("Usage: graphify provider [add|list|show|remove]", file=sys.stderr)
+            if subcmd:
+                sys.exit(1)
     elif cmd == "prs":
         from graphify.prs import cmd_prs
         cmd_prs(sys.argv[2:])
     elif cmd == "hook":
-        from graphify.hooks import install as hook_install, uninstall as hook_uninstall, status as hook_status
+        from graphify.hooks import (
+            install as hook_install,
+            uninstall as hook_uninstall,
+            status as hook_status,
+        )
+
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
             print(hook_install(Path(".")))
@@ -1821,6 +2274,7 @@ def main() -> None:
         from graphify.serve import _query_graph_text
         from graphify.security import sanitize_label
         from networkx.readwrite import json_graph
+
         question = sys.argv[2]
         use_dfs = "--dfs" in sys.argv
         budget = 2000
@@ -1850,7 +2304,8 @@ def main() -> None:
                 context_filters.append(args[i].split("=", 1)[1])
                 i += 1
             elif args[i] == "--graph" and i + 1 < len(args):
-                graph_path = args[i + 1]; i += 2
+                graph_path = args[i + 1]
+                i += 2
             else:
                 i += 1
         gp = Path(graph_path).resolve()
@@ -1864,6 +2319,7 @@ def main() -> None:
         try:
             import json as _json
             import networkx as _nx
+
             _raw = _json.loads(gp.read_text(encoding="utf-8"))
             if "links" not in _raw and "edges" in _raw:
                 _raw = dict(_raw, links=_raw["edges"])
@@ -1947,6 +2403,7 @@ def main() -> None:
     elif cmd == "save-result":
         # graphify save-result --question Q --answer A --type T [--nodes N1 N2 ...]
         import argparse as _ap
+
         p = _ap.ArgumentParser(prog="graphify save-result")
         p.add_argument("--question", required=True)
         p.add_argument("--answer", required=True)
@@ -1955,6 +2412,7 @@ def main() -> None:
         p.add_argument("--memory-dir", default="graphify-out/memory")
         opts = p.parse_args(sys.argv[2:])
         from graphify.ingest import save_query_result as _sqr
+
         out = _sqr(
             question=opts.question,
             answer=opts.answer,
@@ -1965,11 +2423,15 @@ def main() -> None:
         print(f"Saved to {out}")
     elif cmd == "path":
         if len(sys.argv) < 4:
-            print("Usage: graphify path \"<source>\" \"<target>\" [--graph path]", file=sys.stderr)
+            print(
+                'Usage: graphify path "<source>" "<target>" [--graph path]',
+                file=sys.stderr,
+            )
             sys.exit(1)
         from graphify.serve import _score_nodes
         from networkx.readwrite import json_graph
         import networkx as _nx
+
         source_label = sys.argv[2]
         target_label = sys.argv[3]
         graph_path = _default_graph_path()
@@ -2049,10 +2511,11 @@ def main() -> None:
 
     elif cmd == "explain":
         if len(sys.argv) < 3:
-            print("Usage: graphify explain \"<node>\" [--graph path]", file=sys.stderr)
+            print('Usage: graphify explain "<node>" [--graph path]', file=sys.stderr)
             sys.exit(1)
         from graphify.serve import _find_node
         from networkx.readwrite import json_graph
+
         label = sys.argv[2]
         graph_path = _default_graph_path()
         args = sys.argv[3:]
@@ -2081,7 +2544,9 @@ def main() -> None:
         d = G.nodes[nid]
         print(f"Node: {d.get('label', nid)}")
         print(f"  ID:        {nid}")
-        print(f"  Source:    {d.get('source_file', '')} {d.get('source_location', '')}".rstrip())
+        print(
+            f"  Source:    {d.get('source_file', '')} {d.get('source_location', '')}".rstrip()
+        )
         print(f"  Type:      {d.get('file_type', '')}")
         print(f"  Community: {d.get('community', '')}")
         print(f"  Degree:    {G.degree(nid)}")
@@ -2198,9 +2663,13 @@ def main() -> None:
 
     elif cmd == "add":
         if len(sys.argv) < 3:
-            print("Usage: graphify add <url> [--author Name] [--contributor Name] [--dir ./raw]", file=sys.stderr)
+            print(
+                "Usage: graphify add <url> [--author Name] [--contributor Name] [--dir ./raw]",
+                file=sys.stderr,
+            )
             sys.exit(1)
         from graphify.ingest import ingest as _ingest
+
         url = sys.argv[2]
         author: str | None = None
         contributor: str | None = None
@@ -2209,11 +2678,14 @@ def main() -> None:
         i = 0
         while i < len(args):
             if args[i] == "--author" and i + 1 < len(args):
-                author = args[i + 1]; i += 2
+                author = args[i + 1]
+                i += 2
             elif args[i] == "--contributor" and i + 1 < len(args):
-                contributor = args[i + 1]; i += 2
+                contributor = args[i + 1]
+                i += 2
             elif args[i] == "--dir" and i + 1 < len(args):
-                target_dir = Path(args[i + 1]); i += 2
+                target_dir = Path(args[i + 1])
+                i += 2
             else:
                 i += 1
         try:
@@ -2230,16 +2702,23 @@ def main() -> None:
             print(f"error: path not found: {watch_path}", file=sys.stderr)
             sys.exit(1)
         from graphify.watch import watch as _watch
+
         try:
             _watch(watch_path)
         except ImportError as exc:
             print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
 
-    elif cmd == "cluster-only":
+    elif cmd in ("cluster-only", "label"):
+        # `label` is `cluster-only` that always (re)generates community names with
+        # the configured backend, even when a .graphify_labels.json already exists.
+        force_relabel = cmd == "label"
         # Mirror the tree/export arg-parsing pattern: walk argv so flags and
         # the optional positional path can appear in any order (#724).
         no_viz = "--no-viz" in sys.argv
+        no_label = "--no-label" in sys.argv
+        _backend_arg = next((a for a in sys.argv if a.startswith("--backend=")), None)
+        label_backend = _backend_arg.split("=", 1)[1] if _backend_arg else None
         _min_cs_arg = next((a for a in sys.argv if a.startswith("--min-community-size=")), None)
         min_community_size = int(_min_cs_arg.split("=")[1]) if _min_cs_arg else 3
         args = sys.argv[2:]
@@ -2272,14 +2751,22 @@ def main() -> None:
             watch_path = Path(".")
         graph_json = graph_override if graph_override is not None else watch_path / "graphify-out" / "graph.json"
         if not graph_json.exists():
-            print(f"error: no graph found at {graph_json} — run /graphify first", file=sys.stderr)
+            print(
+                f"error: no graph found at {graph_json} — run /graphify first",
+                file=sys.stderr,
+            )
             sys.exit(1)
         from networkx.readwrite import json_graph as _jg
         from graphify.build import build_from_json
         from graphify.cluster import cluster, score_all, remap_communities_to_previous
-        from graphify.analyze import god_nodes, surprising_connections, suggest_questions
+        from graphify.analyze import (
+            god_nodes,
+            surprising_connections,
+            suggest_questions,
+        )
         from graphify.report import generate
         from graphify.export import to_json, to_html
+
         print("Loading existing graph...")
         _enforce_graph_size_cap_or_exit(graph_json)
         _raw = json.loads(graph_json.read_text(encoding="utf-8"))
@@ -2306,13 +2793,25 @@ def main() -> None:
         out = watch_path / "graphify-out"
         out.mkdir(parents=True, exist_ok=True)
         labels_path = out / ".graphify_labels.json"
-        if labels_path.exists():
+        if labels_path.exists() and not force_relabel:
             try:
                 labels = {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
             except Exception:
                 labels = {cid: f"Community {cid}" for cid in communities}
-        else:
+        elif no_label and not force_relabel:
             labels = {cid: f"Community {cid}" for cid in communities}
+        else:
+            # No labels file yet (or `graphify label` forced a refresh). When run
+            # standalone there is no orchestrating agent to do skill.md Step 5, so
+            # auto-name communities with the configured backend rather than leave
+            # "Community N" (#1097). Degrades to placeholders if no backend/on error.
+            from graphify.llm import generate_community_labels
+            print("Labeling communities...")
+            # The final labels (LLM or placeholder fallback) are persisted to
+            # .graphify_labels.json by the unconditional write below.
+            labels, _ = generate_community_labels(
+                G, communities, backend=label_backend, gods=gods
+            )
         questions = suggest_questions(G, communities, labels)
         tokens = {"input": 0, "output": 0}
         from graphify.export import _git_head as _gh
@@ -2335,16 +2834,16 @@ def main() -> None:
         if no_viz:
             if html_target.exists():
                 html_target.unlink()
-            print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated (--no-viz; graph.html removed).")
+            print(f"Done - {len(communities)} communities. GRAPH_REPORT.md and graph.json updated (--no-viz; graph.html removed).")
         else:
             try:
                 to_html(G, communities, str(html_target), community_labels=labels or None)
-                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
+                print(f"Done - {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
             except ValueError as viz_err:
                 if html_target.exists():
                     html_target.unlink()
                 print(f"Skipped graph.html: {viz_err}")
-                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated.")
+                print(f"Done - {len(communities)} communities. GRAPH_REPORT.md and graph.json updated.")
 
     elif cmd == "update":
         force = os.environ.get("GRAPHIFY_FORCE", "").lower() in ("1", "true", "yes")
@@ -2379,6 +2878,7 @@ def main() -> None:
             print(f"error: path not found: {watch_path}", file=sys.stderr)
             sys.exit(1)
         from graphify.watch import _rebuild_code
+
         print(f"Re-extracting code files in {watch_path} (no LLM needed)...")
         # Interactive CLI: block on the per-repo lock rather than skip, so the
         # user sees their explicit `graphify update` complete instead of
@@ -2395,7 +2895,10 @@ def main() -> None:
             ):
                 print("Tip: set GEMINI_API_KEY or GOOGLE_API_KEY to use Gemini for semantic extraction.")
         else:
-            print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
+            print(
+                "Nothing to update or rebuild failed — check output above.",
+                file=sys.stderr,
+            )
             sys.exit(1)
 
     elif cmd == "hook-check":
@@ -2408,6 +2911,7 @@ def main() -> None:
             print("Usage: graphify check-update <path>", file=sys.stderr)
             sys.exit(1)
         from graphify.watch import check_update
+
         check_update(Path(sys.argv[2]).resolve())
         sys.exit(0)
     elif cmd == "tree":
@@ -2529,11 +3033,16 @@ def main() -> None:
         i = 0
         while i < len(args):
             if args[i] == "--out" and i + 1 < len(args):
-                out_path = Path(args[i + 1]); i += 2
+                out_path = Path(args[i + 1])
+                i += 2
             else:
-                graph_paths.append(Path(args[i])); i += 1
+                graph_paths.append(Path(args[i]))
+                i += 1
         if len(graph_paths) < 2:
-            print("Usage: graphify merge-graphs <graph1.json> <graph2.json> [...] [--out merged.json]", file=sys.stderr)
+            print(
+                "Usage: graphify merge-graphs <graph1.json> <graph2.json> [...] [--out merged.json]",
+                file=sys.stderr,
+            )
             sys.exit(1)
         import networkx as _nx
         from networkx.readwrite import json_graph as _jg
@@ -2570,7 +3079,10 @@ def main() -> None:
 
     elif cmd == "clone":
         if len(sys.argv) < 3:
-            print("Usage: graphify clone <github-url> [--branch <branch>] [--out <dir>]", file=sys.stderr)
+            print(
+                "Usage: graphify clone <github-url> [--branch <branch>] [--out <dir>]",
+                file=sys.stderr,
+            )
             sys.exit(1)
         url = sys.argv[2]
         branch: str | None = None
@@ -2579,9 +3091,11 @@ def main() -> None:
         i = 0
         while i < len(args):
             if args[i] == "--branch" and i + 1 < len(args):
-                branch = args[i + 1]; i += 2
+                branch = args[i + 1]
+                i += 2
             elif args[i] == "--out" and i + 1 < len(args):
-                out_dir = Path(args[i + 1]); i += 2
+                out_dir = Path(args[i + 1])
+                i += 2
             else:
                 i += 1
         local_path = _clone_repo(url, branch=branch, out_dir=out_dir)
@@ -2847,6 +3361,7 @@ def main() -> None:
 
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
+
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"
         _enforce_graph_size_cap_or_exit(Path(graph_path))
         # Try to load corpus_words from detect output
@@ -2889,7 +3404,7 @@ def main() -> None:
             try:
                 result = _global_add(source, tag)
                 if result["skipped"]:
-                    print(f"'{tag}' unchanged since last add — global graph not modified.")
+                    print(f"'{tag}' unchanged since last add - global graph not modified.")
                 else:
                     print(f"Added '{tag}' to global graph: +{result['nodes_added']} nodes, "
                           f"-{result['nodes_removed']} pruned. Global: {_global_path()}")
@@ -3381,7 +3896,7 @@ def main() -> None:
                 try:
                     result = _global_add(graphify_out / "graph.json", _tag)
                     if result["skipped"]:
-                        print(f"[graphify global] '{_tag}' unchanged since last add — skipped.")
+                        print(f"[graphify global] '{_tag}' unchanged since last add - skipped.")
                     else:
                         print(f"[graphify global] '{_tag}' merged into global graph "
                               f"(+{result['nodes_added']} nodes, -{result['nodes_removed']} pruned).")
@@ -3459,7 +3974,7 @@ def main() -> None:
             try:
                 result = _global_add(graphify_out / "graph.json", _tag)
                 if result["skipped"]:
-                    print(f"[graphify global] '{_tag}' unchanged since last add — skipped.")
+                    print(f"[graphify global] '{_tag}' unchanged since last add - skipped.")
                 else:
                     print(f"[graphify global] '{_tag}' merged into global graph "
                           f"(+{result['nodes_added']} nodes, -{result['nodes_removed']} pruned).")
@@ -3504,6 +4019,14 @@ def main() -> None:
                 f"{merged['output_tokens']:,} out, "
                 f"est. cost (~{backend}): ${cost:.4f}"
             )
+        # extract intentionally stops at graph.json + analysis; the report and
+        # community labels are produced by `cluster-only` (or an agent's Step 5).
+        # Point standalone users at it so communities get named (#1097).
+        print(
+            "[graphify extract] next: run "
+            f"`graphify cluster-only {graphify_out.parent}` "
+            "to generate GRAPH_REPORT.md and name communities"
+        )
 
     elif cmd == "cache-check":
         # graphify cache-check <files_from> [--root <dir>]

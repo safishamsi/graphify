@@ -13,6 +13,15 @@ from graphify.extract import (
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
+# tree-sitter-dm is an optional extra (#1104) - it ships no Linux/Mac wheel, so it
+# is not installed by a default `uv sync`. Skip the .dm/.dme grammar tests when the
+# grammar is absent (.dmi/.dmm/.dmf use no tree-sitter and are always tested).
+import importlib.util as _ilu
+_needs_dm = pytest.mark.skipif(
+    _ilu.find_spec("tree_sitter_dm") is None,
+    reason="tree-sitter-dm not installed (optional [dm] extra)",
+)
+
 
 def _labels(r):
     return [n["label"] for n in r["nodes"]]
@@ -1080,6 +1089,75 @@ def test_ts_static_template_literal_resolved():
         f"Static template literal import not resolved: {targets}"
 
 
+def test_js_local_const_does_not_emit_phantom_node(tmp_path):
+    """Local const/let/var inside an arrow callback must NOT emit a node (#1077).
+
+    Previously `_js_extra_walk` recursed into arrow_function bodies and
+    emitted a node for every `const x = ...` inside e.g. `describe(() => {})`,
+    so bare names like `set`, `sorted` collided across unrelated test files.
+    """
+    src = (
+        "describe('suite', () => {\n"
+        "  const inner = new Set([1, 2, 3]);\n"
+        "  let other = [1, 2];\n"
+        "});\n"
+        "\n"
+        "const moduleConst = new Set([4, 5]);\n"
+        "export const exportedConst = { a: 1 };\n"
+    )
+    f = tmp_path / "scope_guard.js"
+    f.write_text(src)
+    r = extract_js(f)
+    labels = _labels(r)
+
+    # Locals inside the arrow callback must not produce nodes.
+    assert "inner" not in labels, f"phantom node for arrow-body local 'inner': {labels}"
+    assert "other" not in labels, f"phantom node for arrow-body local 'other': {labels}"
+
+    # Module-level consts should still produce nodes.
+    assert "moduleConst" in labels, f"module-level const 'moduleConst' missing: {labels}"
+    assert "exportedConst" in labels, f"exported const 'exportedConst' missing: {labels}"
+
+
+def test_js_module_level_arrow_produces_node_and_call_edges(tmp_path):
+    """Module-level arrow functions must still emit a node and capture their calls (#1077).
+
+    The scope guard must not accidentally suppress top-level arrow functions.
+    """
+    src = (
+        "function helper() { return 1; }\n"
+        "const handler = () => {\n"
+        "  helper();\n"
+        "};\n"
+    )
+    f = tmp_path / "arrows.js"
+    f.write_text(src)
+    r = extract_js(f)
+    labels = _labels(r)
+    relations = _relations(r)
+
+    assert any("handler" in l for l in labels), f"module-level arrow 'handler' missing: {labels}"
+    assert "calls" in relations, f"expected 'calls' edge from handler->helper: {relations}"
+
+
+def test_ts_local_const_does_not_emit_phantom_node(tmp_path):
+    """Scope guard applies to TypeScript files too (shared _js_extra_walk path)."""
+    src = (
+        "describe('suite', () => {\n"
+        "  const inner: Set<number> = new Set([1, 2]);\n"
+        "});\n"
+        "\n"
+        "export const topLevel = { a: 1 };\n"
+    )
+    f = tmp_path / "scope_guard.ts"
+    f.write_text(src)
+    r = extract_js(f)
+    labels = _labels(r)
+
+    assert "inner" not in labels, f"phantom TS node for arrow-body local 'inner': {labels}"
+    assert "topLevel" in labels, f"module-level TS const 'topLevel' missing: {labels}"
+
+
 # ── Markdown ─────────────────────────────────────────────────────────────────
 
 from graphify.extract import extract_markdown
@@ -1102,19 +1180,59 @@ def test_markdown_finds_nested_heading():
     labels = _labels(r)
     assert any("Database Migration" in l for l in labels)
 
-def test_markdown_finds_code_blocks():
+def test_markdown_skips_fenced_code_blocks():
+    """Fenced code blocks should NOT emit nodes (#1077).
+
+    They were always orphans (single contains edge to parent doc) and
+    inflated the disconnected-component count. We still skip over their
+    *contents* when parsing so the inside of a fence is not misread as a
+    heading.
+    """
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     labels = _labels(r)
-    assert any("code:bash" in l for l in labels)
-    assert any("code:sql" in l for l in labels)
-    assert any("code:python" in l for l in labels)
+    assert not any(l.startswith("code:") for l in labels), \
+        f"Expected no code:* nodes after #1077 fix, got: {[l for l in labels if l.startswith('code:')]}"
 
 def test_markdown_contains_edges():
-    """Headings and code blocks should be connected via 'contains' edges."""
+    """Headings should be connected via 'contains' edges (file->h, h->h)."""
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     assert "contains" in _relations(r)
     contains_edges = [e for e in r["edges"] if e["relation"] == "contains"]
-    assert len(contains_edges) >= 5  # file->h1, h1->h2s, h2->h3, h2->codeblocks
+    # deploy_guide.md has: file->h1, h1->h2(Prerequisites), h1->h2(Full Deploy),
+    # h2(Full Deploy)->h3(Database Migration), h1->h2(Rollback) = 5 edges
+    assert len(contains_edges) >= 5, f"expected >= 5 contains edges, got {len(contains_edges)}"
+
+
+def test_markdown_fenced_heading_not_parsed():
+    """A '## heading' inside a fenced block must not produce a heading node (#1077).
+
+    The fence-toggle skips over fenced contents so interior markdown syntax
+    is not misread as document structure.
+    """
+    import tempfile, os
+    src = (
+        "# Real Heading\n"
+        "\n"
+        "```bash\n"
+        "## Not A Heading\n"
+        "echo hello\n"
+        "```\n"
+        "\n"
+        "## Another Real Heading\n"
+    )
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False) as fh:
+        fh.write(src)
+        fpath = fh.name
+    try:
+        r = extract_markdown(Path(fpath))
+        labels = _labels(r)
+    finally:
+        os.unlink(fpath)
+
+    assert any("Real Heading" in l for l in labels), f"'Real Heading' missing: {labels}"
+    assert any("Another Real Heading" in l for l in labels), f"'Another Real Heading' missing: {labels}"
+    assert not any("Not A Heading" in l for l in labels), \
+        f"fenced '## Not A Heading' was incorrectly parsed as a node: {labels}"
 
 def test_markdown_no_dangling_edges():
     r = extract_markdown(FIXTURES / "deploy_guide.md")
@@ -1192,38 +1310,45 @@ def test_groovy_spock_no_dangling_edges():
 
 # ── DM (BYOND DreamMaker) ────────────────────────────────────────────────────
 
+@_needs_dm
 def test_dm_no_error():
     r = extract_dm(FIXTURES / "sample.dm")
     assert "error" not in r
 
+@_needs_dm
 def test_dm_finds_global_proc():
     r = extract_dm(FIXTURES / "sample.dm")
     labels = _labels(r)
     assert any(l == "log_event()" for l in labels)
     assert any(l == "RunTest()" for l in labels)
 
+@_needs_dm
 def test_dm_finds_type_definition():
     r = extract_dm(FIXTURES / "sample.dm")
     labels = _labels(r)
     assert "/datum/weapon" in labels
     assert "/datum/weapon/sword" in labels
 
+@_needs_dm
 def test_dm_qualifies_proc_with_type_path():
     r = extract_dm(FIXTURES / "sample.dm")
     labels = _labels(r)
     assert "/datum/weapon/attack()" in labels
     assert "/datum/weapon/sword/attack()" in labels
 
+@_needs_dm
 def test_dm_finds_path_form_proc_definition():
     r = extract_dm(FIXTURES / "sample.dm")
     assert "/datum/weapon/sword/sharpen()" in _labels(r)
 
+@_needs_dm
 def test_dm_emits_include_edge():
     r = extract_dm(FIXTURES / "sample.dm")
     import_edges = _edges_with_relation(r, "imports", "imports_from")
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
 
+@_needs_dm
 def test_dm_unresolved_include_flagged_external():
     r = extract_dm(FIXTURES / "sample.dm")
     import_edges = _edges_with_relation(r, "imports", "imports_from")
@@ -1231,12 +1356,14 @@ def test_dm_unresolved_include_flagged_external():
     assert helpers
     assert all(e.get("external") is True for e in helpers)
 
+@_needs_dm
 def test_dm_resolves_in_file_calls():
     r = extract_dm(FIXTURES / "sample.dm")
     calls = _calls(r)
     assert any(callee == "log_event()" for _, callee in calls)
     assert ("/datum/weapon/sword/attack()", "/datum/weapon/sword/sharpen()") in calls
 
+@_needs_dm
 def test_dm_ambiguous_member_call_left_unresolved():
     r = extract_dm(FIXTURES / "sample.dm")
     calls = _calls(r)
@@ -1245,6 +1372,7 @@ def test_dm_ambiguous_member_call_left_unresolved():
     assert not runtest_to_attack
     assert any(rc["callee"] == "attack" for rc in r.get("raw_calls", []))
 
+@_needs_dm
 def test_dm_emits_new_as_instantiates():
     r = extract_dm(FIXTURES / "sample.dm")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
@@ -1252,18 +1380,21 @@ def test_dm_emits_new_as_instantiates():
             for e in r["edges"] if e["relation"] == "instantiates"]
     assert ("RunTest()", "/datum/weapon/sword") in inst
 
+@_needs_dm
 def test_dm_call_edges_have_call_context():
     r = extract_dm(FIXTURES / "sample.dm")
     call_edges = _edges_with_relation(r, "calls", "instantiates")
     assert call_edges
     assert all(e.get("context") == "call" for e in call_edges)
 
+@_needs_dm
 def test_dm_no_dangling_edges():
     r = extract_dm(FIXTURES / "sample.dm")
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids
 
+@_needs_dm
 def test_dm_super_call_not_emitted():
     r = extract_dm(FIXTURES / "sample.dm")
     calls = _calls(r)

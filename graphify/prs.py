@@ -471,7 +471,7 @@ def render_worktrees(prs: list[PRInfo], worktrees: dict[str, str]) -> None:
         if pr:
             status = _status_color(pr.status)
             print(f"  {cyan(path)}")
-            print(f"    {dim('branch:')} {branch}  →  PR {bold(f'#{pr.number}')}  [{status}]  {_truncate(pr.title, 50)}")
+            print(f"    {dim('branch:')} {branch}  ->  PR {bold(f'#{pr.number}')}  [{status}]  {_truncate(pr.title, 50)}")
         else:
             print(f"  {cyan(path)}")
             print(f"    {dim('branch:')} {branch}  {dim('(no open PR)')}")
@@ -485,7 +485,7 @@ def render_conflicts(
 ) -> None:
     actionable = [p for p in prs if p.base_branch == base and p.communities_touched]
     if not actionable:
-        print(dim("\n  No graph impact data — run with a valid graph.json to detect conflicts.\n"))
+        print(dim("\n  No graph impact data - run with a valid graph.json to detect conflicts.\n"))
         return
 
     # Build community → [PRs] map
@@ -496,7 +496,7 @@ def render_conflicts(
 
     conflicts = {c: ps for c, ps in comm_to_prs.items() if len(ps) > 1}
     if not conflicts:
-        print(green("\n  No community overlap between open PRs — safe to merge in any order.\n"))
+        print(green("\n  No community overlap between open PRs - safe to merge in any order.\n"))
         return
 
     print()
@@ -518,7 +518,7 @@ def render_pr_detail(pr: PRInfo, repo: str | None = None) -> None:
     print(bold(f"  PR #{pr.number}  ·  {_status_color(pr.status)}"))
     print(f"  {pr.title}")
     print()
-    print(f"  {dim('branch:')}  {pr.branch}  →  {pr.base_branch}")
+    print(f"  {dim('branch:')}  {pr.branch}  ->  {pr.base_branch}")
     print(f"  {dim('author:')}  {pr.author}")
     print(f"  {dim('updated:')} {pr.days_old}d ago")
     print(f"  {dim('CI:')}      {_ci_icon(pr.ci_status)} {pr.ci_status}")
@@ -579,7 +579,7 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
     try:
         from graphify.llm import BACKENDS, _get_backend_api_key
     except ImportError:
-        print(red("  graphify.llm not available — cannot run triage."), file=sys.stderr)
+        print(red("  graphify.llm not available - cannot run triage."), file=sys.stderr)
         sys.exit(1)
 
     candidates = [p for p in prs if p.base_branch == base and p.status not in ("WRONG-BASE", "STALE")]
