@@ -1797,7 +1797,9 @@ def main() -> None:
         print("    --out DIR               output dir (default: <path>); writes <DIR>/graphify-out/")
         print("    --google-workspace      export .gdoc/.gsheet/.gslides shortcuts via gws before extraction")
         print("    --no-cluster            skip clustering, write raw extraction only")
-        print("    --postgres DSN          PostgreSQL connection string (live schema introspection)")
+        print("    --postgres DSN          extract schema from a live PostgreSQL database")
+        print("                            maps tables, views, functions + FK relationships;")
+        print("                            column-level detail is not represented in the graph")
         print("    --global                also merge the resulting graph into the global graph")
         print("    --as <tag>              repo tag for --global (default: target directory name)")
         print("  global add <graph.json>  add/update a project graph in the global graph (~/.graphify/global-graph.json)")
@@ -3815,7 +3817,11 @@ def main() -> None:
         if cli_postgres_dsn is not None:
             from graphify.pg_introspect import introspect_postgres
             print(f"[graphify extract] introspecting PostgreSQL schema...")
-            pg_result = introspect_postgres(cli_postgres_dsn)
+            try:
+                pg_result = introspect_postgres(cli_postgres_dsn)
+            except (ConnectionError, ImportError) as exc:
+                print(f"error: {exc}", file=sys.stderr)
+                sys.exit(1)
             print(f"[graphify extract] PostgreSQL: {len(pg_result['nodes'])} nodes, "
                   f"{len(pg_result['edges'])} edges")
 
