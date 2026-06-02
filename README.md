@@ -55,6 +55,7 @@ graphify export callflow-html
 | Python | 3.10+ | `python --version` | [python.org](https://www.python.org/downloads/) |
 | uv *(recommended)* | any | `uv --version` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | pipx *(alternative)* | any | `pipx --version` | `pip install pipx` |
+| Nix *(alternative)* | 2.4+ (flakes enabled) | `nix --version` | [nixos.org](https://nixos.org/download/) |
 
 **macOS quick install (Homebrew):**
 ```bash
@@ -89,6 +90,36 @@ uv tool install graphifyy
 pipx install graphifyy
 pip install graphifyy  # may need PATH setup — see note below
 ```
+
+**Nix (flake):**
+
+Run directly without installing:
+```bash
+nix run github:safishamsi/graphify
+```
+
+To expose `graphify` as a package inside another flake, add it as an input and reference its default package:
+```nix
+{
+  inputs = {
+    graphify.url = "github:safishamsi/graphify";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  };
+
+  outputs = { nixpkgs, graphify, ... }: {
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = [ graphify.packages.${system}.default ];
+      };
+    };
+  };
+}
+```
+
+---
 
 **Step 2 — register the skill with your AI assistant:**
 

@@ -22,6 +22,7 @@ docs/superpowers/
 .vscode/
 .kilo
 openspec/
+result
 # Local benchmark scripts — never commit
 scripts/run_k2_*.py
 scripts/llm.py

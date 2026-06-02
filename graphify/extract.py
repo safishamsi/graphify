@@ -11099,7 +11099,7 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         for ext in sorted(_EXTENSIONS):
             results.extend(
                 p for p in target.rglob(f"*{ext}")
-                if not any(_is_noise_dir(part) for part in p.parts)
+                if not any(_is_noise_dir(part) for part in p.relative_to(target).parts)
                 and not _ignored(p)
             )
         return sorted(results)
