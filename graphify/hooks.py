@@ -12,7 +12,7 @@ _CHECKOUT_MARKER_END = "# graphify-checkout-hook-end"
 
 _PYTHON_DETECT = """\
 # Detect the correct Python interpreter (handles pipx, venv, system installs)
-GRAPHIFY_BIN=$(command -v graphify 2>/dev/null)
+GRAPHIFY_BIN=$(command -v graphify 2>/dev/null) || true
 if [ -n "$GRAPHIFY_BIN" ]; then
     case "$GRAPHIFY_BIN" in
         *.exe) _SHEBANG="" ;;
