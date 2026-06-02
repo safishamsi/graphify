@@ -119,6 +119,20 @@ BACKENDS: dict[str, dict] = {
 }
 
 
+_ANTHROPIC_DEFAULT_BASE_URL = "https://api.anthropic.com"
+
+
+def _anthropic_base_url() -> str:
+    """Return the Anthropic API base URL, respecting ANTHROPIC_BASE_URL env var.
+
+    Falls back to the default (https://api.anthropic.com) when the env var is
+    unset or empty.  This allows routing requests through corporate API gateways,
+    LiteLLM proxies, or other Anthropic-compatible endpoints.
+    """
+    url = os.environ.get("ANTHROPIC_BASE_URL", "").strip()
+    return url if url else _ANTHROPIC_DEFAULT_BASE_URL
+
+
 def _custom_providers_path(global_: bool = True) -> Path:
     if global_:
         return Path.home() / ".graphify" / "providers.json"
@@ -484,7 +498,10 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
             "Run: pip install anthropic"
         ) from exc
 
-    client = anthropic.Anthropic(api_key=api_key)
+    client = anthropic.Anthropic(
+        api_key=api_key,
+        base_url=_anthropic_base_url(),
+    )
     resp = client.messages.create(
         model=model,
         max_tokens=max_tokens,
@@ -1116,7 +1133,10 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
             import anthropic
         except ImportError as exc:
             raise ImportError("anthropic package required for claude backend") from exc
-        client = anthropic.Anthropic(api_key=key)
+        client = anthropic.Anthropic(
+            api_key=key,
+            base_url=_anthropic_base_url(),
+        )
         resp = client.messages.create(
             model=mdl,
             max_tokens=max_tokens,
