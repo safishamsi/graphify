@@ -5,6 +5,7 @@
 # this module provides a direct API path for non-Claude-Code environments.
 from __future__ import annotations
 
+import base64
 import json
 import os
 import re
@@ -12,6 +13,7 @@ import sys
 import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 # `_read_files` truncates each file at this many characters before joining into
@@ -53,11 +55,15 @@ BACKENDS: dict[str, dict] = {
         "pricing": {"input": 3.0, "output": 15.0},  # USD per 1M tokens
         "temperature": 0,
         "max_tokens": 16384,
+        "vision": True,
     },
     "kimi": {
         "base_url": "https://api.moonshot.ai/v1",
         "default_model": "kimi-k2.6",
         "env_key": "MOONSHOT_API_KEY",
+        # kimi-k2.6 is natively multimodal (MoonViT) and accepts the same
+        # OpenAI image_url data-URI block via Moonshot's compat endpoint.
+        "vision": True,
         "pricing": {"input": 0.74, "output": 4.66},  # USD per 1M tokens
         "temperature": None,  # kimi-k2.6 enforces its own fixed temperature; sending any value raises 400
         "max_tokens": 16384,
@@ -79,6 +85,7 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "reasoning_effort": "low",
         "max_completion_tokens": 16384,
+        "vision": True,
     },
     "openai": {
         "base_url": "https://api.openai.com/v1",
@@ -87,6 +94,7 @@ BACKENDS: dict[str, dict] = {
         "model_env_key": "GRAPHIFY_OPENAI_MODEL",
         "pricing": {"input": 0.40, "output": 1.60},  # USD per 1M tokens
         "temperature": 0,
+        "vision": True,
     },
     "deepseek": {
         "base_url": "https://api.deepseek.com",
@@ -105,6 +113,7 @@ BACKENDS: dict[str, dict] = {
         "pricing": {"input": 3.0, "output": 15.0},  # USD per 1M tokens
         "temperature": 0,
         "max_tokens": 16384,
+        "vision": True,
     },
     "claude-cli": {
         # Routes through the locally-installed `claude` CLI (Claude Code) using
@@ -115,6 +124,20 @@ BACKENDS: dict[str, dict] = {
         "pricing": {"input": 0.0, "output": 0.0},
         "temperature": 0,
         "max_tokens": 16384,
+        # Claude Code is multimodal; images are passed by path and read with the
+        # CLI's Read tool rather than as inline base64 (see `_call_claude_cli`).
+        "vision": True,
+    },
+    "codex-cli": {
+        # Routes through the locally-installed `codex` CLI (OpenAI Codex) using
+        # `codex exec`. Authenticates via the user's existing ChatGPT/Codex
+        # subscription instead of an OPENAI_API_KEY — costs bill to the plan.
+        # Local images are passed with `-i`, so this is a keyless vision path.
+        "default_model": "codex-cli-plan",
+        "pricing": {"input": 0.0, "output": 0.0},
+        "temperature": 0,
+        "max_tokens": 16384,
+        "vision": True,
     },
 }
 
@@ -203,6 +226,200 @@ def _read_files(paths: list[Path], root: Path) -> str:
             continue
         parts.append(f"=== {rel} ===\n{content[:20000]}")
     return "\n\n".join(parts)
+
+
+# ── Image (vision) handling ───────────────────────────────────────────────────
+# Raster image types a vision model can actually look at. `.svg` is intentionally
+# excluded: it is XML markup, so `_read_files` reads it as text (the model parses
+# the source directly), which is more useful than rasterising it. Before this,
+# every image was fed through `path.read_text(errors="replace")`, turning binary
+# pixels into garbage text — noise for API backends and an outright `exit 1` for
+# the claude-cli backend.
+_VISION_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+_IMAGE_MEDIA_TYPES = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".gif": "image/gif",
+    ".webp": "image/webp",
+}
+# Per-image byte ceiling. Anthropic caps a request at 32 MB and Bedrock images
+# at ~5 MB; 5 MB per image keeps every backend within limits. Oversized images
+# fall back to a text reference (the node is still created, just unseen).
+_MAX_IMAGE_BYTES = 5 * 1024 * 1024
+# Flat token estimate per image for chunk packing. Vision models bill an image
+# at a roughly fixed cost regardless of file size, so estimating by byte size
+# (as the generic path does) would force every large PNG into its own chunk.
+_IMAGE_TOKEN_ESTIMATE = 1_600
+
+
+@dataclass
+class _ImageRef:
+    """A single image destined for a vision request.
+
+    `raw` is None when the image is unreadable or exceeds `_MAX_IMAGE_BYTES`, or
+    when the target backend has no vision support — in every such case the
+    renderers emit a text reference instead of pixels, so the image still
+    becomes a graph node.
+    """
+
+    path: Path        # absolute path (claude-cli reads it via the Read tool)
+    rel: str          # path relative to the corpus root (the node's source_file)
+    media_type: str   # e.g. "image/png"
+    raw: bytes | None
+
+    @property
+    def b64(self) -> str:
+        return base64.standard_b64encode(self.raw).decode("ascii") if self.raw else ""
+
+    @property
+    def bedrock_format(self) -> str:
+        # Converse wants a bare format token, not a media type.
+        return self.media_type.split("/", 1)[-1]
+
+
+def _is_vision_image(path: Path) -> bool:
+    return path.suffix.lower() in _VISION_IMAGE_EXTENSIONS
+
+
+def _partition_semantic_files(files: list[Path]) -> tuple[list[Path], list[Path]]:
+    """Split a chunk into (text-like files, raster-image files)."""
+    text_files = [f for f in files if not _is_vision_image(f)]
+    image_files = [f for f in files if _is_vision_image(f)]
+    return text_files, image_files
+
+
+def _build_image_refs(image_files: list[Path], root: Path) -> list[_ImageRef]:
+    """Read raster images into `_ImageRef`s, guarding size and read errors."""
+    refs: list[_ImageRef] = []
+    for p in image_files:
+        try:
+            rel = str(p.relative_to(root))
+        except ValueError:
+            rel = str(p)
+        media = _IMAGE_MEDIA_TYPES.get(p.suffix.lower(), "image/png")
+        raw: bytes | None
+        try:
+            raw = p.read_bytes()
+        except OSError as exc:
+            print(f"[graphify] could not read image {rel}: {exc}", file=sys.stderr)
+            raw = None
+        if raw is not None and len(raw) > _MAX_IMAGE_BYTES:
+            print(
+                f"[graphify] image {rel} is {len(raw) // 1024} KB, over the "
+                f"{_MAX_IMAGE_BYTES // (1024 * 1024)} MB vision limit; "
+                "creating a reference node without pixels.",
+                file=sys.stderr,
+            )
+            raw = None
+        try:
+            abs_path = p.resolve()
+        except OSError:
+            abs_path = p
+        refs.append(_ImageRef(abs_path, rel, media, raw))
+    return refs
+
+
+def _strip_pixels(refs: list[_ImageRef]) -> list[_ImageRef]:
+    """Return refs with pixel data dropped (for non-vision backends)."""
+    return [replace(r, raw=None) for r in refs]
+
+
+def _backend_supports_vision(backend: str) -> bool:
+    """Whether `backend`'s configured model can see images.
+
+    Ollama is special-cased: its default model is text-only, so vision is
+    opt-in via GRAPHIFY_OLLAMA_VISION=1 once the user selects a vision model
+    (e.g. --model llama3.2-vision).
+    """
+    if backend == "ollama":
+        return os.environ.get("GRAPHIFY_OLLAMA_VISION", "").strip() == "1"
+    return bool(BACKENDS.get(backend, {}).get("vision", False))
+
+
+def _image_notes(refs: list[_ImageRef], *, with_paths: bool = False) -> str:
+    """Text block listing the images so the model emits one node per image.
+
+    Always included alongside the visual payload (and used on its own when the
+    backend can't see pixels), so an image becomes a graph node either way.
+    `with_paths=True` also lists the absolute path and asks the model to open it
+    with the Read tool — used by the claude-cli backend.
+    """
+    if not refs:
+        return ""
+    if with_paths:
+        header = (
+            "Use the Read tool to open and view each image file at the path below, "
+            "then emit one node per image"
+        )
+    else:
+        header = (
+            "The following image file(s) are attached as visual input. Emit one "
+            "node per image"
+        )
+    lines = [
+        "=== IMAGES ===",
+        f"{header} with \"file_type\":\"image\" and the listed source_file, a label "
+        "describing what it depicts (diagram, screenshot, chart, photo, UI, logo), "
+        "and edges to any code/doc nodes the image clearly references.",
+    ]
+    for i, r in enumerate(refs, 1):
+        note = f"[image {i}] source_file: {r.rel}"
+        if with_paths:
+            note += f"  path: {r.path}"
+        if r.raw is None and not with_paths:
+            note += " (not shown: unreadable or exceeds size limit)"
+        lines.append(note)
+    return "\n".join(lines)
+
+
+def _with_image_notes(user_message: str, refs: list[_ImageRef], *, with_paths: bool = False) -> str:
+    notes = _image_notes(refs, with_paths=with_paths)
+    if not notes:
+        return user_message
+    if not user_message.strip():
+        return notes
+    return f"{user_message}\n\n{notes}"
+
+
+def _anthropic_content(user_message: str, refs: list[_ImageRef]):
+    """Build the Anthropic `messages[].content` value (str, or block list with images)."""
+    blocks = [
+        {"type": "image", "source": {"type": "base64", "media_type": r.media_type, "data": r.b64}}
+        for r in refs
+        if r.raw
+    ]
+    text = _with_image_notes(user_message, refs)
+    if not blocks:
+        return text
+    return [*blocks, {"type": "text", "text": text}]
+
+
+def _openai_content(user_message: str, refs: list[_ImageRef]):
+    """Build the OpenAI-compatible user `content` value (str, or part list with images)."""
+    parts: list[dict] = [
+        {
+            "type": "image_url",
+            "image_url": {"url": f"data:{r.media_type};base64,{r.b64}", "detail": "auto"},
+        }
+        for r in refs
+        if r.raw
+    ]
+    text = _with_image_notes(user_message, refs)
+    if not parts:
+        return text
+    return [{"type": "text", "text": text}, *parts]
+
+
+def _bedrock_content(user_message: str, refs: list[_ImageRef]) -> list[dict]:
+    """Build the Bedrock Converse user content list (raw bytes, not base64)."""
+    content: list[dict] = [
+        {"image": {"format": r.bedrock_format, "source": {"bytes": r.raw}}}
+        for r in refs
+        if r.raw
+    ]
+    content.append({"text": _with_image_notes(user_message, refs)})
+    return content
 
 
 _LLM_JSON_MAX_BYTES = 10 * 1024 * 1024  # 10 MB hard cap before json.loads (F-016)
@@ -349,6 +566,7 @@ def _call_openai_compat(
     *,
     backend: str = "",
     deep_mode: bool = False,
+    images: list[_ImageRef] | None = None,
 ) -> dict:
     """Call any OpenAI-compatible API (Kimi, OpenAI, etc.) and return parsed JSON."""
     try:
@@ -379,7 +597,7 @@ def _call_openai_compat(
         "model": model,
         "messages": [
             {"role": "system", "content": _extraction_system(deep=deep_mode)},
-            {"role": "user", "content": user_message},
+            {"role": "user", "content": _openai_content(user_message, images or [])},
         ],
         "max_completion_tokens": max_completion_tokens,
     }
@@ -474,7 +692,7 @@ def _call_openai_compat(
     return result
 
 
-def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
+def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False, images: list[_ImageRef] | None = None) -> dict:
     """Call Anthropic Claude directly (not via OpenAI compat layer)."""
     try:
         import anthropic
@@ -489,7 +707,7 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
         model=model,
         max_tokens=max_tokens,
         system=_extraction_system(deep=deep_mode),
-        messages=[{"role": "user", "content": user_message}],
+        messages=[{"role": "user", "content": _anthropic_content(user_message, images or [])}],
     )
     raw_content = resp.content[0].text if resp.content else None
     result = _parse_llm_json(raw_content or "{}")
@@ -510,12 +728,16 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
     return result
 
 
-def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
+def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False, images: list[_ImageRef] | None = None) -> dict:
     """Call Claude via the locally-installed Claude Code CLI (`claude -p`).
 
     Routes through the user's Claude Code subscription auth instead of a separate
     ANTHROPIC_API_KEY. Useful for Pro/Max subscribers who don't want to provision
     a pay-as-you-go API key just to run graphify's semantic pass.
+
+    Images are passed by absolute path rather than inline base64: the prompt asks
+    the model to open each one with its Read tool, and each containing directory
+    is allowlisted with `--add-dir` so the read is permitted.
     """
     import platform
     import shutil
@@ -551,10 +773,23 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     # preamble — both of which fail the strict json.loads in _parse_llm_json.
     # Replacing the default prompt eliminates the conflict at the source.
     # Side benefit: cache-creation tokens per call drop ~19% in practice.
+    # When images are present, append the Read-the-paths instruction and
+    # allowlist each containing directory so the CLI's Read tool can open them.
+    add_dir_args: list[str] = []
+    if images:
+        user_message = _with_image_notes(user_message, images, with_paths=True)
+        seen_dirs: set[str] = set()
+        for r in images:
+            d = str(r.path.parent)
+            if d not in seen_dirs:
+                seen_dirs.add(d)
+                add_dir_args.extend(["--add-dir", d])
+
     cli_args = [
         claude_cmd, "-p",
         "--output-format", "json",
         "--no-session-persistence",
+        *add_dir_args,
         "--system-prompt", _extraction_system(deep=deep_mode),
     ]
     # claude-cli defaults to Opus, which is overkill for the structured-JSON
@@ -610,7 +845,102 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     return result
 
 
-def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
+def _call_codex_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False, images: list[_ImageRef] | None = None) -> dict:
+    """Call OpenAI Codex via the locally-installed `codex exec` CLI.
+
+    Routes through the user's ChatGPT/Codex subscription instead of an
+    OPENAI_API_KEY, giving Pro subscribers a keyless vision path: local images
+    are attached with `-i` (Codex reads the pixels directly, no base64).
+
+    Codex `exec` has no separate system-prompt slot, so the extraction
+    instructions are prepended to the prompt. Run read-only and ephemeral so it
+    never prompts for approval, never writes into the corpus, and leaves no
+    session rollout file behind. The final agent message is captured via
+    `--output-last-message` (clean text, no event log).
+    """
+    import shutil
+    import subprocess
+    import tempfile
+
+    if shutil.which("codex") is None:
+        raise RuntimeError(
+            "Codex CLI not found on $PATH. Install from "
+            "https://developers.openai.com/codex and run `codex` once to authenticate."
+        )
+
+    images = images or []
+    # Attach an image only when it is readable, within the size limit (raw set),
+    # AND still on disk. A missing -i path does NOT make `codex exec` fail — it
+    # just tells the model "file not found" and returns prose that fails JSON
+    # parsing — and gating on `raw` keeps the `-i` set consistent with the
+    # "(not shown ...)" note `_image_notes` adds for refs without pixels.
+    image_paths = [str(r.path) for r in images if r.raw is not None and r.path.is_file()]
+    prompt = _extraction_system(deep=deep_mode) + "\n\n" + _with_image_notes(user_message, images)
+
+    fd, out_path = tempfile.mkstemp(suffix=".txt", prefix="graphify-codex-")
+    os.close(fd)
+    cli_args = [
+        "codex", "exec",
+        "--ephemeral",            # no per-call session rollout file
+        "--skip-git-repo-check",  # graphify runs from arbitrary directories
+        "--sandbox", "read-only",  # unattended, never writes, never prompts
+        "-C", tempfile.gettempdir(),
+        "--output-last-message", out_path,
+    ]
+    cli_model = os.environ.get("GRAPHIFY_CODEX_CLI_MODEL", "").strip()
+    if cli_model:
+        cli_args.extend(["--model", cli_model])
+    for img in image_paths:
+        cli_args.extend(["-i", img])
+    cli_args.extend(["--", prompt])  # `--` ends the variadic -i and protects the prompt
+
+    try:
+        proc = subprocess.run(
+            cli_args,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=600,
+            check=False,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(
+                f"codex exec exited {proc.returncode}: {proc.stderr.strip()[:500]}"
+            )
+        try:
+            with open(out_path, encoding="utf-8") as fh:
+                raw_content = fh.read().strip()
+        except OSError as exc:
+            raise RuntimeError(
+                f"codex exec produced no output file: {exc}; "
+                f"stderr: {proc.stderr.strip()[:500]!r}"
+            ) from exc
+    finally:
+        try:
+            os.unlink(out_path)
+        except OSError:
+            pass
+
+    result = _parse_llm_json(raw_content or "{}")
+    # `codex exec` does not surface token usage through the last-message file;
+    # the backend is plan-billed (pricing 0) so this is informational only.
+    result["input_tokens"] = 0
+    result["output_tokens"] = 0
+    result["model"] = cli_model or "codex-cli-plan"
+    # Codex has no truncation signal; treat a hollow response as `length` so the
+    # adaptive-retry layer bisects the chunk, consistent with every other backend.
+    result["finish_reason"] = "stop"
+    if _response_is_hollow(raw_content, result):
+        print(
+            "[graphify] codex-cli returned a hollow response; treating as "
+            "truncation so adaptive retry can bisect the chunk.",
+            file=sys.stderr,
+        )
+        result["finish_reason"] = "length"
+    return result
+
+
+def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False, images: list[_ImageRef] | None = None) -> dict:
     """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
     try:
         import boto3
@@ -629,7 +959,7 @@ def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, *, deep
         resp = client.converse(
             modelId=model,
             system=[{"text": _extraction_system(deep=deep_mode)}],
-            messages=[{"role": "user", "content": [{"text": user_message}]}],
+            messages=[{"role": "user", "content": _bedrock_content(user_message, images or [])}],
             inferenceConfig={"maxTokens": max_tokens, "temperature": 0},
         )
     except botocore.exceptions.ClientError as exc:
@@ -695,21 +1025,30 @@ def extract_files_direct(
             file=sys.stderr,
         )
         key = "ollama"
-    if not key and backend not in ("bedrock", "claude-cli"):
+    if not key and backend not in ("bedrock", "claude-cli", "codex-cli"):
         raise ValueError(
             f"No API key for backend '{backend}'. "
             f"Set {_format_backend_env_keys(backend)} or pass api_key=."
         )
     mdl = model or _default_model_for_backend(backend)
-    user_msg = _read_files(files, root)
+    # Separate raster images from text-like files. Text goes through _read_files
+    # as before; images become structured refs the backend renders as pixels
+    # (vision backends) or as a text reference node (everything else).
+    text_files, image_files = _partition_semantic_files(files)
+    user_msg = _read_files(text_files, root)
+    image_refs = _build_image_refs(image_files, root) if image_files else []
+    if image_refs and not _backend_supports_vision(backend):
+        image_refs = _strip_pixels(image_refs)
     max_out = _resolve_max_tokens(cfg.get("max_tokens", 8192))
 
     if backend == "claude":
-        return _call_claude(key, mdl, user_msg, max_tokens=max_out, deep_mode=deep_mode)
+        return _call_claude(key, mdl, user_msg, max_tokens=max_out, deep_mode=deep_mode, images=image_refs)
     if backend == "claude-cli":
-        return _call_claude_cli(user_msg, max_tokens=max_out, deep_mode=deep_mode)
+        return _call_claude_cli(user_msg, max_tokens=max_out, deep_mode=deep_mode, images=image_refs)
+    if backend == "codex-cli":
+        return _call_codex_cli(user_msg, max_tokens=max_out, deep_mode=deep_mode, images=image_refs)
     if backend == "bedrock":
-        return _call_bedrock(mdl, user_msg, max_tokens=max_out, deep_mode=deep_mode)
+        return _call_bedrock(mdl, user_msg, max_tokens=max_out, deep_mode=deep_mode, images=image_refs)
     return _call_openai_compat(
         cfg["base_url"],
         key,
@@ -720,6 +1059,7 @@ def extract_files_direct(
         max_completion_tokens=_resolve_max_tokens(cfg.get("max_completion_tokens", 8192)),
         backend=backend,
         deep_mode=deep_mode,
+        images=image_refs,
     )
 
 
@@ -732,6 +1072,10 @@ def _estimate_file_tokens(path: Path) -> int:
     the `=== rel ===` separator. Returns 0 for unreadable paths so they don't
     blow up packing.
     """
+    # Raster images are not read as text; a vision model bills them at a roughly
+    # fixed token cost, so estimate by image count rather than (binary) byte size.
+    if _is_vision_image(path):
+        return _IMAGE_TOKEN_ESTIMATE
     if _TOKENIZER is None:
         try:
             size = path.stat().st_size
@@ -1105,7 +1449,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         ollama_url = os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", ""))
         _validate_ollama_base_url(ollama_url)
         key = "ollama"
-    if not key and backend not in ("bedrock", "claude-cli"):
+    if not key and backend not in ("bedrock", "claude-cli", "codex-cli"):
         raise ValueError(
             f"No API key for backend '{backend}'. Set {_format_backend_env_keys(backend)}."
         )
@@ -1144,6 +1488,38 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         except json.JSONDecodeError as exc:
             raise RuntimeError(f"claude -p produced unparseable JSON envelope: {exc}") from exc
         return envelope.get("result", "")
+
+    if backend == "codex-cli":
+        import shutil, subprocess, tempfile
+        if shutil.which("codex") is None:
+            raise RuntimeError("Codex CLI not found on $PATH")
+        fd, out_path = tempfile.mkstemp(suffix=".txt", prefix="graphify-codex-")
+        os.close(fd)
+        try:
+            proc = subprocess.run(
+                [
+                    "codex", "exec", "--ephemeral", "--skip-git-repo-check",
+                    "--sandbox", "read-only", "-C", tempfile.gettempdir(),
+                    "--output-last-message", out_path, "--", prompt,
+                ],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                timeout=600,
+                check=False,
+            )
+            if proc.returncode != 0:
+                raise RuntimeError(f"codex exec exited {proc.returncode}: {proc.stderr.strip()[:500]}")
+            try:
+                with open(out_path, encoding="utf-8") as fh:
+                    return fh.read().strip()
+            except OSError:
+                return ""
+        finally:
+            try:
+                os.unlink(out_path)
+            except OSError:
+                pass
 
     if backend == "bedrock":
         try:
@@ -1249,7 +1625,7 @@ def detect_backend() -> str | None:
         _validate_ollama_base_url(ollama_url)
         return "ollama"
     for name in BACKENDS:
-        if name not in ("gemini", "kimi", "claude", "openai", "deepseek", "bedrock", "ollama", "claude-cli"):
+        if name not in ("gemini", "kimi", "claude", "openai", "deepseek", "bedrock", "ollama", "claude-cli", "codex-cli"):
             if _get_backend_api_key(name):
                 return name
     return None
