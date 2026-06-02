@@ -251,6 +251,12 @@ _MAX_IMAGE_BYTES = 5 * 1024 * 1024
 # at a roughly fixed cost regardless of file size, so estimating by byte size
 # (as the generic path does) would force every large PNG into its own chunk.
 _IMAGE_TOKEN_ESTIMATE = 1_600
+# Hard cap on images per chunk, independent of the token budget. A large
+# token budget would otherwise pack hundreds of images into one request —
+# past provider per-request image limits (Anthropic allows 100), and far too
+# many for the claude-cli Read-tool loop to work through. Keeps memory and
+# request size bounded on image-dense corpora.
+_MAX_IMAGES_PER_CHUNK = 20
 
 
 @dataclass
@@ -1115,16 +1121,22 @@ def _pack_chunks_by_tokens(
     chunks: list[list[Path]] = []
     current: list[Path] = []
     current_tokens = 0
+    current_images = 0
 
     for directory in sorted(by_dir):
         for path in by_dir[directory]:
             cost = _estimate_file_tokens(path)
-            if current and current_tokens + cost > token_budget:
+            is_image = _is_vision_image(path)
+            over_budget = current_tokens + cost > token_budget
+            over_images = is_image and current_images >= _MAX_IMAGES_PER_CHUNK
+            if current and (over_budget or over_images):
                 chunks.append(current)
                 current = []
                 current_tokens = 0
+                current_images = 0
             current.append(path)
             current_tokens += cost
+            current_images += is_image
 
     if current:
         chunks.append(current)

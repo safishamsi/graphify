@@ -88,6 +88,21 @@ def test_image_token_estimate_is_flat(tmp_path):
     assert llm._estimate_file_tokens(img) == llm._IMAGE_TOKEN_ESTIMATE
 
 
+def test_chunk_packing_caps_images_per_chunk(tmp_path):
+    # Many images + a huge token budget must still cap images per chunk so a
+    # single request never exceeds provider image limits.
+    imgs = []
+    for i in range(llm._MAX_IMAGES_PER_CHUNK * 2 + 3):
+        p = tmp_path / f"img{i:03d}.png"
+        p.write_bytes(_PNG_BYTES)
+        imgs.append(p)
+    chunks = llm._pack_chunks_by_tokens(imgs, token_budget=10_000_000)
+    assert len(chunks) >= 3  # would be 1 chunk without the cap
+    for chunk in chunks:
+        n_imgs = sum(1 for p in chunk if llm._is_vision_image(p))
+        assert n_imgs <= llm._MAX_IMAGES_PER_CHUNK
+
+
 # ── content builders ──────────────────────────────────────────────────────────
 
 def test_anthropic_content_has_base64_block(tmp_path):
