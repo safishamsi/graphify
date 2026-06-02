@@ -565,7 +565,7 @@ def _rebuild_code(
 
         _relativize_source_files(result, project_root)
         out.mkdir(exist_ok=True)
-        (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
+        (out / ".graphify_root").write_text(str(watch_path), encoding="utf-8")
 
         if no_cluster:
             # Normalise to "links" key so schema is consistent with the full clustered path.
@@ -595,7 +595,7 @@ def _rebuild_code(
 
             try:
                 from graphify.detect import save_manifest
-                save_manifest(detected["files"], kind="ast")
+                save_manifest(detected["files"], kind="ast", root=watch_root)
             except Exception:
                 pass
 
@@ -633,7 +633,7 @@ def _rebuild_code(
             if same_topology:
                 try:
                     from graphify.detect import save_manifest
-                    save_manifest(detected["files"], kind="ast")
+                    save_manifest(detected["files"], kind="ast", root=watch_root)
                 except Exception:
                     pass
                 flag = out / "needs_update"
@@ -704,7 +704,7 @@ def _rebuild_code(
 
         try:
             from graphify.detect import save_manifest
-            save_manifest(detected["files"], kind="ast")
+            save_manifest(detected["files"], kind="ast", root=watch_root)
         except Exception:
             pass
 

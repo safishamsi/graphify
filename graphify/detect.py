@@ -1043,6 +1043,7 @@ def save_manifest(
     manifest_path: str = _MANIFEST_PATH,
     *,
     kind: str = "both",
+    root: Path | None = None,
 ) -> None:
     """Save current file mtimes + content hashes for change detection.
 
@@ -1099,6 +1100,20 @@ def save_manifest(
                 # Preserve semantic_hash only when content is unchanged
                 entry["semantic_hash"] = prev.get("semantic_hash", "") if h == prev.get("ast_hash", "") else ""
             manifest[f] = entry
+    # Relativize keys so the manifest is portable across machines (#777)
+    if root is not None:
+        root = Path(root).resolve()
+        relativized: dict[str, dict] = {}
+        for key, val in manifest.items():
+            try:
+                rel = Path(key).relative_to(root).as_posix()
+                if rel.startswith(".."):
+                    relativized[key] = val
+                else:
+                    relativized[rel] = val
+            except ValueError:
+                relativized[key] = val
+        manifest = relativized
     Path(manifest_path).parent.mkdir(parents=True, exist_ok=True)
     Path(manifest_path).write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
@@ -1137,6 +1152,16 @@ def detect_incremental(
     """
     full = detect(root, follow_symlinks=follow_symlinks, google_workspace=google_workspace, extra_excludes=extra_excludes)
     manifest = load_manifest(manifest_path)
+
+    # Re-anchor relative manifest keys to absolute paths for comparison with detect() output (#777)
+    root_str = str(root.resolve())
+    reanchored: dict[str, dict] = {}
+    for key, val in manifest.items():
+        if Path(key).is_absolute():
+            reanchored[key] = val
+        else:
+            reanchored[str(Path(root_str) / key)] = val
+    manifest = reanchored
 
     if not manifest:
         # No previous run - treat everything as new
