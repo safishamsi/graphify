@@ -3076,7 +3076,7 @@ def main() -> None:
 
     elif cmd == "export":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
-        if subcmd not in ("html", "callflow-html", "obsidian", "wiki", "svg", "graphml", "neo4j"):
+        if subcmd not in ("html", "callflow-html", "obsidian", "wiki", "svg", "graphml", "neo4j", "memory-index"):
             print("Usage: graphify export <format>", file=sys.stderr)
             print("  html      [--graph PATH] [--labels PATH] [--node-limit N] [--no-viz]", file=sys.stderr)
             print("  callflow-html [GRAPH|DIR] [--graph PATH] [--labels PATH] [--report PATH] [--sections PATH] [--output HTML]", file=sys.stderr)
@@ -3087,6 +3087,8 @@ def main() -> None:
             print("  graphml   [--graph PATH]", file=sys.stderr)
             print("  neo4j     [--graph PATH] [--push URI] [--user U] [--password P]", file=sys.stderr)
             print("            (or set NEO4J_PASSWORD instead of --password to keep it off argv)", file=sys.stderr)
+            print("  memory-index [--graph PATH] [--output HTML] [--next-steps STEPS] [--project NAME]", file=sys.stderr)
+
             sys.exit(1)
 
         # Parse shared args
@@ -3202,7 +3204,20 @@ def main() -> None:
                 graph=graph_path,
                 report=report_path,
                 labels=labels_path,
-                sections=sections_path,
+         if subcmd == "memory-index":
+            from graphify.memory_index import write_memory_index as _write_memory_index
+            out = _write_memory_index(
+                graph=graph_path,
+                report=report_path,
+                output=callflow_output,
+                next_steps=memory_next_steps,
+                project_name=memory_project,
+            )
+            print(f"✓ memory-index written → {out}")
+            sys.exit(0)
+
+=sections_path,
+                
                 output=callflow_output,
                 lang=callflow_lang,
                 max_sections=callflow_max_sections,
