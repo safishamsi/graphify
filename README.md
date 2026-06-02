@@ -166,6 +166,7 @@ Install only what you need:
 | `gemini` | Google Gemini API | `uv tool install "graphifyy[gemini]"` |
 | `bedrock` | AWS Bedrock (uses IAM, no API key) | `uv tool install "graphifyy[bedrock]"` |
 | `sql` | SQL schema extraction | `uv tool install "graphifyy[sql]"` |
+| `postgres` | Live PostgreSQL schema introspection | `uv tool install "graphifyy[postgres]"` |
 | `dm` | BYOND DreamMaker `.dm`/`.dme` AST extraction (may need a C compiler + `python3-dev` if no wheel matches your platform) | `uv tool install "graphifyy[dm]"` |
 | `chinese` | Chinese query segmentation (jieba) | `uv tool install "graphifyy[chinese]"` |
 | `all` | Everything above | `uv tool install "graphifyy[all]"` |
@@ -523,6 +524,8 @@ graphify extract ./docs --no-cluster           # raw extraction only, skip clust
 graphify extract ./docs --force                # overwrite graph.json even if new graph has fewer nodes (use after refactors or to clear ghost duplicates)
 graphify extract ./docs --dedup-llm            # LLM tiebreaker for ambiguous entity pairs (uses same API key)
 graphify extract ./docs --global --as myrepo   # extract and register into the cross-project global graph
+graphify extract --postgres "postgresql://user:pass@host:5432/mydb"          # introspect a live Postgres database (no LLM key needed)
+graphify extract ./src --postgres "postgresql://..."                         # combine code + live DB schema in one graph
 GRAPHIFY_MAX_OUTPUT_TOKENS=32768 graphify extract ./docs --backend claude  # raise output cap for dense corpora
 
 graphify export callflow-html                       # graphify-out/<project>-callflow.html
