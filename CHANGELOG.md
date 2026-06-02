@@ -2,6 +2,10 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## Unreleased
+
+- Note: routing PDFs through text extraction (`extract_pdf_text`) instead of raw bytes changes their token footprint, which can shift chunk boundaries for neighboring files. Re-extracting an existing corpus may therefore produce a slightly different graph. This is intended.
+
 ## 0.8.28 (2026-06-01)
 
 - Feat: Kilo Code support — `graphify install --platform kilo` installs a native skill (`~/.config/kilo/skills/graphify/SKILL.md`) and `/graphify` command, plus a `.kilo` `tool.execute.before` plugin (mirroring the OpenCode integration). Existing `.kilo/kilo.jsonc` config is read but never rewritten — plugin registration goes to `kilo.json` so user comments are preserved (#512)

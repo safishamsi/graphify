@@ -3414,7 +3414,7 @@ def main() -> None:
         # has an API key set.
         if len(sys.argv) < 3:
             print(
-                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama] "
+                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama|claude-cli|codex-cli] "
                 "[--model M] [--mode deep] [--out DIR] [--google-workspace] [--no-cluster] "
                 "[--max-workers N] [--token-budget N] [--max-concurrency N] "
                 "[--api-timeout S]",
@@ -3612,6 +3612,16 @@ def main() -> None:
                     print(
                         "error: backend 'claude-cli' requires the `claude` CLI on $PATH "
                         "(install Claude Code and run `claude` once to authenticate).",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+            elif backend == "codex-cli":
+                import shutil as _shutil
+                allow_no_key = _shutil.which("codex") is not None
+                if not allow_no_key:
+                    print(
+                        "error: backend 'codex-cli' requires the `codex` CLI on $PATH "
+                        "(install OpenAI Codex and run `codex` once to authenticate).",
                         file=sys.stderr,
                     )
                     sys.exit(1)
