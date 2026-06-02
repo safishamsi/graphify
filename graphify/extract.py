@@ -11075,6 +11075,14 @@ def extract(
         except ValueError:
             pass
 
+    # Tag AST provenance so the incremental watch rebuild can distinguish
+    # AST-extracted nodes from semantic/LLM nodes (which are added by a separate
+    # pass and never flow through here). On a full re-extraction the watcher
+    # drops any AST-marked node missing from the fresh output — even when its
+    # source file still exists — without touching genuine semantic nodes (#1116).
+    for n in all_nodes:
+        n["_origin"] = "ast"
+
     return {
         "nodes": all_nodes,
         "edges": all_edges,

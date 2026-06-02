@@ -172,6 +172,73 @@ def test_rebuild_code_evicts_nodes_from_deleted_files(tmp_path):
     assert "login()" in node_labels_after, "nodes from surviving file must be kept"
 
 
+def test_rebuild_code_evicts_removed_symbol_from_surviving_file(tmp_path):
+    """#1116: graphify update (_rebuild_code with no changed_paths) must prune a
+    symbol removed from a file that still exists — and its inbound call edge —
+    without dropping genuine semantic nodes that share the surviving file."""
+    import json
+    from graphify.watch import _rebuild_code
+
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+
+    (corpus / "a.py").write_text(
+        "def foo(): pass\ndef bar(): pass\n", encoding="utf-8"
+    )
+    (corpus / "b.py").write_text(
+        "from a import foo\n\ndef caller():\n    foo()\n", encoding="utf-8"
+    )
+
+    assert _rebuild_code(corpus, acquire_lock=False) is True
+    graph_path = corpus / "graphify-out" / "graph.json"
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+
+    def labels(d):
+        return {n["label"] for n in d.get("nodes", [])}
+
+    def id_for(d, label):
+        return next(n["id"] for n in d.get("nodes", []) if n["label"] == label)
+
+    def edges(d):
+        return d.get("links", d.get("edges", []))
+
+    before = labels(data)
+    assert {"foo()", "bar()", "caller()"} <= before
+    foo_id = id_for(data, "foo()")
+    caller_id = id_for(data, "caller()")
+    assert any(
+        {e.get("source"), e.get("target")} == {caller_id, foo_id}
+        for e in edges(data)
+    ), "cross-file caller->foo call edge must exist before removal"
+
+    # Pre-seed a semantic node on the surviving a.py (no AST id, no _origin
+    # marker). A naive "evict every re-extracted file's nodes by source_file"
+    # fix would wrongly delete this; the identity-based fix must keep it.
+    data["nodes"].append({
+        "id": "a_authconcept",
+        "label": "AuthConcept",
+        "file_type": "concept",
+        "source_file": "a.py",
+    })
+    graph_path.write_text(json.dumps(data), encoding="utf-8")
+
+    # Remove foo() from a.py (keep bar); leave b.py untouched.
+    (corpus / "a.py").write_text("def bar(): pass\n", encoding="utf-8")
+
+    assert _rebuild_code(corpus, acquire_lock=False, force=True) is True
+    after_data = json.loads(graph_path.read_text(encoding="utf-8"))
+    after = labels(after_data)
+
+    assert "foo()" not in after, "removed symbol must be pruned from surviving file"
+    assert not any(
+        e.get("source") == foo_id or e.get("target") == foo_id
+        for e in edges(after_data)
+    ), "dangling edge to the removed symbol must be dropped"
+    assert "bar()" in after, "surviving symbol in the same file must be kept"
+    assert "caller()" in after, "unchanged file's nodes must be kept"
+    assert "AuthConcept" in after, "semantic node on a surviving file must not be evicted"
+
+
 @pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
 def test_rebuild_lock_non_blocking_does_not_clobber_holder(tmp_path):
     """GH-858: a non-blocking caller that fails to acquire the lock must not
