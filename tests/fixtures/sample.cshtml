@@ -1,0 +1,33 @@
+@model MyApp.ViewModels.ArticleViewModel
+@using MyApp.Helpers
+@inject IArticleService ArticleService
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Article Detail";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/article.css" />
+}
+
+<div class="article-container">
+    <h1>@Model.Title</h1>
+
+    @await Html.PartialAsync("_AuthorCard", Model.Author)
+    @Html.Partial("_CommentThread")
+    @await Component.InvokeAsync("RelatedArticles", new { count = 5 })
+</div>
+
+<form asp-controller="Article" asp-action="Save" method="post">
+    <input asp-for="Title" class="form-control" />
+    <textarea asp-for="Body"></textarea>
+    <button type="submit">Save</button>
+</form>
+
+<a asp-controller="Article" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+<a asp-page="/Articles/Index">Back to list</a>
+
+@section Scripts {
+    <script src="/js/editor.js"></script>
+}

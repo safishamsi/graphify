@@ -326,6 +326,13 @@ Image files: use vision to understand what the image IS - do not just OCR.
   Diagram: components and connections.
   Research figure: what it demonstrates, method, result.
   Handwritten/whiteboard: ideas and arrows, mark uncertain readings AMBIGUOUS.
+Razor/CSHTML/Blazor files (.cshtml, .razor): server-side templates mixing HTML + C# via @-syntax. The AST extractor already captured structural edges (@model, @inject, @using, Layout, Html.Partial, asp-controller/action, @section, @code methods) as EXTRACTED — do NOT re-extract those. Focus only on what semantic analysis adds:
+  - The *purpose* of the view from its HTML structure: is it a list, a detail, a create/edit form, a dashboard, a wizard step?
+  - Business-domain concepts visible in label text, headings, table columns, field names (e.g. "Invoice", "Approval Status") — create rationale nodes with file_type:"rationale"
+  - Route parameters implied by model property names or URL conventions — add `parameterized_by` INFERRED edges (score 0.75)
+  - For Blazor .razor components: the behavioral contract implied by [Parameter] inputs and EventCallback outputs — what does the component do? Summarize as a `component_contract` rationale node.
+  - UI bounded contexts: groups of fields/sections belonging to distinct domains (e.g. billing vs. shipping address blocks)
+  file_type must be "document". Do NOT re-emit edges already present from AST extraction (renders_model, injects, extends, includes, navigates_to, submits_*_to, defines_section, renders_section).
 
 DEEP_MODE (if --mode deep was given): be aggressive with INFERRED edges - indirect deps,
   shared assumptions, latent couplings. Mark uncertain ones AMBIGUOUS instead of omitting.
