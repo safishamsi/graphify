@@ -2,12 +2,11 @@
 
 Covers the structured-message split (text vs raster image), the per-backend
 payload rendering (Anthropic base64 blocks, OpenAI/Gemini image_url data URIs,
-Bedrock raw-bytes Converse blocks, the claude-cli Read-tool path, and the new
-codex-cli `-i` path), and the vision-capability gating that sends pixels only to
+Bedrock raw-bytes Converse blocks, the claude-cli Read-tool path), and the vision-capability gating that sends pixels only to
 backends whose model can see them.
 
 Every backend is mocked (fake SDK module / subprocess), so the suite runs on CI
-with no API keys, no network, and no `claude`/`codex` binaries.
+with no API keys, no network, and no `claude` binary.
 """
 from __future__ import annotations
 
@@ -99,7 +98,7 @@ def test_build_image_refs_drops_oversized(tmp_path, monkeypatch):
 
 
 def test_path_backend_skips_byte_read_and_size_cap(tmp_path, monkeypatch):
-    # Path-based backends (claude-cli/codex-cli) read the file themselves, so
+    # Path-based backends (claude-cli) read the file themselves, so
     # _build_image_refs(read_bytes=False) loads no bytes and applies no size cap.
     big = tmp_path / "huge.png"
     big.write_bytes(b"x" * 64)
@@ -131,7 +130,7 @@ def test_claude_cli_passes_oversized_image_by_path(tmp_path, monkeypatch):
 
 
 def test_capability_flags(monkeypatch):
-    for b in ("claude", "claude-cli", "codex-cli", "openai", "gemini", "bedrock", "kimi"):
+    for b in ("claude", "claude-cli", "openai", "gemini", "bedrock", "kimi"):
         assert llm._backend_supports_vision(b), b
     assert not llm._backend_supports_vision("deepseek")
     # ollama is opt-in via env (default model is text-only)
@@ -302,52 +301,6 @@ def test_call_bedrock_sends_raw_image_bytes(tmp_path, monkeypatch):
 
 # ── CLI backends (mocked subprocess) ──────────────────────────────────────────
 
-def test_codex_cli_passes_image_flags_and_reads_output(tmp_path, monkeypatch):
-    img, _, _ = _make_corpus(tmp_path)
-    refs = llm._build_image_refs([img], tmp_path)
-    seen: dict = {}
-
-    def fake_run(args, **kw):
-        seen["args"] = args
-        out_path = args[args.index("--output-last-message") + 1]
-        with open(out_path, "w", encoding="utf-8") as fh:
-            fh.write(_NODE_JSON)
-        return MagicMock(returncode=0, stdout="", stderr="")
-
-    with patch("shutil.which", return_value="/fake/codex"), \
-         patch("subprocess.run", side_effect=fake_run):
-        result = llm._call_codex_cli("CORPUS", images=refs)
-
-    args = seen["args"]
-    assert args[:2] == ["codex", "exec"]
-    assert "-i" in args and str(refs[0].path) in args
-    assert "--" in args and args.index("--") > args.index("-i")  # prompt after the delimiter
-    assert "--ephemeral" in args and "--skip-git-repo-check" in args
-    assert result["nodes"] and result["finish_reason"] == "stop"
-
-
-def test_codex_cli_skips_missing_image_paths(tmp_path, monkeypatch):
-    missing = llm._ImageRef(tmp_path / "gone.png", "gone.png", "image/png", b"x")
-    seen: dict = {}
-
-    def fake_run(args, **kw):
-        seen["args"] = args
-        out_path = args[args.index("--output-last-message") + 1]
-        with open(out_path, "w", encoding="utf-8") as fh:
-            fh.write(_NODE_JSON)
-        return MagicMock(returncode=0, stdout="", stderr="")
-
-    with patch("shutil.which", return_value="/fake/codex"), \
-         patch("subprocess.run", side_effect=fake_run):
-        llm._call_codex_cli("CORPUS", images=[missing])
-    # a non-existent file must not be passed to -i (codex would not fail loudly)
-    assert "-i" not in seen["args"]
-
-
-def test_codex_cli_missing_binary_raises():
-    with patch("shutil.which", return_value=None):
-        with pytest.raises(RuntimeError, match="Codex CLI not found"):
-            llm._call_codex_cli("CORPUS", images=[])
 
 
 def test_claude_cli_adds_dir_and_read_instruction(tmp_path, monkeypatch):

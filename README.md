@@ -374,7 +374,7 @@ These are only needed for **headless / CI extraction** (`graphify extract`). Whe
 - **Code files** — processed locally via tree-sitter. Nothing leaves your machine.
 - **Video / audio** — transcribed locally with faster-whisper. Nothing leaves your machine.
 - **Docs, PDFs, images** — sent to your AI assistant for semantic extraction (via the `/graphify` skill, using whatever model your IDE session runs). Headless `graphify extract` requires `GEMINI_API_KEY` / `GOOGLE_API_KEY` (Gemini), `MOONSHOT_API_KEY` (Kimi), `ANTHROPIC_API_KEY` (Claude), `OPENAI_API_KEY` (OpenAI), `DEEPSEEK_API_KEY` (DeepSeek), a running Ollama instance (`OLLAMA_BASE_URL`), AWS credentials via the standard provider chain (Bedrock - no API key needed, uses IAM), the `claude` CLI binary (Claude Code - no API key needed, uses your Claude subscription), or the `codex` CLI binary (OpenAI Codex - no API key needed, uses your ChatGPT subscription). The `--dedup-llm` flag uses the same key.
-- **Images and vision** — raster images (`.png .jpg .jpeg .gif .webp`) are sent as actual visual input to vision-capable backends (Claude, Gemini, OpenAI, Bedrock, claude-cli, codex-cli, and Kimi), so the model describes what each image depicts rather than guessing from its filename. Backends whose selected model has no vision (DeepSeek, and Ollama unless you pick a vision model and set `GRAPHIFY_OLLAMA_VISION=1`) get a text reference instead, so the image still becomes a graph node. `.svg` files are read as their XML source, not rasterised.
+- **Images and vision** — raster images (`.png .jpg .jpeg .gif .webp`) are sent as actual visual input to vision-capable backends (Claude, Gemini, OpenAI, Bedrock, claude-cli, and Kimi), so the model describes what each image depicts rather than guessing from its filename. Backends whose selected model has no vision (DeepSeek, and Ollama unless you pick a vision model and set `GRAPHIFY_OLLAMA_VISION=1`) get a text reference instead, so the image still becomes a graph node. `.svg` files are read as their XML source, not rasterised.
 - **PDFs** — headless `graphify extract` pulls the text out of PDFs with pypdf instead of reading the raw bytes, so a PDF contributes its real content to the graph.
 - **Data residency** — `graphify extract` auto-detects which provider to use based on which API key is set (priority: Gemini → Kimi → Claude → OpenAI → DeepSeek → Bedrock → Ollama). For code with data-residency requirements, use `--backend ollama` (fully local) or pass an explicit `--backend` flag. Kimi (`MOONSHOT_API_KEY`) routes to Moonshot AI servers in China.
 - No telemetry, no usage tracking, no analytics.
@@ -508,14 +508,13 @@ graphify antigravity install       # .agents/rules + .agents/workflows (Google A
 graphify antigravity uninstall
 
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)
-graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, deepseek, ollama, bedrock, claude-cli, or codex-cli
+graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, deepseek, ollama, bedrock, or claude-cli
 graphify extract ./docs --backend gemini --model gemini-3.1-pro-preview
 graphify extract ./docs --backend ollama       # local Ollama (set OLLAMA_BASE_URL / OLLAMA_MODEL) - no API key needed for loopback
 GRAPHIFY_OLLAMA_NUM_CTX=32768 graphify extract ./docs --backend ollama   # override KV-cache window (auto-sized by default)
 GRAPHIFY_OLLAMA_KEEP_ALIVE=0 graphify extract ./docs --backend ollama    # unload model after each chunk (saves VRAM on small GPUs)
 graphify extract ./docs --backend bedrock      # AWS Bedrock via IAM - no API key, uses AWS credential chain
 graphify extract ./docs --backend claude-cli   # route through Claude Code CLI - no API key, uses your Claude subscription
-graphify extract ./assets --backend codex-cli  # route through OpenAI Codex CLI - no API key, uses your ChatGPT subscription (keyless image vision)
 graphify extract ./docs --max-workers 16       # AST parallelism (also GRAPHIFY_MAX_WORKERS)
 graphify extract ./docs --token-budget 30000   # smaller semantic chunks for local/small models
 graphify extract ./docs --max-concurrency 2    # fewer parallel LLM calls (useful for local inference)
