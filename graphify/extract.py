@@ -2226,9 +2226,6 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
 
     def ensure_named_node(name: str, line: int) -> str:
         nid = _make_id(stem, name)
-        if nid in seen_ids:
-            return nid
-        nid = _make_id(name)
         if nid not in seen_ids:
             add_node(nid, name, line)
         return nid
@@ -2284,16 +2281,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                             base = _read_text(arg, source)
                             base_nid = _make_id(stem, base)
                             if base_nid not in seen_ids:
-                                base_nid = _make_id(base)
-                                if base_nid not in seen_ids:
-                                    nodes.append({
-                                        "id": base_nid,
-                                        "label": base,
-                                        "file_type": "code",
-                                        "source_file": "",
-                                        "source_location": "",
-                                    })
-                                    seen_ids.add(base_nid)
+                                nodes.append({
+                                    "id": base_nid,
+                                    "label": base,
+                                    "file_type": "code",
+                                    "source_file": "",
+                                    "source_location": "",
+                                })
+                                seen_ids.add(base_nid)
                             add_edge(class_nid, base_nid, "inherits", line)
 
             # Swift-specific: conformance / inheritance
@@ -2357,16 +2352,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                         return
                     base_nid = _make_id(stem, base_name)
                     if base_nid not in seen_ids:
-                        base_nid = _make_id(base_name)
-                        if base_nid not in seen_ids:
-                            nodes.append({
-                                "id": base_nid,
-                                "label": base_name,
-                                "file_type": "code",
-                                "source_file": "",
-                                "source_location": "",
-                            })
-                            seen_ids.add(base_nid)
+                        nodes.append({
+                            "id": base_nid,
+                            "label": base_name,
+                            "file_type": "code",
+                            "source_file": "",
+                            "source_location": "",
+                        })
+                        seen_ids.add(base_nid)
                     add_edge(class_nid, base_nid, rel, at_line)
 
                 for child in node.children:
@@ -2423,16 +2416,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                             continue
                         base_nid = _make_id(stem, base)
                         if base_nid not in seen_ids:
-                            base_nid = _make_id(base)
-                            if base_nid not in seen_ids:
-                                nodes.append({
-                                    "id": base_nid,
-                                    "label": base,
-                                    "file_type": "code",
-                                    "source_file": "",
-                                    "source_location": "",
-                                })
-                                seen_ids.add(base_nid)
+                            nodes.append({
+                                "id": base_nid,
+                                "label": base,
+                                "file_type": "code",
+                                "source_file": "",
+                                "source_location": "",
+                            })
+                            seen_ids.add(base_nid)
                         add_edge(class_nid, base_nid, relation, line)
                         for arg_child in user_type_node.children:
                             if arg_child.type != "type_arguments":
@@ -2471,16 +2462,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                             continue
                         base_nid = _make_id(stem, base)
                         if base_nid not in seen_ids:
-                            base_nid = _make_id(base)
-                            if base_nid not in seen_ids:
-                                nodes.append({
-                                    "id": base_nid,
-                                    "label": base,
-                                    "file_type": "code",
-                                    "source_file": "",
-                                    "source_location": "",
-                                })
-                                seen_ids.add(base_nid)
+                            nodes.append({
+                                "id": base_nid,
+                                "label": base,
+                                "file_type": "code",
+                                "source_file": "",
+                                "source_location": "",
+                            })
+                            seen_ids.add(base_nid)
                         relation = _csharp_classify_base(base, csharp_interface_names)
                         add_edge(class_nid, base_nid, relation, line)
                         if sub.type == "generic_name":
@@ -2504,16 +2493,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                         return
                     base_nid = _make_id(stem, base_name)
                     if base_nid not in seen_ids:
-                        base_nid = _make_id(base_name)
-                        if base_nid not in seen_ids:
-                            nodes.append({
-                                "id": base_nid,
-                                "label": base_name,
-                                "file_type": "code",
-                                "source_file": "",
-                                "source_location": "",
-                            })
-                            seen_ids.add(base_nid)
+                        nodes.append({
+                            "id": base_nid,
+                            "label": base_name,
+                            "file_type": "code",
+                            "source_file": "",
+                            "source_location": "",
+                        })
+                        seen_ids.add(base_nid)
                     add_edge(class_nid, base_nid, rel, at_line)
 
                 sup = node.child_by_field_name("superclass")
@@ -2622,16 +2609,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                             continue
                         base_nid = _make_id(stem, base)
                         if base_nid not in seen_ids:
-                            base_nid = _make_id(base)
-                            if base_nid not in seen_ids:
-                                nodes.append({
-                                    "id": base_nid,
-                                    "label": base,
-                                    "file_type": "code",
-                                    "source_file": "",
-                                    "source_location": "",
-                                })
-                                seen_ids.add(base_nid)
+                            nodes.append({
+                                "id": base_nid,
+                                "label": base,
+                                "file_type": "code",
+                                "source_file": "",
+                                "source_location": "",
+                            })
+                            seen_ids.add(base_nid)
                         add_edge(class_nid, base_nid, "inherits", line)
 
             # Find body and recurse
