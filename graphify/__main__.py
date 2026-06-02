@@ -3567,6 +3567,7 @@ def main() -> None:
                     "error: no LLM API key found. Set GEMINI_API_KEY or GOOGLE_API_KEY "
                     "(gemini), MOONSHOT_API_KEY (kimi), ANTHROPIC_API_KEY (claude), "
                     "OPENAI_API_KEY (openai), DEEPSEEK_API_KEY (deepseek), "
+                    "AZURE_OPENAI_API_KEY+AZURE_OPENAI_ENDPOINT (azure), "
                     "or pass --backend.",
                     file=sys.stderr,
                 )

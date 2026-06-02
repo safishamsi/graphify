@@ -99,6 +99,21 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "max_tokens": 16384,
     },
+    "azure": {
+        # Azure OpenAI Service — uses AzureOpenAI SDK client, not the standard
+        # OpenAI client, so it has its own call path (_call_azure).
+        # Required env vars: AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT.
+        # Optional: AZURE_OPENAI_API_VERSION (defaults to 2024-12-01-preview),
+        #           AZURE_OPENAI_DEPLOYMENT or GRAPHIFY_AZURE_MODEL (deployment name).
+        # base_url is intentionally absent — prevents accidental routing through
+        # _call_openai_compat, which requires it and uses the wrong SDK client class.
+        "default_model": os.environ.get("AZURE_OPENAI_DEPLOYMENT", os.environ.get("GRAPHIFY_AZURE_MODEL", "gpt-4o")),
+        "env_key": "AZURE_OPENAI_API_KEY",
+        "model_env_key": "GRAPHIFY_AZURE_MODEL",
+        "pricing": {"input": 2.50, "output": 10.00},  # USD per 1M tokens (gpt-4o; may mis-estimate other deployments)
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
     "bedrock": {
         "default_model": "anthropic.claude-3-5-sonnet-20241022-v2:0",
         "model_env_key": "GRAPHIFY_BEDROCK_MODEL",
@@ -610,6 +625,73 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     return result
 
 
+def _azure_client(api_key: str, endpoint: str):
+    """Construct an AzureOpenAI client with env-driven api_version and timeout.
+
+    Single construction point so _call_azure and _call_llm can't diverge on
+    api_version or timeout handling.
+    """
+    try:
+        from openai import AzureOpenAI
+    except ImportError as exc:
+        raise ImportError(
+            "Azure OpenAI requires the openai package. Run: pip install openai"
+        ) from exc
+    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-12-01-preview").strip()
+    timeout_raw = os.environ.get("GRAPHIFY_API_TIMEOUT", "").strip()
+    timeout_s: float = 600.0
+    if timeout_raw:
+        try:
+            v = float(timeout_raw)
+            if v > 0:
+                timeout_s = v
+        except ValueError:
+            pass
+    return AzureOpenAI(api_key=api_key, azure_endpoint=endpoint, api_version=api_version, timeout=timeout_s)
+
+
+def _call_azure(
+    api_key: str,
+    endpoint: str,
+    model: str,
+    user_message: str,
+    temperature: float | None = 0,
+    max_tokens: int = 8192,
+    *,
+    deep_mode: bool = False,
+) -> dict:
+    """Call Azure OpenAI Service via the AzureOpenAI SDK client."""
+    client = _azure_client(api_key, endpoint)
+    kwargs: dict = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": _extraction_system(deep=deep_mode)},
+            {"role": "user", "content": user_message},
+        ],
+        "max_completion_tokens": max_tokens,
+    }
+    if temperature is not None:
+        kwargs["temperature"] = temperature
+
+    resp = client.chat.completions.create(**kwargs)
+    if not resp.choices or resp.choices[0].message is None:
+        raise ValueError("Azure OpenAI returned empty or filtered response")
+    raw_content = resp.choices[0].message.content
+    result = _parse_llm_json(raw_content or "{}")
+    result["input_tokens"] = resp.usage.prompt_tokens if resp.usage else 0
+    result["output_tokens"] = resp.usage.completion_tokens if resp.usage else 0
+    result["model"] = model
+    result["finish_reason"] = resp.choices[0].finish_reason
+    if _response_is_hollow(raw_content, result) and result["finish_reason"] != "length":
+        print(
+            "[graphify] azure returned a hollow response; treating as "
+            "truncation so adaptive retry can bisect the chunk.",
+            file=sys.stderr,
+        )
+        result["finish_reason"] = "length"
+    return result
+
+
 def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
     """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
     try:
@@ -674,7 +756,8 @@ def extract_files_direct(
         if backend is None:
             raise ValueError(
                 "No LLM backend configured. Set one of: GEMINI_API_KEY, ANTHROPIC_API_KEY, "
-                "OPENAI_API_KEY, DEEPSEEK_API_KEY, MOONSHOT_API_KEY, OLLAMA_BASE_URL, "
+                "OPENAI_API_KEY, DEEPSEEK_API_KEY, MOONSHOT_API_KEY, "
+                "AZURE_OPENAI_API_KEY+AZURE_OPENAI_ENDPOINT, OLLAMA_BASE_URL, "
                 "or AWS credentials. Pass backend= explicitly to select a provider."
             )
     if backend not in BACKENDS:
@@ -710,6 +793,22 @@ def extract_files_direct(
         return _call_claude_cli(user_msg, max_tokens=max_out, deep_mode=deep_mode)
     if backend == "bedrock":
         return _call_bedrock(mdl, user_msg, max_tokens=max_out, deep_mode=deep_mode)
+    if backend == "azure":
+        endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT", "").strip()
+        if not endpoint:
+            raise ValueError(
+                "Azure OpenAI backend requires AZURE_OPENAI_ENDPOINT to be set "
+                "(e.g. https://my-resource.openai.azure.com/)."
+            )
+        return _call_azure(
+            key,
+            endpoint,
+            mdl,
+            user_msg,
+            temperature=cfg.get("temperature", 0),
+            max_tokens=max_out,
+            deep_mode=deep_mode,
+        )
     return _call_openai_compat(
         cfg["base_url"],
         key,
@@ -1161,6 +1260,23 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         )
         return resp.get("output", {}).get("message", {}).get("content", [{}])[0].get("text", "")
 
+    if backend == "azure":
+        endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT", "").strip()
+        if not endpoint:
+            raise ValueError(
+                "Azure OpenAI backend requires AZURE_OPENAI_ENDPOINT to be set."
+            )
+        azure_client = _azure_client(key, endpoint)
+        resp = azure_client.chat.completions.create(
+            model=mdl,
+            messages=[{"role": "user", "content": prompt}],
+            max_completion_tokens=max_tokens,
+            temperature=cfg.get("temperature", 0),
+        )
+        if not resp.choices or resp.choices[0].message is None:
+            raise ValueError("Azure OpenAI returned empty or filtered response")
+        return resp.choices[0].message.content or ""
+
     # OpenAI-compatible (kimi, openai, gemini, ollama)
     try:
         from openai import OpenAI
@@ -1231,7 +1347,7 @@ def _validate_ollama_base_url(url: str) -> None:
 def detect_backend() -> str | None:
     """Return the name of whichever backend has an API key set, or None.
 
-    Priority: gemini → kimi → claude → openai → bedrock → ollama (last, opt-in).
+    Priority: gemini → kimi → claude → openai → deepseek → azure → bedrock → ollama (last, opt-in).
 
     Ollama is intentionally checked LAST so a paid API key (Anthropic/OpenAI/etc.)
     is never silently shadowed by an incidental OLLAMA_BASE_URL in the environment
@@ -1242,6 +1358,8 @@ def detect_backend() -> str | None:
     for backend in ("gemini", "kimi", "claude", "openai", "deepseek"):
         if _get_backend_api_key(backend):
             return backend
+    if _get_backend_api_key("azure") and os.environ.get("AZURE_OPENAI_ENDPOINT"):
+        return "azure"
     if os.environ.get("AWS_PROFILE") or os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION"):
         return "bedrock"
     ollama_url = os.environ.get("OLLAMA_BASE_URL")
@@ -1249,7 +1367,7 @@ def detect_backend() -> str | None:
         _validate_ollama_base_url(ollama_url)
         return "ollama"
     for name in BACKENDS:
-        if name not in ("gemini", "kimi", "claude", "openai", "deepseek", "bedrock", "ollama", "claude-cli"):
+        if name not in ("gemini", "kimi", "claude", "openai", "deepseek", "azure", "bedrock", "ollama", "claude-cli"):
             if _get_backend_api_key(name):
                 return name
     return None
