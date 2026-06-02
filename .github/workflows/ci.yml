@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: uv sync --all-extras
 
+      - name: Verify generated skill files are in sync with skill.md
+        run: uv run python -m graphify.skill_build --check
+
       - name: Run tests
         run: uv run pytest tests/ -q --tb=short
 
