@@ -105,10 +105,12 @@ BACKENDS: dict[str, dict] = {
         # Required env vars: AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT.
         # Optional: AZURE_OPENAI_API_VERSION (defaults to 2024-12-01-preview),
         #           AZURE_OPENAI_DEPLOYMENT or GRAPHIFY_AZURE_MODEL (deployment name).
+        # base_url is intentionally absent — prevents accidental routing through
+        # _call_openai_compat, which requires it and uses the wrong SDK client class.
         "default_model": os.environ.get("AZURE_OPENAI_DEPLOYMENT", os.environ.get("GRAPHIFY_AZURE_MODEL", "gpt-4o")),
         "env_key": "AZURE_OPENAI_API_KEY",
         "model_env_key": "GRAPHIFY_AZURE_MODEL",
-        "pricing": {"input": 2.50, "output": 10.00},  # USD per 1M tokens (gpt-4o)
+        "pricing": {"input": 2.50, "output": 10.00},  # USD per 1M tokens (gpt-4o; may mis-estimate other deployments)
         "temperature": 0,
         "max_tokens": 16384,
     },
@@ -623,6 +625,31 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     return result
 
 
+def _azure_client(api_key: str, endpoint: str):
+    """Construct an AzureOpenAI client with env-driven api_version and timeout.
+
+    Single construction point so _call_azure and _call_llm can't diverge on
+    api_version or timeout handling.
+    """
+    try:
+        from openai import AzureOpenAI
+    except ImportError as exc:
+        raise ImportError(
+            "Azure OpenAI requires the openai package. Run: pip install openai"
+        ) from exc
+    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-12-01-preview").strip()
+    timeout_raw = os.environ.get("GRAPHIFY_API_TIMEOUT", "").strip()
+    timeout_s: float = 600.0
+    if timeout_raw:
+        try:
+            v = float(timeout_raw)
+            if v > 0:
+                timeout_s = v
+        except ValueError:
+            pass
+    return AzureOpenAI(api_key=api_key, azure_endpoint=endpoint, api_version=api_version, timeout=timeout_s)
+
+
 def _call_azure(
     api_key: str,
     endpoint: str,
@@ -634,38 +661,14 @@ def _call_azure(
     deep_mode: bool = False,
 ) -> dict:
     """Call Azure OpenAI Service via the AzureOpenAI SDK client."""
-    try:
-        from openai import AzureOpenAI
-    except ImportError as exc:
-        raise ImportError(
-            "Azure OpenAI extraction requires the openai package. "
-            "Run: pip install openai"
-        ) from exc
-
-    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-12-01-preview").strip()
-    timeout_raw = os.environ.get("GRAPHIFY_API_TIMEOUT", "").strip()
-    timeout_s: float = 600.0
-    if timeout_raw:
-        try:
-            v = float(timeout_raw)
-            if v > 0:
-                timeout_s = v
-        except ValueError:
-            pass
-
-    client = AzureOpenAI(
-        api_key=api_key,
-        azure_endpoint=endpoint,
-        api_version=api_version,
-        timeout=timeout_s,
-    )
+    client = _azure_client(api_key, endpoint)
     kwargs: dict = {
         "model": model,
         "messages": [
             {"role": "system", "content": _extraction_system(deep=deep_mode)},
             {"role": "user", "content": user_message},
         ],
-        "max_tokens": max_tokens,
+        "max_completion_tokens": max_tokens,
     }
     if temperature is not None:
         kwargs["temperature"] = temperature
@@ -1263,16 +1266,11 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
             raise ValueError(
                 "Azure OpenAI backend requires AZURE_OPENAI_ENDPOINT to be set."
             )
-        try:
-            from openai import AzureOpenAI
-        except ImportError as exc:
-            raise ImportError("openai package required for azure backend") from exc
-        api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-12-01-preview").strip()
-        azure_client = AzureOpenAI(api_key=key, azure_endpoint=endpoint, api_version=api_version)
+        azure_client = _azure_client(key, endpoint)
         resp = azure_client.chat.completions.create(
             model=mdl,
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=max_tokens,
+            max_completion_tokens=max_tokens,
             temperature=cfg.get("temperature", 0),
         )
         if not resp.choices or resp.choices[0].message is None:

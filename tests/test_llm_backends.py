@@ -15,6 +15,9 @@ def _clear_backend_env(monkeypatch):
         "MOONSHOT_API_KEY",
         "ANTHROPIC_API_KEY",
         "OPENAI_API_KEY",
+        "DEEPSEEK_API_KEY",
+        "AZURE_OPENAI_API_KEY",
+        "AZURE_OPENAI_ENDPOINT",
     ):
         monkeypatch.delenv(env_key, raising=False)
 
@@ -513,3 +516,80 @@ def test_adaptive_retry_bisects_on_hollow_ollama_response(tmp_path):
         "full chunk came back hollow"
     )
     assert calls["n"] == 3  # 1 hollow + 2 successful halves
+
+
+# ---------------------------------------------------------------------------
+# Azure backend
+# ---------------------------------------------------------------------------
+
+
+def _install_fake_azure_openai(monkeypatch, fake_resp):
+    """Inject a stub openai module with AzureOpenAI so _call_azure and
+    _azure_client can run without the real SDK installed."""
+    import sys
+    import types
+
+    captured: dict = {}
+
+    class _FakeAzureOpenAI:
+        def __init__(self, *_, **kwargs):
+            captured["init_kwargs"] = kwargs
+            self.chat = self
+            self.completions = self
+
+        def create(self, **kwargs):
+            captured["create_kwargs"] = kwargs
+            return fake_resp
+
+    fake_module = types.ModuleType("openai")
+    fake_module.AzureOpenAI = _FakeAzureOpenAI
+    monkeypatch.setitem(sys.modules, "openai", fake_module)
+    return captured
+
+
+def test_call_azure_uses_correct_client_params_and_max_completion_tokens(monkeypatch):
+    monkeypatch.setenv("AZURE_OPENAI_API_VERSION", "2024-08-01-preview")
+    monkeypatch.delenv("GRAPHIFY_API_TIMEOUT", raising=False)
+
+    fake_resp = _fake_openai_response(
+        '{"nodes":[{"id":"a"}],"edges":[],"hyperedges":[]}',
+        finish_reason="stop",
+        prompt_tokens=100,
+        completion_tokens=50,
+    )
+    captured = _install_fake_azure_openai(monkeypatch, fake_resp)
+
+    result = llm._call_azure(
+        api_key="test-key",
+        endpoint="https://my-resource.openai.azure.com/",
+        model="gpt-4o",
+        user_message="test",
+    )
+
+    assert captured["init_kwargs"].get("azure_endpoint") == "https://my-resource.openai.azure.com/"
+    assert captured["init_kwargs"].get("api_version") == "2024-08-01-preview"
+    assert "max_completion_tokens" in captured["create_kwargs"], "must use max_completion_tokens not max_tokens"
+    assert "max_tokens" not in captured["create_kwargs"], "deprecated max_tokens must not be sent"
+    assert result["nodes"] == [{"id": "a"}]
+
+
+def test_detect_backend_returns_azure_when_both_vars_set(monkeypatch):
+    _clear_backend_env(monkeypatch)
+    monkeypatch.setenv("AZURE_OPENAI_API_KEY", "azure-key")
+    monkeypatch.setenv("AZURE_OPENAI_ENDPOINT", "https://my-resource.openai.azure.com/")
+
+    assert llm.detect_backend() == "azure"
+    assert llm._get_backend_api_key("azure") == "azure-key"
+
+
+def test_detect_backend_azure_requires_endpoint_not_just_key(monkeypatch):
+    _clear_backend_env(monkeypatch)
+    monkeypatch.setenv("AZURE_OPENAI_API_KEY", "azure-key")
+    # AZURE_OPENAI_ENDPOINT already cleared by _clear_backend_env
+
+    assert llm.detect_backend() != "azure"
+
+
+def test_estimate_cost_azure_no_keyerror():
+    cost = llm.estimate_cost("azure", 1_000_000, 500_000)
+    assert cost == pytest.approx(2.50 + 5.00)  # 1M in * $2.50/M + 0.5M out * $10.00/M
