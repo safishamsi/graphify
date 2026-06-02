@@ -193,3 +193,38 @@ def test_non_windows_uses_bare_claude(monkeypatch):
 
     argv = run.call_args.args[0]
     assert argv[0] == "claude"
+
+
+# ---------- timeout honouring: GRAPHIFY_API_TIMEOUT reaches claude-cli ----------
+
+
+def test_resolve_api_timeout_default(monkeypatch):
+    monkeypatch.delenv("GRAPHIFY_API_TIMEOUT", raising=False)
+    assert llm._resolve_api_timeout() == 600.0
+
+
+def test_resolve_api_timeout_env_override(monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_API_TIMEOUT", "45")
+    assert llm._resolve_api_timeout() == 45.0
+
+
+def test_resolve_api_timeout_ignores_invalid(monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_API_TIMEOUT", "not-a-number")
+    assert llm._resolve_api_timeout() == 600.0
+
+
+def test_resolve_api_timeout_ignores_nonpositive(monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_API_TIMEOUT", "0")
+    assert llm._resolve_api_timeout() == 600.0
+
+
+def test_claude_cli_subprocess_uses_default_timeout(fake_claude, monkeypatch):
+    monkeypatch.delenv("GRAPHIFY_API_TIMEOUT", raising=False)
+    llm._call_claude_cli("dummy", max_tokens=8192)
+    assert fake_claude.call_args.kwargs["timeout"] == 600.0
+
+
+def test_claude_cli_subprocess_honours_api_timeout_env(fake_claude, monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_API_TIMEOUT", "30")
+    llm._call_claude_cli("dummy", max_tokens=8192)
+    assert fake_claude.call_args.kwargs["timeout"] == 30.0

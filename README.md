@@ -361,7 +361,7 @@ These are only needed for **headless / CI extraction** (`graphify extract`). Whe
 | `AWS_*` / `~/.aws/credentials` | AWS Bedrock — standard credential chain | `--backend bedrock` (no API key, uses IAM) |
 | `GRAPHIFY_MAX_WORKERS` | AST parallelism thread count | optional — also `--max-workers` flag |
 | `GRAPHIFY_MAX_OUTPUT_TOKENS` | Raise output cap for dense corpora | optional — e.g. `32768` for large files |
-| `GRAPHIFY_API_TIMEOUT` | HTTP timeout in seconds (default: 600) | optional — also `--api-timeout` flag |
+| `GRAPHIFY_API_TIMEOUT` | Per-call timeout in seconds for every backend, HTTP and `claude-cli` alike (default: 600) | optional — also `--api-timeout` flag |
 | `GRAPHIFY_FORCE` | Force graph rebuild even with fewer nodes | optional — also `--force` flag |
 | `GRAPHIFY_GOOGLE_WORKSPACE` | Auto-enable Google Workspace export | optional — set to `1` |
 | `GRAPHIFY_TRIAGE_BACKEND` | Backend for `graphify prs --triage` | optional — auto-detected from available keys |
