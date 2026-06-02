@@ -271,6 +271,10 @@ _IMAGE_TOKEN_ESTIMATE = 1_600
 # many for the claude-cli Read-tool loop to work through. Keeps memory and
 # request size bounded on image-dense corpora.
 _MAX_IMAGES_PER_CHUNK = 20
+# Backends that read an image by file path (claude-cli's Read tool, codex's -i)
+# instead of inlining base64. They open the file themselves and downsample as
+# needed, so `_MAX_IMAGE_BYTES` does not apply and the bytes never need loading.
+_PATH_IMAGE_BACKENDS = {"claude-cli", "codex-cli"}
 
 
 @dataclass
@@ -309,8 +313,16 @@ def _partition_semantic_files(files: list[Path]) -> tuple[list[Path], list[Path]
     return text_files, image_files
 
 
-def _build_image_refs(image_files: list[Path], root: Path) -> list[_ImageRef]:
-    """Read raster images into `_ImageRef`s, guarding size and read errors."""
+def _build_image_refs(image_files: list[Path], root: Path, *, read_bytes: bool = True) -> list[_ImageRef]:
+    """Build `_ImageRef`s for raster images.
+
+    `read_bytes=True` (base64 backends) loads the pixels and drops any image over
+    `_MAX_IMAGE_BYTES` to a reference, because a base64 request body has a hard
+    size ceiling. `read_bytes=False` (path-based backends — claude-cli, codex-cli)
+    skips the read entirely: those backends open the file themselves and
+    downsample as needed, so there is no per-image size limit and no reason to
+    load (potentially tens of MB of) bytes that would never be used.
+    """
     refs: list[_ImageRef] = []
     for p in image_files:
         try:
@@ -318,20 +330,21 @@ def _build_image_refs(image_files: list[Path], root: Path) -> list[_ImageRef]:
         except ValueError:
             rel = str(p)
         media = _IMAGE_MEDIA_TYPES.get(p.suffix.lower(), "image/png")
-        raw: bytes | None
-        try:
-            raw = p.read_bytes()
-        except OSError as exc:
-            print(f"[graphify] could not read image {rel}: {exc}", file=sys.stderr)
-            raw = None
-        if raw is not None and len(raw) > _MAX_IMAGE_BYTES:
-            print(
-                f"[graphify] image {rel} is {len(raw) // 1024} KB, over the "
-                f"{_MAX_IMAGE_BYTES // (1024 * 1024)} MB vision limit; "
-                "creating a reference node without pixels.",
-                file=sys.stderr,
-            )
-            raw = None
+        raw: bytes | None = None
+        if read_bytes:
+            try:
+                raw = p.read_bytes()
+            except OSError as exc:
+                print(f"[graphify] could not read image {rel}: {exc}", file=sys.stderr)
+                raw = None
+            if raw is not None and len(raw) > _MAX_IMAGE_BYTES:
+                print(
+                    f"[graphify] image {rel} is {len(raw) // 1024} KB, over the "
+                    f"{_MAX_IMAGE_BYTES // (1024 * 1024)} MB inline-image limit for this "
+                    "backend; sending it as a reference node without inline pixels.",
+                    file=sys.stderr,
+                )
+                raw = None
         try:
             abs_path = p.resolve()
         except OSError:
@@ -1056,8 +1069,12 @@ def extract_files_direct(
     # (vision backends) or as a text reference node (everything else).
     text_files, image_files = _partition_semantic_files(files)
     user_msg = _read_files(text_files, root)
-    image_refs = _build_image_refs(image_files, root) if image_files else []
-    if image_refs and not _backend_supports_vision(backend):
+    vision = _backend_supports_vision(backend)
+    # Only base64 (inline) vision backends need the bytes loaded + size-capped;
+    # path-based backends (claude-cli, codex-cli) and non-vision backends do not.
+    read_bytes = vision and backend not in _PATH_IMAGE_BACKENDS
+    image_refs = _build_image_refs(image_files, root, read_bytes=read_bytes) if image_files else []
+    if image_refs and not vision:
         image_refs = _strip_pixels(image_refs)
     max_out = _resolve_max_tokens(cfg.get("max_tokens", 8192))
 

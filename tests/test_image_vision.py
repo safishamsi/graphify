@@ -98,6 +98,38 @@ def test_build_image_refs_drops_oversized(tmp_path, monkeypatch):
     assert ref.media_type == "image/jpeg"
 
 
+def test_path_backend_skips_byte_read_and_size_cap(tmp_path, monkeypatch):
+    # Path-based backends (claude-cli/codex-cli) read the file themselves, so
+    # _build_image_refs(read_bytes=False) loads no bytes and applies no size cap.
+    big = tmp_path / "huge.png"
+    big.write_bytes(b"x" * 64)
+    monkeypatch.setattr(llm, "_MAX_IMAGE_BYTES", 8)
+    (ref,) = llm._build_image_refs([big], tmp_path, read_bytes=False)
+    assert ref.raw is None              # never read
+    assert ref.rel == "huge.png" and ref.path.name == "huge.png"  # path still usable
+
+
+def test_claude_cli_passes_oversized_image_by_path(tmp_path, monkeypatch):
+    # An image over the inline base64 cap must still reach claude-cli by path —
+    # opus reads it via the Read tool, no size limit on that route.
+    big = tmp_path / "huge.png"
+    big.write_bytes(b"x" * 100)
+    monkeypatch.setattr(llm, "_MAX_IMAGE_BYTES", 8)
+    refs = llm._build_image_refs([big], tmp_path, read_bytes=False)
+    envelope = {"result": _NODE_JSON, "usage": {"output_tokens": 1}, "stop_reason": "end_turn"}
+    seen: dict = {}
+
+    def fake_run(args, **kw):
+        seen["input"] = kw.get("input", "")
+        return MagicMock(returncode=0, stdout=json.dumps(envelope), stderr="")
+
+    monkeypatch.setattr(llm, "_response_is_hollow", lambda r, p: False)
+    with patch("shutil.which", return_value="/fake/claude"), \
+         patch("subprocess.run", side_effect=fake_run):
+        llm._call_claude_cli("CORPUS", images=refs)
+    assert str(refs[0].path) in seen["input"]
+
+
 def test_capability_flags(monkeypatch):
     for b in ("claude", "claude-cli", "codex-cli", "openai", "gemini", "bedrock", "kimi"):
         assert llm._backend_supports_vision(b), b
